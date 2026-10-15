@@ -1,0 +1,48 @@
+openapi: 3.1.0
+info:
+  title: jev-xauusd GitHub Issues
+  description: Read and comment on issues in nadavsbz/jev-xauusd (issues only, no code access).
+  version: 1.0.0
+servers:
+  - url: https://api.github.com
+paths:
+  /repos/nadavsbz/jev-xauusd/issues:
+    get:
+      operationId: listIssues
+      summary: List open issues
+      parameters:
+        - name: state
+          in: query
+          schema: { type: string, enum: [open, closed, all], default: open }
+      responses:
+        "200": { description: OK }
+  /repos/nadavsbz/jev-xauusd/issues/{issue_number}/comments:
+    get:
+      operationId: listIssueComments
+      summary: Read all comments on an issue
+      parameters:
+        - name: issue_number
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        "200": { description: OK }
+    post:
+      operationId: createIssueComment
+      summary: Post a comment on an issue
+      parameters:
+        - name: issue_number
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [body]
+              properties:
+                body: { type: string, description: Comment text (Markdown) }
+      responses:
+        "201": { description: Created }
