@@ -2,7 +2,7 @@
 basket, from the guard close until price returns to their breakeven (max
 10 days). Lower bound: the EA would have kept adding levels."""
 import numpy as np, pandas as pd
-from inputs import load, MAGIC, FORWARD_START
+from inputs import load, MAGIC, FORWARD_START, covered_until
 
 K = 100.0   # cents per 1.0 price move per lot, calibrated in clusters.py
 deals, bars = load()
@@ -16,6 +16,7 @@ p = ins[["time", "type", "volume", "price"]].join(ex, how="inner")
 p["cost"] = x.assign(c=x.commission + x.swap + x.fee).groupby("position_id").c.sum().reindex(p.index).fillna(0)
 bt, lo, hi, cl = bars.time.values, bars.low.values, bars.high.values, bars.close.values
 out = []
+COVERED = covered_until()
 # history: the crash baskets (guard close with a loss over 5%); forward: every guard close,
 # not selected by its outcome
 o["d"] = pd.to_datetime(o.t0, unit="s")
@@ -37,11 +38,12 @@ for _, c in o[o.guard & ((o.pnl_pct < -5) | (o.d >= FORWARD_START))].iterrows():
           f"guard loss={c.pnl_pct:6.1f}%  further worst before breakeven: {lower / c.bal0 * 100:7.1f}% "
           f"(up to {upper / c.bal0 * 100:7.1f}% if the touching bar's low came first)  back to breakeven: "
           + (f"after {(bt[i0 + k] - tg) / 3600:.1f}h" if len(rec) else "no, not within 10 days"))
-    # window_complete: the bars cover the full 10 days, so 'not recovered' is final
+    # window_complete: all 10 days lie inside the calendar-checked range of the bars
+    # (load() verifies completeness up to the day before the pull), so 'not recovered' is final
     # worst_lower: bars before the touch; worst_upper: including the touching bar
     # (order of touch and low inside that bar is unknown)
     out.append(dict(cid=c.cid, worst_lower=lower / c.bal0 * 100, worst_upper=upper / c.bal0 * 100,
                     recovered=bool(len(rec)), t_guard=int(tg),
-                    window_complete=bool(bt[-1] >= tg + 10 * 86400)))
+                    window_complete=bool(tg + 10 * 86400 <= COVERED)))
 # used by guard_sim.py to score guard levels beyond the real cut
 pd.DataFrame(out).to_csv("data/derived/bd1/after_guard.csv", index=False)

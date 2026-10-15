@@ -90,7 +90,15 @@ def forward_coverage():
               for d in (dd, rd)]
     deals = pd.read_csv(os.path.join(dd, "deals.csv"))
     m = deals[deals.magic == MAGIC]
-    opened = set(m[(m.entry == 0) & (m.time < end.timestamp())].position_id)
-    closed = set(deals[deals.entry.isin((1, 3))].position_id)
-    still_open = len(opened - closed)
+    opened = m[(m.entry == 0) & (m.time < end.timestamp())].groupby("position_id").volume.sum()
+    exited = deals[deals.entry.isin((1, 3))].groupby("position_id").volume.sum()
+    left = opened - exited.reindex(opened.index).fillna(0)     # partial exits leave volume open
+    still_open = int((left > 1e-9).sum())
     return all(t >= end for t in pulled) and still_open == 0, still_open
+
+
+def covered_until():
+    """Epoch (bar clock) up to which the pinned M1 bars passed the trading-calendar
+    check in load(): the end of the last full day before the pull."""
+    rm = json.load(open(os.path.join(RAW, RATES_SNAPSHOT, "manifest.json"), encoding="utf-8"))
+    return pd.Timestamp(pd.Timestamp(rm["pulled_utc"]).date()).timestamp()
