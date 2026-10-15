@@ -2,6 +2,7 @@
 "first glob match": each file is checked against the sha256 in its
 manifest, and the deals must sum to the balance recorded at pull time."""
 import hashlib, json, os, sys
+import numpy as np
 import pandas as pd
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "tools"))
@@ -63,3 +64,13 @@ def max_drawdown(r, trough, runup_before=None, runup=None):
         peak = max(peak, start * (1 + ru[i]), eq[i])
         start = eq[i]
     return eq, worst * 100
+
+
+def peak_before_cut(lows, cid, level_pct):
+    """Floating peak (in % of basket start) seen before the basket first
+    reached level_pct (negative). lows[cid] = rows of (record low, peak so far)."""
+    a = lows.get(str(cid))
+    if a is None:
+        return 0.0
+    hit = np.where(a[:, 0] <= level_pct)[0]
+    return float(a[hit[0], 1]) if len(hit) else float(a[-1, 1])

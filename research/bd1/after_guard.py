@@ -19,9 +19,14 @@ for _, c in o[o.guard & (o.pnl_pct < -5)].iterrows():
     net = (sgn * vol).sum(); be = (sgn * vol * px).sum() / net
     tg = g.t1.max(); i0 = np.searchsorted(bt, tg); i1 = np.searchsorted(bt, tg + 10 * 86400)
     fl = net * ((lo if net > 0 else hi)[i0:i1] - be) * K
-    rec = np.where((cl[i0:i1] - be) * np.sign(net) >= 0)[0]
-    fl = fl[:rec[0] + 1 if len(rec) else len(fl)]; j = fl.argmin()
+    # recovery = the favourable extreme TOUCHES breakeven (high for a buy, low for a sell)
+    fav = (hi if net > 0 else lo)[i0:i1]
+    rec = np.where((fav - be) * np.sign(net) >= 0)[0]
+    k = rec[0] if len(rec) else len(fl)
+    # inside the touching bar the order of touch and low is unknown: report both bounds
+    lower = fl[:k].min() if k > 0 else 0.0          # bars strictly before the touch
+    upper = fl[:k + 1].min() if len(rec) else lower  # including the touching bar
     print(f"{pd.to_datetime(c.t0, unit='s'):%Y-%m-%d} side={'BUY' if net > 0 else 'SELL'} lots={abs(net):5.2f} "
-          f"guard loss={c.pnl_pct:6.1f}%  further worst before breakeven={fl[j] / c.bal0 * 100:7.1f}% "
-          f"(after {(bt[i0 + j] - tg) / 3600:5.1f}h)  back to breakeven: "
-          + (f"after {(bt[i0 + rec[0]] - tg) / 3600:.1f}h" if len(rec) else "no, not within 10 days"))
+          f"guard loss={c.pnl_pct:6.1f}%  further worst before breakeven: {lower / c.bal0 * 100:7.1f}% "
+          f"(up to {upper / c.bal0 * 100:7.1f}% if the touching bar's low came first)  back to breakeven: "
+          + (f"after {(bt[i0 + k] - tg) / 3600:.1f}h" if len(rec) else "no, not within 10 days"))

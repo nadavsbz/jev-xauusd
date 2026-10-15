@@ -1,7 +1,9 @@
 import sys, numpy as np, pandas as pd
-from inputs import max_drawdown
+from inputs import max_drawdown, peak_before_cut
 o = pd.read_csv(sys.argv[1] if len(sys.argv) > 1 else "data/derived/bd1/clusters_strict.csv")
 o["d"] = pd.to_datetime(o.t0, unit="s")
+LOWS = dict(np.load(sys.argv[1].replace("clusters", "record_lows").replace(".csv", ".npz") if len(sys.argv) > 1
+                    else "data/derived/bd1/record_lows_strict.npz"))
 real = o.guard & (o.pnl_pct < -5)          # the real guard closes (crash baskets)
 SLIP = 0.5                                  # extra % lost past the level (gap/slippage), ASSUMED
 def run(sub, X, unknown):
@@ -16,6 +18,7 @@ def run(sub, X, unknown):
     cut = hit | (unk & (unknown == "worst"))
     tr = np.where(cut, np.minimum(r, 0), tr)   # a cut basket bottoms at the cut
     rb = sub.runup_before_pct.values / 100      # floating peak before the trough
+    rb = np.where(hit, [peak_before_cut(LOWS, c, -X) / 100 if h else 0 for c, h in zip(sub.cid.values, hit)], rb)
     ru = np.where(cut, rb, sub.runup_pct.values / 100)   # a cut basket has no later run-up
     eq, dd = max_drawdown(r, tr, rb, ru)       # drawdown from floating peaks to floating lows
     return eq[-1], dd, hit.sum(), unk.sum()

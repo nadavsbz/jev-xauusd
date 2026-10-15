@@ -91,7 +91,7 @@ def span(tt, ta, tb):
         return np.searchsorted(tt, ta, side="right"), np.searchsorted(tt, tb - 59, side="left")
     return np.searchsorted(tt, ta - 59), np.searchsorted(tt, tb, side="right")
 
-out = []
+out, lows_by_cid = [], {}
 for c, g in p.groupby("cid"):
     t0, t1 = g.t0.min(), g.t1.max()
     i0 = np.searchsorted(bt, t0 - 59); i1 = np.searchsorted(bt, t1, side="right")
@@ -113,6 +113,16 @@ for c, g in p.groupby("cid"):
         jx = fl.argmin(); worst, worst_t = fl[jx], tt[jx]
         best_all = np.maximum(fl_lo, fl_hi)              # optimistic side, for peaks
         runup_before, runup = best_all[:jx + 1].max(), best_all.max()
+        # record lows with the peak seen before each one: a simulated guard at
+        # level L cuts at the first record low <= L, and its peak is the run-up
+        # up to that minute (not up to the final trough)
+        run_min = np.minimum.accumulate(fl); new_low = np.r_[True, run_min[1:] < run_min[:-1]]
+        idx = np.where(new_low & (fl < 0))[0]
+        kb0 = np.searchsorted(bal_t, t0, side="left") - 1
+        b0 = bal_v[kb0] if kb0 >= 0 else 0
+        if len(idx) and b0 > 0:
+            peaks = np.maximum.accumulate(best_all)[idx]
+            lows_by_cid[c] = np.c_[fl[idx] / b0 * 100, peaks / b0 * 100]
     kb = np.searchsorted(bal_t, t0, side="left") - 1
     bal0 = bal_v[kb] if kb >= 0 else 0
     out.append(dict(cid=c, t0=t0, t1=t1, n=len(g), maxlots=g.volume.sum(),
@@ -123,6 +133,8 @@ o = pd.DataFrame(out)
 o["pnl_pct"] = o.pnl / o.bal0 * 100; o["mae_pct"] = o.mae / o.bal0 * 100
 o["runup_before_pct"] = o.runup_before / o.bal0 * 100; o["runup_pct"] = o.runup / o.bal0 * 100
 o.to_csv("data/derived/bd1/clusters_strict.csv" if STRICT else "data/derived/bd1/clusters.csv", index=False)
+np.savez_compressed("data/derived/bd1/record_lows_strict.npz" if STRICT else "data/derived/bd1/record_lows.npz",
+                    **{str(k): v for k, v in lows_by_cid.items()})
 print(len(o), "baskets;", o.guard.sum(), "with a guard (magic 0) close")
 for X in (5, 10, 15, 20):
     print(f"MAE <= -{X}%: {(o.mae_pct <= -X).sum()}")

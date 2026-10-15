@@ -1,6 +1,7 @@
 import numpy as np, pandas as pd
-from inputs import max_drawdown
+from inputs import max_drawdown, peak_before_cut
 o = pd.read_csv("data/derived/bd1/clusters_strict.csv"); o["d"] = pd.to_datetime(o.t0, unit="s")
+LOWS = dict(np.load("data/derived/bd1/record_lows_strict.npz"))
 real = (o.guard & (o.pnl_pct < -5)).values
 SLIP = 0.5
 days = (o.t1.max() - o.t0.min()) / 86400
@@ -13,6 +14,9 @@ def run(sub_mask, f, X, unknown):
     cut = hit | (unk & (unknown == "worst"))
     tr = np.where(cut, np.minimum(r, 0), m / 100)   # floating low inside each basket
     rb = o.runup_before_pct.values[sub_mask] * f / 100
+    # for a cut basket, the peak is the run-up up to the first crossing of the level
+    cids = o.cid.values[sub_mask]
+    rb = np.where(hit, [peak_before_cut(LOWS, c, -X / f) * f / 100 if h else 0 for c, h in zip(cids, hit)], rb)
     ru = np.where(cut, rb, o.runup_pct.values[sub_mask] * f / 100)
     eq, dd = max_drawdown(r, tr, rb, ru)            # from floating peaks to floating lows
     return eq[-1], dd, hit.sum(), unk.sum()
