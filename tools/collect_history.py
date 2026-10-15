@@ -33,7 +33,8 @@ import os
 import re
 import subprocess
 import sys
-from datetime import datetime, timezone
+import time
+from datetime import datetime, timedelta, timezone
 
 import MetaTrader5 as mt5
 
@@ -89,6 +90,25 @@ def assert_clean_terminal(terminal):
         sys.exit("this terminal is already running - close it first so the login is not switched under it")
 
 
+def wait_for_history(since, until, timeout=300, poll=10):
+    """History arrives from the server asynchronously after login; an early
+    call returns an empty list that looks exactly like "never traded".
+    Wait until the deal count is non-zero and unchanged for two polls.
+    Every funded account has at least its deposit deal, so still zero at the
+    timeout is treated as a failure, not as an empty history."""
+    start, prev, stable = time.time(), -1, 0
+    while time.time() - start < timeout:
+        n = mt5.history_deals_total(since, until)
+        if n is None:
+            sys.exit(f"history_deals_total failed: {mt5.last_error()} - nothing written")
+        stable = stable + 1 if (n > 0 and n == prev) else 0
+        if stable >= 2:
+            return n
+        prev = n
+        time.sleep(poll)
+    sys.exit(f"history did not finish loading within {timeout}s (last count {prev}) - nothing written")
+
+
 def write_csv(path, rows):
     if not rows:
         open(path, "w").close()
@@ -138,11 +158,14 @@ def main():
             sys.exit("account allows trading (master password?) - refusing, investor only")
 
         since = datetime.strptime(args.since, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+        # MT5 deal times are server time (often UTC+2/3), so look a day past now.
         now = datetime.now(timezone.utc)
-        deals = mt5.history_deals_get(since, now)
+        until = now + timedelta(days=1)
+        wait_for_history(since, until)
+        deals = mt5.history_deals_get(since, until)
         if deals is None:
             sys.exit(f"history_deals_get failed: {mt5.last_error()} - nothing written")
-        orders = mt5.history_orders_get(since, now)
+        orders = mt5.history_orders_get(since, until)
         if orders is None:
             sys.exit(f"history_orders_get failed: {mt5.last_error()} - nothing written")
 
