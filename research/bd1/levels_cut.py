@@ -4,9 +4,11 @@ signal: the grid depth is visible on the chart), scored on the real baskets.
 Fixed before looking at results (2026-10-15):
 - k from 6 to 20; selection on Nov-May (train) by end multiplier subject to
   max drawdown, then scored once on Jun-Oct (test).
-- Cut value = realised P&L of positions already closed + floating P&L of the
-  rest at that minute (worse of the low/high side), minus SLIP (0.5% of the
-  balance, ASSUMED) for closing many lots at once.
+- Cut value = realised P&L of positions already closed + the open positions
+  marked at the k-th deal's own price (a quote known at that second), minus
+  SLIP (0.5% of the balance, ASSUMED) for spread and closing many lots at once.
+- Peak and low before the cut come from the basket equity path (floating +
+  realised) over minutes that ended before the k-th deal (clusters.py).
 - Baskets with fewer than k positions keep their real result (including the
   real guard's cuts).
 - Drawdown from floating peaks to floating lows, as in the report.
@@ -29,7 +31,7 @@ def run(sub, k):
             continue
         a = LV[str(c)][k - 1]                       # k, t, realised, floating, peak, low so far
         val = (a[2] + a[3] - SLIP) / 100
-        r[i] = val; tr[i] = min(a[5] / 100 + a[2] / 100, val, 0); rb[i] = max(a[4] / 100, 0); ru[i] = rb[i]
+        r[i] = val; tr[i] = min(a[5] / 100, val, 0); rb[i] = max(a[4] / 100, 0); ru[i] = rb[i]
         cuts += 1
     eq, dd = max_drawdown(r, tr, rb, ru)
     return eq[-1], dd, cuts

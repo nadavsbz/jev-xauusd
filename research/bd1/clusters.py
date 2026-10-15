@@ -123,17 +123,30 @@ for c, g in p.groupby("cid"):
         if len(idx) and b0 > 0:
             peaks = np.maximum.accumulate(best_all)[idx]
             lows_by_cid[c] = np.c_[fl[idx] / b0 * 100, peaks / b0 * 100]
-        # state when the k-th position of the basket opens (k = 1..n): money already
-        # realised by positions closed before then, and the floating P&L of the rest
-        # (worse of low/high side). Lets a rule "cut at the k-th level" be scored.
+        # state when the k-th position of the basket opens (k = 1..n), using only
+        # what was known at that moment:
+        # - cut value = P&L already realised by closed positions + the open positions
+        #   (including the k-th) marked at the k-th deal's own price (a real quote at
+        #   that second, no bar high/low), plus their costs;
+        # - peak / low so far from the basket equity path (floating + realised so far)
+        #   over minutes that ended before the k-th deal.
+        # The one position with a partial exit is marked with its full volume.
         if b0 > 0:
+            rc = np.zeros(len(tt))
+            for r in g.itertuples():
+                rc[np.searchsorted(tt, r.t1, side="left"):] += r.pnl
+            eq_lo, eq_hi = fl + rc, best_all + rc
             gs = g.sort_values("t0"); rows = []
-            for kk, tk in enumerate(gs.t0.values, start=1):
-                a = min(max(np.searchsorted(tt, tk, side="right") - 1, 0), len(tt) - 1)
-                realised = gs.pnl[gs.t1.values <= tk].sum()
-                # columns: k, time, realised %, floating %, peak so far %, floating low so far %
-                rows.append((kk, tk, realised / b0 * 100, fl[a] / b0 * 100,
-                             np.maximum.accumulate(best_all)[a] / b0 * 100, fl[:a + 1].min() / b0 * 100))
+            t0s, t1s = gs.t0.values, gs.t1.values
+            for kk, (tk, pxk) in enumerate(zip(t0s, gs.open_px.values), start=1):
+                realised = gs.pnl.values[t1s <= tk].sum()
+                op = (t0s <= tk) & (t1s > tk)
+                mark = (gs.sgn.values[op] * gs.volume.values[op] * (pxk - gs.open_px.values[op]) * K).sum()                     + gs.cost.values[op].sum()
+                b = np.searchsorted(tt, tk - 60, side="right")      # minutes finished before tk
+                peak = max(eq_hi[:b].max(), 0) if b else 0.0
+                low = min(eq_lo[:b].min(), 0) if b else 0.0
+                # columns: k, time, realised %, open positions marked %, peak so far %, low so far %
+                rows.append((kk, tk, realised / b0 * 100, mark / b0 * 100, peak / b0 * 100, low / b0 * 100))
             levels_by_cid[c] = np.array(rows)
     kb = np.searchsorted(bal_t, t0, side="left") - 1
     bal0 = bal_v[kb] if kb >= 0 else 0
