@@ -9,8 +9,9 @@ Fixed before looking at results (2026-10-15):
   SLIP (0.5% of the balance, ASSUMED) for spread and closing many lots at once.
 - Peak and low before the cut come from the basket equity path (floating +
   realised) over minutes that ended before the k-th deal (clusters.py).
-- Baskets with fewer than k positions keep their real result (including the
-  real guard's cuts).
+- k counts positions OPEN at that moment (visible grid depth), not entries so far.
+- Baskets that never had k open positions keep their real result (including
+  the real guard's cuts).
 - Drawdown from floating peaks to floating lows, as in the report.
 """
 import numpy as np, pandas as pd
@@ -27,7 +28,7 @@ def run(sub, k):
     r, tr, rb, ru = r.copy(), tr.copy(), rb.copy(), ru.copy()
     cuts = 0
     for i, (c, n) in enumerate(zip(sub.cid.values, sub.n.values)):
-        if k is None or n < k or str(c) not in LV:
+        if k is None or str(c) not in LV or len(LV[str(c)]) < k:   # grid never had k open positions
             continue
         a = LV[str(c)][k - 1]                       # k, t, realised, floating, peak, low so far
         val = (a[2] + a[3] - SLIP) / 100

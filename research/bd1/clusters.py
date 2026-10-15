@@ -138,15 +138,22 @@ for c, g in p.groupby("cid"):
             eq_lo, eq_hi = fl + rc, best_all + rc
             gs = g.sort_values("t0"); rows = []
             t0s, t1s = gs.t0.values, gs.t1.values
-            for kk, (tk, pxk) in enumerate(zip(t0s, gs.open_px.values), start=1):
-                realised = gs.pnl.values[t1s <= tk].sum()
+            # k = number of positions OPEN right after an entry (the visible grid
+            # depth), recorded the first time each depth is reached
+            for tk, pxk in zip(t0s, gs.open_px.values):
                 op = (t0s <= tk) & (t1s > tk)
+                kk = int(op.sum())
+                if kk <= len(rows):
+                    continue
+                realised = gs.pnl.values[t1s <= tk].sum()
                 mark = (gs.sgn.values[op] * gs.volume.values[op] * (pxk - gs.open_px.values[op]) * K).sum()                     + gs.cost.values[op].sum()
                 b = np.searchsorted(tt, tk - 60, side="right")      # minutes finished before tk
                 peak = max(eq_hi[:b].max(), 0) if b else 0.0
                 low = min(eq_lo[:b].min(), 0) if b else 0.0
                 # columns: k, time, realised %, open positions marked %, peak so far %, low so far %
-                rows.append((kk, tk, realised / b0 * 100, mark / b0 * 100, peak / b0 * 100, low / b0 * 100))
+                row = (kk, tk, realised / b0 * 100, mark / b0 * 100, peak / b0 * 100, low / b0 * 100)
+                while len(rows) < kk:            # several entries in one second: same state
+                    rows.append(row)
             levels_by_cid[c] = np.array(rows)
     kb = np.searchsorted(bal_t, t0, side="left") - 1
     bal0 = bal_v[kb] if kb >= 0 else 0
