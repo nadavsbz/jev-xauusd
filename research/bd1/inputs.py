@@ -15,6 +15,9 @@ DEALS_SNAPSHOT = os.environ.get("JEV_DEALS_SNAPSHOT", "20261015T120553Z")
 RATES_SNAPSHOT = os.environ.get("JEV_RATES_SNAPSHOT", "rates_XAUUSDc_M1_20261015T144411Z")
 START = pd.Timestamp("2025-11-11").timestamp()   # first deal of magic 5555
 MAGIC = 5555
+# Forward paper test, registered 2026-10-15 before any of its data existed (docs/BD1_GUARD_FORWARD.md)
+FORWARD_START = "2026-10-16"   # inclusive, by basket start (t0, server time)
+FORWARD_END = "2027-04-16"     # exclusive: baskets started up to and including 2027-04-15
 
 
 def _sha(path):
@@ -76,3 +79,18 @@ def peak_before_cut(lows, cid, level_pct):
         return 0.0
     hit = np.where(a[:, 0] <= level_pct)[0]
     return float(a[hit[0], 1]) if len(hit) else float(a[-1, 1])
+
+
+def forward_coverage():
+    """Do the pinned snapshots cover the whole forward window? Both pulls must be
+    made after its last day, and no magic position opened inside it may still be open."""
+    dd = os.path.join(RAW, DEALS_SNAPSHOT); rd = os.path.join(RAW, RATES_SNAPSHOT)
+    end = pd.Timestamp(FORWARD_END, tz="UTC")
+    pulled = [pd.Timestamp(json.load(open(os.path.join(d, "manifest.json"), encoding="utf-8"))["pulled_utc"])
+              for d in (dd, rd)]
+    deals = pd.read_csv(os.path.join(dd, "deals.csv"))
+    m = deals[deals.magic == MAGIC]
+    opened = set(m[(m.entry == 0) & (m.time < end.timestamp())].position_id)
+    closed = set(deals[deals.entry.isin((1, 3))].position_id)
+    still_open = len(opened - closed)
+    return all(t >= end for t in pulled) and still_open == 0, still_open

@@ -2,7 +2,7 @@
 basket, from the guard close until price returns to their breakeven (max
 10 days). Lower bound: the EA would have kept adding levels."""
 import numpy as np, pandas as pd
-from inputs import load, MAGIC
+from inputs import load, MAGIC, FORWARD_START
 
 K = 100.0   # cents per 1.0 price move per lot, calibrated in clusters.py
 deals, bars = load()
@@ -16,7 +16,10 @@ p = ins[["time", "type", "volume", "price"]].join(ex, how="inner")
 p["cost"] = x.assign(c=x.commission + x.swap + x.fee).groupby("position_id").c.sum().reindex(p.index).fillna(0)
 bt, lo, hi, cl = bars.time.values, bars.low.values, bars.high.values, bars.close.values
 out = []
-for _, c in o[o.guard & (o.pnl_pct < -5)].iterrows():
+# history: the crash baskets (guard close with a loss over 5%); forward: every guard close,
+# not selected by its outcome
+o["d"] = pd.to_datetime(o.t0, unit="s")
+for _, c in o[o.guard & ((o.pnl_pct < -5) | (o.d >= FORWARD_START))].iterrows():
     g = p[(p.time >= c.t0) & (p.time <= c.t1) & p.guard]
     sgn = np.where(g.type == 0, 1, -1); vol = g.volume.values; px = g.price.values
     net = (sgn * vol).sum(); be = (sgn * vol * px).sum() / net

@@ -1,10 +1,12 @@
 import sys, numpy as np, pandas as pd
-from inputs import max_drawdown, peak_before_cut
+from inputs import max_drawdown, peak_before_cut, FORWARD_START, FORWARD_END, forward_coverage
 o = pd.read_csv(sys.argv[1] if len(sys.argv) > 1 else "data/derived/bd1/clusters_strict.csv")
 o["d"] = pd.to_datetime(o.t0, unit="s")
 LOWS = dict(np.load(sys.argv[1].replace("clusters", "record_lows").replace(".csv", ".npz") if len(sys.argv) > 1
                     else "data/derived/bd1/record_lows_strict.npz"))
-real = o.guard & (o.pnl_pct < -5)          # the real guard closes (crash baskets)
+# the real guard closes: crash baskets in the history; in the forward window every guard
+# close, whatever its loss (not selected by outcome)
+real = o.guard & ((o.pnl_pct < -5) | (o.d >= FORWARD_START))
 SLIP = 0.5                                  # extra % lost past the level (gap/slippage), ASSUMED
 # paper continuation of each real guard cut (after_guard.py): worst floating % before breakeven.
 # Lower bound on the loss: the EA would have kept adding levels.
@@ -30,7 +32,7 @@ def run(sub, X, unknown):
         unres = (~crossed & ~back) | (~crossed & back & (up_ <= -X))
         deep = crossed | unres
         r[idx[deep]] = -(X + SLIP) / 100; r[idx[~deep]] = 0.0
-        tr = tr.copy(); tr[idx[~deep]] = up_[~deep] / 100
+        tr = tr.copy(); tr[idx[~deep]] = np.minimum(tr[idx[~deep]], up_[~deep] / 100)   # keep the low seen before the guard
         unk = unk.copy(); unk[idx[~deep]] = False                 # recovered: not a cut
         n_unres = int(unres.sum())
     else: r[unk] = sub.loc[unk, "pnl_pct"].clip(lower=None).values * 0 + 0.02  # recovers with +2%
@@ -41,9 +43,6 @@ def run(sub, X, unknown):
     ru = np.where(cut, rb, sub.runup_pct.values / 100)   # a cut basket has no later run-up
     eq, dd = max_drawdown(r, tr, rb, ru)       # drawdown from floating peaks to floating lows
     return eq[-1], dd, hit.sum(), unk.sum(), n_unres
-# Forward test, registered 2026-10-15 before any of its data existed (docs/BD1_GUARD_FORWARD.md)
-FORWARD_START = "2026-10-16"   # inclusive, by basket start (t0, server time)
-FORWARD_END = "2027-04-16"     # exclusive: baskets started up to and including 2027-04-15
 periods = [("all 2025-11..2026-10", o[o.d < FORWARD_START]), ("Nov-May", o[o.d < "2026-06-01"]),
            ("Jun-Oct", o[(o.d >= "2026-06-01") & (o.d < FORWARD_START)])]
 fw = o[(o.d >= FORWARD_START) & (o.d < FORWARD_END)]
@@ -51,9 +50,10 @@ if len(fw):
     periods.append((f"FORWARD {FORWARD_START}..2027-04-15", fw))
     # the verdict is due only when every forward guard cut has its full 10-day continuation
     fc = CONT.reindex(fw.cid[real.loc[fw.index]].values)
-    print("forward verdict ready:", bool(fw.d.max() >= pd.Timestamp(FORWARD_END) - pd.Timedelta(days=1)
-                                          and fc.window_complete.fillna(False).all()),
-          f"({fc.window_complete.fillna(False).sum()}/{len(fc)} guard continuations complete)")
+    covered, still_open = forward_coverage()   # snapshot coverage, not the date of the last basket
+    print("forward verdict ready:", bool(covered and fc.window_complete.fillna(False).all()),
+          f"(snapshots cover the window: {covered}, positions still open: {still_open}, "
+          f"{fc.window_complete.fillna(False).sum()}/{len(fc)} guard continuations complete)")
 for name, sub in periods:
     eq, dd = max_drawdown(sub.pnl_pct.values / 100, sub.mae_pct.values / 100,
                           sub.runup_before_pct.values / 100, sub.runup_pct.values / 100)
