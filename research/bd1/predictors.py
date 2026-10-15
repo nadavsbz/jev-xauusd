@@ -1,5 +1,9 @@
-import glob, numpy as np, pandas as pd
-bars = pd.read_csv(glob.glob("data/raw/black_dragon_1/rates_*/bars.csv")[0])
+"""Exploratory: features known before a basket starts vs deep baskets.
+Quintile edges are fixed on the selection period (before 2026-06-01) only;
+oos_test.py applies them to the test period."""
+import numpy as np, pandas as pd
+from inputs import load
+_, bars = load()
 o = pd.read_csv("data/derived/bd1/clusters_strict.csv")
 bt = bars.time.values; hi = bars.high.values; lo = bars.low.values; cl = bars.close.values
 # hourly true range series for trailing features (only data BEFORE basket start - no look-ahead)
@@ -14,8 +18,8 @@ o["atr24"] = f.atr24.values
 o["mom24_atr"] = (f.mom24 / f.atr240).values      # 24h trend strength
 d = pd.to_datetime(o.t0, unit="s"); o["hour"] = d.dt.hour; o["wd"] = d.dt.weekday
 o["deep"] = o.mae_pct <= -12
-big = o[o.n >= 5]   # compare deep baskets against other multi-level baskets
-print(len(big), "baskets with >=5 levels;", big.deep.sum(), "deep (MAE<=-12%)")
+big = o[(o.n >= 5) & (pd.to_datetime(o.t0, unit="s") < "2026-06-01")]   # selection period only
+print(len(big), "baskets with >=5 levels in Nov-May;", big.deep.sum(), "deep (MAE<=-12%)")
 for col in ["atr_ratio", "atr24", "mom24_atr"]:
     q = pd.qcut(big[col], 5, duplicates="drop")
     print(f"\n{col}: deep-rate by quintile"); print(big.groupby(q, observed=True).deep.agg(["sum","size"]).to_string())

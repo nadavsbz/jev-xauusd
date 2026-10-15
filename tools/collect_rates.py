@@ -4,7 +4,8 @@ Reuses the safety checks of collect_history.py (clean terminal, investor
 only, no credentials printed). Calls only initialize, account_info,
 symbol_select, copy_rates_range and shutdown - nothing that can trade.
 Bars are fetched month by month and each month is re-fetched until two
-pulls agree, because the terminal downloads history asynchronously.
+consecutive pulls are byte-identical (the terminal downloads history
+asynchronously), then checked for gaps longer than a long weekend.
 """
 
 import argparse
@@ -33,17 +34,32 @@ def month_starts(since, until):
 
 
 def fetch_stable(symbol, start, end, tries=12, poll=5):
+    """Re-fetch until two consecutive pulls are byte-identical (same bars,
+    same values), then check the month is covered: no gap longer than a
+    long weekend, and data close to both ends of the requested range."""
     prev = None
     for _ in range(tries):
         bars = mt5.copy_rates_range(symbol, mt5.TIMEFRAME_M1, start, end)
-        n = 0 if bars is None else len(bars)
-        # a month of M1 gold has ~20k+ bars; a handful means the terminal
-        # bar limit or an unfinished download, not a quiet month
-        if n > 1000 and prev == n:
+        if bars is not None:
+            # copy_rates_range includes `end`; keep [start, end) so months do not overlap
+            bars = bars[bars["time"] < int(end.timestamp())]
+        digest = None if bars is None or len(bars) == 0 else hashlib.sha256(bars.tobytes()).hexdigest()
+        if digest and digest == prev:
+            check_coverage(symbol, bars, start, end)
             return bars
-        prev = n
+        prev = digest
         time.sleep(poll)
-    sys.exit(f"{symbol} {start:%Y-%m}: bars did not stabilise (last {prev}) - nothing written")
+    sys.exit(f"{symbol} {start:%Y-%m}: two identical pulls never arrived - nothing written")
+
+
+def check_coverage(symbol, bars, start, end, max_gap=4 * 86400):
+    t = bars["time"]
+    gaps = [int(t[0]) - int(start.timestamp()), int(end.timestamp()) - int(t[-1])]
+    if len(t) > 1:
+        gaps.append(int((t[1:] - t[:-1]).max()))
+    if max(gaps) > max_gap:
+        sys.exit(f"{symbol} {start:%Y-%m}: a gap of {max(gaps) / 86400:.1f} days in the bars "
+                 "(terminal bar limit or partial download?) - nothing written")
 
 
 def main():
@@ -83,8 +99,6 @@ def main():
         rows, months = [], []
         for start, end in month_starts(since, now):
             bars = fetch_stable(args.symbol, start, end)
-            # copy_rates_range includes `end`; keep [start, end) so months do not overlap
-            bars = bars[bars["time"] < int(end.timestamp())]
             months.append({"month": f"{start:%Y-%m}", "bars": len(bars)})
             rows.extend(bars.tolist())
             print(f"{start:%Y-%m}: {len(bars)} bars", flush=True)

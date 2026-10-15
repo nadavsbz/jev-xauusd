@@ -19,6 +19,11 @@ hb = [best[1], (best[1] + 1) % 24]
 test(f"hours {hb} (train-chosen)", lambda s: s.hour.isin(hb))
 test("hours [3, 4] (contaminated)", lambda s: s.hour.isin([3, 4]))
 test("|mom24|>1.6 ATR", lambda s: s.mom24_atr.abs() > 1.6)
+# volatility: quintile edges from train only, top / bottom quintile flagged
+for col in ["atr_ratio", "atr24"]:
+    q = tr[col].quantile([.2, .8]).values
+    test(f"{col} top quintile", lambda s, q=q, col=col: s[col] > q[1])
+    test(f"{col} bottom quintile", lambda s, q=q, col=col: s[col] < q[0])
 for lbl, s in [("train", o[o.d < "2026-06-01"]), ("test", o[o.d >= "2026-06-01"])]:
     m = s.hour.isin(hb)
     print(f"{lbl}: actual x{np.prod(1 + s.pnl_pct / 100):.2f}, skipping train-chosen hours x{np.prod(1 + s.pnl_pct[~m] / 100):.2f}")

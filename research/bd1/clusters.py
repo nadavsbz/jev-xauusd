@@ -1,24 +1,50 @@
-import glob, sys, numpy as np, pandas as pd
+"""Rebuild magic-5555 baskets of account 1 and their minute-level floating loss.
+
+A basket is a run of overlapping positions (the account is hedging: one
+position per grid order). Exposure is tracked per exit event, so partial
+closes and OUT_BY closes reduce the open volume at the time they happen.
+--strict counts only whole minutes a volume was open (understates MAE);
+the default also counts the partial minutes of entry and exit (overstates)."""
+import sys, numpy as np, pandas as pd
+from inputs import load, START, MAGIC
+
 STRICT = "--strict" in sys.argv
-RAW = "data/raw/black_dragon_1/"
-deals = pd.read_csv(glob.glob(RAW + "2026*/deals.csv")[0]).sort_values(["time_msc", "ticket"])
-bars = pd.read_csv(glob.glob(RAW + "rates_*/bars.csv")[0])
+deals, bars = load()
 deals["cash"] = deals.profit + deals.commission + deals.swap + deals.fee
 deals["bal_after"] = deals.cash.cumsum()
 x = deals[deals.symbol == "XAUUSDc"]
-ins = x[x.entry == 0].set_index("position_id")
-outs = x[x.entry == 1].groupby("position_id").agg(t1=("time", "max"), close_px=("price", "last"),
-        out_vol=("volume", "sum"), pnl=("cash", "sum"), magic_close=("magic", "last"), reason=("reason", "last"))
-p = ins[["time", "type", "volume", "price", "magic", "cash"]].rename(columns={"time": "t0", "price": "open_px", "magic": "magic_open"}).join(outs, how="inner")
-p["pnl"] += p.cash
+ENTRY_IN, EXITS = 0, (1, 3)                     # 1 = OUT, 3 = OUT_BY
+if set(x.entry) - {ENTRY_IN, *EXITS}:
+    sys.exit(f"unexpected entry types {set(x.entry)}")       # e.g. INOUT reversals
+ins = x[x.entry == ENTRY_IN]
+if ins.position_id.duplicated().any():
+    sys.exit("a position has more than one entry deal")
+ins = ins.set_index("position_id")
+exits = x[x.entry.isin(EXITS)]
+
+# K: cents per 1.0 price move per lot, from positions closed by one OUT deal
+one = exits[exits.entry == 1].groupby("position_id").filter(lambda g: len(g) == 1).set_index("position_id")
+one = one[one.index.isin(ins.index) & ~one.index.isin(exits[exits.entry == 3].position_id)]
+j = ins.loc[one.index]
+mv = (one.price - j.price) * np.where(j.type == 0, 1, -1) * j.volume
+ok = mv.abs() > 0.01 * 100
+k = one.profit[ok] / mv[ok]
+print(f"K median {k.median():.2f}  IQR {k.quantile(.25):.2f}-{k.quantile(.75):.2f}  n={ok.sum()}")
+K = k.median()
+
+ins = ins[(ins.magic == MAGIC) & (ins.time >= START)]
+ev = exits[exits.position_id.isin(ins.index)]
+if not np.allclose(ev.groupby("position_id").volume.sum().reindex(ins.index).fillna(0), ins.volume):
+    sys.exit("exit volume does not match entry volume for some position")
+g_ex = ev.groupby("position_id")
+p = ins[["time", "type", "volume", "price"]].rename(columns={"time": "t0", "price": "open_px"})
+p["t1"] = g_ex.time.max()
+p["pnl"] = g_ex.cash.sum() + ins.cash
+p["guard"] = g_ex.magic.apply(lambda m: (m == 0).any())
 p["sgn"] = np.where(p.type == 0, 1, -1)
-# calibrate cents per (1.0 price move x 1 lot) from closes with a real move
-m = (p.close_px - p.open_px).abs() > 1
-k = (p.pnl[m] - 0) / (p.sgn[m] * p.volume[m] * (p.close_px[m] - p.open_px[m]))
-print("K median", k.median(), "IQR", k.quantile([.25, .75]).tolist())
-K = round(k.median())
-p = p[p.t0 >= pd.Timestamp("2025-11-11").timestamp()].sort_values("t0").reset_index()
-# clusters: continuous non-zero exposure
+p = p.sort_values("t0").reset_index()
+print(f"{len(p)} positions of magic {MAGIC}; {ev.groupby('position_id').size().gt(1).sum()} with more than one exit deal")
+
 cid, end, c = [], -1, -1
 for t0, t1 in zip(p.t0, p.t1):
     if t0 >= end:
@@ -26,34 +52,42 @@ for t0, t1 in zip(p.t0, p.t1):
     end = max(end, t1) if t0 < end else t1
     cid.append(c)
 p["cid"] = cid
+exits_by_pid = {pid: list(zip(g.time, g.volume)) for pid, g in ev.groupby("position_id")}
 bt = bars.time.values; lo = bars.low.values; hi = bars.high.values
 bal_t = deals.time.values; bal_v = deals.bal_after.values
+
+def span(tt, ta, tb):
+    if STRICT:
+        return np.searchsorted(tt, ta, side="right"), np.searchsorted(tt, tb - 59, side="left")
+    return np.searchsorted(tt, ta - 59), np.searchsorted(tt, tb, side="right")
+
 out = []
 for c, g in p.groupby("cid"):
     t0, t1 = g.t0.min(), g.t1.max()
     i0 = np.searchsorted(bt, t0 - 59); i1 = np.searchsorted(bt, t1, side="right")
-    worst = 0.0; worst_t = t0
+    worst, worst_t = 0.0, t0
     if i1 > i0:
-        tt = bt[i0:i1]
-        fl_lo = np.zeros(len(tt)); fl_hi = np.zeros(len(tt))
+        tt = bt[i0:i1]; fl_lo = np.zeros(len(tt)); fl_hi = np.zeros(len(tt))
         for r in g.itertuples():
-            if STRICT:  # only whole minutes the position was open for
-                a = np.searchsorted(tt, r.t0, side="right"); z = np.searchsorted(tt, r.t1 - 59, side="left")
-            else:       # also the partial minutes of open and close (overstates MAE)
-                a = np.searchsorted(tt, r.t0 - 59); z = np.searchsorted(tt, r.t1, side="right")
-            fl_lo[a:z] += r.sgn * r.volume * (lo[i0 + a:i0 + z] - r.open_px) * K
-            fl_hi[a:z] += r.sgn * r.volume * (hi[i0 + a:i0 + z] - r.open_px) * K
-        fl = np.minimum(fl_lo, fl_hi)  # conservative: worst of the bar's extremes
-        j = fl.argmin(); worst = fl[j]; worst_t = tt[j]
+            ta, vol = r.t0, r.volume
+            for te, v in sorted(exits_by_pid[r.position_id]):   # volume stays open until each exit
+                a, z = span(tt, ta, te)
+                fl_lo[a:z] += r.sgn * vol * (lo[i0 + a:i0 + z] - r.open_px) * K
+                fl_hi[a:z] += r.sgn * vol * (hi[i0 + a:i0 + z] - r.open_px) * K
+                vol = round(vol - v, 2)
+        fl = np.minimum(fl_lo, fl_hi)
+        jx = fl.argmin(); worst, worst_t = fl[jx], tt[jx]
     kb = np.searchsorted(bal_t, t0, side="left") - 1
     bal0 = bal_v[kb] if kb >= 0 else 0
-    out.append(dict(cid=c, t0=t0, t1=t1, n=len(g), maxlots=g.volume.sum(), side=",".join(sorted(set(np.where(g.sgn>0,"B","S")))),
-                    pnl=g.pnl.sum(), mae=worst, mae_t=worst_t, bal0=bal0,
-                    guard=(g.magic_close == 0).any()))
+    out.append(dict(cid=c, t0=t0, t1=t1, n=len(g), maxlots=g.volume.sum(),
+                    side=",".join(sorted(set(np.where(g.sgn > 0, "B", "S")))),
+                    pnl=g.pnl.sum(), mae=worst, mae_t=worst_t, bal0=bal0, guard=g.guard.any()))
 o = pd.DataFrame(out)
 o["pnl_pct"] = o.pnl / o.bal0 * 100; o["mae_pct"] = o.mae / o.bal0 * 100
 o.to_csv("data/derived/bd1/clusters_strict.csv" if STRICT else "data/derived/bd1/clusters.csv", index=False)
-print(len(o), "baskets;", o.guard.sum(), "with guard close")
-print(o.mae_pct.describe(percentiles=[.5, .9, .95, .99]))
-print(o[o.guard][["t0", "n", "maxlots", "pnl", "pnl_pct", "mae_pct", "bal0"]].assign(t0=lambda d: pd.to_datetime(d.t0, unit="s")).to_string())
-print("worst non-guard baskets:"); print(o[~o.guard].nsmallest(10, "mae_pct")[["t0","n","maxlots","pnl_pct","mae_pct"]].assign(t0=lambda d: pd.to_datetime(d.t0, unit="s")).to_string())
+print(len(o), "baskets;", o.guard.sum(), "with a guard (magic 0) close")
+for X in (5, 10, 15, 20):
+    print(f"MAE <= -{X}%: {(o.mae_pct <= -X).sum()}")
+show = lambda d: d.assign(t0=pd.to_datetime(d.t0, unit="s")).round(2).to_string()
+print(show(o[o.guard & (o.pnl_pct < -5)][["t0", "n", "maxlots", "pnl_pct", "mae_pct", "bal0"]]))
+print("worst non-guard baskets:"); print(show(o[~o.guard].nsmallest(10, "mae_pct")[["t0", "n", "maxlots", "pnl_pct", "mae_pct"]]))
