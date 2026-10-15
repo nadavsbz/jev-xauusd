@@ -37,7 +37,9 @@ def main(src, dst):
     period = next((v for v in pairs.values() if re.search(r"\(\d{4}\.\d\d\.\d\d - \d{4}\.\d\d\.\d\d\)", v)), None)
     if period:
         a, b = re.search(r"\((\d{4}\.\d\d\.\d\d) - (\d{4}\.\d\d\.\d\d)\)", period).groups()
-        rng = pd.bdate_range(pd.Timestamp(a.replace(".", "-")), pd.Timestamp(b.replace(".", "-")))
+        # the tester stops before the printed end date (its last deals fall on the
+        # day before), so the right edge is exclusive
+        rng = pd.bdate_range(pd.Timestamp(a.replace(".", "-")), pd.Timestamp(b.replace(".", "-")), inclusive="left")
         day = day.reindex(rng, fill_value=0.0)
     elif len(day):
         day = day.reindex(pd.bdate_range(day.index.min(), day.index.max()), fill_value=0.0)

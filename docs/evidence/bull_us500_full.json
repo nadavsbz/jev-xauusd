@@ -75,13 +75,13 @@
   "exit_avg_win": 20.26,
   "exit_avg_loss": -146.73,
   "daily_realised_pct_of_deposit_per_weekday": {
-   "count": 403.0,
+   "count": 402.0,
    "mean": -0.021,
    "std": 0.073,
    "min": -0.88,
    "25%": -0.023,
    "50%": -0.017,
-   "75%": -0.005,
+   "75%": -0.006,
    "max": 0.315
   },
   "worst_days_pct": {
