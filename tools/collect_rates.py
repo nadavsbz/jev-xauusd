@@ -5,7 +5,8 @@ only, no credentials printed). Calls only initialize, account_info,
 symbol_select, copy_rates_range and shutdown - nothing that can trade.
 Bars are fetched month by month and each month is re-fetched until two
 consecutive pulls are byte-identical (the terminal downloads history
-asynchronously), then checked for gaps longer than a long weekend.
+asynchronously); the whole range is then checked day by day against
+the expected trading calendar (tools/market_calendar.py).
 """
 
 import argparse
@@ -16,11 +17,12 @@ import os
 import re
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import MetaTrader5 as mt5
 
 from collect_history import ROOT, assert_clean_terminal, load_account
+from market_calendar import check_trading_days
 
 FIELDS = ("time", "open", "high", "low", "close", "tick_volume", "spread", "real_volume")
 
@@ -35,8 +37,7 @@ def month_starts(since, until):
 
 def fetch_stable(symbol, start, end, tries=12, poll=5):
     """Re-fetch until two consecutive pulls are byte-identical (same bars,
-    same values), then check the month is covered: no gap longer than a
-    long weekend, and data close to both ends of the requested range."""
+    same values). Completeness is checked day by day in main()."""
     prev = None
     for _ in range(tries):
         bars = mt5.copy_rates_range(symbol, mt5.TIMEFRAME_M1, start, end)
@@ -45,21 +46,10 @@ def fetch_stable(symbol, start, end, tries=12, poll=5):
             bars = bars[bars["time"] < int(end.timestamp())]
         digest = None if bars is None or len(bars) == 0 else hashlib.sha256(bars.tobytes()).hexdigest()
         if digest and digest == prev:
-            check_coverage(symbol, bars, start, end)
             return bars
         prev = digest
         time.sleep(poll)
     sys.exit(f"{symbol} {start:%Y-%m}: two identical pulls never arrived - nothing written")
-
-
-def check_coverage(symbol, bars, start, end, max_gap=4 * 86400):
-    t = bars["time"]
-    gaps = [int(t[0]) - int(start.timestamp()), int(end.timestamp()) - int(t[-1])]
-    if len(t) > 1:
-        gaps.append(int((t[1:] - t[:-1]).max()))
-    if max(gaps) > max_gap:
-        sys.exit(f"{symbol} {start:%Y-%m}: a gap of {max(gaps) / 86400:.1f} days in the bars "
-                 "(terminal bar limit or partial download?) - nothing written")
 
 
 def main():
@@ -105,6 +95,11 @@ def main():
         times = [r[0] for r in rows]
         if times != sorted(set(times)):
             sys.exit("duplicate or unsorted bar times - nothing written")
+        # every weekday up to yesterday must be a full trading day unless it is a listed holiday
+        last_full = (now - timedelta(days=1)).date()
+        problems = check_trading_days(times, since.date(), last_full)
+        if problems:
+            sys.exit("incomplete bars - nothing written: " + "; ".join(problems))
 
         stamp = now.strftime("%Y%m%dT%H%M%SZ")
         slug = re.sub(r"[^a-z0-9_-]+", "_", args.name.lower()).strip("_") or "account"
@@ -125,6 +120,7 @@ def main():
             "timeframe": "M1", "time_note": "bar open, server time as epoch seconds",
             "since_utc": since.isoformat(), "pulled_utc": now.isoformat(),
             "rows": len(rows), "months": months, "sha256": digest,
+            "completeness": f"every weekday {since.date()}..{last_full} checked against tools/market_calendar.py",
         }
         with open(os.path.join(out, "manifest.json"), "w", encoding="utf-8") as f:
             json.dump(manifest, f, ensure_ascii=False, indent=2)

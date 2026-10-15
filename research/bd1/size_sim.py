@@ -12,7 +12,9 @@ def run(sub_mask, f, X, unknown):
     r[unk] = -(X + SLIP) / 100 if unknown == "worst" else 0.02 * f
     cut = hit | (unk & (unknown == "worst"))
     tr = np.where(cut, np.minimum(r, 0), m / 100)   # floating low inside each basket
-    eq, dd = max_drawdown(r, tr)                    # drawdown includes each basket's floating low
+    rb = o.runup_before_pct.values[sub_mask] * f / 100
+    ru = np.where(cut, rb, o.runup_pct.values[sub_mask] * f / 100)
+    eq, dd = max_drawdown(r, tr, rb, ru)            # from floating peaks to floating lows
     return eq[-1], dd, hit.sum(), unk.sum()
 allm = np.ones(len(o), bool); late = (o.d >= "2026-06-01").values
 print("f   X  | all: x_end worst/best  maxDD worst | Jun-Oct x_end worst | cuts unk")

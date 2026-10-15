@@ -11,6 +11,9 @@ from inputs import load, START, MAGIC
 STRICT = "--strict" in sys.argv
 deals, bars = load()
 deals["cash"] = deals.profit + deals.commission + deals.swap + deals.fee
+# robot-only balance: actual balance minus the running P&L of every excluded
+# position (manual trades, other magics), so manual losses do not shrink the
+# denominator of robot returns. Deposits/withdrawals stay in.
 deals["bal_after"] = deals.cash.cumsum()
 x = deals[deals.symbol == "XAUUSDc"]
 ENTRY_IN, EXITS = 0, (1, 3)                     # 1 = OUT, 3 = OUT_BY
@@ -73,7 +76,15 @@ for t0, t1 in zip(p.t0, p.t1):
 p["cid"] = cid
 exits_by_pid = {pid: list(zip(g.time, g.volume)) for pid, g in ev.groupby("position_id")}
 bt = bars.time.values; lo = bars.low.values; hi = bars.high.values
-bal_t = deals.time.values; bal_v = deals.bal_after.values
+robot_pids = set(p.position_id)
+# only positions OPENED after the robot started; older positions closing
+# later belong to the capital the robot started with
+t_robot = p.t0.min()
+opened_after = set(x[(x.entry == ENTRY_IN) & (x.time >= t_robot)].position_id) - robot_pids
+excl = deals.position_id.isin(opened_after) & (deals.symbol == "XAUUSDc")
+deals["bal_robot"] = deals.bal_after - deals.cash.where(excl, 0).cumsum()
+print(f"excluded positions' P&L since start: {deals.cash[excl].sum():.2f}")
+bal_t = deals.time.values; bal_v = deals.bal_robot.values
 
 def span(tt, ta, tb):
     if STRICT:
@@ -84,7 +95,7 @@ out = []
 for c, g in p.groupby("cid"):
     t0, t1 = g.t0.min(), g.t1.max()
     i0 = np.searchsorted(bt, t0 - 59); i1 = np.searchsorted(bt, t1, side="right")
-    worst, worst_t = 0.0, t0
+    worst, worst_t, runup_before, runup = 0.0, t0, 0.0, 0.0
     if i1 > i0:
         tt = bt[i0:i1]; fl_lo = np.zeros(len(tt)); fl_hi = np.zeros(len(tt))
         for r in g.itertuples():
@@ -100,13 +111,17 @@ for c, g in p.groupby("cid"):
             fl_lo[a:z] += r.cost; fl_hi[a:z] += r.cost
         fl = np.minimum(fl_lo, fl_hi)
         jx = fl.argmin(); worst, worst_t = fl[jx], tt[jx]
+        best_all = np.maximum(fl_lo, fl_hi)              # optimistic side, for peaks
+        runup_before, runup = best_all[:jx + 1].max(), best_all.max()
     kb = np.searchsorted(bal_t, t0, side="left") - 1
     bal0 = bal_v[kb] if kb >= 0 else 0
     out.append(dict(cid=c, t0=t0, t1=t1, n=len(g), maxlots=g.volume.sum(),
                     side=",".join(sorted(set(np.where(g.sgn > 0, "B", "S")))),
-                    pnl=g.pnl.sum(), mae=worst, mae_t=worst_t, bal0=bal0, guard=g.guard.any()))
+                    pnl=g.pnl.sum(), mae=worst, mae_t=worst_t, bal0=bal0, guard=g.guard.any(),
+                    runup_before=runup_before, runup=runup))
 o = pd.DataFrame(out)
 o["pnl_pct"] = o.pnl / o.bal0 * 100; o["mae_pct"] = o.mae / o.bal0 * 100
+o["runup_before_pct"] = o.runup_before / o.bal0 * 100; o["runup_pct"] = o.runup / o.bal0 * 100
 o.to_csv("data/derived/bd1/clusters_strict.csv" if STRICT else "data/derived/bd1/clusters.csv", index=False)
 print(len(o), "baskets;", o.guard.sum(), "with a guard (magic 0) close")
 for X in (5, 10, 15, 20):

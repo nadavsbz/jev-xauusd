@@ -15,10 +15,13 @@ def run(sub, X, unknown):
     else: r[unk] = sub.loc[unk, "pnl_pct"].clip(lower=None).values * 0 + 0.02  # recovers with +2%
     cut = hit | (unk & (unknown == "worst"))
     tr = np.where(cut, np.minimum(r, 0), tr)   # a cut basket bottoms at the cut
-    eq, dd = max_drawdown(r, tr)               # drawdown includes each basket's floating low
+    rb = sub.runup_before_pct.values / 100      # floating peak before the trough
+    ru = np.where(cut, rb, sub.runup_pct.values / 100)   # a cut basket has no later run-up
+    eq, dd = max_drawdown(r, tr, rb, ru)       # drawdown from floating peaks to floating lows
     return eq[-1], dd, hit.sum(), unk.sum()
 for name, sub in [("all 2025-11..2026-10", o), ("Nov-May", o[o.d < "2026-06-01"]), ("Jun-Oct", o[o.d >= "2026-06-01"])]:
-    eq, dd = max_drawdown(sub.pnl_pct.values / 100, sub.mae_pct.values / 100)
+    eq, dd = max_drawdown(sub.pnl_pct.values / 100, sub.mae_pct.values / 100,
+                          sub.runup_before_pct.values / 100, sub.runup_pct.values / 100)
     print(f"\n== {name}: actual x{eq[-1]:.2f}, maxDD incl. floating {dd:.1f}%")
     print(" X%   x_end(worst)  maxDD   x_end(best)  maxDD  cuts unknown")
     for X in [5, 8, 10, 12, 15, 20, 25]:

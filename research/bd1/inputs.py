@@ -4,6 +4,9 @@ manifest, and the deals must sum to the balance recorded at pull time."""
 import hashlib, json, os, sys
 import pandas as pd
 
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "tools"))
+from market_calendar import check_trading_days  # noqa: E402
+
 RAW = "data/raw/black_dragon_1"
 DEALS_SNAPSHOT = "20261015T120553Z"
 RATES_SNAPSHOT = "rates_XAUUSDc_M1_20261015T144411Z"
@@ -29,20 +32,34 @@ def load():
         sys.exit("bars.csv does not match its manifest")
     deals = pd.read_csv(os.path.join(dd, "deals.csv")).sort_values(["time_msc", "ticket"]).reset_index(drop=True)
     bars = pd.read_csv(os.path.join(rd, "bars.csv"))
+    first = pd.Timestamp(rm["since_utc"]).date()
+    last_full = (pd.Timestamp(rm["pulled_utc"]) - pd.Timedelta(days=1)).date()
+    problems = check_trading_days(bars.time.values, first, last_full)
+    if problems:
+        sys.exit("bars incomplete against the trading calendar: " + "; ".join(problems))
     cash = (deals.profit + deals.commission + deals.swap + deals.fee).sum()
     if abs(cash - dm["balance"]) > 0.05:
         sys.exit(f"deals sum {cash:.2f} != balance {dm['balance']:.2f}")
     return deals, bars
 
 
-def max_drawdown(r, trough):
-    """Max drawdown of compounded equity, including the floating low inside
-    each basket: r = basket return at close, trough = its worst floating
-    return (<= 0), both as fractions of equity at basket start."""
+def max_drawdown(r, trough, runup_before=None, runup=None):
+    """Max drawdown of compounded equity measured from the highest equity seen,
+    including floating values inside baskets. Per basket, as fractions of
+    equity at its start: r = return at close, trough = worst floating return,
+    runup_before = best floating return before the trough (a peak the trough
+    is measured against), runup = best floating return in the whole basket
+    (a peak for later baskets). Without run-ups only closed peaks are used."""
     import numpy as np
-    r = np.asarray(r, float); trough = np.minimum(np.asarray(trough, float), r)
+    r = np.asarray(r, float); n = len(r)
+    trough = np.minimum(np.asarray(trough, float), r)
+    rb = np.zeros(n) if runup_before is None else np.maximum(np.asarray(runup_before, float), 0)
+    ru = np.zeros(n) if runup is None else np.maximum(np.asarray(runup, float), np.maximum(r, 0))
     eq = np.cumprod(1 + r)
-    start = np.concatenate(([1.0], eq[:-1]))
-    peak = np.maximum.accumulate(np.concatenate(([1.0], eq)))[:-1]   # peak before each basket
-    low = start * (1 + trough)
-    return eq, min(0.0, ((low / peak) - 1).min(), ((eq / np.maximum(peak, eq)) - 1).min()) * 100
+    peak, start, worst = 1.0, 1.0, 0.0
+    for i in range(n):
+        p_in = max(peak, start * (1 + rb[i]))
+        worst = min(worst, start * (1 + trough[i]) / p_in - 1, eq[i] / max(p_in, eq[i]) - 1)
+        peak = max(peak, start * (1 + ru[i]), eq[i])
+        start = eq[i]
+    return eq, worst * 100
