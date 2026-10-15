@@ -59,6 +59,7 @@ for name, sub in periods:
                           sub.runup_before_pct.values / 100, sub.runup_pct.values / 100)
     print(f"\n== {name}: actual x{eq[-1]:.2f}, maxDD incl. floating {dd:.1f}%")
     print(" X%   x_end(worst)  maxDD   x_end(best)  maxDD   x_end(cont)  maxDD  cuts unknown unresolved")
-    for X in [5, 8, 10, 12, 15, 18, 20, 22, 25, 30, 40, 50, 60, 70]:
+    # the forward test shows only its registered levels (no level picking on forward data)
+    for X in ([15, 18, 20] if name.startswith("FORWARD") else [5, 8, 10, 12, 15, 18, 20, 22, 25, 30, 40, 50, 60, 70]):
         a = run(sub, X, "worst"); b = run(sub, X, "best"); c = run(sub, X, "cont")
         print(f"{X:3d}  {a[0]:9.2f}  {a[1]:7.1f}  {b[0]:9.2f}  {b[1]:6.1f}  {c[0]:9.2f}  {c[1]:6.1f}  {a[2]:4d} {a[3]:4d} {c[4]:4d}")

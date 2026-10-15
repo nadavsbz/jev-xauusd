@@ -10,7 +10,7 @@ import numpy as np
 
 CLOSED = {   # no bars expected
     date(2025, 12, 25): "Christmas", date(2026, 1, 1): "New Year", date(2026, 4, 3): "Good Friday",
-    date(2026, 12, 25): "Christmas", date(2027, 1, 1): "New Year",
+    date(2026, 12, 25): "Christmas", date(2027, 1, 1): "New Year", date(2027, 3, 26): "Good Friday",
 }
 SHORT = {    # early close / late open: fewer bars expected
     date(2025, 9, 1): "Labor Day", date(2025, 11, 27): "Thanksgiving", date(2025, 11, 28): "Day after Thanksgiving",
@@ -18,7 +18,10 @@ SHORT = {    # early close / late open: fewer bars expected
     date(2026, 2, 16): "Presidents Day", date(2026, 5, 25): "Memorial Day", date(2026, 6, 19): "Juneteenth",
     date(2026, 7, 3): "Independence Day (observed)", date(2026, 9, 7): "Labor Day",
     date(2026, 11, 26): "Thanksgiving", date(2026, 11, 27): "Day after Thanksgiving", date(2026, 12, 24): "Christmas Eve",
+    date(2026, 12, 31): "New Year's Eve", date(2027, 1, 18): "MLK Day", date(2027, 2, 15): "Presidents Day",
+    date(2027, 5, 31): "Memorial Day", date(2027, 6, 18): "Juneteenth (observed)",
 }
+KNOWN_UNTIL = date(2027, 6, 30)   # holidays are listed up to here; extend before using later data
 FULL_DAY_MIN_BARS = 1300     # a full day has ~1380 M1 bars
 SHORT_DAY_MIN_BARS = 1000
 MAX_INTRADAY_GAP_MIN = 65    # the daily break is ~60 min (62 in DST-mismatch weeks)
@@ -30,6 +33,8 @@ def check_trading_days(times, first_day, last_full_day):
     t = np.asarray(times, dtype="int64")
     days = t // 86400
     problems = []
+    if last_full_day > KNOWN_UNTIL:
+        problems.append(f"holiday list ends {KNOWN_UNTIL}; extend it before checking up to {last_full_day}")
     for d64 in np.arange(np.datetime64(first_day), np.datetime64(last_full_day) + 1):
         d = d64.astype(object)
         if d.weekday() >= 5:

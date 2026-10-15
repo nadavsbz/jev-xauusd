@@ -9,11 +9,16 @@ deals, bars = load()
 o = pd.read_csv("data/derived/bd1/clusters_strict.csv")
 x = deals[deals.symbol == "XAUUSDc"]
 ins = x[(x.entry == 0) & (x.magic == MAGIC)].set_index("position_id")
-ex = x[x.entry.isin((1, 3))].assign(is_guard=lambda e: (e.magic == 0) & (e.reason == 3))  # guard = automatic close
-ex = ex.groupby("position_id").agg(t1=("time", "max"), guard=("is_guard", "any"))
-p = ins[["time", "type", "volume", "price"]].join(ex, how="inner")
-# commission + swap + fee of each position (entry and exit deals): part of its loss
-p["cost"] = x.assign(c=x.commission + x.swap + x.fee).groupby("position_id").c.sum().reindex(p.index).fillna(0)
+ex = x[x.entry.isin((1, 3))].assign(is_guard=lambda e: (e.magic == 0) & (e.reason == 3),  # guard = automatic close
+                                   c=lambda e: e.commission + e.swap + e.fee)
+gx = ex[ex.is_guard]
+# only the volume the guard itself closed (an earlier partial exit is not continued)
+gq = gx.groupby("position_id").agg(t1=("time", "max"), gvol=("volume", "sum"), gcost=("c", "sum"))
+p = ins[["time", "type", "volume", "price"]].join(gq, how="inner").assign(guard=True)
+# costs of that volume: the guard exit deals' own costs plus the entry costs pro rata
+ent_cost = x[x.entry == 0].assign(c=x.commission + x.swap + x.fee).groupby("position_id").c.sum()
+p["cost"] = p.gcost + ent_cost.reindex(p.index).fillna(0) * p.gvol / p.volume
+p["volume"] = p.gvol
 bt, lo, hi, cl = bars.time.values, bars.low.values, bars.high.values, bars.close.values
 out = []
 COVERED = covered_until()
