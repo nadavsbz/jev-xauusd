@@ -91,7 +91,7 @@ def span(tt, ta, tb):
         return np.searchsorted(tt, ta, side="right"), np.searchsorted(tt, tb - 59, side="left")
     return np.searchsorted(tt, ta - 59), np.searchsorted(tt, tb, side="right")
 
-out, lows_by_cid = [], {}
+out, lows_by_cid, levels_by_cid = [], {}, {}
 for c, g in p.groupby("cid"):
     t0, t1 = g.t0.min(), g.t1.max()
     i0 = np.searchsorted(bt, t0 - 59); i1 = np.searchsorted(bt, t1, side="right")
@@ -123,6 +123,18 @@ for c, g in p.groupby("cid"):
         if len(idx) and b0 > 0:
             peaks = np.maximum.accumulate(best_all)[idx]
             lows_by_cid[c] = np.c_[fl[idx] / b0 * 100, peaks / b0 * 100]
+        # state when the k-th position of the basket opens (k = 1..n): money already
+        # realised by positions closed before then, and the floating P&L of the rest
+        # (worse of low/high side). Lets a rule "cut at the k-th level" be scored.
+        if b0 > 0:
+            gs = g.sort_values("t0"); rows = []
+            for kk, tk in enumerate(gs.t0.values, start=1):
+                a = min(max(np.searchsorted(tt, tk, side="right") - 1, 0), len(tt) - 1)
+                realised = gs.pnl[gs.t1.values <= tk].sum()
+                # columns: k, time, realised %, floating %, peak so far %, floating low so far %
+                rows.append((kk, tk, realised / b0 * 100, fl[a] / b0 * 100,
+                             np.maximum.accumulate(best_all)[a] / b0 * 100, fl[:a + 1].min() / b0 * 100))
+            levels_by_cid[c] = np.array(rows)
     kb = np.searchsorted(bal_t, t0, side="left") - 1
     bal0 = bal_v[kb] if kb >= 0 else 0
     out.append(dict(cid=c, t0=t0, t1=t1, n=len(g), maxlots=g.volume.sum(),
@@ -135,6 +147,8 @@ o["runup_before_pct"] = o.runup_before / o.bal0 * 100; o["runup_pct"] = o.runup 
 o.to_csv("data/derived/bd1/clusters_strict.csv" if STRICT else "data/derived/bd1/clusters.csv", index=False)
 np.savez_compressed("data/derived/bd1/record_lows_strict.npz" if STRICT else "data/derived/bd1/record_lows.npz",
                     **{str(k): v for k, v in lows_by_cid.items()})
+np.savez_compressed("data/derived/bd1/levels_strict.npz" if STRICT else "data/derived/bd1/levels.npz",
+                    **{str(k): v for k, v in levels_by_cid.items()})
 print(len(o), "baskets;", o.guard.sum(), "with a guard (magic 0) close")
 for X in (5, 10, 15, 20):
     print(f"MAE <= -{X}%: {(o.mae_pct <= -X).sum()}")
