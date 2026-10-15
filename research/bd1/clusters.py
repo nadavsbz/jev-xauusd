@@ -41,10 +41,28 @@ p = ins[["time", "type", "volume", "price"]].rename(columns={"time": "t0", "pric
 p["t1"] = g_ex.time.max()
 p["pnl"] = g_ex.cash.sum() + ins.cash
 p["cost"] = ins.commission + ins.swap + ins.fee + g_ex.commission.sum() + g_ex.swap.sum() + g_ex.fee.sum()
-p["guard"] = g_ex.magic.apply(lambda m: (m == 0).any())
+# the guard is an automatic program: magic 0 AND reason 3 (expert), comment
+# "n_<price>_v". Manual closes (magic 0, reason 0 desktop / 1 mobile) are not guard.
+ev = ev.assign(is_guard=(ev.magic == 0) & (ev.reason == 3))
+p["guard"] = ev.groupby("position_id").is_guard.any()
 p["sgn"] = np.where(p.type == 0, 1, -1)
 p = p.sort_values("t0").reset_index()
 print(f"{len(p)} positions of magic {MAGIC}; {ev.groupby('position_id').size().gt(1).sum()} with more than one exit deal")
+
+# deal times and bar times must be on the same clock: each entry price has to
+# lie inside the M1 bar of its own minute (spread-tolerant), and clearly less
+# so when the clock is shifted by whole hours
+bt_all = bars.time.values
+def inside(shift):
+    t = p.t0.values - shift * 3600
+    i = np.clip(np.searchsorted(bt_all, t, side="right") - 1, 0, None)
+    ok = bt_all[i] > t - 60
+    return (ok & (p.open_px.values >= bars.low.values[i] - 0.5)
+               & (p.open_px.values <= bars.high.values[i] + bars.spread.values[i] * 0.01 + 0.5)).mean()
+align = {h: inside(h) for h in (-3, -2, -1, 0, 1, 2, 3)}
+print("entry price inside its bar, by clock shift (h):", {h: round(v * 100, 1) for h, v in align.items()})
+if align[0] < 0.99 or max(v for h, v in align.items() if h) > 0.5:
+    sys.exit("deal and bar clocks do not line up - fix time zones first")
 
 cid, end, c = [], -1, -1
 for t0, t1 in zip(p.t0, p.t1):

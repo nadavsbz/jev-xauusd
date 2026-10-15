@@ -9,7 +9,8 @@ deals, bars = load()
 o = pd.read_csv("data/derived/bd1/clusters_strict.csv")
 x = deals[deals.symbol == "XAUUSDc"]
 ins = x[(x.entry == 0) & (x.magic == MAGIC)].set_index("position_id")
-ex = x[x.entry.isin((1, 3))].groupby("position_id").agg(t1=("time", "max"), guard=("magic", lambda m: (m == 0).any()))
+ex = x[x.entry.isin((1, 3))].assign(is_guard=lambda e: (e.magic == 0) & (e.reason == 3))  # guard = automatic close
+ex = ex.groupby("position_id").agg(t1=("time", "max"), guard=("is_guard", "any"))
 p = ins[["time", "type", "volume", "price"]].join(ex, how="inner")
 bt, lo, hi, cl = bars.time.values, bars.low.values, bars.high.values, bars.close.values
 for _, c in o[o.guard & (o.pnl_pct < -5)].iterrows():
