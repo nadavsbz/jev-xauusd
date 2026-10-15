@@ -40,6 +40,7 @@ g_ex = ev.groupby("position_id")
 p = ins[["time", "type", "volume", "price"]].rename(columns={"time": "t0", "price": "open_px"})
 p["t1"] = g_ex.time.max()
 p["pnl"] = g_ex.cash.sum() + ins.cash
+p["cost"] = ins.commission + ins.swap + ins.fee + g_ex.commission.sum() + g_ex.swap.sum() + g_ex.fee.sum()
 p["guard"] = g_ex.magic.apply(lambda m: (m == 0).any())
 p["sgn"] = np.where(p.type == 0, 1, -1)
 p = p.sort_values("t0").reset_index()
@@ -70,11 +71,15 @@ for c, g in p.groupby("cid"):
         tt = bt[i0:i1]; fl_lo = np.zeros(len(tt)); fl_hi = np.zeros(len(tt))
         for r in g.itertuples():
             ta, vol = r.t0, r.volume
-            for te, v in sorted(exits_by_pid[r.position_id]):   # volume stays open until each exit
+            for te, v in sorted(exits_by_pid[r.position_id]):   # one segment per exit
                 a, z = span(tt, ta, te)
                 fl_lo[a:z] += r.sgn * vol * (lo[i0 + a:i0 + z] - r.open_px) * K
                 fl_hi[a:z] += r.sgn * vol * (hi[i0 + a:i0 + z] - r.open_px) * K
-                vol = round(vol - v, 2)
+                vol = round(vol - v, 2); ta = te
+            # costs: commission is charged at entry; swap is only booked at exit,
+            # so it is counted from entry too (conservative, total swap is tiny)
+            a, z = span(tt, r.t0, r.t1)
+            fl_lo[a:z] += r.cost; fl_hi[a:z] += r.cost
         fl = np.minimum(fl_lo, fl_hi)
         jx = fl.argmin(); worst, worst_t = fl[jx], tt[jx]
     kb = np.searchsorted(bal_t, t0, side="left") - 1

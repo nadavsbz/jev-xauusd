@@ -1,4 +1,5 @@
 import numpy as np, pandas as pd
+from inputs import max_drawdown
 o = pd.read_csv("data/derived/bd1/clusters_strict.csv"); o["d"] = pd.to_datetime(o.t0, unit="s")
 real = (o.guard & (o.pnl_pct < -5)).values
 SLIP = 0.5
@@ -9,7 +10,9 @@ def run(sub_mask, f, X, unknown):
     r = p.copy(); hit = m <= -X; r[hit] = -(X + SLIP) / 100
     unk = rl & ~hit  # real guard fired before our level: continuation unknown
     r[unk] = -(X + SLIP) / 100 if unknown == "worst" else 0.02 * f
-    eq = np.cumprod(1 + r); dd = (eq / np.maximum.accumulate(eq) - 1).min() * 100
+    cut = hit | (unk & (unknown == "worst"))
+    tr = np.where(cut, np.minimum(r, 0), m / 100)   # floating low inside each basket
+    eq, dd = max_drawdown(r, tr)                    # drawdown includes each basket's floating low
     return eq[-1], dd, hit.sum(), unk.sum()
 allm = np.ones(len(o), bool); late = (o.d >= "2026-06-01").values
 print("f   X  | all: x_end worst/best  maxDD worst | Jun-Oct x_end worst | cuts unk")

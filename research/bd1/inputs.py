@@ -33,3 +33,16 @@ def load():
     if abs(cash - dm["balance"]) > 0.05:
         sys.exit(f"deals sum {cash:.2f} != balance {dm['balance']:.2f}")
     return deals, bars
+
+
+def max_drawdown(r, trough):
+    """Max drawdown of compounded equity, including the floating low inside
+    each basket: r = basket return at close, trough = its worst floating
+    return (<= 0), both as fractions of equity at basket start."""
+    import numpy as np
+    r = np.asarray(r, float); trough = np.minimum(np.asarray(trough, float), r)
+    eq = np.cumprod(1 + r)
+    start = np.concatenate(([1.0], eq[:-1]))
+    peak = np.maximum.accumulate(np.concatenate(([1.0], eq)))[:-1]   # peak before each basket
+    low = start * (1 + trough)
+    return eq, min(0.0, ((low / peak) - 1).min(), ((eq / np.maximum(peak, eq)) - 1).min()) * 100
