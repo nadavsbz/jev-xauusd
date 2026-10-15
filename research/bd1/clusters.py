@@ -40,7 +40,7 @@ ev = exits[exits.position_id.isin(ins.index)]
 if not np.allclose(ev.groupby("position_id").volume.sum().reindex(ins.index).fillna(0), ins.volume):
     sys.exit("exit volume does not match entry volume for some position")
 g_ex = ev.groupby("position_id")
-p = ins[["time", "type", "volume", "price"]].rename(columns={"time": "t0", "price": "open_px"})
+p = ins[["time", "time_msc", "type", "volume", "price"]].rename(columns={"time": "t0", "time_msc": "t0_msc", "price": "open_px"})
 p["t1"] = g_ex.time.max()
 p["pnl"] = g_ex.cash.sum() + ins.cash
 p["cost"] = ins.commission + ins.swap + ins.fee + g_ex.commission.sum() + g_ex.swap.sum() + g_ex.fee.sum()
@@ -145,26 +145,28 @@ for c, g in p.groupby("cid"):
                     rc[np.searchsorted(tt, te, side="left"):] += cash - cost
                 rc[np.searchsorted(tt, r.t1, side="left"):] += r.cost
             eq_lo, eq_hi = fl + rc, best_all + rc
-            gs = g.sort_values("t0"); rows = []
-            t0s, t1s = gs.t0.values, gs.t1.values
-            # k = number of positions OPEN right after an entry (the visible grid
-            # depth), recorded the first time each depth is reached
-            for tk, pxk in zip(t0s, gs.open_px.values):
-                op = (t0s <= tk) & (t1s > tk)
+            # deal order by milliseconds (then ticket order), so several entries in
+            # one second are taken one by one and each depth is recorded right after
+            # the entry that reached it, priced at that entry
+            gs = g.sort_values(["t0_msc", "position_id"]); rows = []
+            t1s = gs.t1.values
+            for j, (tk, pxk) in enumerate(zip(gs.t0.values, gs.open_px.values)):
+                done = np.arange(len(gs)) <= j                      # entries up to this one
+                op = done & (t1s > tk)
                 kk = int(op.sum())
                 if kk <= len(rows):
                     continue
-                # realised: entry costs + every exit deal done by tk; mark: the volume
-                # still open at the k-th deal's price + the costs its later exits carry
+                # realised: entry commission + every exit deal done by tk; mark: the volume
+                # still open at this entry's price. Commission is charged at entry only
+                # (exit deals carry swap only); swap accrued up to tk is not known in the
+                # data and is left out (all swap of the robot: -261 cents).
                 realised, mark = 0.0, 0.0
-                for r in gs[t0s <= tk].itertuples():
+                for r in gs[done].itertuples():
                     realised += entry_cash[r.position_id]
                     left = r.volume
                     for te, v, cash, cost in exit_cash_by_pid[r.position_id]:
                         if te <= tk:
                             realised += cash; left = round(left - v, 2)
-                        else:
-                            mark += cost
                     if left > 0:
                         mark += r.sgn * left * (pxk - r.open_px) * K
                 b = np.searchsorted(tt, tk - 60, side="right")      # minutes finished before tk
@@ -172,8 +174,7 @@ for c, g in p.groupby("cid"):
                 low = min(eq_lo[:b].min(), 0) if b else 0.0
                 # columns: k, time, realised %, open positions marked %, peak so far %, low so far %
                 row = (kk, tk, realised / b0 * 100, mark / b0 * 100, peak / b0 * 100, low / b0 * 100)
-                while len(rows) < kk:            # several entries in one second: same state
-                    rows.append(row)
+                rows.append(row)
             levels_by_cid[c] = np.array(rows)
     kb = np.searchsorted(bal_t, t0, side="left") - 1
     bal0 = bal_v[kb] if kb >= 0 else 0
