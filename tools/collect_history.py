@@ -148,7 +148,7 @@ def main():
     assert_clean_terminal(args.terminal)
 
     if not mt5.initialize(path=args.terminal, login=login, password=acc["password"],
-                          server=acc["server"], portable=True, timeout=60000):
+                          server=acc["server"], portable=True, timeout=240000):
         sys.exit(f"initialize failed: {mt5.last_error()}")
     try:
         info = mt5.account_info()
