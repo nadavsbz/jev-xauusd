@@ -30,6 +30,7 @@ import glob
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -145,8 +146,11 @@ def main():
             sys.exit(f"history_orders_get failed: {mt5.last_error()} - nothing written")
 
         stamp = now.strftime("%Y%m%dT%H%M%SZ")
-        slug = args.name.lower().replace(" ", "_")
-        out = os.path.join(ROOT, "data", "raw", slug, stamp)
+        slug = re.sub(r"[^a-z0-9_-]+", "_", args.name.lower()).strip("_") or "account"
+        base = os.path.realpath(os.path.join(ROOT, "data", "raw"))
+        out = os.path.realpath(os.path.join(base, slug, stamp))
+        if os.path.commonpath([base, out]) != base:
+            sys.exit("output path escapes data/raw - aborting")
         os.makedirs(out, exist_ok=True)
         files = {
             "deals.csv": write_csv(os.path.join(out, "deals.csv"), deals),
