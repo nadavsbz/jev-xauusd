@@ -78,8 +78,7 @@ def assert_clean_terminal(terminal):
         text = raw.decode("utf-16", errors="ignore") if raw.startswith(codecs.BOM_UTF16_LE) else raw.decode("utf-8", errors="ignore")
         if "<expert>" in text.lower():
             sys.exit("terminal is not clean: a saved chart has an EA attached")
-    ps = ("Get-CimInstance Win32_Process -Filter \"Name='terminal64.exe'\" | "
-          "ForEach-Object { $_.ExecutablePath }")
+    ps = "Get-CimInstance Win32_Process | ForEach-Object { $_.ExecutablePath }"
     try:
         out = subprocess.run(["powershell", "-NoProfile", "-Command", ps],
                              capture_output=True, text=True, timeout=60, check=True).stdout
@@ -122,6 +121,8 @@ def main():
 
     if not os.path.isfile(args.terminal):
         sys.exit("terminal path does not exist")
+    if os.path.basename(args.terminal).lower() != "terminal64.exe":
+        sys.exit("only a terminal64.exe is supported")
     acc = load_account(args.accounts, args.name)
     login = int(acc["login"])
     assert_clean_terminal(args.terminal)
