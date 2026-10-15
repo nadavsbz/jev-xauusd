@@ -3,6 +3,10 @@ is reset to a fixed size B - profit above B is swept to the reserve, a shortfall
 is refilled from the reserve (while it lasts). Lots follow the trading balance,
 so the robot always risks about B; total wealth = trading + reserve.
 
+The real guard's cuts are kept as they happened (as % of the balance), i.e.
+ASSUMED the guard is set in % of the trading account; a fixed-money guard at
+smaller lots would fire later or not at all, which is not simulated.
+
 Method written together with its first results (2026-10-16), so the three
 values of B are NOT a pre-registered choice; only the forward test in
 docs/NIGHT1_SPLIT_SWEEP.md is registered ahead of its data.
@@ -51,8 +55,9 @@ def sim(sub, mode, frac=1.0, lots="per_basket"):
             continue
         size = trade if lots == "per_basket" else expo * bal0[i]   # money the basket's % applies to
         w_start = trade + res
+        lo_i = max(lo[i], -trade / size) if size > 0 else lo[i]   # a stop-out caps the loss at the account
         p_in = max(peak, w_start + size * hb[i])
-        worst = min(worst, (w_start + size * lo[i]) / p_in - 1)
+        worst = min(worst, (w_start + size * lo_i) / p_in - 1)
         peak = max(peak, w_start + size * hi[i])
         if trade + size * lo[i] <= 0:      # floating loss wipes the trading account:
             trade, dead = 0.0, True        # stopped out, no share of a later recovery
