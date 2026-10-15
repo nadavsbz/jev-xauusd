@@ -109,26 +109,34 @@ def wait_for_history(since, until, timeout=300, poll=10):
     sys.exit(f"history did not finish loading within {timeout}s (last count {prev}) - nothing written")
 
 
-def check_structure(deals, orders):
-    """Structural completeness, independent of P&L: every trade deal must
-    belong to a known order, and every position that is not open now must
-    have as much volume entering as leaving. A missing opening or closing
-    deal breaks one of these even when its profit is zero."""
+def check_structure(deals, orders, full_life):
+    """Structural completeness, independent of P&L. Every trade deal must
+    belong to a known order. Over the account's whole life, each position's
+    signed volume (buy +, sell -) summed over all its deals - IN, OUT, INOUT
+    reversals and OUT_BY alike - must be zero if it is closed, and must equal
+    the live position's signed volume if it is open. A missing opening or
+    closing deal breaks this even when its profit is zero. With a partial
+    --since window positions may straddle the start, so only the order match
+    is checked then."""
     order_tickets = {o.ticket for o in orders}
-    open_ids = {p.identifier for p in (mt5.positions_get() or ())}
-    vol_in, vol_out = {}, {}
+    positions = mt5.positions_get()
+    if positions is None:
+        return f"positions_get failed: {mt5.last_error()}"
+    live = {p.identifier: (p.volume if p.type == mt5.POSITION_TYPE_BUY else -p.volume)
+            for p in positions}
+    net = {}
     for d in deals:
         if d.type not in (mt5.DEAL_TYPE_BUY, mt5.DEAL_TYPE_SELL):
             continue
         if d.order not in order_tickets:
             return f"deal {d.ticket} has no matching order"
-        book = vol_in if d.entry == mt5.DEAL_ENTRY_IN else vol_out
-        book[d.position_id] = book.get(d.position_id, 0.0) + d.volume
-    for pid in set(vol_in) | set(vol_out):
-        if pid in open_ids:
-            continue
-        if abs(vol_in.get(pid, 0.0) - vol_out.get(pid, 0.0)) > 1e-6:
-            return f"position {pid} volume in {vol_in.get(pid, 0.0)} != out {vol_out.get(pid, 0.0)}"
+        sign = 1.0 if d.type == mt5.DEAL_TYPE_BUY else -1.0
+        net[d.position_id] = net.get(d.position_id, 0.0) + sign * d.volume
+    if not full_life:
+        return None
+    for pid in set(net) | set(live):
+        if abs(net.get(pid, 0.0) - live.get(pid, 0.0)) > 1e-6:
+            return f"position {pid}: deals net {net.get(pid, 0.0):+} but live {live.get(pid, 0.0):+}"
     return None
 
 
@@ -202,7 +210,7 @@ def main():
         if orders is None:
             sys.exit(f"history_orders_get failed: {mt5.last_error()} - nothing written")
 
-        problem = check_structure(deals, orders)
+        problem = check_structure(deals, orders, full_life)
         if problem:
             sys.exit(f"history incomplete: {problem} - nothing written")
 
@@ -229,7 +237,8 @@ def main():
             "pulled_utc": now.isoformat(),
             "time_note": "MT5 deal times are broker server time, not UTC",
             "completeness": ("deals reconcile to balance; " if full_life else "balance not checked (--since given); ")
-                            + "every deal matches an order; closed positions balance in/out volume",
+                            + ("every deal matches an order; signed volume per position matches live state"
+                               if full_life else "every deal matches an order"),
             "files": {k: {"rows": n, "sha256": sha256(os.path.join(out, k))}
                       for k, n in files.items()},
         }
