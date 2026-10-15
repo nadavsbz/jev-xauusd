@@ -75,6 +75,10 @@ for t0, t1 in zip(p.t0, p.t1):
     cid.append(c)
 p["cid"] = cid
 exits_by_pid = {pid: list(zip(g.time, g.volume)) for pid, g in ev.groupby("position_id")}
+# per exit deal: (time, volume, cash) - partial exits are realised when they happen
+exit_cash_by_pid = {pid: sorted(zip(g.time, g.volume, g.cash, g.commission + g.swap + g.fee))
+                    for pid, g in ev.groupby("position_id")}
+entry_cash = ins.cash
 bt = bars.time.values; lo = bars.low.values; hi = bars.high.values
 robot_pids = set(p.position_id)
 # only positions OPENED after the robot started; older positions closing
@@ -91,7 +95,7 @@ def span(tt, ta, tb):
         return np.searchsorted(tt, ta, side="right"), np.searchsorted(tt, tb - 59, side="left")
     return np.searchsorted(tt, ta - 59), np.searchsorted(tt, tb, side="right")
 
-out, lows_by_cid = [], {}
+out, lows_by_cid, levels_by_cid = [], {}, {}
 for c, g in p.groupby("cid"):
     t0, t1 = g.t0.min(), g.t1.max()
     i0 = np.searchsorted(bt, t0 - 59); i1 = np.searchsorted(bt, t1, side="right")
@@ -123,6 +127,54 @@ for c, g in p.groupby("cid"):
         if len(idx) and b0 > 0:
             peaks = np.maximum.accumulate(best_all)[idx]
             lows_by_cid[c] = np.c_[fl[idx] / b0 * 100, peaks / b0 * 100]
+        # state when the k-th position of the basket opens (k = 1..n), using only
+        # what was known at that moment:
+        # - cut value = P&L already realised by closed positions + the open positions
+        #   (including the k-th) marked at the k-th deal's own price (a real quote at
+        #   that second, no bar high/low), plus their costs;
+        # - peak / low so far from the basket equity path (floating + realised so far)
+        #   over minutes that ended before the k-th deal.
+        # Partial exits are realised at their own time and reduce the marked volume.
+        if b0 > 0:
+            rc = np.zeros(len(tt))
+            # while a position is open fl already carries all its costs (r.cost), so
+            # the path books each exit's price profit at its own time and the costs
+            # only when the position is fully closed (no double counting)
+            for r in g.itertuples():
+                for te, v, cash, cost in exit_cash_by_pid[r.position_id]:
+                    rc[np.searchsorted(tt, te, side="left"):] += cash - cost
+                rc[np.searchsorted(tt, r.t1, side="left"):] += r.cost
+            eq_lo, eq_hi = fl + rc, best_all + rc
+            gs = g.sort_values("t0"); rows = []
+            t0s, t1s = gs.t0.values, gs.t1.values
+            # k = number of positions OPEN right after an entry (the visible grid
+            # depth), recorded the first time each depth is reached
+            for tk, pxk in zip(t0s, gs.open_px.values):
+                op = (t0s <= tk) & (t1s > tk)
+                kk = int(op.sum())
+                if kk <= len(rows):
+                    continue
+                # realised: entry costs + every exit deal done by tk; mark: the volume
+                # still open at the k-th deal's price + the costs its later exits carry
+                realised, mark = 0.0, 0.0
+                for r in gs[t0s <= tk].itertuples():
+                    realised += entry_cash[r.position_id]
+                    left = r.volume
+                    for te, v, cash, cost in exit_cash_by_pid[r.position_id]:
+                        if te <= tk:
+                            realised += cash; left = round(left - v, 2)
+                        else:
+                            mark += cost
+                    if left > 0:
+                        mark += r.sgn * left * (pxk - r.open_px) * K
+                b = np.searchsorted(tt, tk - 60, side="right")      # minutes finished before tk
+                peak = max(eq_hi[:b].max(), 0) if b else 0.0
+                low = min(eq_lo[:b].min(), 0) if b else 0.0
+                # columns: k, time, realised %, open positions marked %, peak so far %, low so far %
+                row = (kk, tk, realised / b0 * 100, mark / b0 * 100, peak / b0 * 100, low / b0 * 100)
+                while len(rows) < kk:            # several entries in one second: same state
+                    rows.append(row)
+            levels_by_cid[c] = np.array(rows)
     kb = np.searchsorted(bal_t, t0, side="left") - 1
     bal0 = bal_v[kb] if kb >= 0 else 0
     out.append(dict(cid=c, t0=t0, t1=t1, n=len(g), maxlots=g.volume.sum(),
@@ -135,6 +187,8 @@ o["runup_before_pct"] = o.runup_before / o.bal0 * 100; o["runup_pct"] = o.runup 
 o.to_csv("data/derived/bd1/clusters_strict.csv" if STRICT else "data/derived/bd1/clusters.csv", index=False)
 np.savez_compressed("data/derived/bd1/record_lows_strict.npz" if STRICT else "data/derived/bd1/record_lows.npz",
                     **{str(k): v for k, v in lows_by_cid.items()})
+np.savez_compressed("data/derived/bd1/levels_strict.npz" if STRICT else "data/derived/bd1/levels.npz",
+                    **{str(k): v for k, v in levels_by_cid.items()})
 print(len(o), "baskets;", o.guard.sum(), "with a guard (magic 0) close")
 for X in (5, 10, 15, 20):
     print(f"MAE <= -{X}%: {(o.mae_pct <= -X).sum()}")
