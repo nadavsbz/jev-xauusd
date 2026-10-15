@@ -9,10 +9,15 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 from market_calendar import check_trading_days  # noqa: E402
 
 RAW = "data/raw/black_dragon_1"
-DEALS_SNAPSHOT = "20261015T120553Z"
-RATES_SNAPSHOT = "rates_XAUUSDc_M1_20261015T144411Z"
+# The report's snapshots. The forward test (docs/BD1_GUARD_FORWARD.md) points
+# at newer pulls through the environment; the report itself never does.
+DEALS_SNAPSHOT = os.environ.get("JEV_DEALS_SNAPSHOT", "20261015T120553Z")
+RATES_SNAPSHOT = os.environ.get("JEV_RATES_SNAPSHOT", "rates_XAUUSDc_M1_20261015T144411Z")
 START = pd.Timestamp("2025-11-11").timestamp()   # first deal of magic 5555
 MAGIC = 5555
+# Forward paper test, registered 2026-10-15 before any of its data existed (docs/BD1_GUARD_FORWARD.md)
+FORWARD_START = "2026-10-16"   # inclusive, by basket start (t0, server time)
+FORWARD_END = "2027-04-16"     # exclusive: baskets started up to and including 2027-04-15
 
 
 def _sha(path):
@@ -74,3 +79,26 @@ def peak_before_cut(lows, cid, level_pct):
         return 0.0
     hit = np.where(a[:, 0] <= level_pct)[0]
     return float(a[hit[0], 1]) if len(hit) else float(a[-1, 1])
+
+
+def forward_coverage():
+    """Do the pinned snapshots cover the whole forward window? Both pulls must be
+    made after its last day, and no magic position opened inside it may still be open."""
+    dd = os.path.join(RAW, DEALS_SNAPSHOT); rd = os.path.join(RAW, RATES_SNAPSHOT)
+    end = pd.Timestamp(FORWARD_END, tz="UTC")
+    pulled = [pd.Timestamp(json.load(open(os.path.join(d, "manifest.json"), encoding="utf-8"))["pulled_utc"])
+              for d in (dd, rd)]
+    deals = pd.read_csv(os.path.join(dd, "deals.csv"))
+    m = deals[deals.magic == MAGIC]
+    opened = m[(m.entry == 0) & (m.time < end.timestamp())].groupby("position_id").volume.sum()
+    exited = deals[deals.entry.isin((1, 3))].groupby("position_id").volume.sum()
+    left = opened - exited.reindex(opened.index).fillna(0)     # partial exits leave volume open
+    still_open = int((left > 1e-9).sum())
+    return all(t >= end for t in pulled) and still_open == 0, still_open
+
+
+def covered_until():
+    """Epoch (bar clock) up to which the pinned M1 bars passed the trading-calendar
+    check in load(): the end of the last full day before the pull."""
+    rm = json.load(open(os.path.join(RAW, RATES_SNAPSHOT, "manifest.json"), encoding="utf-8"))
+    return pd.Timestamp(pd.Timestamp(rm["pulled_utc"]).date()).timestamp()
