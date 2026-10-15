@@ -31,6 +31,8 @@ for _, c in o[o.guard & (o.pnl_pct < -5)].iterrows():
           f"guard loss={c.pnl_pct:6.1f}%  further worst before breakeven: {lower / c.bal0 * 100:7.1f}% "
           f"(up to {upper / c.bal0 * 100:7.1f}% if the touching bar's low came first)  back to breakeven: "
           + (f"after {(bt[i0 + k] - tg) / 3600:.1f}h" if len(rec) else "no, not within 10 days"))
-    out.append(dict(cid=c.cid, worst_pct=upper / c.bal0 * 100, recovered=bool(len(rec))))
+    # window_complete: the bars cover the full 10 days, so 'not recovered' is final
+    out.append(dict(cid=c.cid, worst_pct=upper / c.bal0 * 100, recovered=bool(len(rec)),
+                    window_complete=bool(bt[-1] >= tg + 10 * 86400)))
 # used by guard_sim.py to score guard levels beyond the real cut
 pd.DataFrame(out).to_csv("data/derived/bd1/after_guard.csv", index=False)
