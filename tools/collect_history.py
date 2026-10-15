@@ -8,8 +8,9 @@ Safety, in order of importance:
   * Needs an explicit --terminal path, so it can never attach to whatever
     terminal happens to be running (a bare initialize() did that once).
   * Before logging in, demands a clean dedicated terminal: not already
-    running, no compiled EA anywhere under MQL5/Experts and no saved chart
-    with an EA attached. So even if a master password slipped in, there is
+    running, no compiled program under MQL5/Experts, Scripts or Services, no
+    auto-start entry (Script=/Expert=/Service=) in config/*.ini, and no saved
+    chart with an EA attached. So even if a master password slipped in, there is
     nothing in that terminal that could trade during the moments before the
     trade_allowed check runs.
   * A failed history call aborts; it is never written out as "no trades".
@@ -51,9 +52,18 @@ def load_account(path, name):
 def assert_clean_terminal(terminal):
     """Fail closed unless the terminal cannot run anything that trades."""
     root = os.path.dirname(os.path.abspath(terminal))
-    experts = glob.glob(os.path.join(root, "MQL5", "Experts", "**", "*.ex5"), recursive=True)
-    if experts:
-        sys.exit(f"terminal is not clean: {len(experts)} compiled EA(s) under MQL5/Experts")
+    for kind in ("Experts", "Scripts", "Services"):
+        found = glob.glob(os.path.join(root, "MQL5", kind, "**", "*.ex5"), recursive=True)
+        if found:
+            sys.exit(f"terminal is not clean: {len(found)} compiled program(s) under MQL5/{kind}")
+    for ini in glob.glob(os.path.join(root, "config", "*.ini")):
+        with open(ini, "rb") as f:
+            raw = f.read()
+        text = raw.decode("utf-16", errors="ignore") if raw.startswith(codecs.BOM_UTF16_LE) else raw.decode("utf-8", errors="ignore")
+        for line in text.lower().splitlines():
+            key = line.split("=", 1)[0].strip()
+            if "=" in line and key in ("script", "expert", "service") and line.split("=", 1)[1].strip():
+                sys.exit(f"terminal is not clean: {os.path.basename(ini)} auto-starts a program ({key}=)")
     for chart in glob.glob(os.path.join(root, "MQL5", "Profiles", "**", "*.chr"), recursive=True):
         with open(chart, "rb") as f:
             raw = f.read()
