@@ -102,7 +102,7 @@
   "exit_win_rate_pct": null,
   "exit_avg_win": null,
   "exit_avg_loss": null,
-  "daily_return_pct_of_deposit": {
+  "daily_realised_pct_of_deposit_per_weekday": {
    "count": 0.0,
    "mean": null,
    "std": null,
@@ -112,6 +112,7 @@
    "75%": null,
    "max": null
   },
-  "worst_days_pct": {}
+  "worst_days_pct": {},
+  "active_days": 0
  }
 }

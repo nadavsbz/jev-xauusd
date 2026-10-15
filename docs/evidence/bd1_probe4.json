@@ -102,7 +102,7 @@
   "exit_win_rate_pct": 75.73,
   "exit_avg_win": 33.82,
   "exit_avg_loss": -65.55,
-  "daily_return_pct_of_deposit": {
+  "daily_realised_pct_of_deposit_per_weekday": {
    "count": 22.0,
    "mean": 9.08,
    "std": 3.633,
@@ -118,6 +118,7 @@
    "2025-11-11": 5.52,
    "2025-12-09": 5.91,
    "2025-12-04": 5.96
-  }
+  },
+  "active_days": 22
  }
 }

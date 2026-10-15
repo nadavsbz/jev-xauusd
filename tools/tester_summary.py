@@ -29,7 +29,11 @@ def main(src, dst):
     dep = d.type == "balance"
     trade = d[~dep]
     deposit = d.profit[dep].sum()
-    day = trade.groupby(trade.t.dt.date)[["profit", "commission", "swap"]].sum().sum(axis=1)
+    # per WEEKDAY of the tested range: days without a closed deal count as 0
+    # (P&L is booked at deal time, so this is realised P&L per day)
+    day = trade.groupby(trade.t.dt.normalize())[["profit", "commission", "swap"]].sum().sum(axis=1)
+    if len(day):
+        day = day.reindex(pd.bdate_range(day.index.min(), day.index.max()), fill_value=0.0)
     bal_start = deposit if deposit else float("nan")
     daily = day / bal_start * 100
     out = {
@@ -54,8 +58,9 @@ def main(src, dst):
             "exit_win_rate_pct": round(float(((ex := trade[trade.dir == "out"]).profit + ex.commission + ex.swap > 0).mean() * 100), 2),
             "exit_avg_win": round(float((ex.profit + ex.commission + ex.swap)[(ex.profit + ex.commission + ex.swap) > 0].mean()), 2),
             "exit_avg_loss": round(float((ex.profit + ex.commission + ex.swap)[(ex.profit + ex.commission + ex.swap) < 0].mean()), 2),
-            "daily_return_pct_of_deposit": {k: round(float(v), 3) for k, v in daily.describe().items()},
-            "worst_days_pct": {str(k): round(float(v), 2) for k, v in daily.nsmallest(5).items()},
+            "daily_realised_pct_of_deposit_per_weekday": {k: round(float(v), 3) for k, v in daily.describe().items()},
+            "worst_days_pct": {str(k.date()): round(float(v), 2) for k, v in daily.nsmallest(5).items()},
+            "active_days": int((day != 0).sum()),
         },
     }
     # undefined statistics (e.g. no trading days) become null: NaN is not valid JSON
