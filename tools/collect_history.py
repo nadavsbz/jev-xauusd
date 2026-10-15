@@ -109,6 +109,29 @@ def wait_for_history(since, until, timeout=300, poll=10):
     sys.exit(f"history did not finish loading within {timeout}s (last count {prev}) - nothing written")
 
 
+def check_structure(deals, orders):
+    """Structural completeness, independent of P&L: every trade deal must
+    belong to a known order, and every position that is not open now must
+    have as much volume entering as leaving. A missing opening or closing
+    deal breaks one of these even when its profit is zero."""
+    order_tickets = {o.ticket for o in orders}
+    open_ids = {p.identifier for p in (mt5.positions_get() or ())}
+    vol_in, vol_out = {}, {}
+    for d in deals:
+        if d.type not in (mt5.DEAL_TYPE_BUY, mt5.DEAL_TYPE_SELL):
+            continue
+        if d.order not in order_tickets:
+            return f"deal {d.ticket} has no matching order"
+        book = vol_in if d.entry == mt5.DEAL_ENTRY_IN else vol_out
+        book[d.position_id] = book.get(d.position_id, 0.0) + d.volume
+    for pid in set(vol_in) | set(vol_out):
+        if pid in open_ids:
+            continue
+        if abs(vol_in.get(pid, 0.0) - vol_out.get(pid, 0.0)) > 1e-6:
+            return f"position {pid} volume in {vol_in.get(pid, 0.0)} != out {vol_out.get(pid, 0.0)}"
+    return None
+
+
 def write_csv(path, rows):
     if not rows:
         open(path, "w").close()
@@ -179,6 +202,10 @@ def main():
         if orders is None:
             sys.exit(f"history_orders_get failed: {mt5.last_error()} - nothing written")
 
+        problem = check_structure(deals, orders)
+        if problem:
+            sys.exit(f"history incomplete: {problem} - nothing written")
+
         stamp = now.strftime("%Y%m%dT%H%M%SZ")
         slug = re.sub(r"[^a-z0-9_-]+", "_", args.name.lower()).strip("_") or "account"
         base = os.path.realpath(os.path.join(ROOT, "data", "raw"))
@@ -201,7 +228,8 @@ def main():
             "since_utc": since.isoformat(),
             "pulled_utc": now.isoformat(),
             "time_note": "MT5 deal times are broker server time, not UTC",
-            "completeness": "deals reconcile to balance" if full_life else "not checked (--since given)",
+            "completeness": ("deals reconcile to balance; " if full_life else "balance not checked (--since given); ")
+                            + "every deal matches an order; closed positions balance in/out volume",
             "files": {k: {"rows": n, "sha256": sha256(os.path.join(out, k))}
                       for k, n in files.items()},
         }
