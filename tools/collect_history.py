@@ -161,10 +161,20 @@ def main():
         # MT5 deal times are server time (often UTC+2/3), so look a day past now.
         now = datetime.now(timezone.utc)
         until = now + timedelta(days=1)
-        wait_for_history(since, until)
+        expected = wait_for_history(since, until)
         deals = mt5.history_deals_get(since, until)
         if deals is None:
             sys.exit(f"history_deals_get failed: {mt5.last_error()} - nothing written")
+        if len(deals) != expected:
+            sys.exit(f"deal count changed while reading ({expected} -> {len(deals)}) - nothing written")
+        # Independent completeness check: over the account's whole life every
+        # cent of the balance is the sum of its deals (trades and balance ops).
+        # A partially loaded history cannot pass this.
+        full_life = args.since == p.get_default("since")
+        if full_life:
+            total = sum(d.profit + d.commission + d.swap + d.fee for d in deals)
+            if abs(total - info.balance) > 0.05:
+                sys.exit(f"history incomplete: deals sum to {total:.2f}, balance is {info.balance:.2f} - nothing written")
         orders = mt5.history_orders_get(since, until)
         if orders is None:
             sys.exit(f"history_orders_get failed: {mt5.last_error()} - nothing written")
@@ -191,6 +201,7 @@ def main():
             "since_utc": since.isoformat(),
             "pulled_utc": now.isoformat(),
             "time_note": "MT5 deal times are broker server time, not UTC",
+            "completeness": "deals reconcile to balance" if full_life else "not checked (--since given)",
             "files": {k: {"rows": n, "sha256": sha256(os.path.join(out, k))}
                       for k, n in files.items()},
         }
