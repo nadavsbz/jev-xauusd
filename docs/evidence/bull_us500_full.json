@@ -91,6 +91,9 @@
    "2025-04-04": -0.44,
    "2026-03-30": -0.23
   },
-  "active_days": 349
+  "active_days": 349,
+  "end_of_test_closes": 2,
+  "end_of_test_net": -1466.1,
+  "end_of_test_date": "2026-10-13"
  }
 }

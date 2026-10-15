@@ -119,6 +119,9 @@
    "2025-11-11": 5.52,
    "2025-12-09": 5.91
   },
-  "active_days": 22
+  "active_days": 22,
+  "end_of_test_closes": 0,
+  "end_of_test_net": 0.0,
+  "end_of_test_date": null
  }
 }

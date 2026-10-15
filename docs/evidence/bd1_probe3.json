@@ -119,6 +119,9 @@
    "2025-11-27": 0.0,
    "2025-11-28": 0.0
   },
-  "active_days": 11
+  "active_days": 11,
+  "end_of_test_closes": 5,
+  "end_of_test_net": -46105.16,
+  "end_of_test_date": "2025-11-24"
  }
 }

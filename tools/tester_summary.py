@@ -68,6 +68,11 @@ def main(src, dst):
             "daily_realised_pct_of_deposit_per_weekday": {k: round(float(v), 3) for k, v in daily.describe().items()},
             "worst_days_pct": {str(k.date()): round(float(v), 2) for k, v in daily.nsmallest(5).items()},
             "active_days": int((day != 0).sum()),
+            # positions the tester force-closed when the test ended (comment "end of test")
+            "end_of_test_closes": int(((trade.comment == "end of test") & (trade.dir == "out")).sum()),
+            "end_of_test_net": round(float((trade.profit + trade.commission + trade.swap)[trade.comment == "end of test"].sum()), 2),
+            "end_of_test_date": (str(trade.t[trade.comment == "end of test"].dt.date.iloc[0])
+                                 if (trade.comment == "end of test").any() else None),
         },
     }
     # undefined statistics (e.g. no trading days) become null: NaN is not valid JSON
