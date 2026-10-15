@@ -3,6 +3,8 @@ is reset to a fixed size B - profit above B is swept to the reserve, a shortfall
 is refilled from the reserve (while it lasts). Lots follow the trading balance,
 so the robot always risks about B; total wealth = trading + reserve.
 
+Scaling is linear for the whole basket, so MaxLot_ is ASSUMED scaled by the
+same factor as Lot_Init_ (a fixed MaxLot_=5 would keep deep levels larger).
 The real guard's cuts are kept as they happened (as % of the balance), i.e.
 ASSUMED the guard is set in % of the trading account; a fixed-money guard at
 smaller lots would fire later or not at all, which is not simulated.
