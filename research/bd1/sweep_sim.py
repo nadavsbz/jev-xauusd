@@ -60,8 +60,10 @@ def sim(sub, mode, frac=1.0, lots="per_basket"):
         lo_i = max(lo[i], -trade / size) if size > 0 else lo[i]   # a stop-out caps the loss at the account
         p_in = max(peak, w_start + size * hb[i])
         worst = min(worst, (w_start + size * lo_i) / p_in - 1)
+        peak_before = peak
         peak = max(peak, w_start + size * hi[i])
         if trade + size * lo[i] <= 0:      # floating loss wipes the trading account:
+            peak = max(peak_before, w_start + size * hb[i])   # only the peak seen before the wipe
             trade, dead = 0.0, True        # stopped out, no share of a later recovery
             stopouts += 1
         else:
@@ -73,7 +75,7 @@ def sim(sub, mode, frac=1.0, lots="per_basket"):
     return (trade + res) / w0, worst * 100, stopouts
 
 
-from inputs import FORWARD_START, FORWARD_END
+from inputs import FORWARD_START, FORWARD_END, forward_coverage
 periods = [("Nov-May", o[o.d < "2026-06-01"]), ("Jun-Oct", o[(o.d >= "2026-06-01") & (o.d < FORWARD_START)]),
            ("all", o[o.d < FORWARD_START])]
 fw = o[(o.d >= FORWARD_START) & (o.d < FORWARD_END)]
@@ -82,8 +84,14 @@ if len(fw):   # forward test of the weekly-lot 33% variant, docs/NIGHT1_SPLIT_SW
 for name, sub in periods:
     print(f"== {name}")
     if name == "FORWARD":                  # only the registered configuration
+        covered, still_open = forward_coverage()
+        deep = int((sub.mae_pct <= -10).sum())
+        ready = covered and deep >= 3
         x, dd, so = sim(sub.reset_index(drop=True), "refill", 0.33, "weekly")
-        print(f"  registered: trade 0.33, refill, weekly lots: wealth x{x:6.2f}  max DD {dd:6.1f}%  stop-outs {so}")
+        print(f"  verdict ready: {ready} (snapshots cover the window: {covered}, positions still open: "
+              f"{still_open}, baskets with MAE <= -10%: {deep} of the 3 required)")
+        label = "result" if ready else "INTERIM, not a verdict"
+        print(f"  registered: trade 0.33, refill, weekly lots ({label}): wealth x{x:6.2f}  max DD {dd:6.1f}%  stop-outs {so}")
         continue
     for frac in [1.0, 0.5, 0.33]:
         for mode in ["none", "refill", "norefill"]:
