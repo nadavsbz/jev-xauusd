@@ -5,7 +5,7 @@ needs history from the server; it never trades). The config file holding the
 login is written to a private temp folder and deleted when the run ends.
 Never point this at a live trading terminal.
 """
-import argparse, os, subprocess, sys, tempfile, time
+import argparse, codecs, glob, os, subprocess, sys, tempfile, time
 
 from collect_history import load_account
 
@@ -35,6 +35,64 @@ Visual=0
 """
 
 
+# The only terminals this script may start: dedicated copies that run no live EA.
+ALLOWED_TERMINALS = {os.path.normcase(os.path.join("C:\\", "MT5_JEV_TEST", "terminal64.exe"))}
+
+
+def running_from(terminal):
+    """PIDs of terminal64.exe processes started from this exact path."""
+    out = subprocess.run(["powershell", "-NoProfile", "-Command",
+                          "Get-Process terminal64 -ErrorAction SilentlyContinue | "
+                          "ForEach-Object { \"$($_.Id)|$($_.Path)\" }"], capture_output=True, text=True).stdout
+    want = os.path.normcase(os.path.abspath(terminal))
+    return [int(l.split("|")[0]) for l in out.splitlines() if "|" in l and os.path.normcase(l.split("|", 1)[1]) == want]
+
+
+def preflight(terminal, acc):
+    """Fail closed before the terminal is started with a login:
+    - it is not already running (a running copy could hold live charts/EAs);
+    - its config auto-starts nothing and copies no signal;
+    - the login is investor-only: connect read-only through the Python API and
+      refuse if the account allows trading, then close that terminal again."""
+    root = os.path.dirname(os.path.abspath(terminal))
+    if running_from(terminal):
+        sys.exit("refusing: the tester terminal is already running")
+    for ini in glob.glob(os.path.join(root, "config", "*.ini")):
+        raw = open(ini, "rb").read()
+        text = raw.decode("utf-16", errors="ignore") if raw.startswith(codecs.BOM_UTF16_LE) else raw.decode("utf-8", errors="ignore")
+        section = ""
+        for line in text.lower().splitlines():
+            if line.strip().startswith("["):
+                section = line.strip()
+            key, _, val = line.partition("=")
+            if section == "[signals]" and val.strip():
+                sys.exit(f"refusing: {os.path.basename(ini)} has [Signals] settings (signal copying)")
+            # auto-start lives in [StartUp]; [Tester] only remembers the last test
+            if section == "[startup]" and key.strip() in ("script", "expert", "service") and val.strip():
+                sys.exit(f"refusing: {os.path.basename(ini)} auto-starts a program ({key.strip()}=)")
+    import MetaTrader5 as mt5
+    login = int(acc["login"])
+    if not mt5.initialize(path=terminal, login=login, password=acc["password"], server=acc["server"],
+                          portable=True, timeout=240000):
+        sys.exit(f"preflight login failed: {mt5.last_error()}")
+    try:
+        info = None
+        for _ in range(12):                      # the login switch can lag behind initialize()
+            info = mt5.account_info()
+            if info is not None and info.login == login:
+                break
+            time.sleep(5)
+        if info is None or info.login != login:
+            sys.exit("preflight: connected to the wrong account")
+        if info.trade_allowed:
+            sys.exit("preflight: this login allows trading (master password?) - refusing, investor only")
+    finally:
+        mt5.shutdown()
+    for pid in running_from(terminal):           # close the preflight instance (path verified)
+        subprocess.run(["taskkill", "/PID", str(pid), "/F"], capture_output=True)
+    time.sleep(5)
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--accounts", required=True)
@@ -55,9 +113,10 @@ def main():
     a = p.parse_args()
 
     root = os.path.dirname(os.path.abspath(a.terminal))
-    if "TEST" not in root.upper():
-        sys.exit("refusing: the tester terminal folder must be a dedicated *TEST* copy")
+    if os.path.normcase(os.path.abspath(a.terminal)) not in ALLOWED_TERMINALS:
+        sys.exit(f"refusing: {a.terminal} is not a registered dedicated tester terminal")
     acc = load_account(a.accounts, a.name)
+    preflight(a.terminal, acc)
     tmp = tempfile.mkdtemp(prefix="jev_tester_")
     ini = os.path.join(tmp, "tester.ini")
     try:

@@ -58,7 +58,13 @@ def main(src, dst):
             "worst_days_pct": {str(k): round(float(v), 2) for k, v in daily.nsmallest(5).items()},
         },
     }
-    json.dump(out, open(dst, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    # undefined statistics (e.g. no trading days) become null: NaN is not valid JSON
+    def clean(v):
+        if isinstance(v, dict):
+            return {k: clean(x) for k, x in v.items()}
+        return None if isinstance(v, float) and v != v else v
+    out = clean(out)
+    json.dump(out, open(dst, "w", encoding="utf-8"), ensure_ascii=False, indent=1, allow_nan=False)
     print(json.dumps(out["recomputed"], ensure_ascii=False))
 
 

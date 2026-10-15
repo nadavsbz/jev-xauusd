@@ -98,15 +98,19 @@
   "swap": 0.0,
   "net": 0.0,
   "lots_opened": 0.0,
+  "exit_deals": 0,
+  "exit_win_rate_pct": null,
+  "exit_avg_win": null,
+  "exit_avg_loss": null,
   "daily_return_pct_of_deposit": {
    "count": 0.0,
-   "mean": NaN,
-   "std": NaN,
-   "min": NaN,
-   "25%": NaN,
-   "50%": NaN,
-   "75%": NaN,
-   "max": NaN
+   "mean": null,
+   "std": null,
+   "min": null,
+   "25%": null,
+   "50%": null,
+   "75%": null,
+   "max": null
   },
   "worst_days_pct": {}
  }
