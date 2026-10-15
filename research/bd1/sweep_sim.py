@@ -35,6 +35,7 @@ def sim(sub, mode, frac=1.0, lots="per_basket"):
     B = frac; trade, res = B, 1.0 - frac    # trading account starts at frac of the capital
     w0 = trade + res; peak, worst = w0, 0.0
     expo = trade / bal0[0]                  # money per cent of real P&L (weekly mode)
+    dead, stopouts = False, 0               # stop-out: no trading until the next refill
     for i in range(len(r)):
         new_week = i == 0 or wk[i] != wk[i - 1]
         if mode != "none" and new_week:
@@ -43,18 +44,26 @@ def sim(sub, mode, frac=1.0, lots="per_basket"):
             elif mode == "refill" and trade < B:
                 take = min(B - trade, res); res -= take; trade += take
         if new_week:
-            expo = trade / bal0[i]
+            if dead and trade > 0:
+                dead = False
+            expo = trade / bal0[i] if trade > 0 else 0.0
+        if dead or trade <= 0:
+            continue
         size = trade if lots == "per_basket" else expo * bal0[i]   # money the basket's % applies to
         w_start = trade + res
         p_in = max(peak, w_start + size * hb[i])
         worst = min(worst, (w_start + size * lo[i]) / p_in - 1)
         peak = max(peak, w_start + size * hi[i])
-        trade += size * r[i]
-        if trade <= 0:
-            trade = 0.0
+        if trade + size * lo[i] <= 0:      # floating loss wipes the trading account:
+            trade, dead = 0.0, True        # stopped out, no share of a later recovery
+            stopouts += 1
+        else:
+            trade += size * r[i]
+            if trade <= 0:
+                trade, dead = 0.0, True; stopouts += 1
         w = trade + res
         worst = min(worst, w / max(peak, w) - 1); peak = max(peak, w)
-    return (trade + res) / w0, worst * 100
+    return (trade + res) / w0, worst * 100, stopouts
 
 
 from inputs import FORWARD_START, FORWARD_END
@@ -65,10 +74,14 @@ if len(fw):   # forward test of the weekly-lot 33% variant, docs/NIGHT1_SPLIT_SW
     periods.append(("FORWARD", fw))
 for name, sub in periods:
     print(f"== {name}")
+    if name == "FORWARD":                  # only the registered configuration
+        x, dd, so = sim(sub.reset_index(drop=True), "refill", 0.33, "weekly")
+        print(f"  registered: trade 0.33, refill, weekly lots: wealth x{x:6.2f}  max DD {dd:6.1f}%  stop-outs {so}")
+        continue
     for frac in [1.0, 0.5, 0.33]:
         for mode in ["none", "refill", "norefill"]:
             if mode == "none" and frac < 1:
                 continue
             for lots in ["per_basket", "weekly"]:
-                x, dd = sim(sub.reset_index(drop=True), mode, frac, lots)
-                print(f"  trade {frac:4.2f} of capital  {mode:9s} lots {lots:10s} wealth x{x:6.2f}  max DD of total wealth {dd:6.1f}%")
+                x, dd, so = sim(sub.reset_index(drop=True), mode, frac, lots)
+                print(f"  trade {frac:4.2f} of capital  {mode:9s} lots {lots:10s} wealth x{x:6.2f}  max DD of total wealth {dd:6.1f}%  stop-outs {so}")
