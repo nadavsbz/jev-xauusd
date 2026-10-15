@@ -32,7 +32,14 @@ def main(src, dst):
     # per WEEKDAY of the tested range: days without a closed deal count as 0
     # (P&L is booked at deal time, so this is realised P&L per day)
     day = trade.groupby(trade.t.dt.normalize())[["profit", "commission", "swap"]].sum().sum(axis=1)
-    if len(day):
+    # the tested range comes from the report's period field, "M30 (2025.03.31 - 2026.10.14)",
+    # so days without deals at either end still count
+    period = next((v for v in pairs.values() if re.search(r"\(\d{4}\.\d\d\.\d\d - \d{4}\.\d\d\.\d\d\)", v)), None)
+    if period:
+        a, b = re.search(r"\((\d{4}\.\d\d\.\d\d) - (\d{4}\.\d\d\.\d\d)\)", period).groups()
+        rng = pd.bdate_range(pd.Timestamp(a.replace(".", "-")), pd.Timestamp(b.replace(".", "-")))
+        day = day.reindex(rng, fill_value=0.0)
+    elif len(day):
         day = day.reindex(pd.bdate_range(day.index.min(), day.index.max()), fill_value=0.0)
     bal_start = deposit if deposit else float("nan")
     daily = day / bal_start * 100
