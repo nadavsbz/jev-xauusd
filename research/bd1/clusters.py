@@ -75,6 +75,10 @@ for t0, t1 in zip(p.t0, p.t1):
     cid.append(c)
 p["cid"] = cid
 exits_by_pid = {pid: list(zip(g.time, g.volume)) for pid, g in ev.groupby("position_id")}
+# per exit deal: (time, volume, cash) - partial exits are realised when they happen
+exit_cash_by_pid = {pid: sorted(zip(g.time, g.volume, g.cash, g.commission + g.swap + g.fee))
+                    for pid, g in ev.groupby("position_id")}
+entry_cash = ins.cash
 bt = bars.time.values; lo = bars.low.values; hi = bars.high.values
 robot_pids = set(p.position_id)
 # only positions OPENED after the robot started; older positions closing
@@ -130,11 +134,16 @@ for c, g in p.groupby("cid"):
         #   that second, no bar high/low), plus their costs;
         # - peak / low so far from the basket equity path (floating + realised so far)
         #   over minutes that ended before the k-th deal.
-        # The one position with a partial exit is marked with its full volume.
+        # Partial exits are realised at their own time and reduce the marked volume.
         if b0 > 0:
             rc = np.zeros(len(tt))
+            # while a position is open fl already carries all its costs (r.cost), so
+            # the path books each exit's price profit at its own time and the costs
+            # only when the position is fully closed (no double counting)
             for r in g.itertuples():
-                rc[np.searchsorted(tt, r.t1, side="left"):] += r.pnl
+                for te, v, cash, cost in exit_cash_by_pid[r.position_id]:
+                    rc[np.searchsorted(tt, te, side="left"):] += cash - cost
+                rc[np.searchsorted(tt, r.t1, side="left"):] += r.cost
             eq_lo, eq_hi = fl + rc, best_all + rc
             gs = g.sort_values("t0"); rows = []
             t0s, t1s = gs.t0.values, gs.t1.values
@@ -145,8 +154,19 @@ for c, g in p.groupby("cid"):
                 kk = int(op.sum())
                 if kk <= len(rows):
                     continue
-                realised = gs.pnl.values[t1s <= tk].sum()
-                mark = (gs.sgn.values[op] * gs.volume.values[op] * (pxk - gs.open_px.values[op]) * K).sum()                     + gs.cost.values[op].sum()
+                # realised: entry costs + every exit deal done by tk; mark: the volume
+                # still open at the k-th deal's price + the costs its later exits carry
+                realised, mark = 0.0, 0.0
+                for r in gs[t0s <= tk].itertuples():
+                    realised += entry_cash[r.position_id]
+                    left = r.volume
+                    for te, v, cash, cost in exit_cash_by_pid[r.position_id]:
+                        if te <= tk:
+                            realised += cash; left = round(left - v, 2)
+                        else:
+                            mark += cost
+                    if left > 0:
+                        mark += r.sgn * left * (pxk - r.open_px) * K
                 b = np.searchsorted(tt, tk - 60, side="right")      # minutes finished before tk
                 peak = max(eq_hi[:b].max(), 0) if b else 0.0
                 low = min(eq_lo[:b].min(), 0) if b else 0.0

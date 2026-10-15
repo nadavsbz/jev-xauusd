@@ -98,6 +98,10 @@
   "swap": 819.73,
   "net": 99881.25,
   "lots_opened": 1952.38,
+  "exit_deals": 11691,
+  "exit_win_rate_pct": 75.73,
+  "exit_avg_win": 33.82,
+  "exit_avg_loss": -65.55,
   "daily_return_pct_of_deposit": {
    "count": 22.0,
    "mean": 9.08,

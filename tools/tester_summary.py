@@ -48,6 +48,12 @@ def main(src, dst):
             "swap": round(trade.swap.sum(), 2),
             "net": round(trade.profit.sum() + trade.commission.sum() + trade.swap.sum(), 2),
             "lots_opened": round(trade.volume[trade.dir == "in"].sum(), 2),
+            # per exit deal: price profit + its own commission/swap (entry commission
+            # is booked on the entry deal, so it is not in these averages)
+            "exit_deals": int((trade.dir == "out").sum()),
+            "exit_win_rate_pct": round(float(((ex := trade[trade.dir == "out"]).profit + ex.commission + ex.swap > 0).mean() * 100), 2),
+            "exit_avg_win": round(float((ex.profit + ex.commission + ex.swap)[(ex.profit + ex.commission + ex.swap) > 0].mean()), 2),
+            "exit_avg_loss": round(float((ex.profit + ex.commission + ex.swap)[(ex.profit + ex.commission + ex.swap) < 0].mean()), 2),
             "daily_return_pct_of_deposit": {k: round(float(v), 3) for k, v in daily.describe().items()},
             "worst_days_pct": {str(k): round(float(v), 2) for k, v in daily.nsmallest(5).items()},
         },
