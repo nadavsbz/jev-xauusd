@@ -9,8 +9,9 @@ Safety, in order of importance:
     terminal happens to be running (a bare initialize() did that once).
   * Before logging in, demands a clean dedicated terminal: not already
     running, no compiled program under MQL5/Experts, Scripts or Services, no
-    auto-start entry (Script=/Expert=/Service=) in config/*.ini, and no saved
-    chart with an EA attached. So even if a master password slipped in, there is
+    auto-start entry (Script=/Expert=/Service=) in config/*.ini, no
+    [Signals] or [Community] settings (so no signal subscription can start
+    copying on login), and no saved chart with an EA attached. So even if a master password slipped in, there is
     nothing in that terminal that could trade during the moments before the
     trade_allowed check runs.
   * A failed history call aborts; it is never written out as "no trades".
@@ -60,7 +61,13 @@ def assert_clean_terminal(terminal):
         with open(ini, "rb") as f:
             raw = f.read()
         text = raw.decode("utf-16", errors="ignore") if raw.startswith(codecs.BOM_UTF16_LE) else raw.decode("utf-8", errors="ignore")
+        section = ""
         for line in text.lower().splitlines():
+            if line.strip().startswith("["):
+                section = line.strip()
+            if section in ("[signals]", "[community]") and "=" in line and line.split("=", 1)[1].strip():
+                sys.exit(f"terminal is not clean: {os.path.basename(ini)} has {section} settings "
+                         "(signal copying could start on login)")
             key = line.split("=", 1)[0].strip()
             if "=" in line and key in ("script", "expert", "service") and line.split("=", 1)[1].strip():
                 sys.exit(f"terminal is not clean: {os.path.basename(ini)} auto-starts a program ({key}=)")
