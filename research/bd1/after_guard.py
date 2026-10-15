@@ -13,6 +13,7 @@ ex = x[x.entry.isin((1, 3))].assign(is_guard=lambda e: (e.magic == 0) & (e.reaso
 ex = ex.groupby("position_id").agg(t1=("time", "max"), guard=("is_guard", "any"))
 p = ins[["time", "type", "volume", "price"]].join(ex, how="inner")
 bt, lo, hi, cl = bars.time.values, bars.low.values, bars.high.values, bars.close.values
+out = []
 for _, c in o[o.guard & (o.pnl_pct < -5)].iterrows():
     g = p[(p.time >= c.t0) & (p.time <= c.t1) & p.guard]
     sgn = np.where(g.type == 0, 1, -1); vol = g.volume.values; px = g.price.values
@@ -30,3 +31,6 @@ for _, c in o[o.guard & (o.pnl_pct < -5)].iterrows():
           f"guard loss={c.pnl_pct:6.1f}%  further worst before breakeven: {lower / c.bal0 * 100:7.1f}% "
           f"(up to {upper / c.bal0 * 100:7.1f}% if the touching bar's low came first)  back to breakeven: "
           + (f"after {(bt[i0 + k] - tg) / 3600:.1f}h" if len(rec) else "no, not within 10 days"))
+    out.append(dict(cid=c.cid, worst_pct=upper / c.bal0 * 100, recovered=bool(len(rec))))
+# used by guard_sim.py to score guard levels beyond the real cut
+pd.DataFrame(out).to_csv("data/derived/bd1/after_guard.csv", index=False)

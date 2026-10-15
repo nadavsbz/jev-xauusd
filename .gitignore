@@ -13,3 +13,6 @@ __pycache__/
 
 # Raw broker data - local only
 data/
+
+# Third-party EA binaries and settings - never commit (public repo)
+bots/
