@@ -7,6 +7,12 @@ Safety, in order of importance:
     is a master password and not an investor one.
   * Needs an explicit --terminal path, so it can never attach to whatever
     terminal happens to be running (a bare initialize() did that once).
+  * Before logging in, demands a clean dedicated terminal: not already
+    running, no compiled EA anywhere under MQL5/Experts and no saved chart
+    with an EA attached. So even if a master password slipped in, there is
+    nothing in that terminal that could trade during the moments before the
+    trade_allowed check runs.
+  * A failed history call aborts; it is never written out as "no trades".
   * Verifies the logged-in account is the one asked for before reading.
   * Credentials are read from a file outside the repo and never printed;
     output is written under data/ (gitignored) with a sha256 manifest.
@@ -16,10 +22,13 @@ Usage:
         --terminal "C:\MT5_JEV_RO\terminal64.exe" --since 2025-10-01
 """
 import argparse
+import codecs
 import csv
+import glob
 import hashlib
 import json
 import os
+import subprocess
 import sys
 from datetime import datetime, timezone
 
@@ -37,6 +46,30 @@ def load_account(path, name):
     if len(matches) != 1:
         sys.exit(f"expected exactly one account named {name!r}, found {len(matches)}")
     return matches[0]
+
+
+def assert_clean_terminal(terminal):
+    """Fail closed unless the terminal cannot run anything that trades."""
+    root = os.path.dirname(os.path.abspath(terminal))
+    experts = glob.glob(os.path.join(root, "MQL5", "Experts", "**", "*.ex5"), recursive=True)
+    if experts:
+        sys.exit(f"terminal is not clean: {len(experts)} compiled EA(s) under MQL5/Experts")
+    for chart in glob.glob(os.path.join(root, "MQL5", "Profiles", "**", "*.chr"), recursive=True):
+        with open(chart, "rb") as f:
+            raw = f.read()
+        text = raw.decode("utf-16", errors="ignore") if raw.startswith(codecs.BOM_UTF16_LE) else raw.decode("utf-8", errors="ignore")
+        if "<expert>" in text.lower():
+            sys.exit("terminal is not clean: a saved chart has an EA attached")
+    ps = ("Get-CimInstance Win32_Process -Filter \"Name='terminal64.exe'\" | "
+          "ForEach-Object { $_.ExecutablePath }")
+    try:
+        out = subprocess.run(["powershell", "-NoProfile", "-Command", ps],
+                             capture_output=True, text=True, timeout=60, check=True).stdout
+    except Exception as e:
+        sys.exit(f"cannot verify running terminals ({e.__class__.__name__}) - aborting")
+    running = {os.path.normcase(os.path.abspath(x.strip())) for x in out.splitlines() if x.strip()}
+    if os.path.normcase(os.path.abspath(terminal)) in running:
+        sys.exit("this terminal is already running - close it first so the login is not switched under it")
 
 
 def write_csv(path, rows):
@@ -65,13 +98,15 @@ def main():
     p.add_argument("--accounts", required=True)
     p.add_argument("--name", required=True)
     p.add_argument("--terminal", required=True)
-    p.add_argument("--since", default="2025-10-01")
+    p.add_argument("--since", default="2000-01-01",
+                   help="UTC start date; the default covers the account's whole life")
     args = p.parse_args()
 
     if not os.path.isfile(args.terminal):
         sys.exit("terminal path does not exist")
     acc = load_account(args.accounts, args.name)
     login = int(acc["login"])
+    assert_clean_terminal(args.terminal)
 
     if not mt5.initialize(path=args.terminal, login=login, password=acc["password"],
                           server=acc["server"], portable=True, timeout=60000):
@@ -85,8 +120,12 @@ def main():
 
         since = datetime.strptime(args.since, "%Y-%m-%d").replace(tzinfo=timezone.utc)
         now = datetime.now(timezone.utc)
-        deals = mt5.history_deals_get(since, now) or ()
-        orders = mt5.history_orders_get(since, now) or ()
+        deals = mt5.history_deals_get(since, now)
+        if deals is None:
+            sys.exit(f"history_deals_get failed: {mt5.last_error()} - nothing written")
+        orders = mt5.history_orders_get(since, now)
+        if orders is None:
+            sys.exit(f"history_orders_get failed: {mt5.last_error()} - nothing written")
 
         stamp = now.strftime("%Y%m%dT%H%M%SZ")
         slug = args.name.lower().replace(" ", "_")
