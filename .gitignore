@@ -1,0 +1,12 @@
+# Credentials - never commit
+accounts.json
+**/accounts.json
+*.env
+.env*
+*.session
+*.ini
+secrets/
+# Local launchers / OS
+open_jev.bat
+Thumbs.db
+__pycache__/
