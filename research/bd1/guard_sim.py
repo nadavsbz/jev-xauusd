@@ -21,14 +21,16 @@ def run(sub, X, unknown):
     elif unknown == "cont":   # cut at X only if the paper continuation reached X
         w = CONT.reindex(sub.cid.values[unk])
         idx = np.where(unk)[0]
-        crossed = (w.worst_pct.values <= -X)                      # NaN (no continuation) -> False
+        lo_, up_ = w.worst_lower.values, w.worst_upper.values  # NaN (no continuation) -> False below
         back = w.recovered.fillna(False).values.astype(bool)
-        # neither crossed X nor back to breakeven (window cut short, or no continuation):
-        # unresolved - scored as a cut (conservative) and counted separately
-        unres = ~crossed & ~back
+        crossed = lo_ <= -X                                    # crossed X before the touching bar
+        # unresolved: neither crossed nor back to breakeven (window cut short / no continuation),
+        # or X is crossed only inside the touching bar (order unknown).
+        # Scored as a cut (conservative) and counted separately.
+        unres = (~crossed & ~back) | (~crossed & back & (up_ <= -X))
         deep = crossed | unres
         r[idx[deep]] = -(X + SLIP) / 100; r[idx[~deep]] = 0.0
-        tr = tr.copy(); tr[idx[~deep]] = w.worst_pct.values[~deep] / 100
+        tr = tr.copy(); tr[idx[~deep]] = up_[~deep] / 100
         unk = unk.copy(); unk[idx[~deep]] = False                 # recovered: not a cut
         n_unres = int(unres.sum())
     else: r[unk] = sub.loc[unk, "pnl_pct"].clip(lower=None).values * 0 + 0.02  # recovers with +2%
@@ -47,6 +49,11 @@ periods = [("all 2025-11..2026-10", o[o.d < FORWARD_START]), ("Nov-May", o[o.d <
 fw = o[(o.d >= FORWARD_START) & (o.d < FORWARD_END)]
 if len(fw):
     periods.append((f"FORWARD {FORWARD_START}..2027-04-15", fw))
+    # the verdict is due only when every forward guard cut has its full 10-day continuation
+    fc = CONT.reindex(fw.cid[real.loc[fw.index]].values)
+    print("forward verdict ready:", bool(fw.d.max() >= pd.Timestamp(FORWARD_END) - pd.Timedelta(days=1)
+                                          and fc.window_complete.fillna(False).all()),
+          f"({fc.window_complete.fillna(False).sum()}/{len(fc)} guard continuations complete)")
 for name, sub in periods:
     eq, dd = max_drawdown(sub.pnl_pct.values / 100, sub.mae_pct.values / 100,
                           sub.runup_before_pct.values / 100, sub.runup_pct.values / 100)
