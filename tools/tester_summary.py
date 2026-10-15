@@ -29,7 +29,20 @@ def main(src, dst):
     dep = d.type == "balance"
     trade = d[~dep]
     deposit = d.profit[dep].sum()
-    day = trade.groupby(trade.t.dt.date)[["profit", "commission", "swap"]].sum().sum(axis=1)
+    # per WEEKDAY of the tested range: days without a closed deal count as 0
+    # (P&L is booked at deal time, so this is realised P&L per day)
+    day = trade.groupby(trade.t.dt.normalize())[["profit", "commission", "swap"]].sum().sum(axis=1)
+    # the tested range comes from the report's period field, "M30 (2025.03.31 - 2026.10.14)",
+    # so days without deals at either end still count
+    period = next((v for v in pairs.values() if re.search(r"\(\d{4}\.\d\d\.\d\d - \d{4}\.\d\d\.\d\d\)", v)), None)
+    if period:
+        a, b = re.search(r"\((\d{4}\.\d\d\.\d\d) - (\d{4}\.\d\d\.\d\d)\)", period).groups()
+        # the tester stops before the printed end date (its last deals fall on the
+        # day before), so the right edge is exclusive
+        rng = pd.bdate_range(pd.Timestamp(a.replace(".", "-")), pd.Timestamp(b.replace(".", "-")), inclusive="left")
+        day = day.reindex(rng, fill_value=0.0)
+    elif len(day):
+        day = day.reindex(pd.bdate_range(day.index.min(), day.index.max()), fill_value=0.0)
     bal_start = deposit if deposit else float("nan")
     daily = day / bal_start * 100
     out = {
@@ -54,8 +67,14 @@ def main(src, dst):
             "exit_win_rate_pct": round(float(((ex := trade[trade.dir == "out"]).profit + ex.commission + ex.swap > 0).mean() * 100), 2),
             "exit_avg_win": round(float((ex.profit + ex.commission + ex.swap)[(ex.profit + ex.commission + ex.swap) > 0].mean()), 2),
             "exit_avg_loss": round(float((ex.profit + ex.commission + ex.swap)[(ex.profit + ex.commission + ex.swap) < 0].mean()), 2),
-            "daily_return_pct_of_deposit": {k: round(float(v), 3) for k, v in daily.describe().items()},
-            "worst_days_pct": {str(k): round(float(v), 2) for k, v in daily.nsmallest(5).items()},
+            "daily_realised_pct_of_deposit_per_weekday": {k: round(float(v), 3) for k, v in daily.describe().items()},
+            "worst_days_pct": {str(k.date()): round(float(v), 2) for k, v in daily.nsmallest(5).items()},
+            "active_days": int((day != 0).sum()),
+            # positions the tester force-closed when the test ended (comment "end of test")
+            "end_of_test_closes": int(((trade.comment == "end of test") & (trade.dir == "out")).sum()),
+            "end_of_test_net": round(float((trade.profit + trade.commission + trade.swap)[trade.comment == "end of test"].sum()), 2),
+            "end_of_test_date": (str(trade.t[trade.comment == "end of test"].dt.date.iloc[0])
+                                 if (trade.comment == "end of test").any() else None),
         },
     }
     # undefined statistics (e.g. no trading days) become null: NaN is not valid JSON

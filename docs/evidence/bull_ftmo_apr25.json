@@ -74,14 +74,14 @@
   "exit_win_rate_pct": 93.63,
   "exit_avg_win": 199.52,
   "exit_avg_loss": -3219.63,
-  "daily_return_pct_of_deposit": {
-   "count": 42.0,
-   "mean": -0.189,
-   "std": 0.864,
+  "daily_realised_pct_of_deposit_per_weekday": {
+   "count": 45.0,
+   "mean": -0.176,
+   "std": 0.835,
    "min": -3.87,
-   "25%": -0.002,
-   "50%": 0.063,
-   "75%": 0.15,
+   "25%": 0.0,
+   "50%": 0.059,
+   "75%": 0.144,
    "max": 1.123
   },
   "worst_days_pct": {
@@ -90,6 +90,10 @@
    "2025-04-21": -2.26,
    "2025-04-16": -1.02,
    "2025-05-30": -0.97
-  }
+  },
+  "active_days": 42,
+  "end_of_test_closes": 7,
+  "end_of_test_net": -26376.0,
+  "end_of_test_date": "2025-05-30"
  }
 }
