@@ -2,7 +2,7 @@
 $2,000 the day after the previous one ended in a wipe (balance at or below 5% of the deposit).
 Lists each segment's start, end, peak and the wipe day. Read-only investor login (run_tester.py).
 Usage: python research/crash/btc_segments.py OUT_JSON"""
-import glob, json, os, re, subprocess, sys
+import glob, json, os, re, subprocess, sys, time
 import pandas as pd
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
@@ -29,13 +29,22 @@ def main():
     while start < END - pd.Timedelta(days=7):
         name = f"btc_seg_{k:02d}"
         rep = os.path.join(TERM, name + ".htm")
-        if not os.path.exists(rep):
+        for attempt in range(3):                       # the login preflight can fail transiently (IPC)
+            if os.path.exists(rep):
+                break
+            # a failed login preflight leaves the tester terminal open, and the next run refuses
+            # to start: close that copy (exact path) before each attempt; no test is running then
+            subprocess.run(["powershell", "-NoProfile", "-Command",
+                            "Get-Process terminal64 -ErrorAction SilentlyContinue | Where-Object { $_.Path -eq '"
+                            + os.path.join(TERM, "terminal64.exe") + "' } | Stop-Process -Force"], capture_output=True)
+            time.sleep(5)
             subprocess.run([PY, "run_tester.py", "--accounts", "../accounts.json", "--name", "Black Dragon 3",
                             "--terminal", os.path.join(TERM, "terminal64.exe"), "--expert", r"Jev\BTC Bot mt5.ex5",
                             "--set", "btc_bot_2dig.set", "--symbol", "XAUUSD", "--period", "M15",
                             "--from", start.strftime("%Y.%m.%d"), "--to", END.strftime("%Y.%m.%d"),
                             "--deposit", str(DEPOSIT), "--leverage", "1000", "--report", name],
                            cwd=os.path.join(ROOT, "tools"), timeout=6 * 3600)
+            time.sleep(30)
             log_dirs = [os.path.join(TERM, "Tester", "logs")] + glob.glob(os.path.join(TERM, "Tester", "Agent-*", "logs"))
             for f in log_dirs:
                 for x in os.listdir(f) if os.path.isdir(f) else []:
@@ -43,6 +52,8 @@ def main():
                         os.remove(os.path.join(f, x))      # tester logs grow to tens of GB
                     except OSError:
                         pass
+        if not os.path.exists(rep):
+            sys.exit(f"no report for segment {k} after 3 attempts")
         d = deals(rep)
         tr = d[d.type != "balance"]
         if tr.empty:
