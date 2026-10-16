@@ -3,8 +3,8 @@
 Rules fixed before looking at the outcome table (written 2026-10-15):
 - Event times: NFP and CPI 08:30 New York, FOMC decision 14:00 New York.
   Release dates from bls.gov archives and federalreserve.gov (listed below).
-- Bar/deal clock = UTC (VERIFIED after review: the snapshot's last bar equals its
-  pull time in UTC). Event times are converted from New York with daylight time.
+- Bar/deal clock = Central European time, UTC+1/UTC+2 (VERIFIED 2026-10-16, see ny() below).
+  Event times are converted from New York to that clock, each with its own daylight time.
 - A basket is "exposed" when it is open at any moment in [event - 2h, event + 6h].
 - Deep = MAE <= -10% of balance at basket start (same as the report).
 - Train Nov-May, test Jun-Oct; Fisher exact test, one-sided (exposed deeper).
@@ -17,10 +17,14 @@ NFP = ["2025-11-20", "2025-12-16", "2026-01-09", "2026-02-11", "2026-03-06", "20
 CPI = ["2025-12-18", "2026-01-13", "2026-02-13", "2026-03-11", "2026-04-10", "2026-05-12", "2026-06-10",
        "2026-07-14", "2026-08-12", "2026-09-11", "2026-10-14"]
 FOMC = ["2025-12-10", "2026-01-28", "2026-03-18", "2026-04-29", "2026-06-17", "2026-07-29", "2026-09-16"]
-# Bars and deals are on UTC: the last M1 bar of the pinned snapshot (2026-10-15 14:44) equals
-# its pull time in UTC (manifest pulled_utc 14:44:11). New York times are converted with DST.
+# Bars and deals are on the broker's server clock = Central European time (UTC+1, UTC+2 in EU
+# summer time). VERIFIED 2026-10-16: the last tick read live was UTC+2, and hourly gold ranges match
+# RoboForex (UTC+3 = New York + 7h, also checked live) at a 2h lag in EU summer and 1h in winter.
+# (An earlier "UTC" note was circular: copy_rates_range treats its end time as server time.)
+# New York release times are converted to that clock, both with their own daylight time.
 def ny(d, hh, mm):
-    return pd.Timestamp(f"{d} {hh:02d}:{mm:02d}").tz_localize("America/New_York").tz_convert("UTC").timestamp()
+    t = pd.Timestamp(f"{d} {hh:02d}:{mm:02d}").tz_localize("America/New_York").tz_convert("Europe/Berlin")
+    return t.tz_localize(None).tz_localize("UTC").timestamp()   # server wall clock as epoch
 ev = np.array(sorted([ny(d, 8, 30) for d in NFP + CPI] + [ny(d, 14, 0) for d in FOMC]))
 
 o = pd.read_csv("data/derived/bd1/clusters_strict.csv")
