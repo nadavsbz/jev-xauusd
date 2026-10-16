@@ -98,10 +98,15 @@ def split(f):
 
 
 def fit_scores(tr, frames, cols, name):
+    """Complete cases only: an hour with a missing input gets no score (never a filled-in value),
+    so the fit, the 90th-percentile threshold and every metric use hours where all inputs exist."""
     ok = tr[cols + ["y"]].dropna()
     m = LogisticRegression(max_iter=1000).fit(ok[cols], ok.y)
-    return {k: pd.Series(m.predict_proba(v[cols].fillna(ok[cols].median()))[:, 1], index=v.index, name=name)
-            for k, v in frames.items()}
+    out = {}
+    for k, v in frames.items():
+        full = v[cols].dropna()
+        out[k] = pd.Series(m.predict_proba(full)[:, 1], index=full.index, name=name).reindex(v.index)
+    return out
 
 
 def evaluate(score_tr, score_x, y_x):
