@@ -1,6 +1,6 @@
 """Bull Scalper realised P&L per day against account 1's deep-basket days (MAE <= -10%), and the
 correlation of daily results (docs/DAY_20261016_SUMMARY.md, section 2). Realised P&L only: a day
-with an open floating loss and no close shows 0. Day = calendar date of each side's own server
+with an open floating loss and no close shows 0. Tester force-closes at the end are left out. Day = calendar date of each side's own server
 clock (EGlobal and account 1: Central European; RoboForex: UTC+3) - ASSUMED close enough by day.
 Usage: python research/bull/crash_overlap.py REPORT.htm DEPOSIT OUT_JSON"""
 import hashlib, json, re, sys
@@ -16,7 +16,8 @@ def daily(report, deposit):
                               "commission", "swap", "profit", "balance", "comment"])
     for c in ["commission", "swap", "profit"]:
         d[c] = pd.to_numeric(d[c].str.replace(" ", "").str.replace(",", ""), errors="coerce")
-    d = d[d.type != "balance"]
+    # positions the tester force-closed when the test ended are not trading results
+    d = d[(d.type != "balance") & (d.comment != "end of test")]
     t = pd.to_datetime(d.time, format="%Y.%m.%d %H:%M:%S").dt.normalize()
     return (d.profit + d.commission + d.swap).groupby(t).sum() / deposit * 100, hashlib.sha256(raw).hexdigest()
 
@@ -25,9 +26,11 @@ def main():
     rep, dep, out = sys.argv[1], float(sys.argv[2]), sys.argv[3]
     bull, sha = daily(rep, dep)
     o = pd.read_csv("data/derived/bd1/clusters_strict.csv")
-    o["day"] = pd.to_datetime(o.t0, unit="s").dt.normalize()
+    # account 1 booked on the day each basket closed (t1), as the Bull trades are; crash days are
+    # the days the deep baskets opened (when the danger began)
+    o["day"] = pd.to_datetime(o.t1, unit="s").dt.normalize()
     acc = o.groupby("day").pnl_pct.sum()
-    deep = sorted(set(o.day[o.mae_pct <= -10]))
+    deep = sorted(set(pd.to_datetime(o.t0[o.mae_pct <= -10], unit="s").dt.normalize()))
     on_deep = bull.reindex(deep).fillna(0.0)
     # every weekday where both series exist, a day without a closed trade counted as 0
     days = pd.bdate_range(max(acc.index.min(), bull.index.min()), min(acc.index.max(), bull.index.max()))
