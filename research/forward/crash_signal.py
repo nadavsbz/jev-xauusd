@@ -13,8 +13,11 @@ THRESHOLD, START = 0.90, pd.Timestamp("2026-10-17")
 out_path = sys.argv[1]
 raw = urllib.request.urlopen("https://fred.stlouisfed.org/graph/fredgraph.csv?id=GVZCLS", timeout=60).read()
 g = pd.read_csv(io.BytesIO(raw), parse_dates=["observation_date"], na_values=".").set_index("observation_date").GVZCLS.dropna()
-s5 = g.rolling(250, min_periods=125).rank(pct=True).shift(1)          # same as stage1.py: shift, then ffill
-now = pd.Timestamp.now()
+pct = g.rolling(250, min_periods=125).rank(pct=True)
+# stage1.py: trailing_pct(...).shift(1) then ffill to days, so a Monday-Friday day d gets the
+# percentile of the last observation BEFORE d, and a Sunday gets the one before that (Friday's row,
+# which holds Thursday's percentile). Holidays inside the week follow the weekday rule (ASSUMED: rare).
+now = pd.Timestamp.now(tz="Europe/Berlin").tz_localize(None)              # the account's server clock
 nxt = now.normalize() + pd.Timedelta(days=1)
 while nxt.weekday() == 5:
     nxt += pd.Timedelta(days=1)
@@ -25,12 +28,12 @@ rows = []
 for d in days[days.weekday != 5]:
     if d in done:
         continue
-    v = s5[s5.index < d]
-    if v.dropna().empty:
+    v = pct[pct.index < d].dropna()
+    if len(v) < 2:
         continue
-    val = float(v.dropna().iloc[-1])
+    val = float(v.iloc[-2] if d.weekday() == 6 else v.iloc[-1])
     rows.append({"date": d.date(), "s5": round(val, 3), "flagged": bool(val >= THRESHOLD),
-                 "eligible": bool(d == nxt), "made_local": now.isoformat(timespec="seconds")})
+                 "eligible": bool(d == nxt), "made_server_time": now.isoformat(timespec="seconds") + " Europe/Berlin"})
 new = pd.DataFrame(rows)
 pd.concat([old, new], ignore_index=True).to_csv(out_path, index=False)
 print(f"{len(new)} new rows")
