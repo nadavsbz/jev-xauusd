@@ -13,7 +13,10 @@ import numpy as np, pandas as pd
 
 SEL = (pd.Timestamp("2025-11-11"), pd.Timestamp("2026-05-31"))
 TEST = (pd.Timestamp("2026-06-01"), pd.Timestamp("2026-10-14"))
-FLOOR, BULL_DD = 0.15, 0.1354          # bull report max equity drawdown, EGlobal M5 real ticks
+FLOOR = 0.15
+# Bull's floating drawdown is not available per period (the report gives one figure for the whole run,
+# holdout included), so it is NOT added; Bull counts with realised P&L only. ASSUMED limitation (plan).
+BULL_DD = 0.0
 
 
 def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
@@ -33,12 +36,13 @@ def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
         for k, (w, r, tr) in tools.items():
             if not alive[k] or eq[k] <= 0:
                 low_total += max(eq[k], 0); continue
-            low_total += eq[k] * (1 + (tr[i] if tr is not None else min(r[i], 0)))
+            day_low = eq[k] * (1 + (tr[i] if tr is not None else min(r[i], 0)))
+            low_total += day_low
             eq[k] *= 1 + r[i]
             peak[k] = max(peak[k], eq[k])
             # the floor is path-dependent: applied only where a daily trough exists (account 1);
             # bull/btc have realised P&L only, so their floor is not simulated (plan, review 4)
-            if tr is not None and eq[k] <= peak[k] * (1 - FLOOR):
+            if tr is not None and min(day_low, eq[k]) <= peak[k] * (1 - FLOOR):   # an intraday breach stops it too
                 alive[k] = False
         total = cash + sum(max(v, 0) for v in eq.values())
         worst = min(worst, low_total / total_peak - 1, total / total_peak - 1)
@@ -50,6 +54,8 @@ def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
 def main():
     c = pd.read_csv(sys.argv[1], index_col=0, parse_dates=True)
     c.loc[c.account1_crosses_split.astype(bool), ["account1", "account1_trough"]] = 0.0   # purged
+    if "btc" in c and "--btc-dd" not in sys.argv:
+        sys.exit("a BTC curve is present: --btc-dd (its worst equity drawdown up to 31.5.2026, as a share) is required")
     btc_dd = float(sys.argv[sys.argv.index("--btc-dd") + 1]) if "--btc-dd" in sys.argv else 0.0
     if "--test" in sys.argv:
         a, b, u, f, s = sys.argv[sys.argv.index("--test") + 1].split(",")

@@ -101,7 +101,19 @@ def main():
         # every weekday up to yesterday must be a full trading day unless it is a listed holiday
         last_full = (now - timedelta(days=1)).date()
         problems = check_trading_days(times, since.date(), last_full)
-        if problems and not args.accept_short_days:
+        if args.accept_short_days:
+            # only a short session (800+ bars) or a closed day on a fixed market holiday is accepted;
+            # gaps, missing ranges and other closed days still fail
+            def short_ok(msg):
+                m = re.match(r"(\d{4}-\d\d-\d\d): (\d+) bars, expected", msg)
+                if not m:
+                    return False
+                day, n = m.group(1), int(m.group(2))
+                return n >= 800 or (n == 0 and (day[5:] in ("12-25", "01-01") or day in ("2025-04-18", "2026-04-03")))   # + Good Fridays
+            hard = [x for x in problems if not short_ok(x)]
+            if hard:
+                sys.exit("incomplete bars - nothing written: " + "; ".join(hard))
+        elif problems:
             sys.exit("incomplete bars - nothing written: " + "; ".join(problems))
 
         stamp = now.strftime("%Y%m%dT%H%M%SZ")

@@ -42,6 +42,7 @@ def baskets(d):
             b["exits"].append((r.t, r.volume, r.price))
             b["net"] += r.profit + r.commission + r.swap
             b["swap"] = b.get("swap", 0.0) + r.swap
+            b["exit_comm"] = b.get("exit_comm", 0.0) + r.commission
             open_vol[side] = round(open_vol[side] - r.volume, 4)
             if open_vol[side] <= 1e-9:
                 out.append(b); cur[side] = None; open_vol[side] = 0.0
@@ -80,7 +81,8 @@ def run(rep, bt, cl, lo, hi):
                 pnl = b["net"]
             else:   # kept entries close at the basket's average exit; costs scale with kept volume
                 kv = sum(v for _, v, _, _ in kept)
-                pnl = sum(sgn * v * (xp - p) * K + c for _, v, p, c in kept) + b.get("swap", 0.0) * kv / vol_total
+                pnl = (sum(sgn * v * (xp - p) * K + c for _, v, p, c in kept)
+                       + (b.get("swap", 0.0) + b.get("exit_comm", 0.0)) * kv / vol_total)
             for (te, v, p, c) in kept:
                 i = np.searchsorted(tt, te, "right"); j = np.searchsorted(tt, tx, "left")
                 fl_lo[i:j] += sgn * v * (lo[a0 + i:a0 + j] - p) * K

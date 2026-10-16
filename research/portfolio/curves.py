@@ -45,14 +45,36 @@ def book_entry_costs_at_exit(d):
     return d
 
 
+def drop_split_crossers(d):
+    """Remove whole per-side baskets (first entry with the side flat .. flat again) that open
+    before 2026-06-01 and close on or after it: they belong to neither period (plan)."""
+    d = d.reset_index(drop=True).copy(); d["volume"] = pd.to_numeric(d.volume, errors="coerce")
+    open_vol = {"buy": 0.0, "sell": 0.0}; start = {"buy": None, "sell": None}; member = {"buy": [], "sell": []}
+    drop = []
+    for i, r in d.iterrows():
+        side = r.type if r.dir == "in" else ("buy" if r.type == "sell" else "sell")
+        if r.dir == "in":
+            if open_vol[side] <= 1e-9:
+                start[side] = r.day; member[side] = []
+            open_vol[side] += r.volume
+        else:
+            open_vol[side] = round(open_vol[side] - r.volume, 4)
+        member[side].append(i)
+        if r.dir != "in" and open_vol[side] <= 1e-9:
+            if start[side] is not None and start[side] < SPLIT <= r.day:
+                drop += member[side]
+            member[side] = []; start[side] = None
+    return d.drop(index=drop)
+
+
 def bull_daily():
-    d = book_entry_costs_at_exit(report_deals(EG, cents=True))
+    d = book_entry_costs_at_exit(drop_split_crossers(report_deals(EG, cents=True)))
     net = d.profit + d.commission * (COMM_PER_LOT_ROBO / COMM_PER_LOT_EG) + d.swap * (SWAP_PER_LOT_ROBO / SWAP_PER_LOT_EG)
     return net.groupby(d.day).sum() / 50000
 
 
 def btc_daily(path, deposit):
-    d = book_entry_costs_at_exit(report_deals(path))
+    d = book_entry_costs_at_exit(drop_split_crossers(report_deals(path)))
     return (d.profit + d.commission + d.swap).groupby(d.day).sum() / deposit
 
 

@@ -21,6 +21,7 @@ input bool   DirectionBlock  = true;    // close new positions against a strong 
 input int    MoveMinutes     = 60;      // look-back of the move
 input double MovePct         = 1.0;     // move size that blocks the opposite side, %
 input int    NewWithinSec    = 10;      // a position this young counts as "new"
+input bool   ResetOnStart    = false;   // true: start fresh (peak = equity now, kill switch off); use after a floor stop
 
 CTrade trade;
 string gvPeak, gvKill;
@@ -30,6 +31,9 @@ int OnInit()
    gvPeak = "JevGuardian.peak." + (string)AccountInfoInteger(ACCOUNT_LOGIN) + "." + (string)GuardMagic;
    gvKill = "JevGuardian.kill." + (string)AccountInfoInteger(ACCOUNT_LOGIN) + "." + (string)GuardMagic;
    double eq = AccountInfoDouble(ACCOUNT_EQUITY);
+   // after a floor stop, deleting only the kill switch is not enough: the old peak would trip the
+   // floor again at once. A reset sets both: peak = equity now, kill switch off.
+   if(ResetOnStart) { GlobalVariableSet(gvPeak, eq); GlobalVariableDel(gvKill); Print("JevGuardian reset: peak = equity now, kill switch off"); }
    if(!GlobalVariableCheck(gvPeak) || GlobalVariableGet(gvPeak) < eq) GlobalVariableSet(gvPeak, eq);
    trade.SetAsyncMode(false);
    PrintFormat("JevGuardian start: magic=%I64d dry=%s floor=%.1f%% block=%s %.2f%%/%dmin peak=%.2f",
