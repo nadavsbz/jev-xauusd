@@ -36,7 +36,9 @@ def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
             low_total += eq[k] * (1 + (tr[i] if tr is not None else min(r[i], 0)))
             eq[k] *= 1 + r[i]
             peak[k] = max(peak[k], eq[k])
-            if eq[k] <= peak[k] * (1 - FLOOR):
+            # the floor is path-dependent: applied only where a daily trough exists (account 1);
+            # bull/btc have realised P&L only, so their floor is not simulated (plan, review 4)
+            if tr is not None and eq[k] <= peak[k] * (1 - FLOOR):
                 alive[k] = False
         total = cash + sum(max(v, 0) for v in eq.values())
         worst = min(worst, low_total / total_peak - 1, total / total_peak - 1)
@@ -63,7 +65,7 @@ def main():
             if wa + wb + wu > 1.0 + 1e-9 or (wa > 0 and wb > 0) or wa + wb + wu == 0:
                 continue
             for f in ((0.1, 0.2, 0.3, 0.4, 0.5) if wa > 0 else (0.0,)):
-                for sw in (False, True):
+                for sw in (False,):       # weekly sweep removed from the search (plan, review 4)
                     m, dd = simulate(sel, wa, wb, wu, f, sw, btc_dd)
                     rows.append((wa, wb, wu, f, sw, round(m, 3), round(dd, 1)))
         t = pd.DataFrame(rows, columns=["acc", "btc", "bull", "f", "sweep", "mult", "dd"])

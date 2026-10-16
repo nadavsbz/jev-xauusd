@@ -27,7 +27,8 @@ def report_deals(path, cents=False):
                               "commission", "swap", "profit", "balance", "comment"])
     for c in ["commission", "swap", "profit"]:
         d[c] = pd.to_numeric(d[c].str.replace(" ", "").str.replace(",", ""), errors="coerce") / (100 if cents else 1)
-    d = d[(d.type != "balance") & (d.comment != "end of test")].copy()   # tester force-closes are not trades
+    # tester force-closes at the end are kept: they are the mark-to-market of the positions still open
+    d = d[d.type != "balance"].copy()
     d["day"] = pd.to_datetime(d.time, format="%Y.%m.%d %H:%M:%S").dt.normalize()
     return d
 
