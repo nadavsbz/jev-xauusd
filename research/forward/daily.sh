@@ -16,3 +16,4 @@ export JEV_DERIVED=data/derived/bd1_forward
 echo "snapshots: $JEV_DEALS_SNAPSHOT $JEV_RATES_SNAPSHOT"
 python research/bd1/clusters.py --strict | tail -1
 python research/forward/compare.py data/derived/bd1_forward/compare.json
+python research/forward/crash_signal.py data/derived/bd1_forward/crash_signal.csv
