@@ -1,0 +1,50 @@
+[
+ {
+  "set": "btc_m11.set",
+  "deposit": 10000,
+  "wiped": true,
+  "end": "2025-04-03",
+  "final": 78.61,
+  "net": -9921.39,
+  "equity_dd": "21,380.49 (99.63%)",
+  "equity_dd_usd": 21380.49,
+  "meets_margin_1_5": false,
+  "trading_days": 262,
+  "avg_per_trading_day": -37.87,
+  "worst_day": -21950.15,
+  "worst_day_date": "2025-04-03",
+  "history_quality": "\u05d8\u05d9\u05e7\u05d9\u05dd \u05d0\u05de\u05d9\u05ea\u05d9\u05d9\u05dd 100%"
+ },
+ {
+  "set": "btc_m10.set",
+  "deposit": 10000,
+  "wiped": true,
+  "end": "2025-04-11",
+  "final": -2.87,
+  "net": -10002.87,
+  "equity_dd": "12,783.07 (100.02%)",
+  "equity_dd_usd": 12783.07,
+  "meets_margin_1_5": false,
+  "trading_days": 201,
+  "avg_per_trading_day": -49.77,
+  "worst_day": -15953.14,
+  "worst_day_date": "2025-04-11",
+  "history_quality": "\u05d8\u05d9\u05e7\u05d9\u05dd \u05d0\u05de\u05d9\u05ea\u05d9\u05d9\u05dd 100%"
+ },
+ {
+  "set": "btc_o10.set",
+  "deposit": 10000,
+  "wiped": true,
+  "end": "2025-03-31",
+  "final": 10.8,
+  "net": -9989.2,
+  "equity_dd": "12,737.87 (99.92%)",
+  "equity_dd_usd": 12737.87,
+  "meets_margin_1_5": false,
+  "trading_days": 225,
+  "avg_per_trading_day": -44.4,
+  "worst_day": -18069.25,
+  "worst_day_date": "2025-03-31",
+  "history_quality": "\u05d8\u05d9\u05e7\u05d9\u05dd \u05d0\u05de\u05d9\u05ea\u05d9\u05d9\u05dd 100%"
+ }
+]
