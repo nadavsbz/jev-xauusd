@@ -35,22 +35,34 @@ def trailing_pct(x, window):
 
 
 def rng(h, n):
-    return (h.high.rolling(n).max() - h.low.rolling(n).min()) / h.close
+    """Range over the last n CLOCK hours (time-based window: weekends and holidays are not
+    bridged by counting bars)."""
+    return (h.high.rolling(f"{n}h").max() - h.low.rolling(f"{n}h").min()) / h.close
+
+
+def future_range(h, n):
+    """High-low of the bars that OPEN in the next n clock hours after bar h (h+1h .. h+n h);
+    NaN when no bar opens in that window (market closed)."""
+    grid = pd.date_range(h.index.min(), h.index.max() + pd.Timedelta(hours=n), freq="h")
+    hi = h.high.reindex(grid); lo = h.low.reindex(grid)
+    fh = hi[::-1].rolling(n, min_periods=1).max()[::-1].shift(-1)
+    fl = lo[::-1].rolling(n, min_periods=1).min()[::-1].shift(-1)
+    return (fh - fl).reindex(h.index)
 
 
 def build(data):
     g = hourly(data, "xauusd")
     bars_per_day = 23
     f = pd.DataFrame(index=g.index)
-    # target: range of the NEXT 4 bars relative to this bar's close
-    fut_hi = g.high[::-1].rolling(HORIZON).max()[::-1].shift(-1)
-    fut_lo = g.low[::-1].rolling(HORIZON).min()[::-1].shift(-1)
-    f["y"] = ((fut_hi - fut_lo) / g.close * 100 >= EVENT_PCT).astype(float)
-    f.loc[fut_hi.isna() | fut_lo.isna(), "y"] = np.nan
-    r24 = rng(g, 24)
-    f["S1"] = trailing_pct(r24, DAYS * bars_per_day)
+    # target: range of the bars opening in the next 4 CLOCK hours, relative to this bar's close
+    fr = future_range(g, HORIZON)
+    f["y"] = (fr / g.close * 100 >= EVENT_PCT).astype(float)
+    f.loc[fr.isna(), "y"] = np.nan
+    r24 = rng(g, 24)                                        # last 24 clock hours
+    f["S1"] = trailing_pct(r24, DAYS * bars_per_day)        # reference: last 250 trading days of bars
     one = (g.high - g.low) / g.close
-    f["har1"], f["har24"], f["har120"] = np.log(one + 1e-6), np.log(one.rolling(24).mean()), np.log(one.rolling(120).mean())
+    f["har1"], f["har24"], f["har120"] = (np.log(one + 1e-6), np.log(one.rolling("24h").mean() + 1e-6),
+                                          np.log(one.rolling("120h").mean() + 1e-6))
     ret = np.log(g.close).diff()
     z = ret / ret.rolling(250).std().shift(1)
     sp = sm = 0.0; cs = []
