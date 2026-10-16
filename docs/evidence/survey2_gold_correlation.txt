@@ -1,0 +1,16 @@
+gold days 291 2025-09-01 2026-10-16
+worst gold days [('2026-01-30', -9.0), ('2025-10-21', -5.3), ('2026-02-02', -4.6), ('2026-06-10', -4.4), ('2025-12-29', -4.4), ('2026-03-03', -4.4), ('2026-03-19', -4.1), ('2026-09-28', -4.0), ('2026-02-05', -3.7), ('2026-03-18', -3.3)]
+CFZ n 290 corr -0.36 | avg on 10 worst gold days 0.91% (min -0.91%) | avg on 10 best gold days 0.21%
+ERQ n 291 corr -0.18 | avg on 10 worst gold days 0.39% (min -0.45%) | avg on 10 best gold days -0.05%
+XJJ n 290 corr 0.06 | avg on 10 worst gold days 0.37% (min -0.52%) | avg on 10 best gold days 0.04%
+QCF n 290 corr 0.25 | avg on 10 worst gold days -0.18% (min -1.05%) | avg on 10 best gold days 0.71%
+EJL n 291 corr 0.09 | avg on 10 worst gold days 0.84% (min -0.44%) | avg on 10 best gold days 1.08%
+DAE n 290 corr 0.08 | avg on 10 worst gold days -0.25% (min -1.31%) | avg on 10 best gold days 0.55%
+Traceback (most recent call last):
+  File "C:\Users\Benza\AppData\Local\Temp\claude\D--Claude-jev\ae818c4a-c247-4ec4-a56e-b6097a32d869\scratchpad\corr.py", line 16, in <module>
+    v=ser(t); vd=sorted(v); vr={vd[i]:v[vd[i]]/v[vd[i-1]]-1 for i in range(1,len(vd))}
+      ^^^^^^
+  File "C:\Users\Benza\AppData\Local\Temp\claude\D--Claude-jev\ae818c4a-c247-4ec4-a56e-b6097a32d869\scratchpad\corr.py", line 8, in ser
+    s=open(f'dwx/pages/{t}.html',encoding='utf-8').read()
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'dwx/pages/XGI.html'
