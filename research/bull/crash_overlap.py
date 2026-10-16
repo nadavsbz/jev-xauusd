@@ -29,7 +29,9 @@ def main():
     acc = o.groupby("day").pnl_pct.sum()
     deep = sorted(set(o.day[o.mae_pct <= -10]))
     on_deep = bull.reindex(deep).fillna(0.0)
-    both = pd.concat([acc, bull], axis=1, keys=["acc", "bull"]).dropna()
+    # every weekday where both series exist, a day without a closed trade counted as 0
+    days = pd.bdate_range(max(acc.index.min(), bull.index.min()), min(acc.index.max(), bull.index.max()))
+    both = pd.concat([acc.reindex(days).fillna(0), bull.reindex(days).fillna(0)], axis=1, keys=["acc", "bull"])
     res = {"report": rep.split("\\")[-1], "report_sha256": sha,
            "bull_daily_pct_on_account1_deep_days": {str(k.date()): round(float(v), 3) for k, v in on_deep.items()},
            "deep_days": len(deep), "bull_losing_deep_days": int((on_deep < 0).sum()),
