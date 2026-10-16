@@ -31,7 +31,7 @@
 **ההרצה השנייה, היחידה התקפה:**
 - **ה-NFP:** התאריכים בפועל, 12 מועדים מ-`research/bd1/news_test.py`.
 - **ה-FOMC:** מ-`events.py`.
-- **הקובץ:** `data/derived/events_actual_nfp.csv`, 19 הודעות.
+- **הקובץ:** `docs/evidence/events_actual_nfp.csv`, 19 הודעות. הוא נבנה על ידי `research/crash/events_actual.py` מתוך `docs/evidence/events_rule_based.csv`, שהוא הפלט של `events.py`, ומתוך רשימת ה-NFP ב-`news_test.py`.
 - **הודאה:** תוצאת ההרצה הראשונה נראתה לפני ההרצה השנייה. הכלל עצמו לא השתנה.
 
 | תקופה | בפועל | עם עצירה לפני הודעות |
