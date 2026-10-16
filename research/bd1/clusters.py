@@ -113,9 +113,18 @@ for c, g in p.groupby("cid"):
             # so it is counted from entry too (conservative, total swap is tiny)
             a, z = span(tt, r.t0, r.t1)
             fl_lo[a:z] += r.cost; fl_hi[a:z] += r.cost
-        fl = np.minimum(fl_lo, fl_hi)
+        # realised cash of positions already closed inside the basket stays in its path:
+        # each exit's price profit at its own time, the costs once the position is fully
+        # closed (while open, fl already carries them) - so a realised loss plus a later
+        # floating loss on the remaining positions is one combined trough
+        rc = np.zeros(len(tt))
+        for r in g.itertuples():
+            for te, v, cash, cost in exit_cash_by_pid[r.position_id]:
+                rc[np.searchsorted(tt, te, side="left"):] += cash - cost
+            rc[np.searchsorted(tt, r.t1, side="left"):] += r.cost
+        fl = np.minimum(fl_lo, fl_hi) + rc
         jx = fl.argmin(); worst, worst_t = fl[jx], tt[jx]
-        best_all = np.maximum(fl_lo, fl_hi)              # optimistic side, for peaks
+        best_all = np.maximum(fl_lo, fl_hi) + rc         # optimistic side, for peaks
         runup_before, runup = best_all[:jx + 1].max(), best_all.max()
         # record lows with the peak seen before each one: a simulated guard at
         # level L cuts at the first record low <= L, and its peak is the run-up
@@ -136,15 +145,7 @@ for c, g in p.groupby("cid"):
         #   over minutes that ended before the k-th deal.
         # Partial exits are realised at their own time and reduce the marked volume.
         if b0 > 0:
-            rc = np.zeros(len(tt))
-            # while a position is open fl already carries all its costs (r.cost), so
-            # the path books each exit's price profit at its own time and the costs
-            # only when the position is fully closed (no double counting)
-            for r in g.itertuples():
-                for te, v, cash, cost in exit_cash_by_pid[r.position_id]:
-                    rc[np.searchsorted(tt, te, side="left"):] += cash - cost
-                rc[np.searchsorted(tt, r.t1, side="left"):] += r.cost
-            eq_lo, eq_hi = fl + rc, best_all + rc
+            eq_lo, eq_hi = fl, best_all                  # fl and best_all already include rc
             # deal order by milliseconds (then ticket order), so several entries in
             # one second are taken one by one and each depth is recorded right after
             # the entry that reached it, priced at that entry
