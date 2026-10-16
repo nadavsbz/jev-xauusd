@@ -7,7 +7,7 @@ For each deposit: survived or wiped (balance at or below 5% of the deposit), end
 max equity drawdown from the report, profit per day, worst day.
 Chosen on the same 2.5 years it is measured on, so the "safe" capital is an in-sample figure;
 the next crash can be bigger (ASSUMED risk, stated in the report).
-Usage: python research/btc/size_sweep.py OUT_JSON [deposit ...]"""
+Usage: python research/btc/size_sweep.py OUT_JSON [deposit ...]   (env BTC_SET = another set file, e.g. btc_m11.set)"""
 import json, os, re, subprocess, sys, time, glob
 import pandas as pd
 
@@ -15,6 +15,7 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
 PY = r"C:\Users\Benza\AppData\Local\Programs\Python\Python312\python.exe"
 TERM = r"C:\MT5_JEV_TEST"
 FROM, TO = "2024.04.01", "2026.10.14"
+SET = os.environ.get("BTC_SET", "btc_bot_2dig.set")
 
 
 def parse(rep):
@@ -36,7 +37,7 @@ def parse(rep):
 
 
 def run(dep):
-    name = f"btc_size_{dep}"
+    name = f"btc_size_{dep}" + ("" if SET == "btc_bot_2dig.set" else "_" + SET.replace(".set", ""))
     rep = os.path.join(TERM, name + ".htm")
     for _ in range(3):
         if os.path.exists(rep):
@@ -47,7 +48,7 @@ def run(dep):
         time.sleep(5)
         subprocess.run([PY, "run_tester.py", "--accounts", "../accounts.json", "--name", "Black Dragon 3",
                         "--terminal", os.path.join(TERM, "terminal64.exe"), "--expert", r"Jev\BTC Bot mt5.ex5",
-                        "--set", "btc_bot_2dig.set", "--symbol", "XAUUSD", "--period", "M15",
+                        "--set", SET, "--symbol", "XAUUSD", "--period", "M15",
                         "--from", FROM, "--to", TO, "--deposit", str(dep), "--leverage", "1000", "--report", name],
                        cwd=os.path.join(ROOT, "tools"), timeout=8 * 3600)
         time.sleep(30)
@@ -66,7 +67,7 @@ def run(dep):
     stuck = tr.t.iloc[-1] < pd.Timestamp(TO.replace(".", "-")) - pd.Timedelta(days=7) and tr.balance.iloc[-1] < dep * 0.2
     end = low.t.iloc[0] if len(low) else tr.t.iloc[-1]
     quality = next((v for v in pairs.values() if "טיקים" in v or "ticks" in v.lower()), None)
-    return {"deposit": dep, "wiped": bool(len(low)) or bool(stuck), "end": str(end.date()), "final": round(float(tr.balance.iloc[-1]), 2),
+    return {"set": SET, "deposit": dep, "wiped": bool(len(low)) or bool(stuck), "end": str(end.date()), "final": round(float(tr.balance.iloc[-1]), 2),
             "net": round(float(net.sum()), 2), "equity_dd": pairs.get("שווי הפסד מקסימלי") or pairs.get("Equity Drawdown Maximal"),
             "trading_days": int((day != 0).sum()), "avg_per_trading_day": round(float(day[day != 0].mean()), 2),
             "worst_day": round(float(day.min()), 2), "worst_day_date": str(day.idxmin().date()), "history_quality": quality}
