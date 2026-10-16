@@ -20,7 +20,7 @@ p = ins.set_index("position_id")[["time", "type", "volume", "price", "commission
 p["net"] = (outs.profit + outs.commission + outs.swap + outs.fee).groupby(outs.position_id).sum().reindex(p.index).fillna(0) + p.commission
 p["t1"] = outs.groupby("position_id").time.max().reindex(p.index)
 p["sgn"] = np.where(p.type == 0, 1, -1)
-o = pd.read_csv("data/derived/bd1/clusters_strict.csv")
+o = pd.read_csv(os.path.join(os.environ.get("JEV_DERIVED", "data/derived/bd1"), "clusters_strict.csv"))
 i = np.searchsorted(o.t0.values, p.time.values, side="right") - 1
 ok = (i >= 0) & (p.time.values <= o.t1.values[np.maximum(i, 0)])
 p["cid"] = np.where(ok, o.cid.values[np.maximum(i, 0)], -1)

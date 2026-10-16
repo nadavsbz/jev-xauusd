@@ -5,7 +5,7 @@ position per grid order). Exposure is tracked per exit event, so partial
 closes and OUT_BY closes reduce the open volume at the time they happen.
 --strict counts only whole minutes a volume was open (understates MAE);
 the default also counts the partial minutes of entry and exit (overstates)."""
-import sys, numpy as np, pandas as pd
+import os, sys, numpy as np, pandas as pd
 from inputs import load, START, MAGIC
 
 STRICT = "--strict" in sys.argv
@@ -37,6 +37,13 @@ K = k.median()
 
 ins = ins[(ins.magic == MAGIC) & (ins.time >= START)]
 ev = exits[exits.position_id.isin(ins.index)]
+# a newer snapshot can hold positions that were still open at pull time: their basket is not
+# finished, so every position opened from the first such entry on is left out (forward runs)
+still_open = ins.volume - ev.groupby("position_id").volume.sum().reindex(ins.index).fillna(0) > 1e-9
+if still_open.any():
+    cut = ins.time[still_open].min()
+    print(f"{int(still_open.sum())} positions still open; leaving out everything opened from {pd.to_datetime(cut, unit='s')}")
+    ins = ins[ins.time < cut]; ev = exits[exits.position_id.isin(ins.index)]
 if not np.allclose(ev.groupby("position_id").volume.sum().reindex(ins.index).fillna(0), ins.volume):
     sys.exit("exit volume does not match entry volume for some position")
 g_ex = ev.groupby("position_id")
@@ -186,10 +193,12 @@ for c, g in p.groupby("cid"):
 o = pd.DataFrame(out)
 o["pnl_pct"] = o.pnl / o.bal0 * 100; o["mae_pct"] = o.mae / o.bal0 * 100
 o["runup_before_pct"] = o.runup_before / o.bal0 * 100; o["runup_pct"] = o.runup / o.bal0 * 100
-o.to_csv("data/derived/bd1/clusters_strict.csv" if STRICT else "data/derived/bd1/clusters.csv", index=False)
-np.savez_compressed("data/derived/bd1/record_lows_strict.npz" if STRICT else "data/derived/bd1/record_lows.npz",
+OUT = os.environ.get("JEV_DERIVED", "data/derived/bd1")   # forward runs write to their own folder
+os.makedirs(OUT, exist_ok=True)
+o.to_csv(f"{OUT}/clusters_strict.csv" if STRICT else f"{OUT}/clusters.csv", index=False)
+np.savez_compressed(f"{OUT}/record_lows_strict.npz" if STRICT else f"{OUT}/record_lows.npz",
                     **{str(k): v for k, v in lows_by_cid.items()})
-np.savez_compressed("data/derived/bd1/levels_strict.npz" if STRICT else "data/derived/bd1/levels.npz",
+np.savez_compressed(f"{OUT}/levels_strict.npz" if STRICT else f"{OUT}/levels.npz",
                     **{str(k): v for k, v in levels_by_cid.items()})
 print(len(o), "baskets;", o.guard.sum(), "with a guard (magic 0) close")
 for X in (5, 10, 15, 20):
