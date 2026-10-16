@@ -11,7 +11,9 @@ THRESHOLD, START = 0.90, pd.Timestamp("2026-10-17")
 raw = urllib.request.urlopen("https://fred.stlouisfed.org/graph/fredgraph.csv?id=GVZCLS", timeout=60).read()
 g = pd.read_csv(io.BytesIO(raw), parse_dates=["observation_date"], na_values=".").set_index("observation_date").GVZCLS.dropna()
 pct = g.rolling(250, min_periods=125).rank(pct=True)
-days = pd.bdate_range(START, pd.Timestamp.today().normalize())
+# gold trades Sunday evening to Friday: every calendar day except Saturday
+days = pd.date_range(START, pd.Timestamp.today().normalize(), freq="D")
+days = days[days.weekday != 5]
 prev = pct.shift(1).reindex(days, method="ffill")          # the previous published close only
 gv = g.shift(1).reindex(days, method="ffill")
 out = pd.DataFrame({"gvz_prev": gv.round(2), "s5": prev.round(3), "flagged": prev >= THRESHOLD}, index=days)

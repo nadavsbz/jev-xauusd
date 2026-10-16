@@ -122,7 +122,11 @@ def fit_scores(tr, frames, cols, name):
 
 
 def evaluate(score_tr, score_x, y_x):
-    thr = np.nanquantile(score_tr, 1 - FLAG_BUDGET)
+    vals = set(np.unique(score_tr.dropna()))
+    if vals <= {0.0, 1.0}:          # a binary flag (S9): the flag itself, not a percentile threshold
+        thr = 1.0
+    else:
+        thr = np.nanquantile(score_tr, 1 - FLAG_BUDGET)
     ok = y_x.notna() & score_x.notna()
     flag = score_x[ok] >= thr
     hit = y_x[ok] == 1
