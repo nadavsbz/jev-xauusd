@@ -77,9 +77,9 @@ def main():
     out = sys.argv[1]
     deps = [int(x) for x in sys.argv[2:]] or [5000, 10000, 20000, 40000, 80000]
     res = json.load(open(out)) if os.path.exists(out) else []
-    done = {r["deposit"] for r in res}
+    done = {(r.get("set", "btc_bot_2dig.set"), r["deposit"]) for r in res}
     for dep in deps:
-        if dep in done:
+        if (SET, dep) in done:
             continue
         res.append(run(dep)); print(res[-1], flush=True)
         json.dump(res, open(out, "w"), indent=1)
