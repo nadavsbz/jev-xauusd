@@ -1,7 +1,8 @@
 """BTC Bot over 2023-2026 in the tester, restarted after every wipe: each segment starts with
 $2,000 the day after the previous one ended in a wipe (balance at or below 5% of the deposit).
 Lists each segment's start, end, peak and the wipe day. Read-only investor login (run_tester.py).
-Usage: python research/crash/btc_segments.py OUT_JSON"""
+Usage: python research/crash/btc_segments.py OUT_JSON [START YYYY-MM-DD] [PREFIX]
+RoboForex-Pro has real gold ticks from April 2024 only; earlier segments run on generated ticks."""
 import glob, json, os, re, subprocess, sys, time
 import pandas as pd
 
@@ -25,9 +26,11 @@ def deals(report):
 
 
 def main():
-    out, start, k = [], pd.Timestamp("2023-01-01"), 0
+    start0 = sys.argv[2] if len(sys.argv) > 2 else "2023-01-01"
+    prefix = sys.argv[3] if len(sys.argv) > 3 else "btc_seg"
+    out, start, k = [], pd.Timestamp(start0), 0
     while start < END - pd.Timedelta(days=7):
-        name = f"btc_seg_{k:02d}"
+        name = f"{prefix}_{k:02d}"
         rep = os.path.join(TERM, name + ".htm")
         for attempt in range(3):                       # the login preflight can fail transiently (IPC)
             if os.path.exists(rep):
@@ -59,8 +62,13 @@ def main():
         if tr.empty:
             break
         low = tr[tr.balance <= DEPOSIT * 0.05]
-        wiped = not low.empty
-        stop = low.t.iloc[0] if wiped else tr.t.iloc[-1]
+        # a run that stops trading long before the end (balance too small to open the grid,
+        # e.g. $131 after a $9,662 peak) is a wipe too, even above 5% of the deposit
+        # stopped trading long before the end AND left with too little to open a grid (below 20% of
+        # the deposit): a wipe; a pause with a healthy balance is not
+        early = tr.t.iloc[-1] < END - pd.Timedelta(days=7) and tr.balance.iloc[-1] < DEPOSIT * 0.2
+        wiped = (not low.empty) or early
+        stop = low.t.iloc[0] if not low.empty else tr.t.iloc[-1]
         seg = tr[tr.t <= stop]
         out.append({"start": str(start.date()), "end": str(stop), "wiped": wiped,
                     "peak": float(seg.balance.max()), "peak_day": str(seg.t[seg.balance.idxmax()].date()),
