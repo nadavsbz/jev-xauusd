@@ -59,6 +59,9 @@ def main():
     p.add_argument("--terminal", required=True)
     p.add_argument("--symbol", required=True)
     p.add_argument("--since", required=True, help="UTC date YYYY-MM-DD")
+    p.add_argument("--accept-short-days", action="store_true",
+                   help="write even if some days fail the calendar check (e.g. a broker's US-holiday early closes); "
+                        "the failing days are listed in the manifest")
     args = p.parse_args()
 
     if os.path.basename(args.terminal).lower() != "terminal64.exe" or not os.path.isfile(args.terminal):
@@ -98,7 +101,7 @@ def main():
         # every weekday up to yesterday must be a full trading day unless it is a listed holiday
         last_full = (now - timedelta(days=1)).date()
         problems = check_trading_days(times, since.date(), last_full)
-        if problems:
+        if problems and not args.accept_short_days:
             sys.exit("incomplete bars - nothing written: " + "; ".join(problems))
 
         stamp = now.strftime("%Y%m%dT%H%M%SZ")
@@ -121,6 +124,7 @@ def main():
             "since_utc": since.isoformat(), "pulled_utc": now.isoformat(),
             "rows": len(rows), "months": months, "sha256": digest,
             "completeness": f"every weekday {since.date()}..{last_full} checked against tools/market_calendar.py",
+            "accepted_calendar_problems": problems if args.accept_short_days else [],
         }
         with open(os.path.join(out, "manifest.json"), "w", encoding="utf-8") as f:
             json.dump(manifest, f, ensure_ascii=False, indent=2)
