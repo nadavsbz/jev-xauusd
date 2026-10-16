@@ -61,9 +61,12 @@ def run(dep):
     net = tr.profit + tr.commission + tr.swap
     day = net.groupby(tr.t.dt.normalize()).sum()
     low = tr[tr.balance <= dep * 0.05]
+    # a grid left with a balance above 5% but too little to trade (it stops long before the end
+    # with less than 20% of the deposit) has not survived either
+    stuck = tr.t.iloc[-1] < pd.Timestamp(TO.replace(".", "-")) - pd.Timedelta(days=7) and tr.balance.iloc[-1] < dep * 0.2
     end = low.t.iloc[0] if len(low) else tr.t.iloc[-1]
     quality = next((v for v in pairs.values() if "טיקים" in v or "ticks" in v.lower()), None)
-    return {"deposit": dep, "wiped": bool(len(low)), "end": str(end.date()), "final": round(float(tr.balance.iloc[-1]), 2),
+    return {"deposit": dep, "wiped": bool(len(low)) or bool(stuck), "end": str(end.date()), "final": round(float(tr.balance.iloc[-1]), 2),
             "net": round(float(net.sum()), 2), "equity_dd": pairs.get("שווי הפסד מקסימלי") or pairs.get("Equity Drawdown Maximal"),
             "trading_days": int((day != 0).sum()), "avg_per_trading_day": round(float(day[day != 0].mean()), 2),
             "worst_day": round(float(day.min()), 2), "worst_day_date": str(day.idxmin().date()), "history_quality": quality}

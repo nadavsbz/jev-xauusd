@@ -27,19 +27,31 @@ def report_deals(path, cents=False):
                               "commission", "swap", "profit", "balance", "comment"])
     for c in ["commission", "swap", "profit"]:
         d[c] = pd.to_numeric(d[c].str.replace(" ", "").str.replace(",", ""), errors="coerce") / (100 if cents else 1)
-    d = d[d.type != "balance"].copy()
+    d = d[(d.type != "balance") & (d.comment != "end of test")].copy()   # tester force-closes are not trades
     d["day"] = pd.to_datetime(d.time, format="%Y.%m.%d %H:%M:%S").dt.normalize()
     return d
 
 
+def book_entry_costs_at_exit(d):
+    """Entry commission is booked with the exit, at the run's average entry commission per lot
+    times the volume closed, so a whole trade lands on its close day (a trade open across
+    31.5/1.6 then falls entirely in the period it closed in)."""
+    d = d.copy(); d["volume"] = pd.to_numeric(d.volume, errors="coerce")
+    ins = d.dir == "in"
+    per_lot = d.commission[ins].sum() / d.volume[ins].sum()
+    d.loc[ins, "commission"] = 0.0
+    d.loc[~ins, "commission"] = d.commission[~ins] + per_lot * d.volume[~ins]
+    return d
+
+
 def bull_daily():
-    d = report_deals(EG, cents=True)
+    d = book_entry_costs_at_exit(report_deals(EG, cents=True))
     net = d.profit + d.commission * (COMM_PER_LOT_ROBO / COMM_PER_LOT_EG) + d.swap * (SWAP_PER_LOT_ROBO / SWAP_PER_LOT_EG)
     return net.groupby(d.day).sum() / 50000
 
 
 def btc_daily(path, deposit):
-    d = report_deals(path)
+    d = book_entry_costs_at_exit(report_deals(path))
     return (d.profit + d.commission + d.swap).groupby(d.day).sum() / deposit
 
 

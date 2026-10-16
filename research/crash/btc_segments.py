@@ -64,7 +64,9 @@ def main():
         low = tr[tr.balance <= DEPOSIT * 0.05]
         # a run that stops trading long before the end (balance too small to open the grid,
         # e.g. $131 after a $9,662 peak) is a wipe too, even above 5% of the deposit
-        early = tr.t.iloc[-1] < END - pd.Timedelta(days=7)
+        # stopped trading long before the end AND left with too little to open a grid (below 20% of
+        # the deposit): a wipe; a pause with a healthy balance is not
+        early = tr.t.iloc[-1] < END - pd.Timedelta(days=7) and tr.balance.iloc[-1] < DEPOSIT * 0.2
         wiped = (not low.empty) or early
         stop = low.t.iloc[0] if not low.empty else tr.t.iloc[-1]
         seg = tr[tr.t <= stop]
