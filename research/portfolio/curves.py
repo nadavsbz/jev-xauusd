@@ -71,7 +71,12 @@ def acc_daily():
 
 if __name__ == "__main__":
     a, atr, cross = acc_daily(); b = bull_daily()
-    days = pd.bdate_range(max(a.index.min(), b.index.min()), min(a.index.max(), b.index.max()))
+    # the registered period, not the first/last close of any one tool; days without a close are 0.
+    # Coverage is checked first: every source must have data spanning the whole period.
+    START, END = pd.Timestamp("2025-11-11"), pd.Timestamp("2026-10-14")
+    days = pd.bdate_range(START, END)
+    print("coverage (first/last close day): account1", a.index.min().date(), a.index.max().date(),
+          "| bull", b.index.min().date(), b.index.max().date())
     out = pd.DataFrame({"account1": a.reindex(days).fillna(0), "account1_trough": atr.reindex(days).fillna(0),
                         "account1_crosses_split": cross.reindex(days).fillna(False), "bull": b.reindex(days).fillna(0)})
     if len(sys.argv) > 3:

@@ -1,0 +1,16 @@
+{
+ "bull_ftmo_full_unscaled.htm": {
+  "report_sha256": "cf99b91aa431d59ebc0e76d901cf40fc47065e89e3af29e91ca51a0009f7cd01",
+  "active_days": 281,
+  "median_deals_per_active_day": 72.0,
+  "mean": 73.4,
+  "days_50_or_more": 200
+ },
+ "bull_ftmo_full.htm": {
+  "report_sha256": "ad0bfc8d3ffa56adc5151f8f5f04718908a1ce7c9293a39faad9180fe9a67458",
+  "active_days": 394,
+  "median_deals_per_active_day": 161.0,
+  "mean": 170.6,
+  "days_50_or_more": 384
+ }
+}
