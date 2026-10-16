@@ -10,9 +10,9 @@ _, bars = load()
 o = pd.read_csv("data/derived/bd1/clusters_strict.csv")
 t = bars.time.values; hi = bars.high.values; lo = bars.low.values; op = bars.open.values
 i0 = np.maximum(np.searchsorted(t, o.t0.values, side="right") - 1, 0)
-i1 = np.searchsorted(t, o.mae_t.values, side="right")
+i1 = np.searchsorted(t, o.mae_t.values, side="right")   # exclusive end: the slice a:b stops at the bar of the trough
 o["p0"] = op[i0]
-o["rng_pct"] = [(hi[a:b + 1].max() - lo[a:b + 1].min()) / p * 100 for a, b, p in zip(i0, i1, o.p0)]
+o["rng_pct"] = [(hi[a:b].max() - lo[a:b].min()) / p * 100 for a, b, p in zip(i0, i1, o.p0)]
 o["hrs"] = (o.mae_t - o.t0) / 3600
 o["deep"] = o.mae_pct <= -10
 for c in ["rng_pct", "hrs", "n"]:

@@ -14,6 +14,8 @@ import numpy as np, pandas as pd
 from sklearn.linear_model import LogisticRegression
 
 TRAIN_END, VALID_END = pd.Timestamp("2023-01-01"), pd.Timestamp("2025-01-01")
+TEST_END = pd.Timestamp("2025-11-01")   # Nov 2025 on calibrated the target (account 1 baskets): not a test
+LATE_START = pd.Timestamp("2018-01-01")  # dollar index (Dukascopy) from Dec 2017, GDELT from 2017
 FLAG_BUDGET = 0.10           # share of training hours each signal may flag
 EVENT_PCT, HORIZON = 1.0, 4  # target: high-low >= 1.0% of the close within the next 4 hours
 DAYS = 250
@@ -88,7 +90,12 @@ def build(data):
 
 
 def split(f):
-    return f[f.index < TRAIN_END], f[(f.index >= TRAIN_END) & (f.index < VALID_END)], f[f.index >= VALID_END]
+    """A row belongs to a period only if its whole target window (h .. h+4) lies inside it."""
+    end = f.index + pd.Timedelta(hours=HORIZON + 1)
+    tr = f[end <= TRAIN_END]
+    va = f[(f.index >= TRAIN_END) & (end <= VALID_END)]
+    te = f[(f.index >= VALID_END) & (end <= TEST_END)]
+    return tr, va, te
 
 
 def fit_scores(tr, frames, cols, name):
@@ -112,10 +119,12 @@ def main():
     tr, va, te = split(f)
     frames = {"train": tr, "valid": va, "test": te}
     scores = {}
-    for s in ["S1", "S3", "S4", "S5", "S6", "S7", "S8", "S9"]:
+    for s in ["S1", "S3", "S4", "S5", "S9"]:
         scores[s] = {k: v[s] for k, v in frames.items()}
+    for s in ["S6", "S7", "S8"]:                       # trained (thresholded) only where their data exist
+        scores[s] = {"train": tr.loc[tr.index >= LATE_START, s], "valid": va[s], "test": te[s]}
     scores["S2"] = fit_scores(tr, frames, ["har1", "har24", "har120"], "S2")
-    news_tr = tr[tr.index >= "2017-01-01"]
+    news_tr = tr[tr.index >= LATE_START]
     scores["S10"] = fit_scores(news_tr, frames, ["S1", "har1", "har24", "har120", "S3", "S4", "S5", "S6", "S7", "S8", "S9"], "S10")
     if "--test" in sys.argv:
         s = sys.argv[sys.argv.index("--test") + 1]
@@ -124,10 +133,14 @@ def main():
         return
     rows = []
     for s, sc in scores.items():
-        a = evaluate(sc["train"], sc["train"], tr.y); b = evaluate(sc["train"], sc["valid"], va.y)
+        a = evaluate(sc["train"], sc["train"], tr.y.reindex(sc["train"].index)); b = evaluate(sc["train"], sc["valid"], va.y)
         rows.append((s, *a, *b))
     out = pd.DataFrame(rows, columns=["signal", "tr_flag", "tr_recall", "tr_base", "va_flag", "va_recall", "va_base"])
+    out["va_lift"] = out.va_recall / out.va_flag
+    # S9 is binary (a few % of hours): reported as lift, never chosen on its own
+    eligible = out[(out.signal != "S9") & out.va_flag.between(0.08, 0.12)]
     print(out.round(3).to_string(index=False))
+    print("chosen by validation recall:", eligible.sort_values("va_recall").signal.iloc[-1] if len(eligible) else "none eligible")
     print("hours:", len(tr), len(va), len(te), "| events train/valid:", int(tr.y.sum()), int(va.y.sum()))
 
 
