@@ -81,10 +81,9 @@ def build(data):
     f["S8"] = (tone - tone.rolling(7).mean().shift(1)).abs().shift(1).reindex(day).values
     ev = pd.to_datetime(pd.read_csv(os.path.join(data, "events.csv")).utc).values.astype("datetime64[ns]")
     ev.sort()
-    tt = g.index.values
-    nxt = np.searchsorted(ev, tt, side="right")          # first event strictly after hour h's close
+    close_t = g.index.values + np.timedelta64(1, "h")    # features of bar h are known only at its close
+    nxt = np.searchsorted(ev, close_t, side="right")      # first event strictly after that close
     nxt_t = np.where(nxt < len(ev), ev[np.minimum(nxt, len(ev) - 1)], np.datetime64("NaT"))
-    close_t = tt + np.timedelta64(1, "h")
     f["S9"] = ((nxt_t - close_t) <= np.timedelta64(HORIZON, "h")).astype(float)
     return f
 
@@ -95,7 +94,7 @@ def split(f):
     tr = f[end <= TRAIN_END]
     va = f[(f.index >= TRAIN_END) & (end <= VALID_END)]
     te = f[(f.index >= VALID_END) & (end <= TEST_END)]
-    return tr, va, te
+    return tr.copy(), va.copy(), te.copy()
 
 
 def fit_scores(tr, frames, cols, name):
@@ -124,8 +123,12 @@ def main():
     for s in ["S6", "S7", "S8"]:                       # trained (thresholded) only where their data exist
         scores[s] = {"train": tr.loc[tr.index >= LATE_START, s], "valid": va[s], "test": te[s]}
     scores["S2"] = fit_scores(tr, frames, ["har1", "har24", "har120"], "S2")
-    news_tr = tr[tr.index >= LATE_START]
-    scores["S10"] = fit_scores(news_tr, frames, ["S1", "har1", "har24", "har120", "S3", "S4", "S5", "S6", "S7", "S8", "S9"], "S10")
+    # S10 combines the nine registered signals, S2 entering as its own HAR score (one column);
+    # it is fitted AND thresholded only on 2018-2022, where every input exists
+    for k, v in frames.items():
+        v["S2"] = scores["S2"][k]
+    late = {"train": tr[tr.index >= LATE_START], "valid": va, "test": te}
+    scores["S10"] = fit_scores(late["train"], late, ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9"], "S10")
     if "--test" in sys.argv:
         s = sys.argv[sys.argv.index("--test") + 1]
         fr, rc, base = evaluate(scores[s]["train"], scores[s]["test"], te.y)
