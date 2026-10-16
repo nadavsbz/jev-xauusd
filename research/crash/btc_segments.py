@@ -2,7 +2,7 @@
 $2,000 the day after the previous one ended in a wipe (balance at or below 5% of the deposit).
 Lists each segment's start, end, peak and the wipe day. Read-only investor login (run_tester.py).
 Usage: python research/crash/btc_segments.py OUT_JSON"""
-import json, os, re, subprocess, sys
+import glob, json, os, re, subprocess, sys
 import pandas as pd
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
@@ -36,7 +36,8 @@ def main():
                             "--from", start.strftime("%Y.%m.%d"), "--to", END.strftime("%Y.%m.%d"),
                             "--deposit", str(DEPOSIT), "--leverage", "1000", "--report", name],
                            cwd=os.path.join(ROOT, "tools"), timeout=6 * 3600)
-            for f in (os.path.join(TERM, "Tester", "logs"), os.path.join(TERM, "Tester", "Agent-127.0.0.1-3000", "logs")):
+            log_dirs = [os.path.join(TERM, "Tester", "logs")] + glob.glob(os.path.join(TERM, "Tester", "Agent-*", "logs"))
+            for f in log_dirs:
                 for x in os.listdir(f) if os.path.isdir(f) else []:
                     try:
                         os.remove(os.path.join(f, x))      # tester logs grow to tens of GB
