@@ -145,12 +145,15 @@ def main():
             return
         proc = subprocess.run([a.terminal, "/portable", f"/config:{ini}"], timeout=a.timeout)
         print(f"terminal exited with {proc.returncode} after {time.time() - t0:.0f}s")
+        rc = proc.returncode
     finally:
         os.remove(ini); os.rmdir(tmp)
     if a.detach:
         return
     found = [f for f in os.listdir(root) if f.startswith(os.path.basename(a.report))]
     print("report files:", found or "none - see the tester log under Tester/logs")
+    if rc != 0:                         # pass the terminal's failure on (review): the queue must see it
+        sys.exit(rc)
 
 
 if __name__ == "__main__":

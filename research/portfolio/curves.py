@@ -83,7 +83,9 @@ def acc_daily():
     o["day"] = pd.to_datetime(o.t1, unit="s").dt.normalize()
     o["cross"] = (pd.to_datetime(o.t0, unit="s") < SPLIT) & (pd.to_datetime(o.t1, unit="s") >= SPLIT)
     r, tr, pre, plo = {}, {}, {}, {}
-    for day, g in o.groupby("day"):
+    # baskets that cross the split are removed BEFORE the daily aggregation (review): the other
+    # baskets that close on the same day stay; the flag only marks such days
+    for day, g in o[~o.cross].groupby("day"):
         # trough = the lowest point of the day; (pre, plo) = the floating peak and the low after it that
         # give the day's WORST relative drop (review: a later, deeper drop from a higher peak must count)
         eq, low, pk_run, best, pair = 1.0, 0.0, 0.0, 1.0, (0.0, 0.0)

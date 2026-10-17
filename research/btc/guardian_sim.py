@@ -79,7 +79,10 @@ def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False, kill=F
         # JevGuardian closes such a position right after it opens: it costs the spread, nothing else
         closed_now = pos[blk].copy()
         closed_now["t1"] = closed_now.t0; closed_now["p1"] = closed_now.p0   # never on a bar path
-        closed_now["net"] = -closed_now.vol * 100 * SPREAD; closed_now["swap"] = 0.0; closed_now["cost_in"] = 0.0
+        # spread plus entry and exit commission (the exit one assumed equal to the entry one; in this
+        # report every commission is 0, VERIFIED, so the results do not change)
+        closed_now["net"] = -closed_now.vol * 100 * SPREAD + 2 * closed_now.cost_in
+        closed_now["swap"] = 0.0; closed_now["cost_in"] = 0.0
         closed_now["blocked"] = True
         pos = pd.concat([pos[~blk].assign(blocked=False), closed_now]).sort_values("t0").reset_index(drop=True)
     else:

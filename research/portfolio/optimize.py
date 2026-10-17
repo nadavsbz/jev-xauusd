@@ -76,8 +76,7 @@ def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
 
 def main():
     c = pd.read_csv(sys.argv[1], index_col=0, parse_dates=True)
-    cols = [x for x in ("account1", "account1_trough", "account1_peak_before", "account1_low_after_peak") if x in c]
-    c.loc[c.account1_crosses_split.astype(bool), cols] = 0.0   # purged (all of the day's account-1 path)
+    # split-crossing baskets are already removed in curves.py before the daily aggregation
     if "btc" in c and "--btc-dd" not in sys.argv:
         sys.exit("a BTC curve is present: --btc-dd (its worst equity drawdown up to 31.5.2026, as a share) is required")
     btc_dd = float(sys.argv[sys.argv.index("--btc-dd") + 1]) if "--btc-dd" in sys.argv else 0.0
