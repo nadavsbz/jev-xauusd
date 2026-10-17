@@ -22,6 +22,7 @@ def floor_half(r, tr, rb, ru):
     r, tr, rb, ru = r * LOT, tr * LOT, rb * LOT, ru * LOT
     hit = tr <= -FLOOR
     r = np.where(hit, -(FLOOR + SLIP), r); tr = np.where(hit, -(FLOOR + SLIP), tr)
+    ru = np.where(hit, rb, ru)          # a cut basket has no run-up after the cut (as in guard_sim.py)
     return r, tr, rb, ru
 
 
@@ -36,12 +37,12 @@ def mix_chosen(r, tr, days):
         for rr, tt in zip(g.r, g.tr):
             if not alive:
                 break
-            low = eq * (1 + min(tt, 0))
-            if low <= peak * 0.85:            # intraday trough against the peak that existed before it
-                alive = False
-            eq *= 1 + rr
-            if eq <= peak * 0.85:
-                alive = False
+            low = eq * (1 + min(tt, 0)); close = eq * (1 + rr); line = peak * 0.85
+            if min(low, close) <= line:       # trough against the peak that existed before it:
+                eq = min(line, close); alive = False   # closed at the floor, nothing after the crossing
+                low = min(low, eq)
+            else:
+                eq = close
             peak = max(peak, eq)
             worst = min(worst, (low + 0.1) / tot_peak - 1)
         tot = eq + 0.1; worst = min(worst, tot / tot_peak - 1); tot_peak = max(tot_peak, tot)
