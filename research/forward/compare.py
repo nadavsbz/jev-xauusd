@@ -25,6 +25,25 @@ def floor_half(r, tr, rb, ru):
     return r, tr, rb, ru
 
 
+def mix_chosen(r, tr, days):
+    """The mix chosen in docs/PORTFOLIO_PLAN.md: 90% of capital in account 1 at f=0.2 with the 15% floor
+    (intraday breach stops it for good), 10% kept aside (Bull Scalper is not traded forward, so its 10%
+    counts as cash here). Daily: multiple and drawdown of the whole capital."""
+    out = []; eq, peak, alive, tot_peak, worst = 0.9, 0.9, True, 1.0, 0.0
+    by_day = pd.DataFrame({"r": r * 0.2, "tr": tr * 0.2, "d": days}).groupby("d")
+    for d, g in by_day:
+        for rr, tt in zip(g.r, g.tr):
+            if not alive:
+                break
+            low = eq * (1 + min(tt, 0)); eq *= 1 + rr; peak = max(peak, eq)
+            worst = min(worst, (low + 0.1) / tot_peak - 1)
+            if min(low, eq) <= peak * 0.85:
+                alive = False
+        tot = eq + 0.1; worst = min(worst, tot / tot_peak - 1); tot_peak = max(tot_peak, tot)
+        out.append({"day": str(pd.Timestamp(d).date()), "mult": round(float(tot), 4), "dd": round(float(worst * 100), 2)})
+    return out
+
+
 def daily(r, tr, rb, ru, days):
     """Cumulative multiple and max drawdown (floating included) at the end of each day."""
     out = []
@@ -57,10 +76,11 @@ def main():
     res = {"generated_utc": pd.Timestamp.utcnow().isoformat(), "baskets": int(sel.sum()),
            "variants": {"actual": daily(*base, pd.DatetimeIndex(days)),
                         "half_floor": daily(*floor_half(*base), pd.DatetimeIndex(days)),
-                        "half_floor_dir": daily(*floor_half(*d), pd.DatetimeIndex(days))}}
+                        "half_floor_dir": daily(*floor_half(*d), pd.DatetimeIndex(days)),
+                        "mix_chosen": mix_chosen(base[0], base[1], days)}}
     json.dump(res, open(sys.argv[1], "w"), indent=1)
     # long rows for the dashboard: one row per day and variant
-    names = {"actual": "בפועל", "half_floor": "חצי לוט + רצפה 15%", "half_floor_dir": "חצי לוט + רצפה + חסימת כיוון"}
+    names = {"actual": "בפועל", "half_floor": "חצי לוט + רצפה 15%", "half_floor_dir": "חצי לוט + רצפה + חסימת כיוון", "mix_chosen": "השילוב שנבחר (90% בחשבון 1, לוט 0.2, רצפה)"}
     rows = [{"day": r["day"], "variant": names[k], "mult": r["mult"], "dd": r["dd"]}
             for k, v in res["variants"].items() for r in v]
     json.dump(rows, open(sys.argv[1].replace(".json", "_rows.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
