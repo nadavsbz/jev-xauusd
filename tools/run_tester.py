@@ -18,7 +18,8 @@ Expert={expert}
 {set_line}Symbol={symbol}
 Period={period}
 Model={model}
-Optimization=0
+Optimization={optimization}
+OptimizationCriterion=0
 FromDate={from_}
 ToDate={to}
 ForwardMode=0
@@ -110,6 +111,8 @@ def main():
     p.add_argument("--report", required=True, help="report name, relative to the terminal folder")
     p.add_argument("--timeout", type=int, default=4 * 3600)
     p.add_argument("--detach", action="store_true", help="start the terminal and return once testing has started")
+    p.add_argument("--optimization", type=int, default=0,
+                   help="0 single pass, 1 slow complete (every combination of the ranges in the .set; local agents in parallel)")
     a = p.parse_args()
 
     root = os.path.dirname(os.path.abspath(a.terminal))
@@ -127,7 +130,8 @@ def main():
         with open(ini, "w", encoding="utf-16") as f:
             f.write(INI.format(login=int(acc["login"]), password=acc["password"], server=acc["server"],
                                expert=a.expert, set_line=f"ExpertParameters={a.set}\n" if a.set else "", symbol=a.symbol, period=a.period, model=a.model,
-                               from_=a.from_, to=a.to, deposit=a.deposit, leverage=a.leverage, report=a.report))
+                               from_=a.from_, to=a.to, deposit=a.deposit, leverage=a.leverage, report=a.report,
+                               optimization=a.optimization))
         t0 = time.time()
         if a.detach:
             # The terminal runs on its own (survives this script); the config with the
@@ -158,7 +162,7 @@ def main():
     print("report files:", found or "none - see the tester log under Tester/logs")
     if rc != 0:                         # pass the terminal's failure on (review): the queue must see it
         sys.exit(rc)
-    if not any(f == os.path.basename(a.report) + ".htm" for f in found):
+    if not any(f == os.path.basename(a.report) + (".xml" if a.optimization else ".htm") for f in found):
         sys.exit("no new report was written")
 
 
