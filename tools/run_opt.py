@@ -49,7 +49,12 @@ def main():
     if os.path.exists(ev):
         print("exists:", ev); return
     set_name = j["report"] + ".set"
-    write_set(j["base_set"], j.get("fixed", {}), j["ranges"], set_name)
+    # fixed inputs are written as single-value ranges, so the report carries them as columns and
+    # every pass can be checked against them (review: a ignored fixed value must not pass)
+    ranges = dict(j["ranges"])
+    for k, v in j.get("fixed", {}).items():
+        x = float(v); ranges[k] = [x, max(abs(x) / 10, 0.01), x]
+    write_set(j["base_set"], {}, ranges, set_name)
     cmd = [sys.executable, "run_tester.py", "--accounts", "../accounts.json", "--name", j["name"], "--terminal", TERM,
            "--expert", j["expert"], "--set", set_name, "--symbol", j["symbol"], "--period", j["period"],
            "--from", j["from"], "--to", j["to"], "--deposit", str(j["deposit"]), "--leverage", str(j["leverage"]),
@@ -60,13 +65,17 @@ def main():
     if r.returncode != 0 or not os.path.exists(xml):
         sys.exit(f"optimization failed (rc {r.returncode})")
     passes = parse_xml(xml)
-    want = set(itertools.product(*[values(*v) for v in j["ranges"].values()]))
+    want = set(itertools.product(*[values(*v) for v in ranges.values()]))
     got = set()
     for p in passes:
         try:
-            got.add(tuple(round(float(p[k]), 6) for k in j["ranges"]))
+            got.add(tuple(round(float(p[k]), 6) for k in ranges))
         except (KeyError, ValueError):
             pass
+    # every pass must carry the fixed values; a pass with another value makes the whole report invalid
+    bad = [p for p in passes if any(k in p and round(float(p[k]), 6) != round(float(v), 6) for k, v in j.get("fixed", {}).items())]
+    if bad or any(k not in passes[0] for k in j.get("fixed", {})):
+        got = set()
     out = {"job": j, "report_file": os.path.basename(xml), "passes": passes,
            "combinations_expected": len(want), "combinations_found": len(got & want)}
     ok = want <= got

@@ -72,13 +72,36 @@ bool Guarded(const ulong ticket)
    return GuardMagic == 0 || PositionGetInteger(POSITION_MAGIC) == GuardMagic;
   }
 
-void ClosePos(const ulong ticket, const string why)
+ulong retry[];   // positions whose close was not confirmed: tried again on every check
+
+void AddRetry(const ulong t) { for(int i = 0; i < ArraySize(retry); i++) if(retry[i] == t) return;
+                               int n = ArraySize(retry); ArrayResize(retry, n + 1); retry[n] = t; }
+
+// true only when the server confirmed the close (review: PositionClose()=true is not enough)
+bool ClosePos(const ulong ticket, const string why)
   {
-   if(DryRun) { PrintFormat("DRY would close #%I64u: %s", ticket, why); return; }
-   if(!trade.PositionClose(ticket))
-      PrintFormat("close #%I64u failed (%u %s): %s", ticket, trade.ResultRetcode(), trade.ResultRetcodeDescription(), why);
-   else
-      PrintFormat("closed #%I64u: %s", ticket, why);
+   if(DryRun) { PrintFormat("DRY would close #%I64u: %s", ticket, why); return true; }
+   bool sent = trade.PositionClose(ticket);
+   uint rc = trade.ResultRetcode();
+   if(sent && (rc == TRADE_RETCODE_DONE || rc == TRADE_RETCODE_DONE_PARTIAL) && !PositionSelectByTicket(ticket))
+     { PrintFormat("closed #%I64u: %s", ticket, why); return true; }
+   PrintFormat("close #%I64u not confirmed (%u %s): %s - will retry", ticket, rc, trade.ResultRetcodeDescription(), why);
+   AddRetry(ticket);
+   return false;
+  }
+
+void RetryPending()
+  {
+   for(int i = ArraySize(retry) - 1; i >= 0; i--)
+     {
+      ulong t = retry[i];
+      bool gone = !PositionSelectByTicket(t) || ClosePos(t, "retry");
+      if(gone)
+        {
+         for(int j = i; j < ArraySize(retry) - 1; j++) retry[j] = retry[j + 1];
+         ArrayResize(retry, ArraySize(retry) - 1);
+        }
+     }
   }
 
 // gold move over the last MoveMinutes, in % (closed M1 bars only)
@@ -145,6 +168,6 @@ void CheckDirection()
      }
   }
 
-void OnTimer() { CheckFloor(); CheckDirection(); }
-void OnTick()  { CheckFloor(); CheckDirection(); }
+void OnTimer() { RetryPending(); CheckFloor(); CheckDirection(); }
+void OnTick()  { RetryPending(); CheckFloor(); CheckDirection(); }
 //+------------------------------------------------------------------+
