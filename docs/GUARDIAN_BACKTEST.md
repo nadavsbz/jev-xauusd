@@ -95,9 +95,9 @@
 
 **המשמעות:** בהגדרות האלה, רצפת הון לא מצילה את BTC Bot בהון קטן. כדי שהוא יהיה שימושי צריך להקטין את החשיפה עצמה, דרך יחס של הון ללוט כמו $120,000 לכל 0.01. רצפה לא מחליפה את זה.
 
-## Bug found after the loop closed (17.10.2026, 20:15)
+## באג שנמצא אחרי סגירת הלולאה (17.10.2026, 20:15)
 
-- **What was wrong:** in `guarded()`, a position that opened and closed inside the same minute bar was never booked: not its profit and not its loss.
-- **How it was found:** I ran the simulation on the calibrated Black Dragon run with no floor at all. It wiped the account, while the tester itself grew it to 116,770 cents. In that run there are 8,075 such positions, worth +34,904 cents together.
-- **After the fix:** 116,751 cents against 116,770 in the tester. [VERIFIED]
-- **What this changes:** BTC Bot may also have positions like this, so **all the results in this document are being rerun.** Until the rerun finishes, the conclusion here is **UNKNOWN**. The results will be updated in this section.
+- **מה היה לא נכון:** ב-`guarded()`, פוזיציה שנפתחה ונסגרה בתוך אותו נר של דקה לא נרשמה בכלל. לא הרווח שלה ולא ההפסד שלה.
+- **איך זה נמצא:** הרצתי את הסימולציה על ריצת Black Dragon המכוילת בלי רצפה בכלל. היא מחקה את החשבון, בזמן שהטסטר עצמו הגדיל אותו ל-116,770 סנט. בריצה הזו יש 8,075 פוזיציות כאלה, ששוות יחד ‎+34,904 סנט.
+- **אחרי התיקון:** 116,751 סנט, מול 116,770 בטסטר. [VERIFIED]
+- **מה זה משנה:** גם ל-BTC Bot עשויות להיות פוזיציות כאלה, ולכן **כל התוצאות במסמך הזה מורצות מחדש.** עד שההרצה תסתיים, המסקנה כאן היא **UNKNOWN**. התוצאות יעודכנו בסעיף הזה.
