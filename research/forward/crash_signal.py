@@ -17,9 +17,10 @@ from pandas.tseries.holiday import USFederalHolidayCalendar, GoodFriday, Abstrac
 
 
 class _Cboe(AbstractHolidayCalendar):
-    """US federal holidays plus Good Friday: an approximation of the days without a GVZ close
-    (ASSUMED: CBOE trades on Columbus Day and Veterans Day, which this calendar would skip)."""
-    rules = USFederalHolidayCalendar.rules + [GoodFriday]
+    """US exchange holidays (NYSE/CBOE): federal holidays WITHOUT Columbus Day and Veterans Day
+    (exchanges trade on both), plus Good Friday. ASSUMED: matches CBOE's index calendar."""
+    rules = [r for r in USFederalHolidayCalendar.rules
+             if r.name not in ("Columbus Day", "Veterans Day")] + [GoodFriday]
 
 
 _HOL = set(_Cboe().holidays("2026-01-01", "2028-12-31"))
