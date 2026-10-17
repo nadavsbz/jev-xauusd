@@ -1,6 +1,7 @@
 """Read-only pull of H1 bars through an investor login into stage-1 CSVs (docs/CRASH_DETECT_PLAN.md).
-Server time is converted to UTC with the 'New York + 7h' rule (ASSUMED for RoboForex: the
-last bar at pull time matched UTC+3 while New York was on daylight time).
+Server time is converted to UTC with the server's real time zone: RoboForex follows EUROPEAN daylight
+time (Europe/Athens, UTC+2/+3). VERIFIED against the 18:00 New York weekly gold open (604 of 627 weeks;
+the old 'New York + 7h' rule missed the weeks between the US and EU clock changes).
 Usage: python research/crash/pull_h1.py ACCOUNT_NAME SYMBOL OUT_PREFIX OUT_DIR [--list PATTERN]"""
 import sys, time, os, subprocess, datetime as dt
 from zoneinfo import ZoneInfo
@@ -13,9 +14,12 @@ TERM = r"C:\MT5_JEV_RO\terminal64.exe"
 NY = ZoneInfo("America/New_York")
 
 
+SERVER = ZoneInfo("Europe/Athens")
+
+
 def to_utc(server_epoch):
-    ny_wall = dt.datetime.utcfromtimestamp(server_epoch) - dt.timedelta(hours=7)
-    return ny_wall.replace(tzinfo=NY).astimezone(dt.timezone.utc)
+    wall = dt.datetime.utcfromtimestamp(server_epoch)
+    return wall.replace(tzinfo=SERVER).astimezone(dt.timezone.utc)
 
 
 def main():
@@ -42,13 +46,18 @@ def main():
         r = None
         for _ in range(40):                       # history arrives asynchronously: pull until stable
             r = mt5.copy_rates_from_pos(sym, mt5.TIMEFRAME_H1, 0, 200000)
-            if r is not None and len(r) and prev is not None and len(r) == len(prev):
+            # stable = two pulls identical in CONTENT, not only in count (review)
+            if r is not None and len(r) and prev is not None and len(r) == len(prev) and (r == prev).all():
                 break
             prev = r if r is not None and len(r) else None
             time.sleep(6)
         if r is None or not len(r):
             sys.exit(f"{sym}: no bars ({mt5.last_error()})")
         d = pd.DataFrame(r)
+        # coverage and continuity before writing (review): no gap longer than 4 days (weekends, holidays)
+        gaps = pd.Series(d.time).diff().dropna()
+        if (gaps > 4 * 86400).any():
+            sys.exit(f"{sym}: gap of {gaps.max() / 86400:.1f} days in the pulled history - nothing written")
         d["utc"] = [to_utc(int(t)) for t in d.time]
         d["timestamp"] = [int(u.timestamp() * 1000) for u in d.utc]
         d = d[d.utc >= pd.Timestamp("2015-01-01", tz="UTC")]

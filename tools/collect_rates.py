@@ -17,7 +17,7 @@ import os
 import re
 import sys
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 
 import MetaTrader5 as mt5
 
@@ -109,14 +109,9 @@ def main():
                 if not m:
                     return False
                 day, n = m.group(1), int(m.group(2))
-                # a reduced count is accepted only on a known short session (review): US federal
-                # holidays (CME early close), the day after Thanksgiving, 24.12 and 31.12
-                import pandas as pd
-                from pandas.tseries.holiday import USFederalHolidayCalendar
-                d = pd.Timestamp(day)
-                hol = set(USFederalHolidayCalendar().holidays(f"{d.year}-01-01", f"{d.year}-12-31"))
-                thanks = [h for h in hol if h.month == 11 and h.day >= 22]
-                short_day = d in hol or day[5:] in ("12-24", "12-31") or any(d == h + pd.Timedelta(days=1) for h in thanks)
+                # a reduced count is accepted only on a date listed as short in tools/market_calendar.py (review)
+                from market_calendar import SHORT
+                short_day = date.fromisoformat(day) in SHORT
                 return (n >= 800 and short_day) or (n == 0 and (day[5:] in ("12-25", "01-01") or day in ("2025-04-18", "2026-04-03")))   # + Good Fridays
             hard = [x for x in problems if not short_ok(x)]
             if hard:
