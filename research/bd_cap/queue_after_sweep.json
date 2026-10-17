@@ -1,0 +1,17 @@
+[
+ {
+  "report": "bd_robo_accperiod_lot04",
+  "base_set": "bd2afterpoint_l001_sp50.set",
+  "overrides": {
+   "Lot_Init_": "0.04"
+  },
+  "name": "Black Dragon 3",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2025.11.11",
+  "to": "2026.10.14",
+  "deposit": 24895,
+  "leverage": 1000
+ }
+]

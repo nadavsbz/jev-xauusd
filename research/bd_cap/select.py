@@ -5,7 +5,7 @@ Usage: python research/bd_cap/select.py"""
 import json, os, sys
 
 EV = "docs/evidence"
-FILES = ["bdcap_opt_ml02.json", "bdcap_opt_ml05.json", "bdcap_opt_ml10.json"]
+FILES = ["bdcap_opt_ml02.json", "bdcap_opt_ml05_10.json"]   # 0.5 and 1.0 in one run (MaxLot_ as a range)
 DEPOSIT, MONTHS = 24895.0, 19.0          # 1.4.2024 - 31.10.2025
 
 
@@ -19,8 +19,9 @@ def main():
         p = os.path.join(EV, f)
         if not os.path.exists(p):
             sys.exit(f"missing {p} (or only .invalid): the sweep is not complete")
-        d = json.load(open(p, encoding="utf-8")); ml = d["job"]["fixed"]["MaxLot_"]
+        d = json.load(open(p, encoding="utf-8"))
         for r in d["passes"]:
+            ml = str(num(r["MaxLot_"])) if "MaxLot_" in r else d["job"]["fixed"]["MaxLot_"]
             b, s = num(r["MaxOrdersBuy"]), num(r["MaxOrdersSell"])
             if b != s:
                 continue                                    # mixed combinations are not counted

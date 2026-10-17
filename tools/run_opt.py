@@ -51,10 +51,10 @@ def main():
     set_name = j["report"] + ".set"
     # fixed inputs are written as single-value ranges, so the report carries them as columns and
     # every pass can be checked against them (review: a ignored fixed value must not pass)
+    # a single-value range makes the tester refuse to start (OBSERVED 17.10.2026): fixed inputs are written
+    # as plain values; inputs that must be verified per pass belong in "ranges"
     ranges = dict(j["ranges"])
-    for k, v in j.get("fixed", {}).items():
-        x = float(v); ranges[k] = [x, max(abs(x) / 10, 0.01), x]
-    write_set(j["base_set"], {}, ranges, set_name)
+    write_set(j["base_set"], j.get("fixed", {}), ranges, set_name)
     cmd = [sys.executable, "run_tester.py", "--accounts", "../accounts.json", "--name", j["name"], "--terminal", TERM,
            "--expert", j["expert"], "--set", set_name, "--symbol", j["symbol"], "--period", j["period"],
            "--from", j["from"], "--to", j["to"], "--deposit", str(j["deposit"]), "--leverage", str(j["leverage"]),
