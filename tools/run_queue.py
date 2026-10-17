@@ -47,8 +47,15 @@ def main():
                "deposit": j["deposit"], "rc": r.returncode}
         if os.path.exists(htm):
             tmp = ev + ".tmp"          # promoted to the evidence file only after the checks pass
+            if os.path.exists(tmp):
+                os.remove(tmp)         # never read a summary left by an interrupted attempt (review)
             s = subprocess.run([PY, os.path.join(ROOT, "tools", "tester_summary.py"), htm, tmp],
                                capture_output=True, text=True, encoding="utf-8", env={**os.environ, "PYTHONIOENCODING": "utf-8"})
+            if s.returncode != 0 or not os.path.exists(tmp):
+                row["error"] = "tester_summary failed: " + (s.stdout + s.stderr)[-300:]
+                with open(res_path, "a", encoding="utf-8") as f:
+                    f.write(json.dumps(row, ensure_ascii=False) + "\n")
+                continue
             d = json.load(open(tmp, encoding="utf-8"))
             ins = set(d.get("inputs", []))
             row["inputs_ok"] = all(f"{k}={v}" in ins for k, v in j.get("overrides", {}).items())

@@ -43,13 +43,15 @@ def mix_chosen(r, tr, days, rb=None, ru=None):
             low = eq * (1 + min(tt, 0)); close = eq * (1 + rr); line = peak * 0.85
             if min(low, close) <= line:       # trough against the peak that existed before it:
                 eq = line; alive = False   # closed AT the floor, nothing after the crossing (review)
-                low = min(low, eq)
-            else:
-                peak = max(peak, eq * (1 + max(uu, 0)))      # the basket's later floating peak
+                low = line                 # the path ends at the floor too (review: consistent with eq)
+            # the drop is measured against the peak up to the trough (bb), BEFORE a later peak (uu) counts
+            tot_peak = max(tot_peak, peak + 0.1)
+            worst = min(worst, (low + 0.1) / tot_peak - 1)
+            if alive:
+                peak = max(peak, eq * (1 + max(uu, 0)), close)      # the basket's later floating peak, for what follows
                 eq = close
             peak = max(peak, eq)
-            tot_peak = max(tot_peak, peak + 0.1)        # the account's floating peaks count for the mix (review)
-            worst = min(worst, (low + 0.1) / tot_peak - 1)
+            tot_peak = max(tot_peak, peak + 0.1)
         tot = eq + 0.1; worst = min(worst, tot / tot_peak - 1); tot_peak = max(tot_peak, tot)
         out.append({"day": str(pd.Timestamp(d).date()), "mult": round(float(tot), 4), "dd": round(float(worst * 100), 2)})
     return out

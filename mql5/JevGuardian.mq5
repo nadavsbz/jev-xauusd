@@ -28,16 +28,17 @@ CTrade trade;
 string gvPeak, gvKill, gvToken, gvFlows;
 
 // sum of balance operations (deposits +, withdrawals -) on this account so far
-double BalanceFlows()
+// false when the history could not be read (review): then nothing is updated, never "flows = 0"
+bool BalanceFlows(double &s)
   {
-   if(!HistorySelect(0, TimeCurrent() + 86400)) return 0;
-   double s = 0;
+   s = 0;
+   if(!HistorySelect(0, TimeCurrent() + 86400)) return false;
    for(int i = HistoryDealsTotal() - 1; i >= 0; i--)
      {
       ulong d = HistoryDealGetTicket(i);
       if(HistoryDealGetInteger(d, DEAL_TYPE) == DEAL_TYPE_BALANCE) s += HistoryDealGetDouble(d, DEAL_PROFIT);
      }
-   return s;
+   return true;
   }
 
 int OnInit()
@@ -53,7 +54,8 @@ int OnInit()
    bool fresh = ResetToken != 0 && (!GlobalVariableCheck(gvToken) || (int)GlobalVariableGet(gvToken) != ResetToken);
    if(fresh) { GlobalVariableSet(gvPeak, eq); GlobalVariableDel(gvKill); GlobalVariableSet(gvToken, ResetToken);
                Print("JevGuardian reset (new token): peak = equity now, kill switch off"); }
-   if(fresh || !GlobalVariableCheck(gvFlows)) GlobalVariableSet(gvFlows, BalanceFlows());
+   double f0;
+   if((fresh || !GlobalVariableCheck(gvFlows)) && BalanceFlows(f0)) GlobalVariableSet(gvFlows, f0);
    if(!GlobalVariableCheck(gvPeak) || GlobalVariableGet(gvPeak) < eq) GlobalVariableSet(gvPeak, eq);
    trade.SetAsyncMode(false);
    PrintFormat("JevGuardian start: magic=%I64d dry=%s floor=%.1f%% block=%s %.2f%%/%dmin peak=%.2f",
@@ -121,7 +123,8 @@ double SyncFlows(const bool force)
    double peak = GlobalVariableGet(gvPeak);
    if(!force && TimeCurrent() - lastScan < 30) return peak;
    lastScan = TimeCurrent();
-   double flows = BalanceFlows(), seen = GlobalVariableGet(gvFlows);
+   double flows, seen = GlobalVariableGet(gvFlows);
+   if(!BalanceFlows(flows)) { lastScan = 0; return peak; }      // try again on the next check
    if(MathAbs(flows - seen) > 0.005)
      {
       PrintFormat("balance operation %.2f: peak %.2f -> %.2f", flows - seen, peak, peak + flows - seen);
@@ -134,7 +137,9 @@ void CheckFloor()
   {
    double peak = SyncFlows(false);
    double eq = AccountInfoDouble(ACCOUNT_EQUITY);
-   if(eq > peak) { GlobalVariableSet(gvPeak, eq); peak = eq; }
+   // a new equity high may contain a deposit not scanned yet (review): sync first, so the deposit
+   // is counted once (by the flow adjustment), then raise the peak
+   if(eq > peak) { peak = SyncFlows(true); if(eq > peak) { GlobalVariableSet(gvPeak, eq); peak = eq; } }
    bool kill = GlobalVariableCheck(gvKill) && GlobalVariableGet(gvKill) > 0;
    if(!kill && FloorPct > 0 && eq <= peak * (1.0 - FloorPct / 100.0)) peak = SyncFlows(true);   // a withdrawal is not a loss
    if(!kill && FloorPct > 0 && eq <= peak * (1.0 - FloorPct / 100.0))

@@ -1,1 +1,1 @@
-TEST S5: flagged 23.2% of hours, recall 60.2%, event base rate 14.1%
+TEST S5: flagged 22.9% of hours, recall 57.3%, event base rate 14.1%

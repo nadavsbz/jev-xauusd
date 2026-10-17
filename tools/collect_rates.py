@@ -109,7 +109,15 @@ def main():
                 if not m:
                     return False
                 day, n = m.group(1), int(m.group(2))
-                return n >= 800 or (n == 0 and (day[5:] in ("12-25", "01-01") or day in ("2025-04-18", "2026-04-03")))   # + Good Fridays
+                # a reduced count is accepted only on a known short session (review): US federal
+                # holidays (CME early close), the day after Thanksgiving, 24.12 and 31.12
+                import pandas as pd
+                from pandas.tseries.holiday import USFederalHolidayCalendar
+                d = pd.Timestamp(day)
+                hol = set(USFederalHolidayCalendar().holidays(f"{d.year}-01-01", f"{d.year}-12-31"))
+                thanks = [h for h in hol if h.month == 11 and h.day >= 22]
+                short_day = d in hol or day[5:] in ("12-24", "12-31") or any(d == h + pd.Timedelta(days=1) for h in thanks)
+                return (n >= 800 and short_day) or (n == 0 and (day[5:] in ("12-25", "01-01") or day in ("2025-04-18", "2026-04-03")))   # + Good Fridays
             hard = [x for x in problems if not short_ok(x)]
             if hard:
                 sys.exit("incomplete bars - nothing written: " + "; ".join(hard))

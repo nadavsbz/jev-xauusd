@@ -1,4 +1,4 @@
-scenario A: 340 mixes, 271 within -15%. top 5:
+scenario A: 340 mixes, 301 within -15%. top 5:
  acc  btc  bull   f  sweep   mult      dd
  1.0  0.0   0.0 0.2  False 1.5998 -10.966
  0.9  0.0   0.1 0.2  False 1.5440  -9.959
@@ -6,7 +6,7 @@ scenario A: 340 mixes, 271 within -15%. top 5:
  0.8  0.0   0.2 0.2  False 1.4882  -8.934
  0.8  0.0   0.1 0.2  False 1.4840  -8.944
 chosen (A): acc=0.9 btc=0.0 bull=0.1 f=0.2 sweep=False -> x1.5440 / -9.959%
-scenario B: 60 mixes, 40 within -15%. top 5:
+scenario B: 60 mixes, 49 within -15%. top 5:
  acc  btc  bull   f  sweep   mult      dd
  1.0  0.0   0.0 0.2  False 1.5998 -10.966
  0.9  0.0   0.0 0.2  False 1.5398  -9.970

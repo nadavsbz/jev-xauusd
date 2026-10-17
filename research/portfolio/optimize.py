@@ -56,13 +56,15 @@ def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
             # none of the day's later recovery.
             line = peak[k] * (1 - FLOOR)
             if tr is not None:
+                # the floor that is crossed first: the intraday peak's floor when the (peak, low after it)
+                # pair crosses it (review: in every such case), otherwise the floor from before the day
                 line = prior * (1 - FLOOR)
-                if pl_eq <= max(prior, pk_eq) * (1 - FLOOR) and not min(day_low, close) <= line:
+                if pl_eq <= max(prior, pk_eq) * (1 - FLOOR):
                     line = max(prior, pk_eq) * (1 - FLOOR); day_low = min(day_low, pl_eq)
                 peak[k] = max(prior, pk_eq)
             if tr is not None and (min(day_low, close) <= line):
                 eq[k] = line; alive[k] = False      # closed AT the floor (review): no part of the rest of the day
-                low_total += min(day_low, eq[k])
+                low_total += line                   # the path ends at the floor too (review)
             else:
                 eq[k] = close; low_total += day_low
             peak[k] = max(peak[k], eq[k])

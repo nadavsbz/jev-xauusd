@@ -76,8 +76,16 @@ def build(data):
     f["S4"] = ((night_hi - night_lo) / g.close).values / adr.reindex(day).values
     gvz = pd.read_csv(os.path.join(data, "GVZCLS.csv"), parse_dates=["observation_date"], na_values=".")
     gvz = gvz.set_index("observation_date").GVZCLS.dropna()
-    gp = trailing_pct(gvz, DAYS).shift(1)                  # yesterday's close only
-    f["S5"] = gp.reindex(day, method="ffill").values
+    # publication-time alignment (review): FRED posts the close of day D around 17:00 Central European
+    # time on the next business day. Conservatively: available from 16:00 UTC of the next weekday.
+    # Each hour gets the percentile of the latest observation published by the close of that hour.
+    gp = trailing_pct(gvz, DAYS).dropna()
+    nxt = gp.index + pd.offsets.BDay(1)
+    pub = pd.Series(gp.values, index=nxt + pd.Timedelta(hours=16)).sort_index()
+    left = pd.DataFrame({"close_t": g.index + pd.Timedelta(hours=1)})
+    right = pd.DataFrame({"pub": pub.index, "v": pub.values})
+    m = pd.merge_asof(left, right, left_on="close_t", right_on="pub", direction="backward")
+    f["S5"] = m.v.values
     dx = hourly(data, "dollaridxusd")
     f["S6"] = trailing_pct(rng(dx, 24), DAYS * bars_per_day).reindex(g.index, method="ffill")
     vol = pd.concat([pd.read_csv(x) for x in glob.glob(os.path.join(data, "gdelt", "timelinevolraw_*.csv"))])
