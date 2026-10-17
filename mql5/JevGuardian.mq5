@@ -129,7 +129,15 @@ double SyncFlows(const bool force)
    double flows;
    if(!BalanceFlows(flows)) { lastScan = 0; return peak; }      // try again on the next check
    // no baseline yet (the first scan at start failed): set it now WITHOUT moving the peak (review)
-   if(!GlobalVariableCheck(gvFlows)) { GlobalVariableSet(gvFlows, flows); return peak; }
+   if(!GlobalVariableCheck(gvFlows))
+     {
+      // first baseline after a failed start scan: a flow may already be inside it, so the peak is reset to
+      // the equity now (review) - the floor restarts from here rather than firing on a withdrawal
+      double e = AccountInfoDouble(ACCOUNT_EQUITY);
+      GlobalVariableSet(gvFlows, flows); GlobalVariableSet(gvPeak, e);
+      PrintFormat("flows baseline set late: peak reset to equity %.2f", e);
+      return e;
+     }
    double seen = GlobalVariableGet(gvFlows);
    if(MathAbs(flows - seen) > 0.005)
      {
@@ -147,6 +155,7 @@ void CheckFloor()
    // is counted once (by the flow adjustment), then raise the peak
    if(eq > peak) { peak = SyncFlows(true); if(eq > peak) { GlobalVariableSet(gvPeak, eq); peak = eq; } }
    bool kill = GlobalVariableCheck(gvKill) && GlobalVariableGet(gvKill) > 0;
+   if(!kill && !GlobalVariableCheck(gvFlows)) return;            // no flow baseline yet: the floor waits (review)
    if(!kill && FloorPct > 0 && eq <= peak * (1.0 - FloorPct / 100.0)) peak = SyncFlows(true);   // a withdrawal is not a loss
    if(!kill && FloorPct > 0 && eq <= peak * (1.0 - FloorPct / 100.0))
      {
