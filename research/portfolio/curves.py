@@ -8,7 +8,7 @@ were realised (basket / trade close), not the day the basket opened.
   $50,000 deposit, commission and swap rescaled per lot to the RoboForex ECN run (ASSUMED: same
   trades and prices; floating not included).
 - btc (optional, a tester report and its deposit): BTC Bot realised per day as a share of the deposit.
-Usage: python research/portfolio/curves.py OUT_CSV [BTC_REPORT.htm BTC_DEPOSIT]"""
+Usage: python research/portfolio/curves.py OUT_CSV [BTC_REPORT.htm BTC_DEPOSIT [BTC_LAST_DAY]]"""
 import re, sys
 import numpy as np, pandas as pd
 
@@ -110,12 +110,20 @@ if __name__ == "__main__":
     days = pd.bdate_range(START, END)
     print("coverage (first/last close day): account1", a.index.min().date(), a.index.max().date(),
           "| bull", b.index.min().date(), b.index.max().date())
+    # stop if a source does not cover the period (review): missing days would become silent zeros.
+    # BTC may end earlier when its report was cut on purpose (4th argument: its last day).
+    def covers(name, first, last, until=END):
+        if first > START + pd.Timedelta(days=7) or last < until - pd.Timedelta(days=7):
+            sys.exit(f"{name} covers {first.date()}..{last.date()}, not {START.date()}..{until.date()}")
+    covers("account1", a.index.min(), a.index.max()); covers("bull", b.index.min(), b.index.max())
     out = pd.DataFrame({"account1": a.reindex(days).fillna(0), "account1_trough": atr.reindex(days).fillna(0),
                         "account1_peak_before": apre.reindex(days).fillna(0),
                         "account1_low_after_peak": aplo.reindex(days).fillna(0),
                         "account1_crosses_split": cross.reindex(days).fillna(False), "bull": b.reindex(days).fillna(0)})
     if len(sys.argv) > 3:
-        out["btc"] = btc_daily(sys.argv[2], float(sys.argv[3])).reindex(days).fillna(0)
+        bt = btc_daily(sys.argv[2], float(sys.argv[3]))
+        covers("btc", bt.index.min(), bt.index.max(), pd.Timestamp(sys.argv[4]) if len(sys.argv) > 4 else END)
+        out["btc"] = bt.reindex(days).fillna(0)
     out.to_csv(sys.argv[1])
     print(out.describe().round(4).to_string())
     cols = [c for c in ("account1", "bull", "btc") if c in out]

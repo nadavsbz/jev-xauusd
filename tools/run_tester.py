@@ -88,9 +88,9 @@ def preflight(terminal, acc):
             sys.exit("preflight: this login allows trading (master password?) - refusing, investor only")
     finally:
         mt5.shutdown()
-    for pid in running_from(terminal):           # close the preflight instance (path verified)
-        subprocess.run(["taskkill", "/PID", str(pid), "/F"], capture_output=True)
-    time.sleep(5)
+        for pid in running_from(terminal):       # close the preflight instance (path verified), also on failure
+            subprocess.run(["taskkill", "/PID", str(pid), "/F"], capture_output=True)
+        time.sleep(5)
 
 
 def main():
@@ -117,6 +117,10 @@ def main():
         sys.exit(f"refusing: {a.terminal} is not a registered dedicated tester terminal")
     acc = load_account(a.accounts, a.name)
     preflight(a.terminal, acc)
+    # an old report with the same name must never pass as this run's result (review)
+    for f in os.listdir(root):
+        if f.startswith(os.path.basename(a.report) + ".") or f.startswith(os.path.basename(a.report) + "-"):
+            os.remove(os.path.join(root, f))
     tmp = tempfile.mkdtemp(prefix="jev_tester_")
     ini = os.path.join(tmp, "tester.ini")
     try:
@@ -154,6 +158,8 @@ def main():
     print("report files:", found or "none - see the tester log under Tester/logs")
     if rc != 0:                         # pass the terminal's failure on (review): the queue must see it
         sys.exit(rc)
+    if not any(f == os.path.basename(a.report) + ".htm" for f in found):
+        sys.exit("no new report was written")
 
 
 if __name__ == "__main__":

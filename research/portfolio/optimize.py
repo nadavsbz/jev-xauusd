@@ -61,7 +61,7 @@ def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
                     line = max(prior, pk_eq) * (1 - FLOOR); day_low = min(day_low, pl_eq)
                 peak[k] = max(prior, pk_eq)
             if tr is not None and (min(day_low, close) <= line):
-                eq[k] = min(line, close); alive[k] = False
+                eq[k] = line; alive[k] = False      # closed AT the floor (review): no part of the rest of the day
                 low_total += min(day_low, eq[k])
             else:
                 eq[k] = close; low_total += day_low
