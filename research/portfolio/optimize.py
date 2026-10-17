@@ -38,16 +38,22 @@ def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
                 low_total += max(eq[k], 0); continue
             if tr is not None:       # account 1: returns are shares of its own balance (lot follows balance)
                 day_low = eq[k] * (1 + tr[i])
-                eq[k] *= 1 + r[i]
+                close = eq[k] * (1 + r[i])
             else:                    # bull / btc: fixed lot, daily P&L as a share of the STARTING deposit
                 day_low = eq[k] + w * min(r[i], 0)
-                eq[k] += w * r[i]
-            low_total += day_low
-            peak[k] = max(peak[k], eq[k])
+                close = eq[k] + w * r[i]
             # the floor is path-dependent: applied only where a daily trough exists (account 1);
-            # bull/btc have realised P&L only, so their floor is not simulated (plan, review 4)
-            if tr is not None and min(day_low, eq[k]) <= peak[k] * (1 - FLOOR):   # an intraday breach stops it too
-                alive[k] = False
+            # bull/btc have realised P&L only, so their floor is not simulated (plan, review 4).
+            # The trough is checked against the peak from BEFORE the day (review: a same-day close
+            # cannot raise the peak first); on a breach the tool is closed at the floor and keeps
+            # none of the day's later recovery.
+            line = peak[k] * (1 - FLOOR)
+            if tr is not None and min(day_low, close) <= line:
+                eq[k] = min(line, close); alive[k] = False
+                low_total += min(day_low, eq[k])
+            else:
+                eq[k] = close; low_total += day_low
+            peak[k] = max(peak[k], eq[k])
         total = cash + sum(max(v, 0) for v in eq.values())
         worst = min(worst, low_total / total_peak - 1, total / total_peak - 1)
         total_peak = max(total_peak, total)
