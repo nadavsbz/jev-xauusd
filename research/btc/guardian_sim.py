@@ -70,11 +70,17 @@ def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False, kill=F
     o_a0 = np.searchsorted(bt, pos.t0.min(), "left")
     orig_open_t, orig_close_t = pos.t0.values.copy(), pos.t1.values.copy()
     if block:
-        k = np.searchsorted(bt, pos.t0.values, "left") - 1; kh = np.searchsorted(bt, pos.t0.values - 3600, "left") - 1
+        m0 = pos.t0.values - pos.t0.values % 60          # start of the entry minute: only bars closed before it
+        k = np.searchsorted(bt, m0, "left") - 1; kh = np.searchsorted(bt, m0 - 3600, "left") - 1
         ok = (k >= 0) & (kh >= 0)                       # no bar before the entry: no move known, no block
         mv = np.where(ok, (cl[np.maximum(k, 0)] - cl[np.maximum(kh, 0)]) / cl[np.maximum(kh, 0)] * 100, 0.0)
         sgn = np.where(pos.side == "buy", 1, -1)
-        pos = pos[~(mv * sgn <= -1.0)].reset_index(drop=True)
+        blk = mv * sgn <= -1.0
+        # JevGuardian closes such a position right after it opens: it costs the spread, nothing else
+        closed_now = pos[blk].copy()
+        closed_now["t1"] = closed_now.t0 + 60; closed_now["p1"] = closed_now.p0
+        closed_now["net"] = -closed_now.vol * 100 * SPREAD; closed_now["swap"] = 0.0; closed_now["cost_in"] = 0.0
+        pos = pd.concat([pos[~blk], closed_now]).sort_values("t0").reset_index(drop=True)
     a0 = np.searchsorted(bt, pos.t0.min(), "left"); a1 = np.searchsorted(bt, pos.t1.max(), "right")
     tt = bt[a0:a1]
     opens = np.searchsorted(tt, pos.t0.values, "right"); closes = np.searchsorted(tt, pos.t1.values, "left")
