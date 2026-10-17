@@ -36,9 +36,13 @@ def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
         for k, (w, r, tr) in tools.items():
             if not alive[k] or eq[k] <= 0:
                 low_total += max(eq[k], 0); continue
-            day_low = eq[k] * (1 + (tr[i] if tr is not None else min(r[i], 0)))
+            if tr is not None:       # account 1: returns are shares of its own balance (lot follows balance)
+                day_low = eq[k] * (1 + tr[i])
+                eq[k] *= 1 + r[i]
+            else:                    # bull / btc: fixed lot, daily P&L as a share of the STARTING deposit
+                day_low = eq[k] + w * min(r[i], 0)
+                eq[k] += w * r[i]
             low_total += day_low
-            eq[k] *= 1 + r[i]
             peak[k] = max(peak[k], eq[k])
             # the floor is path-dependent: applied only where a daily trough exists (account 1);
             # bull/btc have realised P&L only, so their floor is not simulated (plan, review 4)
