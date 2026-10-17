@@ -1,0 +1,16 @@
+{
+ "source": "account 1 deals snapshot 20261015T120553Z",
+ "deals_sha256": "a8746b9337264ce0c70885a3c25f1ce0594dd9c99bad1e25b3d25f51fac02af4",
+ "window": "2025-11-11 .. 2025-12-10 (server time)",
+ "magic": 5555,
+ "entries": 1526,
+ "net_cents_magic": 1816.28,
+ "first_lots": [
+  0.01,
+  0.02,
+  0.02,
+  0.03,
+  0.05,
+  0.08
+ ]
+}

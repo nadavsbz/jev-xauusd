@@ -1,0 +1,53 @@
+[
+ {
+  "set": "btc_bot_2dig.set",
+  "deposit": 40000,
+  "wiped": true,
+  "end": "2024-11-25",
+  "final": 631.52,
+  "net": -39368.48,
+  "equity_dd": "51,144.00 (98.78%)",
+  "equity_dd_usd": 51144.0,
+  "meets_margin_1_5": false,
+  "trading_days": 171,
+  "avg_per_trading_day": -230.23,
+  "worst_day": -51491.29,
+  "worst_day_date": "2024-11-25",
+  "history_quality": "\u05d8\u05d9\u05e7\u05d9\u05dd \u05d0\u05de\u05d9\u05ea\u05d9\u05d9\u05dd 100%",
+  "report_sha256": "d6defdd0797d3454241c351055ccc69af30c79dc693a06b41bfb63250f7d4e11"
+ },
+ {
+  "set": "btc_bot_2dig.set",
+  "deposit": 80000,
+  "wiped": false,
+  "end": "2026-05-29",
+  "final": 139803.57,
+  "net": 59803.57,
+  "equity_dd": "67,265.07 (54.10%)",
+  "equity_dd_usd": 67265.07,
+  "meets_margin_1_5": false,
+  "trading_days": 559,
+  "avg_per_trading_day": 106.98,
+  "worst_day": 16.3,
+  "worst_day_date": "2024-12-26",
+  "history_quality": "\u05d8\u05d9\u05e7\u05d9\u05dd \u05d0\u05de\u05d9\u05ea\u05d9\u05d9\u05dd 100%",
+  "report_sha256": "44b013a7a6174ac4befec958c327249d64f0d2a341d0c0db88b872c1d75e5b87"
+ },
+ {
+  "set": "btc_bot_2dig.set",
+  "deposit": 120000,
+  "wiped": false,
+  "end": "2026-05-29",
+  "final": 179803.57,
+  "net": 59803.57,
+  "equity_dd": "67,265.07 (40.93%)",
+  "equity_dd_usd": 67265.07,
+  "meets_margin_1_5": true,
+  "trading_days": 559,
+  "avg_per_trading_day": 106.98,
+  "worst_day": 16.3,
+  "worst_day_date": "2024-12-26",
+  "history_quality": "\u05d8\u05d9\u05e7\u05d9\u05dd \u05d0\u05de\u05d9\u05ea\u05d9\u05d9\u05dd 100%",
+  "report_sha256": "a5a08b35bb7efa8aaafb869877e178fb4ee3f3a02d903abff97fe45462723927"
+ }
+]
