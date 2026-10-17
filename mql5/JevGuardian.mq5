@@ -56,6 +56,9 @@ int OnInit()
                Print("JevGuardian reset (new token): peak = equity now, kill switch off"); }
    double f0;
    if((fresh || !GlobalVariableCheck(gvFlows)) && BalanceFlows(f0)) GlobalVariableSet(gvFlows, f0);
+   // a deposit made while the guard was not running must move the peak once, by the flow adjustment,
+   // before equity is compared with the peak (review)
+   if(GlobalVariableCheck(gvPeak) && GlobalVariableCheck(gvFlows)) SyncFlows(true);
    if(!GlobalVariableCheck(gvPeak) || GlobalVariableGet(gvPeak) < eq) GlobalVariableSet(gvPeak, eq);
    trade.SetAsyncMode(false);
    PrintFormat("JevGuardian start: magic=%I64d dry=%s floor=%.1f%% block=%s %.2f%%/%dmin peak=%.2f",
