@@ -77,7 +77,7 @@ def main():
             for f in ((0.1, 0.2, 0.3, 0.4, 0.5) if wa > 0 else (0.0,)):
                 for sw in (False,):       # weekly sweep removed from the search (plan, review 4)
                     m, dd = simulate(sel, wa, wb, wu, f, sw, btc_dd)
-                    rows.append((wa, wb, wu, f, sw, round(m, 3), round(dd, 1)))
+                    rows.append((wa, wb, wu, f, sw, m, dd))      # full precision; rounded only for printing
         t = pd.DataFrame(rows, columns=["acc", "btc", "bull", "f", "sweep", "mult", "dd"])
         ok = t[t.dd >= -15].sort_values("mult", ascending=False)
         if ok.empty:
@@ -85,8 +85,8 @@ def main():
         best = ok.iloc[0]
         tie = ok[ok["mult"] >= best["mult"] * 0.95].sort_values("dd", ascending=False).iloc[0]
         print(f"scenario {scen}: {len(t)} mixes, {len(ok)} within -15%. top 5:")
-        print(ok.head(5).to_string(index=False))
-        print(f"chosen ({scen}): acc={tie.acc} btc={tie.btc} bull={tie.bull} f={tie.f} sweep={tie.sweep} -> x{tie['mult']} / {tie.dd}%")
+        print(ok.head(5).round({"mult": 4, "dd": 3}).to_string(index=False))
+        print(f"chosen ({scen}): acc={tie.acc} btc={tie.btc} bull={tie.bull} f={tie.f} sweep={tie.sweep} -> x{tie['mult']:.4f} / {tie.dd:.3f}%")
 
 
 if __name__ == "__main__":

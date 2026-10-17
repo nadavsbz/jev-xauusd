@@ -40,7 +40,15 @@ while nxt.weekday() == 5:
 old = pd.read_csv(out_path, parse_dates=["date"]) if os.path.exists(out_path) else pd.DataFrame(columns=["date"])
 # a date is closed once it has an eligible row; a date with only ineligible rows may get a new row
 # (with a later valid_from) while it is not over yet - nothing earlier is rewritten
-done = set(pd.to_datetime(old.date[old.eligible.astype(str) == "True"])) if len(old) and "eligible" in old else set()
+# rows from an older schema (no source_obs / valid_from) cannot be checked against the source rule:
+# they never count as eligible, so such a day can still get a proper row while it is not over
+if len(old) and "source_obs" not in old:
+    old["source_obs"] = pd.NA
+if len(old) and "eligible" in old:
+    ok = (old.eligible.astype(str) == "True") & old.source_obs.notna()
+    done = set(pd.to_datetime(old.date[ok]))
+else:
+    done = set()
 seen = set(pd.to_datetime(old.date)) if len(old) else set()
 days = pd.date_range(START, nxt, freq="D")
 today = now.normalize()

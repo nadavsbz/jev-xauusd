@@ -36,10 +36,14 @@ def mix_chosen(r, tr, days):
         for rr, tt in zip(g.r, g.tr):
             if not alive:
                 break
-            low = eq * (1 + min(tt, 0)); eq *= 1 + rr; peak = max(peak, eq)
-            worst = min(worst, (low + 0.1) / tot_peak - 1)
-            if min(low, eq) <= peak * 0.85:
+            low = eq * (1 + min(tt, 0))
+            if low <= peak * 0.85:            # intraday trough against the peak that existed before it
                 alive = False
+            eq *= 1 + rr
+            if eq <= peak * 0.85:
+                alive = False
+            peak = max(peak, eq)
+            worst = min(worst, (low + 0.1) / tot_peak - 1)
         tot = eq + 0.1; worst = min(worst, tot / tot_peak - 1); tot_peak = max(tot_peak, tot)
         out.append({"day": str(pd.Timestamp(d).date()), "mult": round(float(tot), 4), "dd": round(float(worst * 100), 2)})
     return out
