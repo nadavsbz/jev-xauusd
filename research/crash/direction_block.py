@@ -20,6 +20,9 @@ p = ins.set_index("position_id")[["time", "type", "volume", "price", "commission
 p["net"] = (outs.profit + outs.commission + outs.swap + outs.fee).groupby(outs.position_id).sum().reindex(p.index).fillna(0) + p.commission
 p["t1"] = outs.groupby("position_id").time.max().reindex(p.index)
 p["sgn"] = np.where(p.type == 0, 1, -1)
+# one exposure segment per exit deal (review: partial exits reduce the marked volume when they happen)
+_oc = outs.assign(cash=outs.profit + outs.commission + outs.swap + outs.fee)
+EXITS = {pid: sorted(zip(g.time, g.volume, g.cash)) for pid, g in _oc[_oc.position_id.isin(p.index)].groupby("position_id")}
 o = pd.read_csv(os.path.join(os.environ.get("JEV_DERIVED", "data/derived/bd1"), "clusters_strict.csv"))
 i = np.searchsorted(o.t0.values, p.time.values, side="right") - 1
 ok = (i >= 0) & (p.time.values <= o.t1.values[np.maximum(i, 0)])
@@ -43,9 +46,19 @@ def reprice(g, b0):
     tt = bt[a0:a1]; f_lo = np.zeros(len(tt)); f_hi = np.zeros(len(tt)); rc = np.zeros(len(tt))
     for r in g.itertuples():
         a = np.searchsorted(tt, r.time, side="right"); z = np.searchsorted(tt, r.t1 - 59, side="left")
-        f_lo[a:z] += r.sgn * r.volume * (lo[a0 + a:a0 + z] - r.price) * K + r.commission
-        f_hi[a:z] += r.sgn * r.volume * (hi[a0 + a:a0 + z] - r.price) * K + r.commission
-        rc[np.searchsorted(tt, r.t1, side="left"):] += r.net
+        f_lo[a:z] += r.commission; f_hi[a:z] += r.commission          # entry commission until fully closed
+        ex = EXITS.get(r.Index, [])
+        if not ex:                                                    # no exit deal: as before
+            f_lo[a:z] += r.sgn * r.volume * (lo[a0 + a:a0 + z] - r.price) * K
+            f_hi[a:z] += r.sgn * r.volume * (hi[a0 + a:a0 + z] - r.price) * K
+            rc[np.searchsorted(tt, r.t1, side="left"):] += r.net
+            continue
+        for te, v, cash in ex:                                        # each exit's volume is open until its own exit
+            ze = np.searchsorted(tt, te - 59, side="left")
+            f_lo[a:ze] += r.sgn * v * (lo[a0 + a:a0 + ze] - r.price) * K
+            f_hi[a:ze] += r.sgn * v * (hi[a0 + a:a0 + ze] - r.price) * K
+            rc[np.searchsorted(tt, te, side="left"):] += cash
+        rc[np.searchsorted(tt, r.t1, side="left"):] += r.commission   # entry commission realised at the last exit
     worst = np.minimum(f_lo, f_hi) + rc; best = np.maximum(f_lo, f_hi) + rc
     j = worst.argmin()
     return g.net.sum() / b0, min(worst[j], 0) / b0, max(best[:j + 1].max(), 0) / b0, max(best.max(), 0) / b0

@@ -18,7 +18,8 @@ Expert={expert}
 {set_line}Symbol={symbol}
 Period={period}
 Model={model}
-Optimization=0
+Optimization={optimization}
+OptimizationCriterion=0
 FromDate={from_}
 ToDate={to}
 ForwardMode=0
@@ -88,9 +89,9 @@ def preflight(terminal, acc):
             sys.exit("preflight: this login allows trading (master password?) - refusing, investor only")
     finally:
         mt5.shutdown()
-    for pid in running_from(terminal):           # close the preflight instance (path verified)
-        subprocess.run(["taskkill", "/PID", str(pid), "/F"], capture_output=True)
-    time.sleep(5)
+        for pid in running_from(terminal):       # close the preflight instance (path verified), also on failure
+            subprocess.run(["taskkill", "/PID", str(pid), "/F"], capture_output=True)
+        time.sleep(5)
 
 
 def main():
@@ -110,6 +111,8 @@ def main():
     p.add_argument("--report", required=True, help="report name, relative to the terminal folder")
     p.add_argument("--timeout", type=int, default=4 * 3600)
     p.add_argument("--detach", action="store_true", help="start the terminal and return once testing has started")
+    p.add_argument("--optimization", type=int, default=0,
+                   help="0 single pass, 1 slow complete (every combination of the ranges in the .set; local agents in parallel)")
     a = p.parse_args()
 
     root = os.path.dirname(os.path.abspath(a.terminal))
@@ -117,13 +120,18 @@ def main():
         sys.exit(f"refusing: {a.terminal} is not a registered dedicated tester terminal")
     acc = load_account(a.accounts, a.name)
     preflight(a.terminal, acc)
+    # an old report with the same name must never pass as this run's result (review)
+    for f in os.listdir(root):
+        if f.startswith(os.path.basename(a.report) + ".") or f.startswith(os.path.basename(a.report) + "-"):
+            os.remove(os.path.join(root, f))
     tmp = tempfile.mkdtemp(prefix="jev_tester_")
     ini = os.path.join(tmp, "tester.ini")
     try:
         with open(ini, "w", encoding="utf-16") as f:
             f.write(INI.format(login=int(acc["login"]), password=acc["password"], server=acc["server"],
                                expert=a.expert, set_line=f"ExpertParameters={a.set}\n" if a.set else "", symbol=a.symbol, period=a.period, model=a.model,
-                               from_=a.from_, to=a.to, deposit=a.deposit, leverage=a.leverage, report=a.report))
+                               from_=a.from_, to=a.to, deposit=a.deposit, leverage=a.leverage, report=a.report,
+                               optimization=a.optimization))
         t0 = time.time()
         if a.detach:
             # The terminal runs on its own (survives this script); the config with the
@@ -145,12 +153,17 @@ def main():
             return
         proc = subprocess.run([a.terminal, "/portable", f"/config:{ini}"], timeout=a.timeout)
         print(f"terminal exited with {proc.returncode} after {time.time() - t0:.0f}s")
+        rc = proc.returncode
     finally:
         os.remove(ini); os.rmdir(tmp)
     if a.detach:
         return
     found = [f for f in os.listdir(root) if f.startswith(os.path.basename(a.report))]
     print("report files:", found or "none - see the tester log under Tester/logs")
+    if rc != 0:                         # pass the terminal's failure on (review): the queue must see it
+        sys.exit(rc)
+    if not any(f == os.path.basename(a.report) + (".xml" if a.optimization else ".htm") for f in found):
+        sys.exit("no new report was written")
 
 
 if __name__ == "__main__":
