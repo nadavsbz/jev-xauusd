@@ -28,13 +28,13 @@ def main():
             wiped = net <= -0.9 * DEPOSIT or dd >= 90.0
             ann = ((1 + net / DEPOSIT) ** (12 / MONTHS) - 1) * 100 if net > -DEPOSIT else -100.0
             rows.append({"MaxLot_": ml, "Martin_": num(r["Martin_"]), "MaxOrders": int(b), "net": net,
-                         "equity_dd_pct": dd, "annual_pct": round(ann, 1), "wiped": wiped,
+                         "equity_dd_pct": dd, "annual_pct": ann, "wiped": wiped,      # full precision (review)
                          "passes": (not wiped) and dd <= 30.0 and ann >= 50.0})
     if len(rows) != 12:
         sys.exit(f"expected 12 registered combinations, found {len(rows)}")
     rows.sort(key=lambda r: (r["MaxLot_"], r["Martin_"], r["MaxOrders"]))
     for r in rows:
-        print(r)
+        print({k: (round(v, 1) if isinstance(v, float) else v) for k, v in r.items()})   # rounded in the output only
     ok = [r for r in rows if r["passes"]]
     if ok:
         best = sorted(ok, key=lambda r: (-r["annual_pct"], r["equity_dd_pct"]))[0]; verdict = "pass"
