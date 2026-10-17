@@ -20,6 +20,7 @@ BULL_DD = 0.0
 
 
 def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
+    pre = c.account1_peak_before.values * f if "account1_peak_before" in c else np.zeros(len(c))
     tools = {"acc": (w_acc, c.account1.values * f, c.account1_trough.values * f),
              "btc": (w_btc, c.btc.values if "btc" in c else np.zeros(len(c)), None),
              "bull": (w_bull, c.bull.values, None)}
@@ -32,14 +33,17 @@ def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
             for k, (w, _, _) in tools.items():
                 if alive[k] and eq[k] > w:
                     cash += eq[k] - w; eq[k] = w; peak[k] = w
-        low_total = cash
+        low_total = cash; pre_total = cash
         for k, (w, r, tr) in tools.items():
             if not alive[k] or eq[k] <= 0:
-                low_total += max(eq[k], 0); continue
+                low_total += max(eq[k], 0); pre_total += max(eq[k], 0); continue
             if tr is not None:       # account 1: returns are shares of its own balance (lot follows balance)
+                # a floating peak reached before the day's trough raises the peak first (review)
+                peak[k] = max(peak[k], eq[k] * (1 + pre[i])); pre_total += eq[k] * (1 + pre[i])
                 day_low = eq[k] * (1 + tr[i])
                 close = eq[k] * (1 + r[i])
             else:                    # bull / btc: fixed lot, daily P&L as a share of the STARTING deposit
+                pre_total += eq[k]
                 day_low = eq[k] + w * min(r[i], 0)
                 close = eq[k] + w * r[i]
             # the floor is path-dependent: applied only where a daily trough exists (account 1);
@@ -55,6 +59,7 @@ def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
                 eq[k] = close; low_total += day_low
             peak[k] = max(peak[k], eq[k])
         total = cash + sum(max(v, 0) for v in eq.values())
+        total_peak = max(total_peak, pre_total)
         worst = min(worst, low_total / total_peak - 1, total / total_peak - 1)
         total_peak = max(total_peak, total)
     worst -= w_bull * BULL_DD + w_btc * btc_dd          # conservative: their floating at the same time

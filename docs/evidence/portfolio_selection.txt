@@ -1,16 +1,16 @@
-scenario A: 340 mixes, 274 within -15%. top 5:
+scenario A: 340 mixes, 271 within -15%. top 5:
  acc  btc  bull   f  sweep   mult      dd
- 1.0  0.0   0.0 0.2  False 1.5998 -10.683
- 0.9  0.0   0.1 0.2  False 1.5440  -9.699
- 0.9  0.0   0.0 0.2  False 1.5398  -9.710
- 0.8  0.0   0.2 0.2  False 1.4882  -8.698
- 0.8  0.0   0.1 0.2  False 1.4840  -8.708
-chosen (A): acc=0.9 btc=0.0 bull=0.1 f=0.2 sweep=False -> x1.5440 / -9.699%
-scenario B: 60 mixes, 41 within -15%. top 5:
+ 1.0  0.0   0.0 0.2  False 1.5998 -10.966
+ 0.9  0.0   0.1 0.2  False 1.5440  -9.959
+ 0.9  0.0   0.0 0.2  False 1.5398  -9.970
+ 0.8  0.0   0.2 0.2  False 1.4882  -8.934
+ 0.8  0.0   0.1 0.2  False 1.4840  -8.944
+chosen (A): acc=0.9 btc=0.0 bull=0.1 f=0.2 sweep=False -> x1.5440 / -9.959%
+scenario B: 60 mixes, 40 within -15%. top 5:
  acc  btc  bull   f  sweep   mult      dd
- 1.0  0.0   0.0 0.2  False 1.5998 -10.683
- 0.9  0.0   0.0 0.2  False 1.5398  -9.710
- 0.8  0.0   0.0 0.2  False 1.4798  -8.717
- 0.7  0.0   0.0 0.2  False 1.4198  -7.705
- 0.6  0.0   0.0 0.2  False 1.3599  -6.672
-chosen (B): acc=0.9 btc=0.0 bull=0.0 f=0.2 sweep=False -> x1.5398 / -9.710%
+ 1.0  0.0   0.0 0.2  False 1.5998 -10.966
+ 0.9  0.0   0.0 0.2  False 1.5398  -9.970
+ 0.8  0.0   0.0 0.2  False 1.4798  -8.954
+ 0.7  0.0   0.0 0.2  False 1.4198  -7.916
+ 0.6  0.0   0.0 0.2  False 1.3599  -6.857
+chosen (B): acc=0.9 btc=0.0 bull=0.0 f=0.2 sweep=False -> x1.5398 / -9.970%
