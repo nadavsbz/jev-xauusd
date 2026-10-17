@@ -1,0 +1,23 @@
+{
+ "positions": 17632,
+ "unmatched": 0,
+ "baskets": 14209,
+ "ref_atr": 100.95,
+ "m_quantiles": {
+  "0.05": 0.424,
+  "0.25": 0.834,
+  "0.5": 1.0,
+  "0.75": 1.132,
+  "0.95": 1.5
+ },
+ "fixed": {
+  "mult": 4.69,
+  "max_dd_pct": 88.3,
+  "min_equity": 7649.0
+ },
+ "vol_scaled": {
+  "mult": 4.556,
+  "max_dd_pct": 101.1,
+  "min_equity": -653.0
+ }
+}
