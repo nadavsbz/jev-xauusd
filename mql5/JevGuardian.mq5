@@ -3,7 +3,7 @@
 //| same account (we have no source of the robots).                    |
 //| 1. Equity floor: when equity falls FloorPct below its peak, close  |
 //|    every position of the guarded magic and keep closing new ones   |
-//|    (kill switch) until the global variable is reset by hand.       |
+//|    (kill switch) until a new ResetToken is given by hand.          |
 //| 2. Direction block: a NEW position (opened in the last few         |
 //|    seconds) against a gold move of MovePct or more over the last   |
 //|    MoveMinutes is closed at once.                                  |
@@ -21,19 +21,39 @@ input bool   DirectionBlock  = true;    // close new positions against a strong 
 input int    MoveMinutes     = 60;      // look-back of the move
 input double MovePct         = 1.0;     // move size that blocks the opposite side, %
 input int    NewWithinSec    = 10;      // a position this young counts as "new"
-input bool   ResetOnStart    = false;   // true: start fresh (peak = equity now, kill switch off); use after a floor stop
+input int    ResetToken      = 0;       // one-time reset: set a NEW number (e.g. today's date) to start fresh after a floor stop;
+                                        // a restart with the same number never resets again
 
 CTrade trade;
-string gvPeak, gvKill;
+string gvPeak, gvKill, gvToken, gvFlows;
+
+// sum of balance operations (deposits +, withdrawals -) on this account so far
+double BalanceFlows()
+  {
+   if(!HistorySelect(0, TimeCurrent() + 86400)) return 0;
+   double s = 0;
+   for(int i = HistoryDealsTotal() - 1; i >= 0; i--)
+     {
+      ulong d = HistoryDealGetTicket(i);
+      if(HistoryDealGetInteger(d, DEAL_TYPE) == DEAL_TYPE_BALANCE) s += HistoryDealGetDouble(d, DEAL_PROFIT);
+     }
+   return s;
+  }
 
 int OnInit()
   {
    gvPeak = "JevGuardian.peak." + (string)AccountInfoInteger(ACCOUNT_LOGIN) + "." + (string)GuardMagic;
    gvKill = "JevGuardian.kill." + (string)AccountInfoInteger(ACCOUNT_LOGIN) + "." + (string)GuardMagic;
+   gvToken = "JevGuardian.token." + (string)AccountInfoInteger(ACCOUNT_LOGIN) + "." + (string)GuardMagic;
+   gvFlows = "JevGuardian.flows." + (string)AccountInfoInteger(ACCOUNT_LOGIN) + "." + (string)GuardMagic;
    double eq = AccountInfoDouble(ACCOUNT_EQUITY);
    // after a floor stop, deleting only the kill switch is not enough: the old peak would trip the
-   // floor again at once. A reset sets both: peak = equity now, kill switch off.
-   if(ResetOnStart) { GlobalVariableSet(gvPeak, eq); GlobalVariableDel(gvKill); Print("JevGuardian reset: peak = equity now, kill switch off"); }
+   // floor again at once. A reset sets both: peak = equity now, kill switch off. It happens once per
+   // new ResetToken, so a terminal/VPS restart with unchanged inputs keeps the kill switch on.
+   bool fresh = ResetToken != 0 && (!GlobalVariableCheck(gvToken) || (int)GlobalVariableGet(gvToken) != ResetToken);
+   if(fresh) { GlobalVariableSet(gvPeak, eq); GlobalVariableDel(gvKill); GlobalVariableSet(gvToken, ResetToken);
+               Print("JevGuardian reset (new token): peak = equity now, kill switch off"); }
+   if(fresh || !GlobalVariableCheck(gvFlows)) GlobalVariableSet(gvFlows, BalanceFlows());
    if(!GlobalVariableCheck(gvPeak) || GlobalVariableGet(gvPeak) < eq) GlobalVariableSet(gvPeak, eq);
    trade.SetAsyncMode(false);
    PrintFormat("JevGuardian start: magic=%I64d dry=%s floor=%.1f%% block=%s %.2f%%/%dmin peak=%.2f",
@@ -70,12 +90,30 @@ double MovePctNow()
    return (c0 - cN) / cN * 100.0;
   }
 
+// deposits and withdrawals are not trading results: move the peak by the same amount.
+// The history scan runs at most every 30 s, and always right before a floor stop is decided.
+double SyncFlows(const bool force)
+  {
+   static datetime lastScan = 0;
+   double peak = GlobalVariableGet(gvPeak);
+   if(!force && TimeCurrent() - lastScan < 30) return peak;
+   lastScan = TimeCurrent();
+   double flows = BalanceFlows(), seen = GlobalVariableGet(gvFlows);
+   if(MathAbs(flows - seen) > 0.005)
+     {
+      PrintFormat("balance operation %.2f: peak %.2f -> %.2f", flows - seen, peak, peak + flows - seen);
+      peak += flows - seen; GlobalVariableSet(gvPeak, peak); GlobalVariableSet(gvFlows, flows);
+     }
+   return peak;
+  }
+
 void CheckFloor()
   {
+   double peak = SyncFlows(false);
    double eq = AccountInfoDouble(ACCOUNT_EQUITY);
-   double peak = GlobalVariableGet(gvPeak);
    if(eq > peak) { GlobalVariableSet(gvPeak, eq); peak = eq; }
    bool kill = GlobalVariableCheck(gvKill) && GlobalVariableGet(gvKill) > 0;
+   if(!kill && FloorPct > 0 && eq <= peak * (1.0 - FloorPct / 100.0)) peak = SyncFlows(true);   // a withdrawal is not a loss
    if(!kill && FloorPct > 0 && eq <= peak * (1.0 - FloorPct / 100.0))
      {
       PrintFormat("FLOOR hit: equity %.2f <= %.2f (peak %.2f - %.1f%%)", eq, peak * (1.0 - FloorPct / 100.0), peak, FloorPct);
