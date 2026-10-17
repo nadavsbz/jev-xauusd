@@ -1,0 +1,4 @@
+mix acc,btc,bull,f,sweep = 0.9,0,0.1,0.2,0
+TEST: (np.float64(1.0220971358622437), np.float64(-6.278230694851327))
+mix acc,btc,bull,f,sweep = 0.9,0,0,0.2,0
+TEST: (np.float64(1.018187479079692), np.float64(-6.3937334516153355))
