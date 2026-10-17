@@ -78,9 +78,12 @@ def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False, kill=F
         blk = mv * sgn <= -1.0
         # JevGuardian closes such a position right after it opens: it costs the spread, nothing else
         closed_now = pos[blk].copy()
-        closed_now["t1"] = closed_now.t0 + 60; closed_now["p1"] = closed_now.p0
+        closed_now["t1"] = closed_now.t0; closed_now["p1"] = closed_now.p0   # never on a bar path
         closed_now["net"] = -closed_now.vol * 100 * SPREAD; closed_now["swap"] = 0.0; closed_now["cost_in"] = 0.0
-        pos = pd.concat([pos[~blk], closed_now]).sort_values("t0").reset_index(drop=True)
+        closed_now["blocked"] = True
+        pos = pd.concat([pos[~blk].assign(blocked=False), closed_now]).sort_values("t0").reset_index(drop=True)
+    else:
+        pos = pos.assign(blocked=False)
     a0 = np.searchsorted(bt, pos.t0.min(), "left"); a1 = np.searchsorted(bt, pos.t1.max(), "right")
     tt = bt[a0:a1]
     opens = np.searchsorted(tt, pos.t0.values, "right"); closes = np.searchsorted(tt, pos.t1.values, "left")
@@ -99,7 +102,9 @@ def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False, kill=F
                 bal += pos.net.values[idx]; active[idx] = False
         if m >= resume_at:
             for idx in by_open.get(m, []):
-                if closes[idx] > m:
+                if pos.blocked.values[idx]:          # closed by the guard within seconds: only its cost
+                    bal += pos.net.values[idx]; taken += 1
+                elif closes[idx] > m:
                     active[idx] = True; taken += 1
         act = np.where(active)[0]
         # accrued costs of open positions (entry commission + swap pro rata) are part of equity
@@ -107,15 +112,16 @@ def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False, kill=F
         if len(act):
             frac = np.clip((m - opens[act]) / np.maximum(closes[act] - opens[act], 1), 0, 1)
             acc = float((pos.swap.values[act] * frac).sum() + pos.cost_in.values[act].sum())
-        fl_l = float((sgnv[act] * (lo[a0 + m] - pos.p0.values[act])).sum()) + acc if len(act) else 0.0
-        fl_h = float((sgnv[act] * (hi[a0 + m] - pos.p0.values[act])).sum()) + acc if len(act) else 0.0
+        # bars are Bid: a buy closes at Bid (its Ask entry already holds the spread), a sell closes at Ask
+        ask_add = np.where(sgnv[act] < 0, SPREAD, 0.0) if len(act) else 0.0
+        fl_l = float((sgnv[act] * (lo[a0 + m] + ask_add - pos.p0.values[act])).sum()) + acc if len(act) else 0.0
+        fl_h = float((sgnv[act] * (hi[a0 + m] + ask_add - pos.p0.values[act])).sum()) + acc if len(act) else 0.0
         if best_first and len(act):            # the bar's good extreme came first: raise the peak before the check
             peak = max(peak, bal + max(fl_l, fl_h))
         worst = bal + min(fl_l, fl_h)
         if floor and len(act) and worst <= peak * (1 - floor):
-            # close all at the worse side, plus accrued swap (pro rata) and the spread of an outside close
-            # accrued costs are already inside worst; add only the spread of the outside close
-            bal = worst - float((pos.vol.values[act] * 100 * SPREAD).sum()); active[:] = False
+            # close all at the worse side; accrued costs and the closing side's spread are already inside worst
+            bal = worst; active[:] = False
             stops.append((int(tt[m]), round(peak, 2), round(bal, 2)))
             nxt = np.where(open_orig[m:] == 0)[0]
             # kill=True is JevGuardian as written: after a floor stop nothing trades again (no reset)
