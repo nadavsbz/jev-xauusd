@@ -21,6 +21,7 @@ BULL_DD = 0.0
 
 def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
     pre = c.account1_peak_before.values * f if "account1_peak_before" in c else np.zeros(len(c))
+    plo = c.account1_low_after_peak.values * f if "account1_low_after_peak" in c else np.zeros(len(c))
     tools = {"acc": (w_acc, c.account1.values * f, c.account1_trough.values * f),
              "btc": (w_btc, c.btc.values if "btc" in c else np.zeros(len(c)), None),
              "bull": (w_bull, c.bull.values, None)}
@@ -38,8 +39,10 @@ def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
             if not alive[k] or eq[k] <= 0:
                 low_total += max(eq[k], 0); pre_total += max(eq[k], 0); continue
             if tr is not None:       # account 1: returns are shares of its own balance (lot follows balance)
-                # a floating peak reached before the day's trough raises the peak first (review)
-                peak[k] = max(peak[k], eq[k] * (1 + pre[i])); pre_total += eq[k] * (1 + pre[i])
+                # two checks (review): the day's lowest point against the peak from before the day, and
+                # the day's worst relative drop (a floating peak, then the low after it)
+                prior = peak[k]; pk_eq = eq[k] * (1 + pre[i]); pl_eq = eq[k] * (1 + plo[i])
+                pre_total += pk_eq
                 day_low = eq[k] * (1 + tr[i])
                 close = eq[k] * (1 + r[i])
             else:                    # bull / btc: fixed lot, daily P&L as a share of the STARTING deposit
@@ -52,7 +55,12 @@ def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
             # cannot raise the peak first); on a breach the tool is closed at the floor and keeps
             # none of the day's later recovery.
             line = peak[k] * (1 - FLOOR)
-            if tr is not None and min(day_low, close) <= line:
+            if tr is not None:
+                line = prior * (1 - FLOOR)
+                if pl_eq <= max(prior, pk_eq) * (1 - FLOOR) and not min(day_low, close) <= line:
+                    line = max(prior, pk_eq) * (1 - FLOOR); day_low = min(day_low, pl_eq)
+                peak[k] = max(prior, pk_eq)
+            if tr is not None and (min(day_low, close) <= line):
                 eq[k] = min(line, close); alive[k] = False
                 low_total += min(day_low, eq[k])
             else:
@@ -68,7 +76,8 @@ def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
 
 def main():
     c = pd.read_csv(sys.argv[1], index_col=0, parse_dates=True)
-    c.loc[c.account1_crosses_split.astype(bool), ["account1", "account1_trough"]] = 0.0   # purged
+    cols = [x for x in ("account1", "account1_trough", "account1_peak_before", "account1_low_after_peak") if x in c]
+    c.loc[c.account1_crosses_split.astype(bool), cols] = 0.0   # purged (all of the day's account-1 path)
     if "btc" in c and "--btc-dd" not in sys.argv:
         sys.exit("a BTC curve is present: --btc-dd (its worst equity drawdown up to 31.5.2026, as a share) is required")
     btc_dd = float(sys.argv[sys.argv.index("--btc-dd") + 1]) if "--btc-dd" in sys.argv else 0.0

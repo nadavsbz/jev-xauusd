@@ -2,7 +2,8 @@
 For every job: write the .set (UTF-16 LE with BOM, the encoding the tester reads), run run_tester.py,
 summarise the report into docs/evidence/<report>.json, CHECK that the report's inputs carry every
 override (a run with ignored inputs is marked invalid), append one line to the results file.
-Jobs whose evidence file already exists are skipped, so the queue can be restarted.
+Jobs whose evidence file already exists are skipped, so the queue can be restarted; an invalid run
+(non-zero exit or ignored inputs) writes <report>.json.invalid only, so it is run again.
 Usage: python tools/run_queue.py QUEUE_JSON RESULTS_JSONL
 QUEUE_JSON: [{"report": "...", "base_set": "...", "overrides": {"MaxLot_": "0.5"}, "name": "Black Dragon 3",
               "expert": "BD\\EA Black Dragon.ex5", "symbol": "XAUUSD", "period": "M15",
@@ -45,11 +46,16 @@ def main():
         row = {"report": j["report"], "overrides": j.get("overrides", {}), "from": j["from"], "to": j["to"],
                "deposit": j["deposit"], "rc": r.returncode}
         if os.path.exists(htm):
-            s = subprocess.run([PY, os.path.join(ROOT, "tools", "tester_summary.py"), htm, ev],
+            tmp = ev + ".tmp"          # promoted to the evidence file only after the checks pass
+            s = subprocess.run([PY, os.path.join(ROOT, "tools", "tester_summary.py"), htm, tmp],
                                capture_output=True, text=True, encoding="utf-8", env={**os.environ, "PYTHONIOENCODING": "utf-8"})
-            d = json.load(open(ev, encoding="utf-8"))
+            d = json.load(open(tmp, encoding="utf-8"))
             ins = set(d.get("inputs", []))
             row["inputs_ok"] = all(f"{k}={v}" in ins for k, v in j.get("overrides", {}).items())
+            if r.returncode == 0 and row["inputs_ok"]:
+                os.replace(tmp, ev)
+            else:                      # invalid run: no evidence file, so a restart runs it again
+                os.replace(tmp, ev + ".invalid")
             row["summary"] = d.get("summary_from_report")
             try:
                 row.update({k: json.loads(s.stdout)[k] for k in ("entries", "net", "active_days")})

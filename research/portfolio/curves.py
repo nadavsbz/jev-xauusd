@@ -82,24 +82,26 @@ def acc_daily():
     o = pd.read_csv("data/derived/bd1/clusters_strict.csv").sort_values("t0")
     o["day"] = pd.to_datetime(o.t1, unit="s").dt.normalize()
     o["cross"] = (pd.to_datetime(o.t0, unit="s") < SPLIT) & (pd.to_datetime(o.t1, unit="s") >= SPLIT)
-    r, tr, pre = {}, {}, {}
+    r, tr, pre, plo = {}, {}, {}, {}
     for day, g in o.groupby("day"):
-        # pre = the highest floating point reached BEFORE the day's trough (review: a floating peak
-        # that comes first must count, or the drawdown peak-to-trough is understated)
-        eq, low, pk_run, pk_pre = 1.0, 0.0, 0.0, 0.0
+        # trough = the lowest point of the day; (pre, plo) = the floating peak and the low after it that
+        # give the day's WORST relative drop (review: a later, deeper drop from a higher peak must count)
+        eq, low, pk_run, best, pair = 1.0, 0.0, 0.0, 1.0, (0.0, 0.0)
         for p, m, rb, ru in zip(g.pnl_pct.values / 100, g.mae_pct.values / 100,
                                 g.runup_before_pct.values / 100, g.runup_pct.values / 100):
             lo_b = eq * (1 + min(m, 0)) - 1
-            if lo_b < low:
-                low = lo_b; pk_pre = max(pk_run, eq * (1 + max(rb, 0)) - 1)
+            pk_b = max(pk_run, eq * (1 + max(rb, 0)) - 1)
+            if (1 + lo_b) / (1 + pk_b) < best:
+                best, pair = (1 + lo_b) / (1 + pk_b), (pk_b, lo_b)
+            low = min(low, lo_b)
             pk_run = max(pk_run, eq * (1 + max(ru, 0)) - 1)
             eq *= 1 + p; pk_run = max(pk_run, eq - 1)
-        r[day], tr[day], pre[day] = eq - 1, min(low, eq - 1), pk_pre
-    return pd.Series(r), pd.Series(tr), pd.Series(pre), o.groupby("day").cross.any()
+        r[day], tr[day], pre[day], plo[day] = eq - 1, min(low, eq - 1), pair[0], pair[1]
+    return pd.Series(r), pd.Series(tr), pd.Series(pre), pd.Series(plo), o.groupby("day").cross.any()
 
 
 if __name__ == "__main__":
-    a, atr, apre, cross = acc_daily(); b = bull_daily()
+    a, atr, apre, aplo, cross = acc_daily(); b = bull_daily()
     # the registered period, not the first/last close of any one tool; days without a close are 0.
     # Coverage is checked first: every source must have data spanning the whole period.
     START, END = pd.Timestamp("2025-11-11"), pd.Timestamp("2026-10-14")
@@ -108,6 +110,7 @@ if __name__ == "__main__":
           "| bull", b.index.min().date(), b.index.max().date())
     out = pd.DataFrame({"account1": a.reindex(days).fillna(0), "account1_trough": atr.reindex(days).fillna(0),
                         "account1_peak_before": apre.reindex(days).fillna(0),
+                        "account1_low_after_peak": aplo.reindex(days).fillna(0),
                         "account1_crosses_split": cross.reindex(days).fillna(False), "bull": b.reindex(days).fillna(0)})
     if len(sys.argv) > 3:
         out["btc"] = btc_daily(sys.argv[2], float(sys.argv[3])).reindex(days).fillna(0)
