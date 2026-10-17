@@ -107,6 +107,8 @@ def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False, kill=F
             for idx in by_open.get(m, []):
                 if pos.blocked.values[idx]:          # closed by the guard within seconds: only its cost
                     bal += pos.net.values[idx]; taken += 1
+                elif closes[idx] <= m:               # opened and closed inside the same minute bar:
+                    bal += pos.net.values[idx]; taken += 1   # realised at once (it was never booked before)
                 elif closes[idx] > m:
                     active[idx] = True; taken += 1
         act = np.where(active)[0]
