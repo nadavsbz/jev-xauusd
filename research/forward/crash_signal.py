@@ -23,7 +23,7 @@ class _Cboe(AbstractHolidayCalendar):
              if r.name not in ("Columbus Day", "Veterans Day")] + [GoodFriday]
 
 
-_HOL = set(_Cboe().holidays("2026-01-01", "2028-12-31"))
+_HOL = set(_Cboe().holidays("2026-01-01", (pd.Timestamp.today() + pd.Timedelta(days=60)).strftime("%Y-%m-%d")))   # always covers today and the next days
 
 THRESHOLD, START = 0.90, pd.Timestamp("2026-10-17")
 out_path = sys.argv[1]
