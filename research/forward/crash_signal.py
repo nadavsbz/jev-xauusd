@@ -13,6 +13,16 @@ is not over may be followed by a newer row once the required close is published.
 Usage: python research/forward/crash_signal.py OUT_CSV"""
 import io, os, sys, urllib.request
 import pandas as pd
+from pandas.tseries.holiday import USFederalHolidayCalendar, GoodFriday, AbstractHolidayCalendar
+
+
+class _Cboe(AbstractHolidayCalendar):
+    """US federal holidays plus Good Friday: an approximation of the days without a GVZ close
+    (ASSUMED: CBOE trades on Columbus Day and Veterans Day, which this calendar would skip)."""
+    rules = USFederalHolidayCalendar.rules + [GoodFriday]
+
+
+_HOL = set(_Cboe().holidays("2026-01-01", "2028-12-31"))
 
 THRESHOLD, START = 0.90, pd.Timestamp("2026-10-17")
 out_path = sys.argv[1]
@@ -40,14 +50,16 @@ for d in days[days.weekday != 5]:
     v = pct[pct.index < d].dropna()
     if len(v) < 2:
         continue
-    k = -2 if d.weekday() == 6 else -1
+    # stage1.py shifts the OBSERVATION series by one and fills it forward to days: a day that has
+    # its own GVZ observation gets the percentile of the observation before it; a day without one
+    # (Sunday, a holiday) gets the filled value of the last observation day, i.e. one step further back
+    obs_day = d.weekday() < 5 and d not in _HOL
+    k = -1 if obs_day else -2
     val, src = float(v.iloc[k]), v.index[k]
-    # the observation the definition requires: the last weekday before d (Sunday: the Thursday)
-    req = d - pd.Timedelta(days=1)
-    while req.weekday() >= 5:
-        req -= pd.Timedelta(days=1)
-    if d.weekday() == 6:
-        req -= pd.Timedelta(days=1)
+    # the observation the definition requires, counted on the expected observation calendar
+    exp = [x for x in pd.date_range(d - pd.Timedelta(days=12), d - pd.Timedelta(days=1))
+           if x.weekday() < 5 and x not in _HOL]
+    req = exp[-1] if obs_day else exp[-2]
     timely = d >= today                       # made before or during the day, never after it
     rows.append({"date": d.date(), "s5": round(val, 3), "flagged": bool(val >= THRESHOLD),
                  "source_obs": src.date(), "required_obs": req.date(),

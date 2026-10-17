@@ -26,9 +26,10 @@ def floor_half(r, tr, rb, ru):
 
 
 def mix_chosen(r, tr, days):
-    """The mix chosen in docs/PORTFOLIO_PLAN.md: 90% of capital in account 1 at f=0.2 with the 15% floor
-    (intraday breach stops it for good), 10% kept aside (Bull Scalper is not traded forward, so its 10%
-    counts as cash here). Daily: multiple and drawdown of the whole capital."""
+    """Account 1 at the exposure of the chosen mix (docs/PORTFOLIO_PLAN.md): 90% of capital at f=0.2 with
+    the 15% floor (an intraday breach stops it for good) and 10% CASH. Bull Scalper is not traded
+    forward, so this is NOT scenario A's mix: it tracks only its account-1 part. Daily multiple and
+    drawdown of the whole capital, booked on basket close days."""
     out = []; eq, peak, alive, tot_peak, worst = 0.9, 0.9, True, 1.0, 0.0
     by_day = pd.DataFrame({"r": r * 0.2, "tr": tr * 0.2, "d": days}).groupby("d")
     for d, g in by_day:
@@ -59,7 +60,8 @@ def daily(r, tr, rb, ru, days):
 def main():
     o = db.o
     sel = pd.to_datetime(o.t0, unit="s") >= START
-    days = pd.to_datetime(o.t0[sel], unit="s").dt.normalize().values
+    # results are booked on the day each basket CLOSED (t1), so a later close never rewrites an earlier day
+    days = pd.to_datetime(o.t1[sel], unit="s").dt.normalize().values
     base = [a[sel.values] / 100 for a in (o.pnl_pct.values, o.mae_pct.values, o.runup_before_pct.values, o.runup_pct.values)]
     blocked = (db.move_pct(1) * db.p.sgn.values <= -1.0)
     q = db.p.assign(blk=blocked); keep = q[~q.blk]
@@ -80,7 +82,7 @@ def main():
                         "mix_chosen": mix_chosen(base[0], base[1], days)}}
     json.dump(res, open(sys.argv[1], "w"), indent=1)
     # long rows for the dashboard: one row per day and variant
-    names = {"actual": "בפועל", "half_floor": "חצי לוט + רצפה 15%", "half_floor_dir": "חצי לוט + רצפה + חסימת כיוון", "mix_chosen": "השילוב שנבחר (90% בחשבון 1, לוט 0.2, רצפה)"}
+    names = {"actual": "בפועל", "half_floor": "חצי לוט + רצפה 15%", "half_floor_dir": "חצי לוט + רצפה + חסימת כיוון", "mix_chosen": "חשבון 1 בחשיפת השילוב (90% בלוט 0.2, רצפה) + 10% מזומן"}
     rows = [{"day": r["day"], "variant": names[k], "mult": r["mult"], "dd": r["dd"]}
             for k, v in res["variants"].items() for r in v]
     json.dump(rows, open(sys.argv[1].replace(".json", "_rows.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
