@@ -62,7 +62,7 @@ def equity_path(pos, bt, lo, hi, capital):
 SPREAD = 0.30   # USD per ounce paid when the guard closes at market (ASSUMED, RoboForex-Pro gold)
 
 
-def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False):
+def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False, kill=False):
     """Event loop over minutes: positions taken unless skipped; floor closes all and skips until the
     original grid is flat (no original position open)."""
     pos = pos.sort_values("t0").reset_index(drop=True)
@@ -112,7 +112,8 @@ def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False):
             bal = worst - float((pos.vol.values[act] * 100 * SPREAD).sum()); active[:] = False
             stops.append((int(tt[m]), round(peak, 2), round(bal, 2)))
             nxt = np.where(open_orig[m:] == 0)[0]
-            resume_at = m + (int(nxt[0]) if len(nxt) else len(tt))
+            # kill=True is JevGuardian as written: after a floor stop nothing trades again (no reset)
+            resume_at = len(tt) if kill else m + (int(nxt[0]) if len(nxt) else len(tt))
             peak = bal
         eq = bal + (min(fl_l, fl_h) if len(np.where(active)[0]) else 0.0)
         peak = max(peak, bal + max(fl_l, fl_h) if len(np.where(active)[0]) else bal)
@@ -135,12 +136,14 @@ def main():
         return
     res = {}
     for cap in (2000, 5000, 10000, 20000):
-        for floor, block, bf in ((None, False, False), (None, True, False), (0.15, False, False), (0.15, True, False),
-                                 (0.15, False, True), (0.15, True, True)):
-            key = f"cap={cap} floor={floor} block={block} bar_order={'good_first' if bf else 'bad_first'}"
-            if True:
-                res[key] = guarded(pos, bt, lo, hi, cl, float(cap), floor, block, bf)
-                r = res[key]; print(key, {k: r[k] for k in ("final", "max_dd_pct", "floor_stops", "wiped", "entries_taken")})
+        for floor, block, bf, kill in ((None, False, False, False), (None, True, False, False),
+                                       (0.15, False, False, False), (0.15, True, False, False),
+                                       (0.15, False, True, False), (0.15, True, True, False),
+                                       (0.15, False, False, True), (0.15, True, False, True)):
+            key = (f"cap={cap} floor={floor} block={block} bar_order={'good_first' if bf else 'bad_first'}"
+                   f" after_stop={'kill' if kill else 'reset_when_flat'}")
+            res[key] = guarded(pos, bt, lo, hi, cl, float(cap), floor, block, bf, kill)
+            r = res[key]; print(key, {k: r[k] for k in ("final", "max_dd_pct", "floor_stops", "wiped", "entries_taken")})
     json.dump(res, open("docs/evidence/btc_guardian_sim.json", "w"), indent=1)
 
 

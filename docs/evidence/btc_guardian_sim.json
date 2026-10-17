@@ -1,5 +1,5 @@
 {
- "cap=2000 floor=None block=False bar_order=bad_first": {
+ "cap=2000 floor=None block=False bar_order=bad_first after_stop=reset_when_flat": {
   "final": -84.28,
   "max_dd_pct": -102.7,
   "min_equity": -84.28,
@@ -8,7 +8,7 @@
   "wiped": true,
   "stops": []
  },
- "cap=2000 floor=None block=True bar_order=bad_first": {
+ "cap=2000 floor=None block=True bar_order=bad_first after_stop=reset_when_flat": {
   "final": -172.61,
   "max_dd_pct": -105.6,
   "min_equity": -172.61,
@@ -17,7 +17,7 @@
   "wiped": true,
   "stops": []
  },
- "cap=2000 floor=0.15 block=False bar_order=bad_first": {
+ "cap=2000 floor=0.15 block=False bar_order=bad_first after_stop=reset_when_flat": {
   "final": -2.41,
   "max_dd_pct": -100.1,
   "min_equity": -2.41,
@@ -127,7 +127,7 @@
    ]
   ]
  },
- "cap=2000 floor=0.15 block=True bar_order=bad_first": {
+ "cap=2000 floor=0.15 block=True bar_order=bad_first after_stop=reset_when_flat": {
   "final": -2.39,
   "max_dd_pct": -100.1,
   "min_equity": -2.39,
@@ -237,7 +237,7 @@
    ]
   ]
  },
- "cap=2000 floor=0.15 block=False bar_order=good_first": {
+ "cap=2000 floor=0.15 block=False bar_order=good_first after_stop=reset_when_flat": {
   "final": -1.08,
   "max_dd_pct": -100.1,
   "min_equity": -1.08,
@@ -347,7 +347,7 @@
    ]
   ]
  },
- "cap=2000 floor=0.15 block=True bar_order=good_first": {
+ "cap=2000 floor=0.15 block=True bar_order=good_first after_stop=reset_when_flat": {
   "final": -1.07,
   "max_dd_pct": -100.1,
   "min_equity": -1.07,
@@ -457,7 +457,37 @@
    ]
   ]
  },
- "cap=5000 floor=None block=False bar_order=bad_first": {
+ "cap=2000 floor=0.15 block=False bar_order=bad_first after_stop=kill": {
+  "final": 1794.68,
+  "max_dd_pct": -15.7,
+  "min_equity": 1794.68,
+  "floor_stops": 1,
+  "entries_taken": 137,
+  "wiped": false,
+  "stops": [
+   [
+    "2024-04-03 01:23:00",
+    2130.69,
+    1794.68
+   ]
+  ]
+ },
+ "cap=2000 floor=0.15 block=True bar_order=bad_first after_stop=kill": {
+  "final": 1794.68,
+  "max_dd_pct": -15.7,
+  "min_equity": 1794.68,
+  "floor_stops": 1,
+  "entries_taken": 137,
+  "wiped": false,
+  "stops": [
+   [
+    "2024-04-03 01:23:00",
+    2130.69,
+    1794.68
+   ]
+  ]
+ },
+ "cap=5000 floor=None block=False bar_order=bad_first after_stop=reset_when_flat": {
   "final": -452.35,
   "max_dd_pct": -102.9,
   "min_equity": -452.35,
@@ -466,7 +496,7 @@
   "wiped": true,
   "stops": []
  },
- "cap=5000 floor=None block=True bar_order=bad_first": {
+ "cap=5000 floor=None block=True bar_order=bad_first after_stop=reset_when_flat": {
   "final": -179.89,
   "max_dd_pct": -103.0,
   "min_equity": -179.89,
@@ -475,7 +505,7 @@
   "wiped": true,
   "stops": []
  },
- "cap=5000 floor=0.15 block=False bar_order=bad_first": {
+ "cap=5000 floor=0.15 block=False bar_order=bad_first after_stop=reset_when_flat": {
   "final": -0.26,
   "max_dd_pct": -100.0,
   "min_equity": -0.26,
@@ -585,7 +615,7 @@
    ]
   ]
  },
- "cap=5000 floor=0.15 block=True bar_order=bad_first": {
+ "cap=5000 floor=0.15 block=True bar_order=bad_first after_stop=reset_when_flat": {
   "final": -1.87,
   "max_dd_pct": -100.0,
   "min_equity": -1.87,
@@ -695,7 +725,7 @@
    ]
   ]
  },
- "cap=5000 floor=0.15 block=False bar_order=good_first": {
+ "cap=5000 floor=0.15 block=False bar_order=good_first after_stop=reset_when_flat": {
   "final": -2.09,
   "max_dd_pct": -100.0,
   "min_equity": -2.09,
@@ -805,7 +835,7 @@
    ]
   ]
  },
- "cap=5000 floor=0.15 block=True bar_order=good_first": {
+ "cap=5000 floor=0.15 block=True bar_order=good_first after_stop=reset_when_flat": {
   "final": -1.58,
   "max_dd_pct": -100.0,
   "min_equity": -1.58,
@@ -915,7 +945,37 @@
    ]
   ]
  },
- "cap=10000 floor=None block=False bar_order=bad_first": {
+ "cap=5000 floor=0.15 block=False bar_order=bad_first after_stop=kill": {
+  "final": 4814.47,
+  "max_dd_pct": -15.2,
+  "min_equity": 4802.18,
+  "floor_stops": 1,
+  "entries_taken": 592,
+  "wiped": false,
+  "stops": [
+   [
+    "2024-04-12 21:33:00",
+    5691.29,
+    4814.47
+   ]
+  ]
+ },
+ "cap=5000 floor=0.15 block=True bar_order=bad_first after_stop=kill": {
+  "final": 5006.0,
+  "max_dd_pct": -17.8,
+  "min_equity": 4802.18,
+  "floor_stops": 1,
+  "entries_taken": 939,
+  "wiped": false,
+  "stops": [
+   [
+    "2024-04-22 14:18:00",
+    6089.85,
+    5006.0
+   ]
+  ]
+ },
+ "cap=10000 floor=None block=False bar_order=bad_first after_stop=reset_when_flat": {
   "final": -281.58,
   "max_dd_pct": -101.3,
   "min_equity": -281.58,
@@ -924,7 +984,7 @@
   "wiped": true,
   "stops": []
  },
- "cap=10000 floor=None block=True bar_order=bad_first": {
+ "cap=10000 floor=None block=True bar_order=bad_first after_stop=reset_when_flat": {
   "final": -482.76,
   "max_dd_pct": -102.3,
   "min_equity": -482.76,
@@ -933,7 +993,7 @@
   "wiped": true,
   "stops": []
  },
- "cap=10000 floor=0.15 block=False bar_order=bad_first": {
+ "cap=10000 floor=0.15 block=False bar_order=bad_first after_stop=reset_when_flat": {
   "final": -0.01,
   "max_dd_pct": -100.0,
   "min_equity": -0.01,
@@ -1043,7 +1103,7 @@
    ]
   ]
  },
- "cap=10000 floor=0.15 block=True bar_order=bad_first": {
+ "cap=10000 floor=0.15 block=True bar_order=bad_first after_stop=reset_when_flat": {
   "final": -0.13,
   "max_dd_pct": -100.0,
   "min_equity": -0.13,
@@ -1153,7 +1213,7 @@
    ]
   ]
  },
- "cap=10000 floor=0.15 block=False bar_order=good_first": {
+ "cap=10000 floor=0.15 block=False bar_order=good_first after_stop=reset_when_flat": {
   "final": -0.12,
   "max_dd_pct": -100.0,
   "min_equity": -0.12,
@@ -1263,7 +1323,7 @@
    ]
   ]
  },
- "cap=10000 floor=0.15 block=True bar_order=good_first": {
+ "cap=10000 floor=0.15 block=True bar_order=good_first after_stop=reset_when_flat": {
   "final": -0.05,
   "max_dd_pct": -100.0,
   "min_equity": -0.05,
@@ -1373,7 +1433,37 @@
    ]
   ]
  },
- "cap=20000 floor=None block=False bar_order=bad_first": {
+ "cap=10000 floor=0.15 block=False bar_order=bad_first after_stop=kill": {
+  "final": 9361.11,
+  "max_dd_pct": -16.2,
+  "min_equity": 9361.11,
+  "floor_stops": 1,
+  "entries_taken": 973,
+  "wiped": false,
+  "stops": [
+   [
+    "2024-04-22 21:05:00",
+    11178.18,
+    9361.11
+   ]
+  ]
+ },
+ "cap=10000 floor=0.15 block=True bar_order=bad_first after_stop=kill": {
+  "final": 9392.75,
+  "max_dd_pct": -15.3,
+  "min_equity": 9392.75,
+  "floor_stops": 1,
+  "entries_taken": 948,
+  "wiped": false,
+  "stops": [
+   [
+    "2024-04-22 16:35:00",
+    11089.85,
+    9392.75
+   ]
+  ]
+ },
+ "cap=20000 floor=None block=False bar_order=bad_first after_stop=reset_when_flat": {
   "final": -1246.1,
   "max_dd_pct": -104.0,
   "min_equity": -1246.1,
@@ -1382,7 +1472,7 @@
   "wiped": true,
   "stops": []
  },
- "cap=20000 floor=None block=True bar_order=bad_first": {
+ "cap=20000 floor=None block=True bar_order=bad_first after_stop=reset_when_flat": {
   "final": -1447.28,
   "max_dd_pct": -104.7,
   "min_equity": -1447.28,
@@ -1391,7 +1481,7 @@
   "wiped": true,
   "stops": []
  },
- "cap=20000 floor=0.15 block=False bar_order=bad_first": {
+ "cap=20000 floor=0.15 block=False bar_order=bad_first after_stop=reset_when_flat": {
   "final": -1.42,
   "max_dd_pct": -100.0,
   "min_equity": -1.42,
@@ -1501,7 +1591,7 @@
    ]
   ]
  },
- "cap=20000 floor=0.15 block=True bar_order=bad_first": {
+ "cap=20000 floor=0.15 block=True bar_order=bad_first after_stop=reset_when_flat": {
   "final": -0.29,
   "max_dd_pct": -100.0,
   "min_equity": -0.29,
@@ -1611,7 +1701,7 @@
    ]
   ]
  },
- "cap=20000 floor=0.15 block=False bar_order=good_first": {
+ "cap=20000 floor=0.15 block=False bar_order=good_first after_stop=reset_when_flat": {
   "final": -0.35,
   "max_dd_pct": -100.0,
   "min_equity": -0.35,
@@ -1721,7 +1811,7 @@
    ]
   ]
  },
- "cap=20000 floor=0.15 block=True bar_order=good_first": {
+ "cap=20000 floor=0.15 block=True bar_order=good_first after_stop=reset_when_flat": {
   "final": -1.22,
   "max_dd_pct": -100.0,
   "min_equity": -1.22,
@@ -1828,6 +1918,36 @@
     "2025-09-22 11:44:00",
     4343.16,
     3613.26
+   ]
+  ]
+ },
+ "cap=20000 floor=0.15 block=False bar_order=bad_first after_stop=kill": {
+  "final": 17885.72,
+  "max_dd_pct": -15.5,
+  "min_equity": 17885.72,
+  "floor_stops": 1,
+  "entries_taken": 978,
+  "wiped": false,
+  "stops": [
+   [
+    "2024-04-23 04:40:00",
+    21178.18,
+    17885.72
+   ]
+  ]
+ },
+ "cap=20000 floor=0.15 block=True bar_order=bad_first after_stop=kill": {
+  "final": 17797.39,
+  "max_dd_pct": -15.6,
+  "min_equity": 17797.39,
+  "floor_stops": 1,
+  "entries_taken": 967,
+  "wiped": false,
+  "stops": [
+   [
+    "2024-04-23 04:40:00",
+    21089.85,
+    17797.39
    ]
   ]
  }
