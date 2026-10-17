@@ -42,7 +42,8 @@ def pair(d):
             i = min(cand, key=lambda j: abs(open_pos[j]["p0"] - implied))
             p = open_pos.pop(i)
             out.append(dict(side=side, vol=p["vol"], t0=p["t0"], p0=p["p0"], t1=r.t, p1=r.price,
-                            net=r.profit + r.commission + r.swap + p["cost"], err=abs(p["p0"] - implied)))
+                            net=r.profit + r.commission + r.swap + p["cost"], swap=r.swap, cost_in=p["cost"],
+                            err=abs(p["p0"] - implied)))
     return pd.DataFrame(out), len(open_pos)
 
 
@@ -58,10 +59,16 @@ def equity_path(pos, bt, lo, hi, capital):
     return tt, capital + real + np.minimum(f_lo, f_hi), capital + real + np.maximum(f_lo, f_hi)
 
 
-def guarded(pos, bt, lo, hi, cl, capital, floor, block):
+SPREAD = 0.30   # USD per ounce paid when the guard closes at market (ASSUMED, RoboForex-Pro gold)
+
+
+def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False):
     """Event loop over minutes: positions taken unless skipped; floor closes all and skips until the
     original grid is flat (no original position open)."""
     pos = pos.sort_values("t0").reset_index(drop=True)
+    # the ORIGINAL grid (before any direction filter) decides when it would have been flat
+    o_a0 = np.searchsorted(bt, pos.t0.min(), "left")
+    orig_open_t, orig_close_t = pos.t0.values.copy(), pos.t1.values.copy()
     if block:
         k = np.searchsorted(bt, pos.t0.values, "left") - 1; kh = np.searchsorted(bt, pos.t0.values - 3600, "left") - 1
         mv = (cl[k] - cl[np.maximum(kh, 0)]) / cl[np.maximum(kh, 0)] * 100
@@ -76,7 +83,9 @@ def guarded(pos, bt, lo, hi, cl, capital, floor, block):
     for idx, (o, c) in enumerate(zip(opens, closes)):
         by_open.setdefault(o, []).append(idx); by_close.setdefault(c, []).append(idx)
     # original grid flat: minutes where no original position is open
-    cnt = np.zeros(len(tt) + 1); np.add.at(cnt, opens, 1); np.add.at(cnt, closes, -1); open_orig = np.cumsum(cnt)[:len(tt)]
+    oo = np.searchsorted(tt, orig_open_t, "right"); oc = np.searchsorted(tt, orig_close_t, "left")
+    cnt = np.zeros(len(tt) + 1); np.add.at(cnt, np.clip(oo, 0, len(tt)), 1); np.add.at(cnt, np.clip(oc, 0, len(tt)), -1)
+    open_orig = np.cumsum(cnt)[:len(tt)]
     for m in range(len(tt)):
         for idx in by_close.get(m, []):
             if active[idx]:
@@ -88,9 +97,15 @@ def guarded(pos, bt, lo, hi, cl, capital, floor, block):
         act = np.where(active)[0]
         fl_l = float((sgnv[act] * (lo[a0 + m] - pos.p0.values[act])).sum()) if len(act) else 0.0
         fl_h = float((sgnv[act] * (hi[a0 + m] - pos.p0.values[act])).sum()) if len(act) else 0.0
+        if best_first and len(act):            # the bar's good extreme came first: raise the peak before the check
+            peak = max(peak, bal + max(fl_l, fl_h))
         worst = bal + min(fl_l, fl_h)
         if floor and len(act) and worst <= peak * (1 - floor):
-            bal = worst; active[:] = False                              # close all at the worse side
+            # close all at the worse side, plus accrued swap (pro rata) and the spread of an outside close
+            frac = np.clip((m - opens[act]) / np.maximum(closes[act] - opens[act], 1), 0, 1)
+            costs = float((pos.swap.values[act] * frac).sum() + pos.cost_in.values[act].sum()
+                          - (pos.vol.values[act] * 100 * SPREAD).sum())
+            bal = worst + costs; active[:] = False
             stops.append((int(tt[m]), round(peak, 2), round(bal, 2)))
             nxt = np.where(open_orig[m:] == 0)[0]
             resume_at = m + (int(nxt[0]) if len(nxt) else len(tt))
@@ -116,10 +131,11 @@ def main():
         return
     res = {}
     for cap in (2000, 5000, 10000, 20000):
-        for floor in (None, 0.15):
-            for block in (False, True):
-                key = f"cap={cap} floor={floor} block={block}"
-                res[key] = guarded(pos, bt, lo, hi, cl, float(cap), floor, block)
+        for floor, block, bf in ((None, False, False), (None, True, False), (0.15, False, False), (0.15, True, False),
+                                 (0.15, False, True), (0.15, True, True)):
+            key = f"cap={cap} floor={floor} block={block} bar_order={'good_first' if bf else 'bad_first'}"
+            if True:
+                res[key] = guarded(pos, bt, lo, hi, cl, float(cap), floor, block, bf)
                 r = res[key]; print(key, {k: r[k] for k in ("final", "max_dd_pct", "floor_stops", "wiped", "entries_taken")})
     json.dump(res, open("docs/evidence/btc_guardian_sim.json", "w"), indent=1)
 
