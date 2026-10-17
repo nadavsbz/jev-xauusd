@@ -71,7 +71,8 @@ def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False):
     orig_open_t, orig_close_t = pos.t0.values.copy(), pos.t1.values.copy()
     if block:
         k = np.searchsorted(bt, pos.t0.values, "left") - 1; kh = np.searchsorted(bt, pos.t0.values - 3600, "left") - 1
-        mv = (cl[k] - cl[np.maximum(kh, 0)]) / cl[np.maximum(kh, 0)] * 100
+        ok = (k >= 0) & (kh >= 0)                       # no bar before the entry: no move known, no block
+        mv = np.where(ok, (cl[np.maximum(k, 0)] - cl[np.maximum(kh, 0)]) / cl[np.maximum(kh, 0)] * 100, 0.0)
         sgn = np.where(pos.side == "buy", 1, -1)
         pos = pos[~(mv * sgn <= -1.0)].reset_index(drop=True)
     a0 = np.searchsorted(bt, pos.t0.min(), "left"); a1 = np.searchsorted(bt, pos.t1.max(), "right")
@@ -95,17 +96,20 @@ def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False):
                 if closes[idx] > m:
                     active[idx] = True; taken += 1
         act = np.where(active)[0]
-        fl_l = float((sgnv[act] * (lo[a0 + m] - pos.p0.values[act])).sum()) if len(act) else 0.0
-        fl_h = float((sgnv[act] * (hi[a0 + m] - pos.p0.values[act])).sum()) if len(act) else 0.0
+        # accrued costs of open positions (entry commission + swap pro rata) are part of equity
+        acc = 0.0
+        if len(act):
+            frac = np.clip((m - opens[act]) / np.maximum(closes[act] - opens[act], 1), 0, 1)
+            acc = float((pos.swap.values[act] * frac).sum() + pos.cost_in.values[act].sum())
+        fl_l = float((sgnv[act] * (lo[a0 + m] - pos.p0.values[act])).sum()) + acc if len(act) else 0.0
+        fl_h = float((sgnv[act] * (hi[a0 + m] - pos.p0.values[act])).sum()) + acc if len(act) else 0.0
         if best_first and len(act):            # the bar's good extreme came first: raise the peak before the check
             peak = max(peak, bal + max(fl_l, fl_h))
         worst = bal + min(fl_l, fl_h)
         if floor and len(act) and worst <= peak * (1 - floor):
             # close all at the worse side, plus accrued swap (pro rata) and the spread of an outside close
-            frac = np.clip((m - opens[act]) / np.maximum(closes[act] - opens[act], 1), 0, 1)
-            costs = float((pos.swap.values[act] * frac).sum() + pos.cost_in.values[act].sum()
-                          - (pos.vol.values[act] * 100 * SPREAD).sum())
-            bal = worst + costs; active[:] = False
+            # accrued costs are already inside worst; add only the spread of the outside close
+            bal = worst - float((pos.vol.values[act] * 100 * SPREAD).sum()); active[:] = False
             stops.append((int(tt[m]), round(peak, 2), round(bal, 2)))
             nxt = np.where(open_orig[m:] == 0)[0]
             resume_at = m + (int(nxt[0]) if len(nxt) else len(tt))
