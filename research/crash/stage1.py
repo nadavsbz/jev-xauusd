@@ -10,6 +10,7 @@ DATA_DIR holds: xauusd_h1_YYYY.csv, dollaridxusd_h1_YYYY.csv (Dukascopy, UTC, ms
 GVZCLS.csv (FRED), gdelt/timelinevolraw_YYYYMM.csv + gdelt/timelinetone_YYYYMM.csv,
 events.csv (column utc: scheduled release times)."""
 import glob, os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numpy as np, pandas as pd
 from sklearn.linear_model import LogisticRegression
 
@@ -76,16 +77,9 @@ def build(data):
     f["S4"] = ((night_hi - night_lo) / g.close).values / adr.reindex(day).values
     gvz = pd.read_csv(os.path.join(data, "GVZCLS.csv"), parse_dates=["observation_date"], na_values=".")
     gvz = gvz.set_index("observation_date").GVZCLS.dropna()
-    # publication-time alignment (review): FRED posts the close of day D around 17:00 Central European
-    # time on the next business day. Conservatively: available from 16:00 UTC of the next weekday.
-    # Each hour gets the percentile of the latest observation published by the close of that hour.
-    gp = trailing_pct(gvz, DAYS).dropna()
-    nxt = gp.index + pd.offsets.BDay(1)
-    pub = pd.Series(gp.values, index=nxt + pd.Timedelta(hours=16)).sort_index()
-    left = pd.DataFrame({"close_t": g.index + pd.Timedelta(hours=1)})
-    right = pd.DataFrame({"pub": pub.index, "v": pub.values})
-    m = pd.merge_asof(left, right, left_on="close_t", right_on="pub", direction="backward")
-    f["S5"] = m.v.values
+    # publication-time alignment (review): research/crash/gvz_pub.py, holidays included
+    import gvz_pub
+    f["S5"] = gvz_pub.at(g.index + pd.Timedelta(hours=1), gvz_pub.published(gvz_pub.percentile(gvz)))[0]
     dx = hourly(data, "dollaridxusd")
     f["S6"] = trailing_pct(rng(dx, 24), DAYS * bars_per_day).reindex(g.index, method="ffill")
     vol = pd.concat([pd.read_csv(x) for x in glob.glob(os.path.join(data, "gdelt", "timelinevolraw_*.csv"))])

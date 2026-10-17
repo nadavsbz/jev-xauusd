@@ -1,5 +1,5 @@
-flagged days in the period: 80
-blocked entries: 4293 of 16692 | deep baskets touched: 8 of 28
-nov_may: with S5 block x3.22 / -20.0% | actual x10.22 / -54.1%
+flagged days in the period: 56
+blocked entries: 4260 of 16692 | deep baskets touched: 8 of 28
+nov_may: with S5 block x3.14 / -20.0% | actual x10.22 / -54.1%
 jun_oct: with S5 block x0.98 / -34.4% | actual x0.98 / -34.4%
-all: with S5 block x3.17 / -34.4%
+all: with S5 block x3.08 / -34.4%

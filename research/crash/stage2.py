@@ -8,12 +8,15 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import direction_block as db  # noqa: E402
 
 g = pd.read_csv(sys.argv[1], parse_dates=["observation_date"], na_values=".").set_index("observation_date").GVZCLS.dropna()
-s5 = g.rolling(250, min_periods=125).rank(pct=True).shift(1)                      # stage1.py
-# entry time: account 1 server clock (Central European) -> UTC calendar day
+import gvz_pub  # noqa: E402
+pub = gvz_pub.published(gvz_pub.percentile(g))
+# entry time: account 1 server clock (Central European) -> UTC; each entry gets the S5 value already
+# published at that moment (review: same timing as stage1.py)
 t_utc = (pd.to_datetime(db.p.time.values, unit="s").tz_localize("Europe/Berlin", ambiguous="NaT", nonexistent="shift_forward")
-         .tz_convert("UTC").tz_localize(None).normalize())
-flag_day = s5.reindex(pd.date_range(s5.index.min(), t_utc.max()), method="ffill") >= 0.90
-blocked = flag_day.reindex(t_utc).fillna(False).values
+         .tz_convert("UTC").tz_localize(None))
+v, _ = gvz_pub.at(t_utc, pub)
+blocked = np.nan_to_num(v, nan=0.0) >= 0.90
+flag_day = pd.Series(pub.values >= 0.90, index=pub.index.normalize())
 q = db.p.assign(blk=blocked); keep = q[~q.blk]
 o = db.o
 r, tr, rb, ru = [a.copy() / 100 for a in (o.pnl_pct.values, o.mae_pct.values, o.runup_before_pct.values, o.runup_pct.values)]

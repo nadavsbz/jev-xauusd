@@ -123,8 +123,11 @@ double SyncFlows(const bool force)
    double peak = GlobalVariableGet(gvPeak);
    if(!force && TimeCurrent() - lastScan < 30) return peak;
    lastScan = TimeCurrent();
-   double flows, seen = GlobalVariableGet(gvFlows);
+   double flows;
    if(!BalanceFlows(flows)) { lastScan = 0; return peak; }      // try again on the next check
+   // no baseline yet (the first scan at start failed): set it now WITHOUT moving the peak (review)
+   if(!GlobalVariableCheck(gvFlows)) { GlobalVariableSet(gvFlows, flows); return peak; }
+   double seen = GlobalVariableGet(gvFlows);
    if(MathAbs(flows - seen) > 0.005)
      {
       PrintFormat("balance operation %.2f: peak %.2f -> %.2f", flows - seen, peak, peak + flows - seen);

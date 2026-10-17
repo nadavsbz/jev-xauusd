@@ -82,7 +82,7 @@ def acc_daily():
     o = pd.read_csv("data/derived/bd1/clusters_strict.csv").sort_values("t0")
     o["day"] = pd.to_datetime(o.t1, unit="s").dt.normalize()
     o["cross"] = (pd.to_datetime(o.t0, unit="s") < SPLIT) & (pd.to_datetime(o.t1, unit="s") >= SPLIT)
-    r, tr, pre, plo = {}, {}, {}, {}
+    r, tr, pre, plo, pday = {}, {}, {}, {}, {}
     # baskets that cross the split are removed BEFORE the daily aggregation (review): the other
     # baskets that close on the same day stay; the flag only marks such days
     for day, g in o[~o.cross].groupby("day"):
@@ -99,11 +99,12 @@ def acc_daily():
             pk_run = max(pk_run, eq * (1 + max(ru, 0)) - 1)
             eq *= 1 + p; pk_run = max(pk_run, eq - 1)
         r[day], tr[day], pre[day], plo[day] = eq - 1, min(low, eq - 1), pair[0], pair[1]
-    return pd.Series(r), pd.Series(tr), pd.Series(pre), pd.Series(plo), o.groupby("day").cross.any()
+        pday[day] = pk_run                    # the day's absolute floating peak (review): raises the peak for later days
+    return pd.Series(r), pd.Series(tr), pd.Series(pre), pd.Series(plo), pd.Series(pday), o.groupby("day").cross.any()
 
 
 if __name__ == "__main__":
-    a, atr, apre, aplo, cross = acc_daily(); b = bull_daily()
+    a, atr, apre, aplo, apday, cross = acc_daily(); b = bull_daily()
     # the registered period, not the first/last close of any one tool; days without a close are 0.
     # Coverage is checked first: every source must have data spanning the whole period.
     START, END = pd.Timestamp("2025-11-11"), pd.Timestamp("2026-10-14")
@@ -119,6 +120,7 @@ if __name__ == "__main__":
     out = pd.DataFrame({"account1": a.reindex(days).fillna(0), "account1_trough": atr.reindex(days).fillna(0),
                         "account1_peak_before": apre.reindex(days).fillna(0),
                         "account1_low_after_peak": aplo.reindex(days).fillna(0),
+                        "account1_peak_day": apday.reindex(days).fillna(0),
                         "account1_crosses_split": cross.reindex(days).fillna(False), "bull": b.reindex(days).fillna(0)})
     if len(sys.argv) > 3:
         bt = btc_daily(sys.argv[2], float(sys.argv[3]))

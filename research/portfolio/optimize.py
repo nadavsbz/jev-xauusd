@@ -22,6 +22,7 @@ BULL_DD = 0.0
 def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
     pre = c.account1_peak_before.values * f if "account1_peak_before" in c else np.zeros(len(c))
     plo = c.account1_low_after_peak.values * f if "account1_low_after_peak" in c else np.zeros(len(c))
+    pday = c.account1_peak_day.values * f if "account1_peak_day" in c else pre
     tools = {"acc": (w_acc, c.account1.values * f, c.account1_trough.values * f),
              "btc": (w_btc, c.btc.values if "btc" in c else np.zeros(len(c)), None),
              "bull": (w_bull, c.bull.values, None)}
@@ -41,7 +42,7 @@ def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
             if tr is not None:       # account 1: returns are shares of its own balance (lot follows balance)
                 # two checks (review): the day's lowest point against the peak from before the day, and
                 # the day's worst relative drop (a floating peak, then the low after it)
-                prior = peak[k]; pk_eq = eq[k] * (1 + pre[i]); pl_eq = eq[k] * (1 + plo[i])
+                prior = peak[k]; pk_eq = eq[k] * (1 + pre[i]); pl_eq = eq[k] * (1 + plo[i]); pd_eq = eq[k] * (1 + pday[i])
                 pre_total += pk_eq
                 day_low = eq[k] * (1 + tr[i])
                 close = eq[k] * (1 + r[i])
@@ -67,6 +68,8 @@ def simulate(c, w_acc, w_btc, w_bull, f, sweep, btc_dd):
                 low_total += line                   # the path ends at the floor too (review)
             else:
                 eq[k] = close; low_total += day_low
+                if tr is not None:
+                    peak[k] = max(peak[k], pd_eq)      # the day's absolute floating peak, for later days (review)
             peak[k] = max(peak[k], eq[k])
         total = cash + sum(max(v, 0) for v in eq.values())
         total_peak = max(total_peak, pre_total)
