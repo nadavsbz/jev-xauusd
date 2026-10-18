@@ -52,7 +52,8 @@ def equity_path(pos, bt, lo, hi, capital):
     tt = bt[a0:a1]; f_lo = np.zeros(len(tt)); f_hi = np.zeros(len(tt)); real = np.zeros(len(tt))
     for r in pos.itertuples():
         sgn = 1 if r.side == "buy" else -1
-        i = np.searchsorted(tt, r.t0, "right"); j = np.searchsorted(tt, r.t1, "left")
+        # include the entry bar (review PR #24): conservative, its low/high may come before the entry inside the minute
+        i = max(np.searchsorted(tt, r.t0, "right") - 1, 0); j = np.searchsorted(tt, r.t1, "left")
         # entry commission from the open and swap pro rata (review PR #23); the exit books r.net, which holds both
         acc = r.cost_in + r.swap * (np.arange(j - i) + 1) / max(j - i, 1) if j > i else 0.0
         f_lo[i:j] += sgn * r.vol * (lo[a0 + i:a0 + j] - r.p0) * K + acc

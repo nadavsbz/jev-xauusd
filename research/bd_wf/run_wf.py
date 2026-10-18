@@ -143,7 +143,11 @@ def main():
         log("no valid trading-hours choice - the walk-forward is not run"); return
     fixed = dict(cap, **hours)
     # 2. walk-forward
+    # only windows whose test period is after the cap/hours selection period (ends 31.10.2025) are out of sample
+    # (review PR #25): windows 5-7; windows 1-4 are not run
     for i, (a, b, c, d) in enumerate(WINDOWS, 1):
+        if i < 5:
+            continue
         rep = f"bdwf_w{i}_opt"
         job = dict(BASE, report=rep, fixed=fixed, ranges=RANGES, **{"from": a, "to": b})
         path = os.path.join(ROOT, "research", "bd_wf", f"{rep}.json"); json.dump(job, open(path, "w"), indent=1)
