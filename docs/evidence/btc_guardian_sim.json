@@ -489,7 +489,7 @@
  },
  "cap=5000 floor=None block=False bar_order=bad_first after_stop=reset_when_flat": {
   "final": -462.09,
-  "max_dd_pct": -102.8,
+  "max_dd_pct": -102.7,
   "min_equity": -462.09,
   "floor_stops": 0,
   "entries_taken": 8532,
@@ -947,7 +947,7 @@
  },
  "cap=5000 floor=0.15 block=False bar_order=bad_first after_stop=kill": {
   "final": 4866.11,
-  "max_dd_pct": -15.2,
+  "max_dd_pct": -15.5,
   "min_equity": 4804.01,
   "floor_stops": 1,
   "entries_taken": 656,
@@ -1450,7 +1450,7 @@
  },
  "cap=10000 floor=0.15 block=True bar_order=bad_first after_stop=kill": {
   "final": 9333.19,
-  "max_dd_pct": -16.0,
+  "max_dd_pct": -16.1,
   "min_equity": 9333.19,
   "floor_stops": 1,
   "entries_taken": 1080,
