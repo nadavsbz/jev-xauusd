@@ -12,12 +12,12 @@
  },
  "fixed": {
   "mult": 4.69,
-  "max_dd_pct": 88.3,
-  "min_equity": 7649.0
+  "max_dd_pct": 90.2,
+  "min_equity": 6415.0
  },
  "vol_scaled": {
   "mult": 4.556,
-  "max_dd_pct": 101.1,
-  "min_equity": -653.0
+  "max_dd_pct": 103.2,
+  "min_equity": -1948.0
  }
 }

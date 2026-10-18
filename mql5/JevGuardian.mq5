@@ -53,7 +53,8 @@ int OnInit()
    // floor again at once. A reset sets both: peak = equity now, kill switch off. It happens once per
    // new ResetToken, so a terminal/VPS restart with unchanged inputs keeps the kill switch on.
    bool fresh = ResetToken != 0 && (!GlobalVariableCheck(gvToken) || (int)GlobalVariableGet(gvToken) != ResetToken);
-   if(fresh) { GlobalVariableSet(gvPeak, eq); GlobalVariableDel(gvKill); GlobalVariableSet(gvToken, ResetToken);
+   // a reset also drops the old flow baseline (review PR #27): it is set again by the next successful scan
+   if(fresh) { GlobalVariableSet(gvPeak, eq); GlobalVariableDel(gvKill); GlobalVariableDel(gvFlows); GlobalVariableSet(gvToken, ResetToken);
                Print("JevGuardian reset (new token): peak = equity now, kill switch off"); }
    double f0;
    if((fresh || !GlobalVariableCheck(gvFlows)) && BalanceFlows(f0)) GlobalVariableSet(gvFlows, f0);

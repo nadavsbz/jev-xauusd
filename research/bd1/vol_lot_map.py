@@ -45,7 +45,8 @@ def main():
     for name, mult in (("fixed", pd.Series(1.0, index=first.index)), ("vol_scaled", m)):
         k = pos.basket.map(mult).values
         p = pos.assign(vol=pos.vol * k, net=pos.net * k)
-        tt, eq_lo, _ = g.equity_path(p, bt, lo, hi, dep); pk = np.maximum.accumulate(eq_lo)
+        tt, eq_lo, eq_hi = g.equity_path(p, bt, lo, hi, dep)
+        pk = np.maximum(np.maximum.accumulate(np.concatenate([[dep], eq_hi[:-1]])), eq_lo)   # good extremes of earlier bars
         res[name] = {"mult": round(float(eq_lo[-1] / dep), 3), "max_dd_pct": round(float(((pk - eq_lo) / pk).max() * 100), 1),
                      "min_equity": round(float(eq_lo.min()), 0)}
         print(name, res[name], flush=True)
