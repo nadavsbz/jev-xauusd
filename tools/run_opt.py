@@ -92,10 +92,12 @@ def validate_and_write(j, ranges, xml, ev):
     where a result depends on them; review PR #22)."""
     passes = parse_xml(xml)
     want = set(itertools.product(*[values(*v) for v in ranges.values()]))
+    def fv(x):                  # booleans appear as true/false in the XML report
+        return {"true": 1.0, "false": 0.0}.get(str(x).strip().lower(), None) if str(x).strip().lower() in ("true", "false") else float(x)
     got = set()
     for p in passes:
         try:
-            got.add(tuple(round(float(p[k]), 6) for k in ranges))
+            got.add(tuple(round(fv(p[k]), 6) for k in ranges))
         except (KeyError, ValueError):
             pass
     bad = [p for p in passes if any(k in p and round(float(p[k]), 6) != round(float(v), 6) for k, v in j.get("fixed", {}).items())]

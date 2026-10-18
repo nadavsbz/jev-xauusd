@@ -1,0 +1,17 @@
+[
+ {
+  "report": "bdanti_test_eglobal",
+  "base_set": "bd_3digit_cal.set",
+  "overrides": {
+   "Use_Stoh": "true"
+  },
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "from": "2025.11.11",
+  "to": "2026.10.15",
+  "deposit": 24895,
+  "leverage": 1000
+ }
+]
