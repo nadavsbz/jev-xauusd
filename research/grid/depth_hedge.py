@@ -68,6 +68,7 @@ def run(rep, bars_csv, dep, scale=1.0):
     for L, h, stop in GRID:
         # rebuild the hedge path with realised P&L carried forward
         path = np.zeros(len(tt)); cum = 0.0; opened = 0
+        hl = np.zeros(len(tt))                       # the hedge lots actually open, per minute (review PR #27)
         for s in (1, -1):
             d = -s; state = None
             for m in range(1, len(tt)):
@@ -88,9 +89,10 @@ def run(rep, bars_csv, dep, scale=1.0):
                         path[m:] += val; state = None
                     else:
                         path[m] += d * (worst - px0) * size * K      # the hedge's worse side inside the bar
+                        hl[m] += size
         eq = base + path * scale
         res[f"L={L} h={h} stop={stop}"] = dict(summary(eq, dep, tt), hedges=opened,
-                                              max_margin_use_pct=margin_use(lots, hedge_lots(lots, L, h, scale), cl, eq, scale))
+                                              max_margin_use_pct=margin_use(lots, hl, cl, eq, scale))
     return res
 
 

@@ -23,7 +23,7 @@
   "wiped": false,
   "es5_daily_pct": -28.85,
   "hedges": 94,
-  "max_margin_use_pct": 118.1
+  "max_margin_use_pct": 102.9
  },
  "L=0.3 h=1.0 stop=3.0": {
   "final": -11028.83,
@@ -41,7 +41,7 @@
   "wiped": false,
   "es5_daily_pct": -20.24,
   "hedges": 94,
-  "max_margin_use_pct": 83.8
+  "max_margin_use_pct": 67.7
  },
  "L=0.6 h=0.5 stop=3.0": {
   "final": -5167.1,
@@ -59,7 +59,7 @@
   "wiped": false,
   "es5_daily_pct": -28.03,
   "hedges": 73,
-  "max_margin_use_pct": 109.8
+  "max_margin_use_pct": 95.7
  },
  "L=0.6 h=1.0 stop=3.0": {
   "final": -11487.77,
@@ -77,6 +77,6 @@
   "wiped": false,
   "es5_daily_pct": -18.9,
   "hedges": 73,
-  "max_margin_use_pct": 77.6
+  "max_margin_use_pct": 62.7
  }
 }
