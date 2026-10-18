@@ -1,0 +1,182 @@
+{
+ "rows": [
+  {
+   "MaxLot_": 0.2,
+   "Martin_": 1.2,
+   "MaxOrders": 25,
+   "net": -24634.93,
+   "equity_dd_pct": 99.3911,
+   "annual_pct": -94.39173804522667,
+   "wiped": true,
+   "counted": true,
+   "passes": false
+  },
+  {
+   "MaxLot_": 0.1,
+   "Martin_": 1.2,
+   "MaxOrders": 15,
+   "net": -24757.41,
+   "equity_dd_pct": 99.7377,
+   "annual_pct": -96.24858964673436,
+   "wiped": true,
+   "counted": true,
+   "passes": false
+  },
+  {
+   "MaxLot_": 0.1,
+   "Martin_": 1.2,
+   "MaxOrders": 25,
+   "net": -24780.68,
+   "equity_dd_pct": 99.783,
+   "annual_pct": -96.6628572027276,
+   "wiped": true,
+   "counted": true,
+   "passes": false
+  },
+  {
+   "MaxLot_": 0.2,
+   "Martin_": 1.1,
+   "MaxOrders": 15,
+   "net": -24899.97,
+   "equity_dd_pct": 100.0145,
+   "annual_pct": -100.0,
+   "wiped": true,
+   "counted": true,
+   "passes": false
+  },
+  {
+   "MaxLot_": 0.1,
+   "Martin_": 1.1,
+   "MaxOrders": 25,
+   "net": -24907.04,
+   "equity_dd_pct": 100.0262,
+   "annual_pct": -100.0,
+   "wiped": true,
+   "counted": true,
+   "passes": false
+  },
+  {
+   "MaxLot_": 0.2,
+   "Martin_": 1.1,
+   "MaxOrders": 25,
+   "net": -24923.32,
+   "equity_dd_pct": 100.0612,
+   "annual_pct": -100.0,
+   "wiped": true,
+   "counted": true,
+   "passes": false
+  },
+  {
+   "MaxLot_": 0.1,
+   "Martin_": 1.1,
+   "MaxOrders": 15,
+   "net": -24950.65,
+   "equity_dd_pct": 100.1629,
+   "annual_pct": -100.0,
+   "wiped": true,
+   "counted": true,
+   "passes": false
+  },
+  {
+   "MaxLot_": 0.2,
+   "Martin_": 1.2,
+   "MaxOrders": 15,
+   "net": -25178.27,
+   "equity_dd_pct": 100.6672,
+   "annual_pct": -100.0,
+   "wiped": true,
+   "counted": true,
+   "passes": false
+  },
+  {
+   "MaxLot_": 0.5,
+   "Martin_": 1.2,
+   "MaxOrders": 25,
+   "net": -24457.39,
+   "equity_dd_pct": 98.8041,
+   "annual_pct": -92.20953778497201,
+   "wiped": true,
+   "counted": true,
+   "passes": false
+  },
+  {
+   "MaxLot_": 1.0,
+   "Martin_": 1.1,
+   "MaxOrders": 15,
+   "net": -24899.97,
+   "equity_dd_pct": 100.0145,
+   "annual_pct": -100.0,
+   "wiped": true,
+   "counted": false,
+   "passes": false
+  },
+  {
+   "MaxLot_": 0.5,
+   "Martin_": 1.1,
+   "MaxOrders": 15,
+   "net": -24899.97,
+   "equity_dd_pct": 100.0145,
+   "annual_pct": -100.0,
+   "wiped": true,
+   "counted": true,
+   "passes": false
+  },
+  {
+   "MaxLot_": 1.0,
+   "Martin_": 1.1,
+   "MaxOrders": 25,
+   "net": -25093.18,
+   "equity_dd_pct": 100.4298,
+   "annual_pct": -100.0,
+   "wiped": true,
+   "counted": false,
+   "passes": false
+  },
+  {
+   "MaxLot_": 0.5,
+   "Martin_": 1.1,
+   "MaxOrders": 25,
+   "net": -25093.18,
+   "equity_dd_pct": 100.4298,
+   "annual_pct": -100.0,
+   "wiped": true,
+   "counted": true,
+   "passes": false
+  },
+  {
+   "MaxLot_": 0.5,
+   "Martin_": 1.2,
+   "MaxOrders": 15,
+   "net": -25476.79,
+   "equity_dd_pct": 101.59,
+   "annual_pct": -100.0,
+   "wiped": true,
+   "counted": true,
+   "passes": false
+  },
+  {
+   "MaxLot_": 1.0,
+   "Martin_": 1.2,
+   "MaxOrders": 25,
+   "net": -25837.42,
+   "equity_dd_pct": 102.57,
+   "annual_pct": -100.0,
+   "wiped": true,
+   "counted": false,
+   "passes": false
+  },
+  {
+   "MaxLot_": 1.0,
+   "Martin_": 1.2,
+   "MaxOrders": 15,
+   "net": -25837.42,
+   "equity_dd_pct": 102.57,
+   "annual_pct": -100.0,
+   "wiped": true,
+   "counted": false,
+   "passes": false
+  }
+ ],
+ "chosen": null,
+ "verdict": "no combination passes; every counted combination wiped"
+}
