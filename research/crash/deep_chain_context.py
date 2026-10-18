@@ -17,7 +17,7 @@ dx["t"] = pd.to_datetime(dx.timestamp, unit="ms"); dx = dx.set_index("t").sort_i
 dd = dx.resample("1D").agg({"high": "max", "low": "min", "close": "last"}).dropna()
 dd["rng"] = (dd.high - dd.low) / dd.close * 100
 dd["rng_pct"] = dd.rng.rolling(250, min_periods=60).rank(pct=True).shift(1)    # yesterday's view, no look-ahead
-dd["prev_rng_pct"] = dd.rng_pct.shift(1)
+dd["prev_rng_pct"] = dd.rng_pct           # rng_pct is already shifted: it IS the previous day (review PR #28)
 gold = pd.read_csv("docs/evidence/gold_trend_days.csv", parse_dates=["day"]).set_index("day")
 ev = pd.read_csv("docs/evidence/events_actual_nfp.csv")
 ev_day = set(pd.to_datetime(ev.utc).dt.normalize())

@@ -29,11 +29,12 @@ ok = (i >= 0) & (p.time.values <= o.t1.values[np.maximum(i, 0)])
 p["cid"] = np.where(ok, o.cid.values[np.maximum(i, 0)], -1)
 p = p[p.cid >= 0].sort_values("time")
 bt = bars.time.values; lo = bars.low.values; hi = bars.high.values; cl = bars.close.values
-k0 = np.searchsorted(bt, p.time.values, side="left") - 1
+# the last minute bar CLOSED before the entry (review PR #28): floor the entry to its minute, take the bar before
+k0 = np.searchsorted(bt, p.time.values // 60 * 60, side="left") - 1
 
 
 def move_pct(h):
-    kh = np.searchsorted(bt, p.time.values - h * 3600, side="left") - 1
+    kh = np.searchsorted(bt, (p.time.values - h * 3600) // 60 * 60, side="left") - 1
     return (cl[k0] - cl[np.maximum(kh, 0)]) / cl[np.maximum(kh, 0)] * 100
 
 

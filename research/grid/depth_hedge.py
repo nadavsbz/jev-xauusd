@@ -79,13 +79,15 @@ def run(rep, bars_csv, dep, scale=1.0):
                     px0, size, best = state
                     # conservative intrabar order (review PR #26): the stop from the PREVIOUS best is checked
                     # first; only a bar that does not hit it can raise the best for the next bars
-                    stop_px = best - stop if d == 1 else best + stop
-                    hit = (lo[m] <= stop_px) if d == 1 else (hi[m] >= stop_px)
-                    if not hit:
-                        best = max(best, hi[m]) if d == 1 else min(best, lo[m]); state[2] = best
-                        if order == "best_first":            # the new best came first: the new stop can hit in the same bar
-                            stop_px = best - stop if d == 1 else best + stop
-                            hit = (lo[m] <= stop_px) if d == 1 else (hi[m] >= stop_px)
+                    if order == "best_first":                # the good extreme came first (review PR #28): move the
+                        best = max(best, hi[m]) if d == 1 else min(best, lo[m]); state[2] = best   # stop, then test it
+                        stop_px = best - stop if d == 1 else best + stop
+                        hit = (lo[m] <= stop_px) if d == 1 else (hi[m] >= stop_px)
+                    else:                                    # the bad extreme came first: the OLD stop is tested
+                        stop_px = best - stop if d == 1 else best + stop
+                        hit = (lo[m] <= stop_px) if d == 1 else (hi[m] >= stop_px)
+                        if not hit:
+                            best = max(best, hi[m]) if d == 1 else min(best, lo[m]); state[2] = best
                     worst = lo[m] if d == 1 else hi[m] + SPREAD
                     if hit or lots[s][m] == 0:
                         ex = (stop_px if hit else cl[m]) + (0.0 if d == 1 else SPREAD)
