@@ -8,7 +8,7 @@ import numpy as np, pandas as pd
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "btc"))
 import guardian_sim as g  # noqa: E402
 
-WEIGHTS = (0.1, 0.2, 0.3, 0.4)
+WEIGHTS = tuple(float(x) for x in os.environ.get("SPLIT_WEIGHTS", "0.1,0.2,0.3,0.4").split(","))
 
 
 def bd_daily(rep, bars_csv, dep):
@@ -62,7 +62,8 @@ def main():
             ann = float(tot_close.iloc[-1] ** (1 / yrs) - 1) * 100
             out[f"w={w} rest={other}"] = {"annual_pct": round(ann, 1), "max_dd_pct": round(dd, 1), "final": round(float(tot_close.iloc[-1]), 3)}
             print(period, w, other, out[f"w={w} rest={other}"], flush=True)
-    json.dump(out, open(f"docs/evidence/split_{period}.json", "w"), indent=1)
+    tag = os.environ.get("SPLIT_TAG", "")
+    json.dump(out, open(f"docs/evidence/split_{period}{tag}.json", "w"), indent=1)
 
 
 if __name__ == "__main__":
