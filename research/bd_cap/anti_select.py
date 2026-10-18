@@ -12,7 +12,9 @@ for r in d["passes"]:
     rows.append((str(r["Use_Stoh"]).lower(), num(r["Fix_Distance"]), num(r["Distance_multiplier"]), net, dd,
                  net <= -0.9 * 24895 or dd >= 90))
 ok = sorted([r for r in rows if not r[5] and r[4] <= 40], key=lambda r: -r[3])
-out = {"source": p, "source_sha256": hashlib.sha256(raw).hexdigest(), "job": d["job"], "rows": rows,
+# hash of the CANONICAL JSON content (review PR #27): line-ending changes by git must not break the link
+canon = json.dumps(d, sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+out = {"source": p, "source_canonical_sha256": hashlib.sha256(canon).hexdigest(), "job": d["job"], "rows": rows,
        "chosen": ok[0] if ok else None}
 json.dump(out, open("docs/evidence/bdanti_selection.json", "w"), indent=1)
 print("chosen:", out["chosen"])

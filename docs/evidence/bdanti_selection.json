@@ -1,6 +1,6 @@
 {
  "source": "docs/evidence/bdanti_opt_sel.json",
- "source_sha256": "f1110d4170764b4a0302241f1db72dda0fdb94ee42c0390bdf3d9e900619cfef",
+ "source_canonical_sha256": "9feba1727165c07fd252d85584e1c509af5c0dad519af936eda25e3f4213f7a9",
  "job": {
   "report": "bdanti_opt_sel",
   "base_set": "bd2afterpoint_l001_sp50.set",
