@@ -44,17 +44,24 @@ def main():
         mt5.symbol_select(sym, True)
         prev = None
         r = None
+        stable = False
         for _ in range(40):                       # history arrives asynchronously: pull until stable
             r = mt5.copy_rates_from_pos(sym, mt5.TIMEFRAME_H1, 0, 200000)
             # stable = two pulls identical in CONTENT, not only in count (review)
             if r is not None and len(r) and prev is not None and len(r) == len(prev) and (r == prev).all():
+                stable = True
                 break
             prev = r if r is not None and len(r) else None
             time.sleep(6)
         if r is None or not len(r):
             sys.exit(f"{sym}: no bars ({mt5.last_error()})")
+        if not stable:            # review PR #23: never write a pull that did not settle
+            sys.exit(f"{sym}: history did not settle after 40 pulls - nothing written")
         d = pd.DataFrame(r)
         # coverage and continuity before writing (review): no gap longer than 4 days (weekends, holidays)
+        last = pd.Timestamp(int(d.time.iloc[-1]), unit="s")
+        if (pd.Timestamp.utcnow().tz_localize(None) - last).days > 5:      # cut at the end (review PR #23)
+            sys.exit(f"{sym}: last bar {last} is more than 5 days old - nothing written")
         gaps = pd.Series(d.time).diff().dropna()
         if (gaps > 4 * 86400).any():
             sys.exit(f"{sym}: gap of {gaps.max() / 86400:.1f} days in the pulled history - nothing written")
