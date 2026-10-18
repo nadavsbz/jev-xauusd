@@ -48,7 +48,8 @@ gem = []
 for i in range(len(M)-1):
     d = M.index[i]
     if pd.isna(mom.loc[d, ["SPY","EFA","SHY"]]).any() or pd.isna(R.iloc[i+1][["SPY","EFA","AGG"]]).any(): gem.append(np.nan); continue
-    pick = ("SPY" if mom.loc[d,"SPY"] >= mom.loc[d,"EFA"] else "EFA") if mom.loc[d,"SPY"] > mom.loc[d,"SHY"] else "AGG"
+    win = "SPY" if mom.loc[d,"SPY"] >= mom.loc[d,"EFA"] else "EFA"          # relative first (review PR #23)
+    pick = win if mom.loc[d, win] > mom.loc[d,"SHY"] else "AGG"            # then the winner vs SHY
     gem.append(R.iloc[i+1][pick] - 0.0005)
 gem = pd.Series(gem, index=M.index[1:]).dropna()
 # GTAA5: SPY EFA IEF VNQ DBC, 10m SMA else SHY, 20% each

@@ -32,6 +32,8 @@ def main():
     while start < END - pd.Timedelta(days=7):
         name = f"{prefix}_{k:02d}"
         rep = os.path.join(TERM, name + ".htm")
+        if os.path.exists(rep):            # never reuse a report by name (review PR #23): it may be another run's
+            os.remove(rep)
         for attempt in range(3):                       # the login preflight can fail transiently (IPC)
             if os.path.exists(rep):
                 break

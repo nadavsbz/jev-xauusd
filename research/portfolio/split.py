@@ -32,7 +32,10 @@ def main():
     for w in WEIGHTS:
         for other in (("bull", "cash") if period == "acc" else ("cash",)):
             rest = (1 - w) * (bull_eq if other == "bull" else pd.Series(1.0, index=days))
-            tot_low = w * low + rest; tot_close = w * close + rest
+            # Bull's intraday order is unknown (review PR #23): the low uses the worse of its balance
+            # before and after the day, the close uses the close
+            rest_low = np.minimum(rest, rest.shift(1).fillna(1 - w))
+            tot_low = w * low + rest_low; tot_close = w * close + rest
             # the day's low against the peak up to the PREVIOUS close (no same-day look-ahead, review PR #22),
             # and each close against the running peak of closes
             prev_peak = tot_close.cummax().shift(1).fillna(1.0).clip(lower=1.0)
