@@ -35,6 +35,12 @@ def dist_n(n, p):
 def run(bars, p, dep, rules=None):
     rules = rules or {}
     t = bars.time.values; lo = bars.low.values; hi = bars.high.values; op = bars.open.values; cl = bars.close.values
+    # v3: a new chain opens only on the side of the M15 close vs its EMA(100), as of the previous closed M15 bar
+    # (OBSERVED: 99.8% of 14,286 chains in bd_cal_full)
+    tt = pd.to_datetime(t, unit="s")
+    m15 = pd.Series(cl, index=tt).resample("15min").last().dropna()
+    trend = np.sign(m15 - m15.ewm(span=p.get("ema", 100)).mean()).shift(1)
+    trend_at = trend.reindex(tt.floor("15min")).values
     minute = (t // 60) % 60; hour = (t // 3600) % 24
     bal = dep; entries = []; closes = []; eq_lo = np.empty(len(t))
     book = {1: [], -1: []}                       # side -> list of [price, lot]
@@ -47,7 +53,7 @@ def run(bars, p, dep, rules=None):
             # entry price: buy at Ask (bid + spread), sell at Bid; exits the other way
             if not pos:
                 trail[s] = None
-                if m15 and p["h0"] <= hour[i] < p["h1"] and not rules.get("block_new", lambda *a: False)(s, i):
+                if m15 and p["h0"] <= hour[i] < p["h1"] and trend_at[i] == s and not rules.get("block_new", lambda *a: False)(s, i):
                     px = op[i] + (p["spread"] if s == 1 else 0.0)
                     pos.append([px, p["lot"]]); entries.append((t[i], s, p["lot"], px)); kcount[s] = 1
                 continue
