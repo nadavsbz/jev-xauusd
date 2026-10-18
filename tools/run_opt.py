@@ -45,6 +45,10 @@ def parse_xml(path):
 
 def main():
     j = json.load(open(sys.argv[1], encoding="utf-8"))
+    if "--revalidate" in sys.argv:          # check an existing XML report again with the current rule
+        ev = os.path.join(ROOT, "docs", "evidence", j["report"] + ".json")
+        validate_and_write(j, dict(j["ranges"]), os.path.join(os.path.dirname(TERM), j["report"] + ".xml"), ev)
+        return
     ev = os.path.join(ROOT, "docs", "evidence", j["report"] + ".json")
     if os.path.exists(ev):
         print("exists:", ev); return
@@ -64,6 +68,15 @@ def main():
     xml = os.path.join(os.path.dirname(TERM), j["report"] + ".xml")
     if r.returncode != 0 or not os.path.exists(xml):
         sys.exit(f"optimization failed (rc {r.returncode})")
+    validate_and_write(j, ranges, xml, ev)
+
+
+def validate_and_write(j, ranges, xml, ev):
+    """Evidence only when every expected combination of the RANGES is in the report. Fixed inputs are
+    plain values in the .set (a single-value range is refused by the tester), so they are not report
+    columns: a pass that DOES carry a fixed input with another value invalidates the report; otherwise
+    the fixed values are recorded as written in the .set (verified by a separate single-pass spot check
+    where a result depends on them; review PR #22)."""
     passes = parse_xml(xml)
     want = set(itertools.product(*[values(*v) for v in ranges.values()]))
     got = set()
@@ -72,15 +85,18 @@ def main():
             got.add(tuple(round(float(p[k]), 6) for k in ranges))
         except (KeyError, ValueError):
             pass
-    # every pass must carry the fixed values; a pass with another value makes the whole report invalid
     bad = [p for p in passes if any(k in p and round(float(p[k]), 6) != round(float(v), 6) for k, v in j.get("fixed", {}).items())]
-    if bad or any(k not in passes[0] for k in j.get("fixed", {})):
+    if bad:
         got = set()
     out = {"job": j, "report_file": os.path.basename(xml), "passes": passes,
+           "fixed_as_columns": [k for k in j.get("fixed", {}) if passes and k in passes[0]],
            "combinations_expected": len(want), "combinations_found": len(got & want)}
     ok = want <= got
     json.dump(out, open(ev if ok else ev + ".invalid", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    if ok and os.path.exists(ev + ".invalid"):
+        os.remove(ev + ".invalid")
     print("ok" if ok else "INVALID: missing combinations", len(got & want), "/", len(want))
+    return ok
 
 
 if __name__ == "__main__":

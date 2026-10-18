@@ -69,6 +69,8 @@ def single(report, overrides, frm, to, base_set=None, name=None, symbol=None):
 
 def main():
     chain_log = os.environ.get("CHAIN_LOG", "")
+    if not chain_log:
+        sys.exit("CHAIN_LOG (the night chain's log file) is required")
     while True:                                   # wait for research/bd_cap/night_chain.py to finish
         txt = open(chain_log, encoding="utf-8", errors="replace").read() if os.path.exists(chain_log) else ""
         if "chain done" in txt or "stopping the chain" in txt:
@@ -83,6 +85,8 @@ def main():
     # 1. hours: registered choice on the selection period, then ONE test on EGlobal (account 1's period)
     hours = {}
     tp = os.path.join(EV, "bdtime_opt_sel.json")
+    if not os.path.exists(tp) and os.path.exists(tp + ".invalid"):      # written by the older check (review PR #22)
+        run(["tools/run_opt.py", "research/bd_cap/opt_time.json", "--revalidate"])
     if os.path.exists(tp):
         best, passed = choose(json.load(open(tp, encoding="utf-8"))["passes"], 19, need_annual=50.0)
         if best:
