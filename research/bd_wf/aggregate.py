@@ -59,9 +59,13 @@ def main():
         # the registered verdict needs BOTH: the thresholds and beating the base (review PR #25)
         out["verdict_success"] = bool(out["test"]["passes"] and out["test_beats_base"])
     else:
-        out["verdict_success"] = False
+        # a missing/changed/unpaired report means the verdict was NOT computed - never a valid failure (review PR #25)
+        out["status"] = "incomplete"; out["verdict_success"] = None
+    out.setdefault("status", "complete")
     json.dump(out, open(os.path.join(EV, "bdwf_verdict.json"), "w"), indent=1)
     print(json.dumps(out, indent=1))
+    if out["status"] != "complete":
+        sys.exit(2)
 
 
 if __name__ == "__main__":

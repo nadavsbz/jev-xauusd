@@ -167,7 +167,8 @@ def main():
     # the registered verdict: chained balance, drawdown, simple annual return, comparison with the base
     bars3 = [d for d in sorted(os.listdir(os.path.join(ROOT, "data", "raw", "black_dragon_3"))) if d.startswith("rates_XAUUSD_M1_")]
     if bars3:
-        run(["research/bd_wf/aggregate.py", os.path.join("data", "raw", "black_dragon_3", bars3[-1], "bars.csv")])
+        if run(["research/bd_wf/aggregate.py", os.path.join("data", "raw", "black_dragon_3", bars3[-1], "bars.csv")]) != 0:
+            MISSING.append("verdict (incomplete aggregation)")
     if MISSING:
         log("walk-forward PARTIAL - missing valid evidence: " + ", ".join(MISSING))
         json.dump({"missing": MISSING}, open(os.path.join(EV, "bdwf_partial.json"), "w"), indent=1)
