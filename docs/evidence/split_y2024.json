@@ -6,7 +6,7 @@
  },
  "w=0.1 rest=dbmf": {
   "annual_pct": 6.0,
-  "max_dd_pct": -12.2,
+  "max_dd_pct": -12.6,
   "final": 1.096
  },
  "w=0.2 rest=cash": {
@@ -16,7 +16,7 @@
  },
  "w=0.2 rest=dbmf": {
   "annual_pct": 8.8,
-  "max_dd_pct": -13.8,
+  "max_dd_pct": -14.1,
   "final": 1.142
  },
  "w=0.3 rest=cash": {
@@ -26,7 +26,7 @@
  },
  "w=0.3 rest=dbmf": {
   "annual_pct": 11.5,
-  "max_dd_pct": -15.8,
+  "max_dd_pct": -16.0,
   "final": 1.188
  },
  "w=0.4 rest=cash": {

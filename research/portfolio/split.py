@@ -54,6 +54,9 @@ def main():
             r_m = rest_low.reindex(mday).values
             t_lo = w * m_lo.values + r_m; t_hi = w * m_hi.values + r_m
             peak = np.maximum.accumulate(np.concatenate([[1.0], t_hi[:-1]]))
+            # also every earlier day-close of the whole portfolio (review PR #24): the peak before each minute
+            close_peak_prev = tot_close.cummax().shift(1).fillna(1.0).reindex(mday).values
+            peak = np.maximum(peak, close_peak_prev)
             dd = float(min((t_lo / peak - 1).min(), (tot_close / tot_close.cummax().clip(lower=1.0) - 1).min()) * 100)
             yrs = (days[-1] - days[0]).days / 365.25
             ann = float(tot_close.iloc[-1] ** (1 / yrs) - 1) * 100
