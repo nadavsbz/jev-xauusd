@@ -1,0 +1,30 @@
+{
+ "report": "bdanti_opt_sel",
+ "base_set": "bd2afterpoint_l001_sp50.set",
+ "fixed": {},
+ "ranges": {
+  "Distance_multiplier": [
+   1.2,
+   0.4,
+   2.0
+  ],
+  "Fix_Distance": [
+   300,
+   250,
+   800
+  ],
+  "Use_Stoh": [
+   0,
+   1,
+   1
+  ]
+ },
+ "name": "Black Dragon 3",
+ "expert": "BD\\EA Black Dragon.ex5",
+ "symbol": "XAUUSD",
+ "period": "M15",
+ "from": "2024.04.01",
+ "to": "2025.11.01",
+ "deposit": 24895,
+ "leverage": 1000
+}
