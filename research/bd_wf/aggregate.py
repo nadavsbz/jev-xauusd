@@ -56,6 +56,10 @@ def main():
         p.resample("1D").min().to_csv(os.path.join(EV, f"bdwf_{kind}_daily_low.csv"))
     if "total_net" in out.get("test", {}) and "total_net" in out.get("base", {}):
         out["test_beats_base"] = out["test"]["total_net"] > out["base"]["total_net"]
+        # the registered verdict needs BOTH: the thresholds and beating the base (review PR #25)
+        out["verdict_success"] = bool(out["test"]["passes"] and out["test_beats_base"])
+    else:
+        out["verdict_success"] = False
     json.dump(out, open(os.path.join(EV, "bdwf_verdict.json"), "w"), indent=1)
     print(json.dumps(out, indent=1))
 
