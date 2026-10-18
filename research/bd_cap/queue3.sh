@@ -4,7 +4,8 @@
 cd "$(dirname "$0")/../.."
 until grep -q "btc cap sweep done" "$1" 2>/dev/null; do sleep 120; done
 PY=/c/Users/Benza/AppData/Local/Programs/Python/Python312/python.exe
-if [ -f docs/evidence/bdanti_opt_sel.json ] && $PY -c "import json,sys; c=json.load(open('docs/evidence/bdanti_selection.json'))['chosen']; sys.exit(0 if c and c[0]=='true' and c[1]==300.0 and c[2]==1.2 else 1)"; then
+# the choice is recomputed from the CURRENT optimization evidence (review PR #27) and must be the one the test job runs
+if $PY research/bd_cap/anti_select.py && $PY -c "import json,sys; c=json.load(open('docs/evidence/bdanti_selection.json'))['chosen']; sys.exit(0 if c[0]=='true' and c[1]==300.0 and c[2]==1.2 else 1)"; then
   $PY tools/run_queue.py research/bd_cap/queue_anti_test.json data/derived/bdanti_test.jsonl
   echo "anti test done"
 else

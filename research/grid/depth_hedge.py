@@ -59,13 +59,14 @@ def run(rep, bars_csv, dep, scale=1.0):
     if left:
         sys.exit(f"{left} unpaired positions")
     bt = bars.time.values
-    tt, eq_lo, _ = g.equity_path(pos, bt, bars.low.values, bars.high.values, 0.0)
+    tt, eq_lo, eq_hi = g.equity_path(pos, bt, bars.low.values, bars.high.values, 0.0)
     a0 = np.searchsorted(bt, tt[0]); sl = slice(a0, a0 + len(tt))
     op, lo, hi, cl = (bars[c].values[sl] for c in ("open", "low", "high", "close"))
     lots = side_lots(pos, tt)
     base = dep + eq_lo * scale
-    res = {"no_hedge": dict(summary(base, dep, tt), max_margin_use_pct=margin_use(lots, None, cl, base, scale))}
-    for L, h, stop in GRID:
+    base_hi = dep + eq_hi * scale
+    res = {"no_hedge": dict(summary(base, dep, tt, base_hi), max_margin_use_pct=margin_use(lots, None, cl, base, scale))}
+    for (L, h, stop), order in itertools.product(GRID, ("stop_first", "best_first")):
         # rebuild the hedge path with realised P&L carried forward
         path = np.zeros(len(tt)); cum = 0.0; opened = 0
         hl = np.zeros(len(tt))                       # the hedge lots actually open, per minute (review PR #27)
@@ -82,6 +83,9 @@ def run(rep, bars_csv, dep, scale=1.0):
                     hit = (lo[m] <= stop_px) if d == 1 else (hi[m] >= stop_px)
                     if not hit:
                         best = max(best, hi[m]) if d == 1 else min(best, lo[m]); state[2] = best
+                        if order == "best_first":            # the new best came first: the new stop can hit in the same bar
+                            stop_px = best - stop if d == 1 else best + stop
+                            hit = (lo[m] <= stop_px) if d == 1 else (hi[m] >= stop_px)
                     worst = lo[m] if d == 1 else hi[m] + SPREAD
                     if hit or lots[s][m] == 0:
                         ex = (stop_px if hit else cl[m]) + (0.0 if d == 1 else SPREAD)
@@ -91,13 +95,15 @@ def run(rep, bars_csv, dep, scale=1.0):
                         path[m] += d * (worst - px0) * size * K      # the hedge's worse side inside the bar
                         hl[m] += size
         eq = base + path * scale
-        res[f"L={L} h={h} stop={stop}"] = dict(summary(eq, dep, tt), hedges=opened,
+        res[f"L={L} h={h} stop={stop} order={order}"] = dict(summary(eq, dep, tt, base_hi + path * scale), hedges=opened,
                                               max_margin_use_pct=margin_use(lots, hl, cl, eq, scale))
     return res
 
 
-def summary(eq, dep, tt):
-    pk = np.maximum.accumulate(np.maximum(eq, dep))
+def summary(eq, dep, tt, eq_best=None):
+    # peak from the good extremes of EARLIER bars (review PR #27), each low against it
+    best = eq if eq_best is None else np.maximum(eq, eq_best)
+    pk = np.maximum(np.maximum.accumulate(np.concatenate([[dep], best[:-1]])), eq)
     dd = (eq - pk) / pk
     daily = pd.Series(eq, index=pd.to_datetime(tt, unit="s")).resample("1D").last().dropna()
     r = daily.pct_change().dropna()
