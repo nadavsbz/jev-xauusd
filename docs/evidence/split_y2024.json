@@ -1,37 +1,37 @@
 {
  "w=0.1 rest=cash": {
   "annual_pct": 3.2,
-  "max_dd_pct": -5.6,
+  "max_dd_pct": -5.7,
   "final": 1.051
  },
  "w=0.1 rest=dbmf": {
   "annual_pct": 6.0,
-  "max_dd_pct": -12.6,
+  "max_dd_pct": -12.2,
   "final": 1.096
  },
  "w=0.2 rest=cash": {
   "annual_pct": 6.4,
-  "max_dd_pct": -10.4,
+  "max_dd_pct": -10.6,
   "final": 1.102
  },
  "w=0.2 rest=dbmf": {
   "annual_pct": 8.8,
-  "max_dd_pct": -14.1,
+  "max_dd_pct": -13.8,
   "final": 1.142
  },
  "w=0.3 rest=cash": {
   "annual_pct": 9.5,
-  "max_dd_pct": -14.5,
+  "max_dd_pct": -14.8,
   "final": 1.153
  },
  "w=0.3 rest=dbmf": {
   "annual_pct": 11.5,
-  "max_dd_pct": -16.0,
+  "max_dd_pct": -15.8,
   "final": 1.188
  },
  "w=0.4 rest=cash": {
   "annual_pct": 12.5,
-  "max_dd_pct": -18.0,
+  "max_dd_pct": -18.4,
   "final": 1.205
  },
  "w=0.4 rest=dbmf": {

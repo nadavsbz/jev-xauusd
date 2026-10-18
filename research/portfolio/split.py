@@ -16,19 +16,20 @@ def bd_daily(rep, bars_csv, dep):
     pos, left = g.pair(g.deals(rep))
     if left:            # partial (Overlap) exits would leave exposure unaccounted for (review PR #22)
         sys.exit(f"{left} positions could not be paired exactly - the curve would be incomplete")
-    tt, lo, _ = g.equity_path(pos, bars.time.values, bars.low.values, bars.high.values, dep)
+    tt, lo, hi = g.equity_path(pos, bars.time.values, bars.low.values, bars.high.values, dep)
     # the close path is marked at each bar's CLOSE price (review PR #24), the low path at the worse extreme
     tc, cl, _ = g.equity_path(pos, bars.time.values, bars.close.values, bars.close.values, dep)
     s_lo = pd.Series(lo / dep, index=pd.to_datetime(tt, unit="s"))
     s_cl = pd.Series(cl / dep, index=pd.to_datetime(tc, unit="s"))
-    return s_lo.resample("1D").min().dropna(), s_cl.resample("1D").last().dropna()   # daily low, daily close (x deposit)
+    s_hi = pd.Series(hi / dep, index=pd.to_datetime(tt, unit="s"))
+    return s_lo, s_hi, s_cl.resample("1D").last().dropna()     # minute low, minute high, daily close (x deposit)
 
 
 def main():
     period, rep, bars_csv, dep = sys.argv[1], sys.argv[2], sys.argv[3], float(sys.argv[4])
-    low, close = bd_daily(rep, bars_csv, dep)
+    m_lo, m_hi, close = bd_daily(rep, bars_csv, dep)
     days = close.index
-    low = low.reindex(days).fillna(close)
+    mday = m_lo.index.normalize()
     if period == "acc":
         bull = pd.read_csv("data/derived/portfolio_curves.csv", index_col=0, parse_dates=True).bull
         bull_eq = (1 + bull.reindex(days).fillna(0).cumsum())          # fixed lot: additive on the starting deposit
@@ -46,11 +47,14 @@ def main():
             # Bull's intraday order is unknown (review PR #23): the low uses the worse of its balance
             # before and after the day, the close uses the close
             rest_low = np.minimum(rest, rest.shift(1).fillna(1 - w))
-            tot_low = w * low + rest_low; tot_close = w * close + rest
-            # the day's low against the peak up to the PREVIOUS close (no same-day look-ahead, review PR #22),
-            # and each close against the running peak of closes
-            prev_peak = tot_close.cummax().shift(1).fillna(1.0).clip(lower=1.0)
-            dd = float(min((tot_low / prev_peak - 1).min(), (tot_close / tot_close.cummax().clip(lower=1.0) - 1).min()) * 100)
+            tot_close = w * close + rest
+            # drawdown in time order at minute level (review PR #24): the peak includes BD-A's floating highs
+            # of EARLIER minutes (the good extreme), each minute's low is measured against it; the rest of the
+            # portfolio enters with its conservative value of that day
+            r_m = rest_low.reindex(mday).values
+            t_lo = w * m_lo.values + r_m; t_hi = w * m_hi.values + r_m
+            peak = np.maximum.accumulate(np.concatenate([[1.0], t_hi[:-1]]))
+            dd = float(min((t_lo / peak - 1).min(), (tot_close / tot_close.cummax().clip(lower=1.0) - 1).min()) * 100)
             yrs = (days[-1] - days[0]).days / 365.25
             ann = float(tot_close.iloc[-1] ** (1 / yrs) - 1) * 100
             out[f"w={w} rest={other}"] = {"annual_pct": round(ann, 1), "max_dd_pct": round(dd, 1), "final": round(float(tot_close.iloc[-1]), 3)}

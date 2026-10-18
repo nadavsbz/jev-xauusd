@@ -1,7 +1,7 @@
 {
  "w=0.1 rest=bull": {
   "annual_pct": 15.9,
-  "max_dd_pct": -8.5,
+  "max_dd_pct": -8.6,
   "final": 1.145
  },
  "w=0.1 rest=cash": {
@@ -16,7 +16,7 @@
  },
  "w=0.2 rest=bull": {
   "annual_pct": 23.0,
-  "max_dd_pct": -16.6,
+  "max_dd_pct": -16.7,
   "final": 1.21
  },
  "w=0.2 rest=cash": {
@@ -31,7 +31,7 @@
  },
  "w=0.3 rest=bull": {
   "annual_pct": 30.1,
-  "max_dd_pct": -24.2,
+  "max_dd_pct": -24.3,
   "final": 1.274
  },
  "w=0.3 rest=cash": {
@@ -46,7 +46,7 @@
  },
  "w=0.4 rest=bull": {
   "annual_pct": 37.3,
-  "max_dd_pct": -31.3,
+  "max_dd_pct": -31.4,
   "final": 1.339
  },
  "w=0.4 rest=cash": {
