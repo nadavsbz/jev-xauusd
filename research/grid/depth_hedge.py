@@ -25,6 +25,17 @@ def side_lots(pos, tt):
     return out
 
 
+def flat_exits(pos, tt):
+    """Per side: minute index at which the side is first flat -> (Bid) price of the side's LAST exit deal
+    (review PR #28: the hedge closes with the chain, not at a later bar close)."""
+    out = {1: {}, -1: {}}
+    for r in pos.sort_values("t1").itertuples():
+        s = 1 if r.side == "buy" else -1
+        j = int(np.searchsorted(tt, r.t1, "left"))
+        out[s][j] = r.p1 if s == 1 else r.p1 - SPREAD       # a buy exits at Bid, a sell at Ask (~Bid + spread)
+    return out
+
+
 def hedge_pnl(lots, tt, op, lo, hi, cl, L, h, stop, scale):
     pnl = np.zeros(len(tt)); real = 0.0; n_open = 0
     for s in (1, -1):                                   # hedge AGAINST side s: direction -s
@@ -62,7 +73,7 @@ def run(rep, bars_csv, dep, scale=1.0):
     tt, eq_lo, eq_hi = g.equity_path(pos, bt, bars.low.values, bars.high.values, 0.0)
     a0 = np.searchsorted(bt, tt[0]); sl = slice(a0, a0 + len(tt))
     op, lo, hi, cl = (bars[c].values[sl] for c in ("open", "low", "high", "close"))
-    lots = side_lots(pos, tt)
+    lots = side_lots(pos, tt); fx = flat_exits(pos, tt)
     base = dep + eq_lo * scale
     base_hi = dep + eq_hi * scale
     res = {"no_hedge": dict(summary(base, dep, tt, base_hi), max_margin_use_pct=margin_use(lots, None, cl, base, scale))}
@@ -75,6 +86,10 @@ def run(rep, bars_csv, dep, scale=1.0):
             for m in range(1, len(tt)):
                 if state is None and lots[s][m - 1] * scale > L and lots[s][m] > 0:
                     px = op[m] + (SPREAD if d == 1 else 0.0); state = [px, h * lots[s][m - 1], px]; opened += 1
+                if state is not None and lots[s][m] == 0:     # the chain closed inside the previous minute:
+                    ex = fx[s].get(m, cl[m - 1]) + (0.0 if d == 1 else SPREAD)   # close at its last exit price
+                    path[m:] += d * (ex - state[0]) * state[1] * K; state = None
+                    continue
                 if state is not None:
                     px0, size, best = state
                     # conservative intrabar order (review PR #26): the stop from the PREVIOUS best is checked
@@ -89,8 +104,8 @@ def run(rep, bars_csv, dep, scale=1.0):
                         if not hit:
                             best = max(best, hi[m]) if d == 1 else min(best, lo[m]); state[2] = best
                     worst = lo[m] if d == 1 else hi[m] + SPREAD
-                    if hit or lots[s][m] == 0:
-                        ex = (stop_px if hit else cl[m]) + (0.0 if d == 1 else SPREAD)
+                    if hit:
+                        ex = stop_px + (0.0 if d == 1 else SPREAD)
                         val = d * (ex - px0) * size * K
                         path[m:] += val; state = None
                     else:

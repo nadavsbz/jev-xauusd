@@ -21,8 +21,9 @@ bt = bars.time.values; cl = bars.close.values
 i = np.searchsorted(o.t0.values, p.time.values, side="right") - 1
 p["cid"] = np.where((i >= 0) & (p.time.values <= o.t1.values[np.maximum(i, 0)]), o.cid.values[np.maximum(i, 0)], -1)
 # gold move over the LOOK_H hours that ended just before the entry, in % ; "against" = position opposite to it
-k0 = np.searchsorted(bt, p.time.values, side="left") - 1
-kh = np.searchsorted(bt, p.time.values - LOOK_H * 3600, side="left") - 1
+# the last minute bar CLOSED before the entry (review PR #28)
+k0 = np.searchsorted(bt, p.time.values // 60 * 60, side="left") - 1
+kh = np.searchsorted(bt, (p.time.values - LOOK_H * 3600) // 60 * 60, side="left") - 1
 p["move_pct"] = (cl[k0] - cl[np.maximum(kh, 0)]) / cl[np.maximum(kh, 0)] * 100
 p["against"] = p.move_pct * p.sgn < 0
 deep = o[o.mae_pct <= -10]
