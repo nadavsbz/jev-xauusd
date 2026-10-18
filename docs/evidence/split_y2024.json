@@ -1,0 +1,22 @@
+{
+ "w=0.1 rest=cash": {
+  "annual_pct": 3.2,
+  "max_dd_pct": -5.6,
+  "final": 1.051
+ },
+ "w=0.2 rest=cash": {
+  "annual_pct": 6.4,
+  "max_dd_pct": -10.4,
+  "final": 1.102
+ },
+ "w=0.3 rest=cash": {
+  "annual_pct": 9.5,
+  "max_dd_pct": -14.5,
+  "final": 1.153
+ },
+ "w=0.4 rest=cash": {
+  "annual_pct": 12.5,
+  "max_dd_pct": -18.0,
+  "final": 1.205
+ }
+}
