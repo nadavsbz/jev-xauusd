@@ -28,10 +28,17 @@ def main():
     if period == "acc":
         bull = pd.read_csv("data/derived/portfolio_curves.csv", index_col=0, parse_dates=True).bull
         bull_eq = (1 + bull.reindex(days).fillna(0).cumsum())          # fixed lot: additive on the starting deposit
+    # DBMF (addendum, docs/SPLIT_PLAN.md): adjusted close, rebased to 1 on the first day, carried over non-US days
+    r = json.load(open("data/raw/survey4/DBMF.json"))["chart"]["result"][0]
+    dbmf = pd.Series(r["indicators"]["adjclose"][0]["adjclose"], index=pd.to_datetime(r["timestamp"], unit="s").normalize()).dropna()
+    dbmf = dbmf[~dbmf.index.duplicated()].reindex(days, method="ffill")
+    dbmf_eq = dbmf / dbmf.iloc[0]
+    others = ("bull", "cash", "dbmf") if period == "acc" else ("cash", "dbmf")
     out = {}
     for w in WEIGHTS:
-        for other in (("bull", "cash") if period == "acc" else ("cash",)):
-            rest = (1 - w) * (bull_eq if other == "bull" else pd.Series(1.0, index=days))
+        for other in others:
+            base = {"bull": bull_eq if period == "acc" else None, "cash": pd.Series(1.0, index=days), "dbmf": dbmf_eq}[other]
+            rest = (1 - w) * base
             # Bull's intraday order is unknown (review PR #23): the low uses the worse of its balance
             # before and after the day, the close uses the close
             rest_low = np.minimum(rest, rest.shift(1).fillna(1 - w))
