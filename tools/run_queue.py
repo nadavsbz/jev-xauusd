@@ -54,7 +54,7 @@ def main():
         cmd = [PY, "run_tester.py", "--accounts", "../accounts.json", "--name", j["name"], "--terminal", TERM,
                "--expert", j["expert"], "--set", set_name, "--symbol", j["symbol"], "--period", j["period"],
                "--from", j["from"], "--to", j["to"], "--deposit", str(j["deposit"]),
-               "--leverage", str(j["leverage"]), "--report", j["report"]]
+               "--leverage", str(j["leverage"]), "--report", j["report"]] + (["--model", str(j["model"])] if "model" in j else [])
         r = subprocess.run(cmd, cwd=os.path.join(ROOT, "tools"), capture_output=True, text=True)
         htm = os.path.join(os.path.dirname(TERM), j["report"] + ".htm")
         row = {"report": j["report"], "overrides": j.get("overrides", {}), "from": j["from"], "to": j["to"],
