@@ -8,7 +8,7 @@ import glob, os, sys
 import numpy as np, pandas as pd
 
 W = {"EURUSD": -0.576, "USDJPY": 0.136, "GBPUSD": -0.119, "USDCAD": 0.091, "USDCHF": 0.036}
-S = sum(abs(v) for v in W.values()); W = {k: v / S * 0.958 for k, v in W.items()}   # 0.958 = total without SEK
+S = sum(abs(v) for v in W.values()); W = {k: v / S for k, v in W.items()}   # renormalised to 1 without SEK (review PR #23)
 
 
 def load(fx, sym):
