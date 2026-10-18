@@ -17,14 +17,18 @@ def bd_daily(rep, bars_csv, dep):
     if left:            # partial (Overlap) exits would leave exposure unaccounted for (review PR #22)
         sys.exit(f"{left} positions could not be paired exactly - the curve would be incomplete")
     tt, lo, _ = g.equity_path(pos, bars.time.values, bars.low.values, bars.high.values, dep)
-    s = pd.Series(lo / dep, index=pd.to_datetime(tt, unit="s"))
-    return s.resample("1D").min().dropna(), s.resample("1D").last().dropna()   # daily low, daily close (x deposit)
+    # the close path is marked at each bar's CLOSE price (review PR #24), the low path at the worse extreme
+    tc, cl, _ = g.equity_path(pos, bars.time.values, bars.close.values, bars.close.values, dep)
+    s_lo = pd.Series(lo / dep, index=pd.to_datetime(tt, unit="s"))
+    s_cl = pd.Series(cl / dep, index=pd.to_datetime(tc, unit="s"))
+    return s_lo.resample("1D").min().dropna(), s_cl.resample("1D").last().dropna()   # daily low, daily close (x deposit)
 
 
 def main():
     period, rep, bars_csv, dep = sys.argv[1], sys.argv[2], sys.argv[3], float(sys.argv[4])
     low, close = bd_daily(rep, bars_csv, dep)
     days = close.index
+    low = low.reindex(days).fillna(close)
     if period == "acc":
         bull = pd.read_csv("data/derived/portfolio_curves.csv", index_col=0, parse_dates=True).bull
         bull_eq = (1 + bull.reindex(days).fillna(0).cumsum())          # fixed lot: additive on the starting deposit

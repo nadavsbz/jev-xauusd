@@ -47,7 +47,7 @@
  "w=0.4 rest=bull": {
   "annual_pct": 37.3,
   "max_dd_pct": -31.3,
-  "final": 1.338
+  "final": 1.339
  },
  "w=0.4 rest=cash": {
   "annual_pct": 31.9,
@@ -55,7 +55,7 @@
   "final": 1.29
  },
  "w=0.4 rest=dbmf": {
-  "annual_pct": 46.5,
+  "annual_pct": 46.6,
   "max_dd_pct": -31.0,
   "final": 1.421
  }
