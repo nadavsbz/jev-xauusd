@@ -16,12 +16,20 @@ P = dict(lot=0.01, martin=1.5, maxlot=5.0, maxorders=10, dist=3.0, dyn_from=6, d
          ts=0.6, td=0.1, overlap_n=7, h0=2, h1=21, spread=0.25, K=100.0)
 
 
-def lot_n(n, p):
-    return min(p["maxlot"], max(p["lot"], round(p["lot"] * p["martin"] ** n, 2)))
+# v2 (from the tester's trades): the lot follows the chain's ENTRY counter k, which does not go back after an
+# overlap; levels 0-15 use the tester's modal lot per k (OBSERVED, bd_cal_full), beyond that x Martin
+LOT_K = [1, 2, 2, 3, 5, 8, 11, 15, 23, 15, 23, 23, 34, 38, 57, 61]
+
+
+def lot_n(k, p):
+    base = LOT_K[k] / 100 * (p["lot"] / 0.01) if k < len(LOT_K) else LOT_K[-1] / 100 * p["martin"] ** (k - len(LOT_K) + 1)
+    return min(p["maxlot"], max(p["lot"], round(base, 2)))
 
 
 def dist_n(n, p):
-    return p["dist"] if n < p["dyn_from"] else p["dyn_dist"] * p["dyn_mult"] ** (n - p["dyn_from"] + 1)
+    # v2: from the dynamic level on, the distance is Dynamic_distance_start x multiplier^(n - level), measured
+    # from the last OPEN position (OBSERVED: 2.0, 2.4 ... after overlaps)
+    return p["dist"] if n < p["dyn_from"] else p["dyn_dist"] * p["dyn_mult"] ** (n - p["dyn_from"])
 
 
 def run(bars, p, dep, rules=None):
@@ -30,6 +38,7 @@ def run(bars, p, dep, rules=None):
     minute = (t // 60) % 60; hour = (t // 3600) % 24
     bal = dep; entries = []; closes = []; eq_lo = np.empty(len(t))
     book = {1: [], -1: []}                       # side -> list of [price, lot]
+    kcount = {1: 0, -1: 0}                       # entries in the current chain (not reduced by overlaps)
     trail = {1: None, -1: None}
     for i in range(len(t)):
         m15 = minute[i] % 15 == 0
@@ -40,14 +49,14 @@ def run(bars, p, dep, rules=None):
                 trail[s] = None
                 if m15 and p["h0"] <= hour[i] < p["h1"] and not rules.get("block_new", lambda *a: False)(s, i):
                     px = op[i] + (p["spread"] if s == 1 else 0.0)
-                    pos.append([px, p["lot"]]); entries.append((t[i], s, p["lot"], px))
+                    pos.append([px, p["lot"]]); entries.append((t[i], s, p["lot"], px)); kcount[s] = 1
                 continue
             n = len(pos); last = pos[-1][0]
             adverse = (last - (lo[i] + p["spread"])) if s == 1 else ((hi[i] + p["spread"]) - last)   # move against
             if n < p["maxorders"] and adverse >= dist_n(n, p) and (m15 or rules.get("add_any_minute")):
                 if not rules.get("block_add", lambda *a: False)(s, i, pos):
                     px = (last - dist_n(n, p)) if s == 1 else (last + dist_n(n, p))
-                    l = lot_n(n, p); pos.append([px, l]); entries.append((t[i], s, l, px))
+                    l = lot_n(kcount[s], p); kcount[s] += 1; pos.append([px, l]); entries.append((t[i], s, l, px))
             # overlap: first + last close together when their combined profit is positive
             if len(pos) >= p["overlap_n"]:
                 exitp = cl[i] if s == 1 else cl[i] + p["spread"]
