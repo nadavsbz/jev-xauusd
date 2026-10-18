@@ -169,6 +169,8 @@ def main():
     if bars3:
         if run(["research/bd_wf/aggregate.py", os.path.join("data", "raw", "black_dragon_3", bars3[-1], "bars.csv")]) != 0:
             MISSING.append("verdict (incomplete aggregation)")
+    else:
+        MISSING.append("verdict (no RoboForex M1 bars snapshot)")     # review PR #26
     if MISSING:
         log("walk-forward PARTIAL - missing valid evidence: " + ", ".join(MISSING))
         json.dump({"missing": MISSING}, open(os.path.join(EV, "bdwf_partial.json"), "w"), indent=1)

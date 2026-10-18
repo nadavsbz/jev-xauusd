@@ -119,7 +119,8 @@ def margin_use(lots, hl, cl, eq, scale, lev=1000.0):
     m = gross * 100 * cl / lev
     with np.errstate(divide="ignore", invalid="ignore"):
         u = np.where(eq > 0, m / eq * 100, np.inf)
-    return round(float(np.nanmax(u)), 1)
+    v = float(np.nanmax(u))
+    return round(v, 1) if np.isfinite(v) else None     # equity at or below 0: no finite ratio (valid JSON, review)
 
 
 if __name__ == "__main__":
