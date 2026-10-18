@@ -52,4 +52,13 @@ def check_trading_days(times, first_day, last_full_day):
         gap = int(np.diff(sel).max()) // 60 if len(sel) > 1 else 0
         if gap > MAX_INTRADAY_GAP_MIN:
             problems.append(f"{d}: a {gap}-minute gap inside the trading day")
+        # the gap ACROSS midnight to the next weekday (review PR #26): a full day missing an hour at its end and
+        # the next one missing an hour at its start must not both pass; weekends and listed days are skipped
+        nxt = d + __import__("datetime").timedelta(days=1)
+        if d.weekday() < 4 and nxt <= last_full_day and nxt not in CLOSED and nxt not in SHORT and d not in SHORT:
+            after = t[days == n + 1]
+            if len(sel) and len(after):
+                cross = int(after[0] - sel[-1]) // 60
+                if cross > MAX_INTRADAY_GAP_MIN:
+                    problems.append(f"{d}->{nxt}: a {cross}-minute gap across midnight")
     return problems

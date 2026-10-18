@@ -62,9 +62,23 @@ def main():
         last = pd.Timestamp(int(d.time.iloc[-1]), unit="s")
         if (pd.Timestamp.utcnow().tz_localize(None) - last).days > 5:      # cut at the end (review PR #23)
             sys.exit(f"{sym}: last bar {last} is more than 5 days old - nothing written")
-        gaps = pd.Series(d.time).diff().dropna()
-        if (gaps > 4 * 86400).any():
-            sys.exit(f"{sym}: gap of {gaps.max() / 86400:.1f} days in the pulled history - nothing written")
+        # calendar-aware continuity (review PR #26): on trading weekdays at most a 2-hour hole (the daily break);
+        # longer holes only across a weekend or a US exchange holiday
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import gvz_pub
+        hol = set(gvz_pub.Cboe().holidays("2014-01-01", "2030-12-31"))
+        tt = pd.to_datetime(d.time, unit="s")
+        bad = []
+        for a_, b_ in zip(tt[:-1], tt[1:]):
+            if (b_ - a_) <= pd.Timedelta(hours=2):
+                continue
+            span = pd.date_range(a_.normalize(), b_.normalize(), freq="D")
+            # allowed only when the hole covers a Saturday or a listed holiday and lasts at most 3.5 days
+            if (b_ - a_) <= pd.Timedelta(hours=84) and any(x.weekday() == 5 or x in hol for x in span):
+                continue
+            bad.append(f"{a_}->{b_}")
+        if bad:
+            sys.exit(f"{sym}: {len(bad)} unexpected holes in the pulled history, first {bad[0]} - nothing written")
         d["utc"] = [to_utc(int(t)) for t in d.time]
         d["timestamp"] = [int(u.timestamp() * 1000) for u in d.utc]
         d = d[d.utc >= pd.Timestamp("2015-01-01", tz="UTC")]
