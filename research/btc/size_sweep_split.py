@@ -41,7 +41,7 @@ def spec():
     import hashlib
     h = lambda f: hashlib.sha256(open(f, "rb").read()).hexdigest() if os.path.exists(f) else None
     return {"set_sha256": h(os.path.join(TERM, "MQL5", "Profiles", "Tester", SET)),
-            "ea_sha256": h(os.path.join(TERM, "MQL5", "Experts", "BTCbot", "BTC Bot.ex5")), "from": FROM, "to": TO}
+            "ea_sha256": h(os.path.join(TERM, "MQL5", "Experts", "Jev", "BTC Bot mt5.ex5")), "from": FROM, "to": TO}
 
 
 def run(dep):

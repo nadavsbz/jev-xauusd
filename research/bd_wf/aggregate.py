@@ -30,10 +30,11 @@ def path(kind, bars):
         if left:
             return None, {"unpaired": f"bdwf_w{i}_{kind}", "left": left}
         tt, lo, _ = g.equity_path(pos, bars.time.values, bars.low.values, bars.high.values, 0.0)
-        s = pd.Series(lo, index=pd.to_datetime(tt, unit="s")) + bal
-        pk = s.cummax().clip(lower=bal); dd_w = float(((s - pk) / pk).min() * 100)   # seeded at the opening balance (review)
+        own = pd.Series(lo, index=pd.to_datetime(tt, unit="s")) + DEP      # this window's own run, from its deposit
+        pk = own.cummax().clip(lower=DEP); dd_w = float(((own - pk) / pk).min() * 100)   # (review PR #26)
+        s = own - DEP + bal                                                  # the chained path only shifts it
         net = float(pos.net.sum())
-        per[i] = {"net": round(net, 2), "max_dd_pct_in_window": round(dd_w, 1), "wiped": bool(s.min() <= DEP * 0.1)}
+        per[i] = {"net": round(net, 2), "max_dd_pct_in_window": round(dd_w, 1), "wiped": bool(own.min() <= DEP * 0.1)}
         parts.append(s); bal += net
     p = pd.concat(parts)
     return p, per
