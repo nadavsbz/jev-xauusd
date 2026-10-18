@@ -28,6 +28,23 @@ def bd_daily(rep, bars_csv, dep):
 def main():
     period, rep, bars_csv, dep = sys.argv[1], sys.argv[2], sys.argv[3], float(sys.argv[4])
     m_lo, m_hi, close = bd_daily(rep, bars_csv, dep)
+    # optional (docs/SPLIT_PLAN.md, "risky part"): SPLIT_SCALE scales the fixed-lot P&L linearly (lot x k), a
+    # component that reaches 0 is wiped and stays 0 (stop-out), and SPLIT_START/SPLIT_END fix the calendar
+    k = float(os.environ.get("SPLIT_SCALE", "1"))
+    if k != 1:
+        m_lo, m_hi, close = (1 + k * (x - 1) for x in (m_lo, m_hi, close))
+    dead = m_lo.index[m_lo <= 0]
+    if len(dead):
+        t0 = dead[0]
+        m_lo = m_lo.where(m_lo.index < t0, 0.0).clip(lower=0); m_hi = m_hi.where(m_hi.index < t0, 0.0).clip(lower=0)
+        close = close.where(close.index < t0.normalize(), 0.0).clip(lower=0)
+    if os.environ.get("SPLIT_START"):
+        cal = pd.date_range(os.environ["SPLIT_START"], os.environ["SPLIT_END"], freq="D")
+        close = close.reindex(cal).ffill().fillna(1.0)
+        if len(dead):
+            close[close.index >= dead[0].normalize()] = 0.0
+        extra = pd.Series(close.values, index=cal)
+        m_lo = pd.concat([m_lo, extra[extra.index > m_lo.index[-1]]]); m_hi = pd.concat([m_hi, extra[extra.index > m_hi.index[-1]]])
     days = close.index
     mday = m_lo.index.normalize()
     if period == "acc":
