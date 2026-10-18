@@ -19,14 +19,19 @@ def path(kind, bars):
     bal, parts, per = DEP, [], {}
     for i in WINDOWS:
         rep = os.path.join(TERM, f"bdwf_w{i}_{kind}.htm")
-        if not os.path.exists(rep) or not os.path.exists(os.path.join(EV, f"bdwf_w{i}_{kind}.json")):
+        evf = os.path.join(EV, f"bdwf_w{i}_{kind}.json")
+        if not os.path.exists(rep) or not os.path.exists(evf):
             return None, {"missing": f"bdwf_w{i}_{kind}"}
+        # the report must be the one the verified evidence was made from (review PR #25)
+        import hashlib
+        if hashlib.sha256(open(rep, "rb").read()).hexdigest() != json.load(open(evf, encoding="utf-8")).get("report_sha256"):
+            return None, {"report_changed": f"bdwf_w{i}_{kind}"}
         pos, left = g.pair(g.deals(rep))
         if left:
             return None, {"unpaired": f"bdwf_w{i}_{kind}", "left": left}
         tt, lo, _ = g.equity_path(pos, bars.time.values, bars.low.values, bars.high.values, 0.0)
         s = pd.Series(lo, index=pd.to_datetime(tt, unit="s")) + bal
-        pk = s.cummax(); dd_w = float(((s - pk) / pk).min() * 100)
+        pk = s.cummax().clip(lower=bal); dd_w = float(((s - pk) / pk).min() * 100)   # seeded at the opening balance (review)
         net = float(pos.net.sum())
         per[i] = {"net": round(net, 2), "max_dd_pct_in_window": round(dd_w, 1), "wiped": bool(s.min() <= DEP * 0.1)}
         parts.append(s); bal += net
@@ -41,8 +46,8 @@ def main():
         p, per = path(kind, bars)
         if p is None:
             out[kind] = per; continue
-        pk = p.cummax(); dd = float(((p - pk) / pk).min() * 100)
-        yrs = (p.index[-1] - p.index[0]).days / 365.25
+        pk = p.cummax().clip(lower=DEP); dd = float(((p - pk) / pk).min() * 100)
+        yrs = (pd.Timestamp("2026-10-01") - pd.Timestamp("2026-01-01")).days / 365.25   # the registered 9 months (review)
         total = sum(v["net"] for v in per.values())
         ann = total / DEP / yrs * 100
         out[kind] = {"windows": per, "total_net": round(total, 2), "simple_annual_pct": round(ann, 1),
