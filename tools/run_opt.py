@@ -51,7 +51,10 @@ def main():
         return
     ev = os.path.join(ROOT, "docs", "evidence", j["report"] + ".json")
     if os.path.exists(ev):
-        print("exists:", ev); return
+        # reuse only when the stored job is exactly this job (review PR #22); otherwise keep it aside and rerun
+        if json.load(open(ev, encoding="utf-8")).get("job") == j:
+            print("exists:", ev); return
+        os.replace(ev, ev + ".stale"); print("stale evidence moved aside:", ev)
     set_name = j["report"] + ".set"
     # fixed inputs are written as single-value ranges, so the report carries them as columns and
     # every pass can be checked against them (review: a ignored fixed value must not pass)

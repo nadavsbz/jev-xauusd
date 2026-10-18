@@ -6,7 +6,9 @@ from inputs import load, MAGIC, FORWARD_START, covered_until
 
 K = 100.0   # cents per 1.0 price move per lot, calibrated in clusters.py
 deals, bars = load()
-o = pd.read_csv("data/derived/bd1/clusters_strict.csv")
+import os
+DER = os.environ.get("JEV_DERIVED", "data/derived/bd1")      # same derived folder as clusters.py (review PR #22)
+o = pd.read_csv(os.path.join(DER, "clusters_strict.csv"))
 x = deals[deals.symbol == "XAUUSDc"]
 ins = x[(x.entry == 0) & (x.magic == MAGIC)].set_index("position_id")
 ex = x[x.entry.isin((1, 3))].assign(is_guard=lambda e: (e.magic == 0) & (e.reason == 3),  # guard = automatic close
@@ -51,4 +53,4 @@ for _, c in o[o.guard & ((o.pnl_pct < -5) | (o.d >= FORWARD_START))].iterrows():
                     recovered=bool(len(rec)), t_guard=int(tg),
                     window_complete=bool(tg + 10 * 86400 <= COVERED)))
 # used by guard_sim.py to score guard levels beyond the real cut
-pd.DataFrame(out).to_csv("data/derived/bd1/after_guard.csv", index=False)
+pd.DataFrame(out).to_csv(os.path.join(DER, "after_guard.csv"), index=False)

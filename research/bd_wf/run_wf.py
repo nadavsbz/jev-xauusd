@@ -14,6 +14,7 @@ WINDOWS = [("2024.04.01", "2024.12.31", "2025.01.01", "2025.03.31"), ("2024.07.0
            ("2024.10.01", "2025.06.30", "2025.07.01", "2025.09.30"), ("2025.01.01", "2025.09.30", "2025.10.01", "2025.12.31"),
            ("2025.04.01", "2025.12.31", "2026.01.01", "2026.03.31"), ("2025.07.01", "2026.03.31", "2026.04.01", "2026.06.30"),
            ("2025.10.01", "2026.06.30", "2026.07.01", "2026.09.30")]
+MISSING = []
 RANGES = {"Fix_Distance": [300, 200, 500], "Distance_multiplier": [1.2, 0.3, 1.5], "TP_": [200, 100, 300],
           "OverlapOrderNumber": [5, 2, 7]}
 
@@ -65,6 +66,10 @@ def single(report, overrides, frm, to, base_set=None, name=None, symbol=None):
     path = os.path.join(ROOT, "research", "bd_wf", f"q_{report}.json")
     json.dump(job, open(path, "w"), indent=1)
     run(["tools/run_queue.py", os.path.relpath(path, ROOT), "data/derived/bd_wf_runs.jsonl"])
+    ok = os.path.exists(os.path.join(EV, report + ".json"))      # run_queue writes evidence only for a valid run
+    if not ok:
+        MISSING.append(report); log(f"{report}: NO valid evidence")
+    return ok
 
 
 def main():
@@ -113,7 +118,11 @@ def main():
         json.dump({"window": i, "chosen": params, "eligible": passed}, open(os.path.join(EV, f"bdwf_w{i}_choice.json"), "w"), indent=1)
         single(f"bdwf_w{i}_test", dict(fixed, **params), c, d)
         single(f"bdwf_w{i}_base", dict(fixed), c, d)        # the original file (with cap and hours) on the same window
-    log("walk-forward done")
+    if MISSING:
+        log("walk-forward PARTIAL - missing valid evidence: " + ", ".join(MISSING))
+        json.dump({"missing": MISSING}, open(os.path.join(EV, "bdwf_partial.json"), "w"), indent=1)
+    else:
+        log("walk-forward done")
 
 
 if __name__ == "__main__":

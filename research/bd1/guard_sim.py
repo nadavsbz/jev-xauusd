@@ -1,16 +1,17 @@
-import sys, numpy as np, pandas as pd
+import os, sys, numpy as np, pandas as pd
 from inputs import max_drawdown, peak_before_cut, FORWARD_START, FORWARD_END, forward_coverage
-o = pd.read_csv(sys.argv[1] if len(sys.argv) > 1 else "data/derived/bd1/clusters_strict.csv")
+DER = os.environ.get("JEV_DERIVED", "data/derived/bd1")      # same derived folder as clusters.py (review PR #22)
+o = pd.read_csv(sys.argv[1] if len(sys.argv) > 1 else os.path.join(DER, "clusters_strict.csv"))
 o["d"] = pd.to_datetime(o.t0, unit="s")
 LOWS = dict(np.load(sys.argv[1].replace("clusters", "record_lows").replace(".csv", ".npz") if len(sys.argv) > 1
-                    else "data/derived/bd1/record_lows_strict.npz"))
+                    else os.path.join(DER, "record_lows_strict.npz")))
 # the real guard closes: crash baskets in the history; in the forward window every guard
 # close, whatever its loss (not selected by outcome)
 real = o.guard & ((o.pnl_pct < -5) | (o.d >= FORWARD_START))
 SLIP = 0.5                                  # extra % lost past the level (gap/slippage), ASSUMED
 # paper continuation of each real guard cut (after_guard.py): worst floating % before breakeven.
 # Lower bound on the loss: the EA would have kept adding levels.
-CONT = pd.read_csv("data/derived/bd1/after_guard.csv").set_index("cid")
+CONT = pd.read_csv(os.path.join(DER, "after_guard.csv")).set_index("cid")
 def run(sub, X, unknown):
     n_unres = 0
     r = sub.pnl_pct.values.copy() / 100
