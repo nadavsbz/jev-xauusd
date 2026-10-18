@@ -25,7 +25,7 @@
   ]
  },
  "name": "Black Dragon 3",
- "expert": "BTCbot\\BTC Bot.ex5",
+ "expert": "Jev\\BTC Bot mt5.ex5",
  "symbol": "XAUUSD",
  "period": "M15",
  "from": "2024.04.01",
