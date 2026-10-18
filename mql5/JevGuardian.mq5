@@ -14,7 +14,7 @@
 #property description "Equity floor and direction block beside a grid robot. DryRun by default."
 #include <Trade/Trade.mqh>
 
-input long   GuardMagic      = 90125;   // magic of the guarded robot (0 = every position on this symbol)
+input long   GuardMagic      = -1;      // magic of the guarded robot - REQUIRED (Black Dragon 5555, BTC Bot 90125; 0 = every position on this symbol)
 input bool   DryRun          = true;    // true: log only, never close
 input double FloorPct        = 15.0;    // equity floor, % below the equity peak (0 = off)
 input bool   DirectionBlock  = true;    // close new positions against a strong move
@@ -43,6 +43,7 @@ bool BalanceFlows(double &s)
 
 int OnInit()
   {
+   if(GuardMagic < 0) { Print("JevGuardian: set GuardMagic explicitly (Black Dragon 5555, BTC Bot 90125)"); return(INIT_PARAMETERS_INCORRECT); }
    gvPeak = "JevGuardian.peak." + (string)AccountInfoInteger(ACCOUNT_LOGIN) + "." + (string)GuardMagic;
    gvKill = "JevGuardian.kill." + (string)AccountInfoInteger(ACCOUNT_LOGIN) + "." + (string)GuardMagic;
    gvToken = "JevGuardian.token." + (string)AccountInfoInteger(ACCOUNT_LOGIN) + "." + (string)GuardMagic;

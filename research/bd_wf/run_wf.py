@@ -94,6 +94,8 @@ def main():
             json.dump({"chosen": hours, "passes_rule": passed}, open(os.path.join(EV, "bdtime_selection.json"), "w"), indent=1)
             single("bdtime_test_eglobal", dict(cap, **hours), "2025.11.11", "2026.10.14",
                    base_set="bd_3digit_cal.set", name="Black Dragon 1", symbol="XAUUSDc")
+    if not hours:            # the registered walk-forward runs WITH the chosen hours (review PR #22)
+        log("no valid trading-hours choice - the walk-forward is not run"); return
     fixed = dict(cap, **hours)
     # 2. walk-forward
     for i, (a, b, c, d) in enumerate(WINDOWS, 1):
