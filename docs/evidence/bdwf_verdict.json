@@ -1,0 +1,51 @@
+{
+ "test": {
+  "windows": {
+   "5": {
+    "net": 4889.82,
+    "max_dd_pct_in_window": -28.1,
+    "wiped": false
+   },
+   "6": {
+    "net": 4486.59,
+    "max_dd_pct_in_window": -86.3,
+    "wiped": false
+   },
+   "7": {
+    "net": 4320.53,
+    "max_dd_pct_in_window": -23.6,
+    "wiped": false
+   }
+  },
+  "total_net": 13696.94,
+  "simple_annual_pct": 73.6,
+  "max_dd_pct_chained": -72.7,
+  "passes": false
+ },
+ "base": {
+  "windows": {
+   "5": {
+    "net": 4793.89,
+    "max_dd_pct_in_window": -27.7,
+    "wiped": false
+   },
+   "6": {
+    "net": 4233.64,
+    "max_dd_pct_in_window": -19.0,
+    "wiped": false
+   },
+   "7": {
+    "net": 4628.07,
+    "max_dd_pct_in_window": -13.7,
+    "wiped": false
+   }
+  },
+  "total_net": 13655.6,
+  "simple_annual_pct": 73.4,
+  "max_dd_pct_chained": -27.7,
+  "passes": true
+ },
+ "test_beats_base": true,
+ "verdict_success": false,
+ "status": "complete"
+}

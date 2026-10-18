@@ -16,6 +16,15 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PY = sys.executable
 
 
+def file_spec(j):
+    """EA and base .set hashes (review PR #26): a cached result is reused only for the same binaries/settings."""
+    import hashlib
+    h = lambda f: hashlib.sha256(open(f, "rb").read()).hexdigest() if os.path.exists(f) else None
+    root = r"C:\MT5_JEV_TEST\MQL5"
+    return {"ea_sha256": h(os.path.join(root, "Experts", j["expert"])),
+            "set_sha256": h(os.path.join(root, "Profiles", "Tester", j["base_set"]))}
+
+
 def write_set(base, overrides, out):
     b = open(os.path.join(SETS, base), "rb").read()
     t = b.decode("utf-16")
@@ -32,7 +41,8 @@ def main():
         ev = os.path.join(ROOT, "docs", "evidence", j["report"] + ".json")
         if os.path.exists(ev):
             # reuse only evidence of exactly this job (review PR #22/#23); otherwise move it aside and rerun
-            if json.load(open(ev, encoding="utf-8")).get("job") == j:
+            old = json.load(open(ev, encoding="utf-8"))
+            if old.get("job") == j and old.get("files") == file_spec(j):
                 continue
             os.replace(ev, ev + ".stale")
         set_name = j["report"] + ".set"
@@ -64,6 +74,7 @@ def main():
             row["inputs_ok"] = all(f"{k}={v}" in ins for k, v in j.get("overrides", {}).items())
             if r.returncode == 0 and row["inputs_ok"]:
                 d["job"] = j                                    # the full job spec, compared before any reuse
+                d["files"] = file_spec(j)
                 json.dump(d, open(tmp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
                 os.replace(tmp, ev)
             else:                      # invalid run: no evidence file, so a restart runs it again

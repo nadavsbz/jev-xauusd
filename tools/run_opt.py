@@ -17,6 +17,15 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NS = {"ss": "urn:schemas-microsoft-com:office:spreadsheet"}
 
 
+def file_spec(j):
+    """EA and base .set hashes (review PR #26): a cached result is reused only for the same binaries/settings."""
+    import hashlib
+    h = lambda f: hashlib.sha256(open(f, "rb").read()).hexdigest() if os.path.exists(f) else None
+    root = r"C:\MT5_JEV_TEST\MQL5"
+    return {"ea_sha256": h(os.path.join(root, "Experts", j["expert"])),
+            "set_sha256": h(os.path.join(root, "Profiles", "Tester", j["base_set"]))}
+
+
 def values(start, step, stop):
     n = int(round((stop - start) / step)) + 1
     return [round(start + i * step, 6) for i in range(n)]
@@ -52,7 +61,8 @@ def main():
     ev = os.path.join(ROOT, "docs", "evidence", j["report"] + ".json")
     if os.path.exists(ev):
         # reuse only when the stored job is exactly this job (review PR #22); otherwise keep it aside and rerun
-        if json.load(open(ev, encoding="utf-8")).get("job") == j:
+        old = json.load(open(ev, encoding="utf-8"))
+        if old.get("job") == j and old.get("files") == file_spec(j):
             print("exists:", ev); return
         os.replace(ev, ev + ".stale"); print("stale evidence moved aside:", ev)
     set_name = j["report"] + ".set"
@@ -91,7 +101,7 @@ def validate_and_write(j, ranges, xml, ev):
     bad = [p for p in passes if any(k in p and round(float(p[k]), 6) != round(float(v), 6) for k, v in j.get("fixed", {}).items())]
     if bad:
         got = set()
-    out = {"job": j, "report_file": os.path.basename(xml), "passes": passes,
+    out = {"job": j, "files": file_spec(j), "report_file": os.path.basename(xml), "passes": passes,
            "fixed_as_columns": [k for k in j.get("fixed", {}) if passes and k in passes[0]],
            "combinations_expected": len(want), "combinations_found": len(got & want)}
     ok = want <= got
