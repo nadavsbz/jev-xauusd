@@ -75,6 +75,10 @@ def main():
             break
         time.sleep(120)
     log("night chain done")
+    # spot check (review PR #22): bdcap_opt_ml02.json has no MaxLot_ column; one single pass of the chosen
+    # combination on the same period must reproduce its optimization profit to verify that 0.2 was applied
+    single("bdcap_spotcheck_ml02", {"MaxLot_": "0.2", "Martin_": "1.3", "MaxOrdersBuy": "10", "MaxOrdersSell": "10"},
+           "2024.04.01", "2025.10.31")
     cap = chosen_cap()
     # 1. hours: registered choice on the selection period, then ONE test on EGlobal (account 1's period)
     hours = {}
