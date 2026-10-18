@@ -59,8 +59,8 @@ def chosen_cap():
     return {"MaxLot_": str(c["MaxLot_"]), "Martin_": str(c["Martin_"]), "MaxOrdersBuy": mo, "MaxOrdersSell": mo}
 
 
-def single(report, overrides, frm, to, base_set=None, name=None, symbol=None):
-    job = [dict(BASE, report=report, overrides=overrides, **{"from": frm, "to": to})]
+def single(report, overrides, frm, to, base_set=None, name=None, symbol=None, period="M15"):
+    job = [dict(BASE, report=report, overrides=overrides, period=period, **{"from": frm, "to": to})]
     if base_set:
         job[0].update(base_set=base_set, name=name, symbol=symbol)
     path = os.path.join(ROOT, "research", "bd_wf", f"q_{report}.json")
@@ -86,6 +86,25 @@ def main():
     # combination on the same period must reproduce its optimization profit to verify that 0.2 was applied
     single("bdcap_spotcheck_ml02", {"MaxLot_": "0.2", "Martin_": "1.3", "MaxOrdersBuy": "10", "MaxOrdersSell": "10"},
            "2024.04.01", "2025.10.31")
+    # timeframes (docs/BD_TF_PLAN.md): BD-A on M5, M30, H1 (M15 = the spot check above), then the rule
+    bda = {"MaxLot_": "0.2", "Martin_": "1.3", "MaxOrdersBuy": "10", "MaxOrdersSell": "10"}
+    for tf in ("M5", "M30", "H1"):
+        single(f"bdtf_sel_{tf}", bda, "2024.04.01", "2025.10.31", period=tf)
+    tf_rows = {}
+    for tf, rep in (("M15", "bdcap_spotcheck_ml02"), ("M5", "bdtf_sel_M5"), ("M30", "bdtf_sel_M30"), ("H1", "bdtf_sel_H1")):
+        p = os.path.join(EV, rep + ".json")
+        if os.path.exists(p):
+            sm = json.load(open(p, encoding="utf-8"))["summary_from_report"]
+            tf_rows[tf] = {"Profit": sm["סך רווח נקי"], "Equity DD %": sm["שווי הפסד מקסימלי"].split("(")[1].rstrip(")%")}
+    if len(tf_rows) == 4:
+        best, passed = choose([dict(v, tf=k) for k, v in tf_rows.items()], 19, need_annual=50.0)
+        json.dump({"rows": tf_rows, "chosen": best and best["tf"], "passes_rule": passed},
+                  open(os.path.join(EV, "bdtf_selection.json"), "w"), indent=1, ensure_ascii=False)
+        if best and best["tf"] != "M15":
+            single(f"bdtf_test_eglobal_{best['tf']}", bda, "2025.11.11", "2026.10.14",
+                   base_set="bd_3digit_cal.set", name="Black Dragon 1", symbol="XAUUSDc", period=best["tf"])
+    else:
+        MISSING.append("timeframe selection")
     cap = chosen_cap()
     # 1. hours: registered choice on the selection period, then ONE test on EGlobal (account 1's period)
     hours = {}
