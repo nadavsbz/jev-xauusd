@@ -16,7 +16,7 @@ DEP, WINDOWS = 24895.0, (5, 6, 7)
 
 def path(kind, bars):
     """Continuous floating equity (minute lows) of the chained windows, and per-window results."""
-    bal, parts, per = DEP, [], {}
+    bal, parts, per, his = DEP, [], {}, []
     for i in WINDOWS:
         rep = os.path.join(TERM, f"bdwf_w{i}_{kind}.htm")
         evf = os.path.join(EV, f"bdwf_w{i}_{kind}.json")
@@ -29,14 +29,17 @@ def path(kind, bars):
         pos, left = g.pair(g.deals(rep))
         if left:
             return None, {"unpaired": f"bdwf_w{i}_{kind}", "left": left}
-        tt, lo, _ = g.equity_path(pos, bars.time.values, bars.low.values, bars.high.values, 0.0)
+        tt, lo, hi = g.equity_path(pos, bars.time.values, bars.low.values, bars.high.values, 0.0)
         own = pd.Series(lo, index=pd.to_datetime(tt, unit="s")) + DEP      # this window's own run, from its deposit
-        pk = own.cummax().clip(lower=DEP); dd_w = float(((own - pk) / pk).min() * 100)   # (review PR #26)
+        own_hi = pd.Series(hi, index=own.index) + DEP
+        # peak from the good extremes of EARLIER minutes (review PR #27), each low against it
+        pk = pd.concat([pd.Series([DEP]), own_hi.iloc[:-1].reset_index(drop=True)]).cummax().values
+        pk = np.maximum(pk, own.values); dd_w = float(((own.values - pk) / pk).min() * 100)
         s = own - DEP + bal                                                  # the chained path only shifts it
         net = float(pos.net.sum())
         per[i] = {"net": round(net, 2), "max_dd_pct_in_window": round(dd_w, 1), "wiped": bool(own.min() <= DEP * 0.1)}
-        parts.append(s); bal += net
-    p = pd.concat(parts)
+        parts.append(s); his.append(own_hi - DEP + bal); bal += net
+    p = pd.concat(parts); path.hi = pd.concat(his)
     return p, per
 
 
@@ -47,7 +50,9 @@ def main():
         p, per = path(kind, bars)
         if p is None:
             out[kind] = per; continue
-        pk = p.cummax().clip(lower=DEP); dd = float(((p - pk) / pk).min() * 100)
+        hi_c = path.hi.values
+        pk = np.maximum(np.maximum.accumulate(np.concatenate([[DEP], hi_c[:-1]])), p.values)
+        dd = float(((p.values - pk) / pk).min() * 100)
         yrs = (pd.Timestamp("2026-10-01") - pd.Timestamp("2026-01-01")).days / 365.25   # the registered 9 months (review)
         total = sum(v["net"] for v in per.values())
         ann = total / DEP / yrs * 100

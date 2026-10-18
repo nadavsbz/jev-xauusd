@@ -37,6 +37,7 @@ def write_set(base, overrides, out):
 
 def main():
     jobs = json.load(open(sys.argv[1], encoding="utf-8")); res_path = sys.argv[2]
+    failed = []                                   # jobs that did not produce valid evidence (review PR #27)
     for j in jobs:
         ev = os.path.join(ROOT, "docs", "evidence", j["report"] + ".json")
         if os.path.exists(ev):
@@ -65,7 +66,7 @@ def main():
             s = subprocess.run([PY, os.path.join(ROOT, "tools", "tester_summary.py"), htm, tmp],
                                capture_output=True, text=True, encoding="utf-8", env={**os.environ, "PYTHONIOENCODING": "utf-8"})
             if s.returncode != 0 or not os.path.exists(tmp):
-                row["error"] = "tester_summary failed: " + (s.stdout + s.stderr)[-300:]
+                row["error"] = "tester_summary failed: " + (s.stdout + s.stderr)[-300:]; failed.append(j["report"])
                 with open(res_path, "a", encoding="utf-8") as f:
                     f.write(json.dumps(row, ensure_ascii=False) + "\n")
                 continue
@@ -78,17 +79,19 @@ def main():
                 json.dump(d, open(tmp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
                 os.replace(tmp, ev)
             else:                      # invalid run: no evidence file, so a restart runs it again
-                os.replace(tmp, ev + ".invalid")
+                os.replace(tmp, ev + ".invalid"); failed.append(j["report"])
             row["summary"] = d.get("summary_from_report")
             try:
                 row.update({k: json.loads(s.stdout)[k] for k in ("entries", "net", "active_days")})
             except Exception:
                 pass
         else:
-            row["error"] = (r.stdout + r.stderr)[-500:]
+            row["error"] = (r.stdout + r.stderr)[-500:]; failed.append(j["report"])
         with open(res_path, "a", encoding="utf-8") as f:
             f.write(json.dumps(row, ensure_ascii=False) + "\n")
         print(json.dumps(row, ensure_ascii=False), flush=True)
+    if failed:
+        sys.exit("no valid evidence for: " + ", ".join(failed))
 
 
 if __name__ == "__main__":
