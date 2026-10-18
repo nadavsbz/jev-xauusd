@@ -16,11 +16,14 @@ def daily(data):
 
 def run(c, L):
     r = c.pct_change()
+    # observations per year from the data itself (review: the daily series also has Sundays)
+    ppy = len(c) / ((c.index[-1] - c.index[0]).days / 365.25)
     sig = np.sign(c - c.rolling(L).mean()).shift(1)                      # decided at yesterday's close
-    vol = r.rolling(20).std().shift(1) * np.sqrt(252)
+    vol = r.rolling(20).std().shift(1) * np.sqrt(ppy)
     expo = (TARGET / vol).clip(upper=CAP) * sig                           # share of capital, signed
     turn = expo.diff().abs()
-    cost = turn * SPREAD / c.shift(1) + expo.abs() * SWAP / 252
+    days = pd.Series(c.index, index=c.index).diff().dt.days               # swap accrues by calendar time held
+    cost = turn * SPREAD / c.shift(1) + expo.abs() * SWAP * days / 365
     ret = (expo * r - cost).dropna()
     return ret
 
@@ -29,7 +32,8 @@ def stats(ret):
     eq = (1 + ret).cumprod(); dd = (eq / eq.cummax() - 1).min()
     yrs = (ret.index[-1] - ret.index[0]).days / 365.25
     ann = eq.iloc[-1] ** (1 / yrs) - 1
-    sh = ret.mean() / ret.std() * np.sqrt(252) if ret.std() > 0 else 0
+    ppy = len(ret) / yrs
+    sh = ret.mean() / ret.std() * np.sqrt(ppy) if ret.std() > 0 else 0
     return {"annual_pct": round(ann * 100, 1), "max_dd_pct": round(dd * 100, 1), "sharpe": round(sh, 2),
             "worst_year_pct": round(ret.groupby(ret.index.year).apply(lambda x: (1 + x).prod() - 1).min() * 100, 1)}
 

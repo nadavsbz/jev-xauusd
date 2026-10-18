@@ -13,7 +13,9 @@ WEIGHTS = (0.1, 0.2, 0.3, 0.4)
 
 def bd_daily(rep, bars_csv, dep):
     bars = pd.read_csv(bars_csv)
-    pos, _ = g.pair(g.deals(rep))
+    pos, left = g.pair(g.deals(rep))
+    if left:            # partial (Overlap) exits would leave exposure unaccounted for (review PR #22)
+        sys.exit(f"{left} positions could not be paired exactly - the curve would be incomplete")
     tt, lo, _ = g.equity_path(pos, bars.time.values, bars.low.values, bars.high.values, dep)
     s = pd.Series(lo / dep, index=pd.to_datetime(tt, unit="s"))
     return s.resample("1D").min().dropna(), s.resample("1D").last().dropna()   # daily low, daily close (x deposit)
@@ -31,8 +33,10 @@ def main():
         for other in (("bull", "cash") if period == "acc" else ("cash",)):
             rest = (1 - w) * (bull_eq if other == "bull" else pd.Series(1.0, index=days))
             tot_low = w * low + rest; tot_close = w * close + rest
-            peak = tot_close.cummax().shift(1).fillna(1.0).clip(lower=1.0)
-            dd = float(((tot_low / np.maximum(peak, tot_close.cummax())) - 1).min() * 100)
+            # the day's low against the peak up to the PREVIOUS close (no same-day look-ahead, review PR #22),
+            # and each close against the running peak of closes
+            prev_peak = tot_close.cummax().shift(1).fillna(1.0).clip(lower=1.0)
+            dd = float(min((tot_low / prev_peak - 1).min(), (tot_close / tot_close.cummax().clip(lower=1.0) - 1).min()) * 100)
             yrs = (days[-1] - days[0]).days / 365.25
             ann = float(tot_close.iloc[-1] ** (1 / yrs) - 1) * 100
             out[f"w={w} rest={other}"] = {"annual_pct": round(ann, 1), "max_dd_pct": round(dd, 1), "final": round(float(tot_close.iloc[-1]), 3)}

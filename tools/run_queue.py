@@ -31,7 +31,10 @@ def main():
     for j in jobs:
         ev = os.path.join(ROOT, "docs", "evidence", j["report"] + ".json")
         if os.path.exists(ev):
-            continue
+            # reuse only evidence of exactly this job (review PR #22/#23); otherwise move it aside and rerun
+            if json.load(open(ev, encoding="utf-8")).get("job") == j:
+                continue
+            os.replace(ev, ev + ".stale")
         set_name = j["report"] + ".set"
         write_set(j["base_set"], j.get("overrides", {}), set_name)
         subprocess.run(["powershell", "-NoProfile", "-Command",
@@ -60,6 +63,8 @@ def main():
             ins = set(d.get("inputs", []))
             row["inputs_ok"] = all(f"{k}={v}" in ins for k, v in j.get("overrides", {}).items())
             if r.returncode == 0 and row["inputs_ok"]:
+                d["job"] = j                                    # the full job spec, compared before any reuse
+                json.dump(d, open(tmp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
                 os.replace(tmp, ev)
             else:                      # invalid run: no evidence file, so a restart runs it again
                 os.replace(tmp, ev + ".invalid")

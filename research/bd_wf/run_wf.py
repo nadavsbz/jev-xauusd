@@ -110,10 +110,10 @@ def main():
         run(["tools/run_opt.py", os.path.relpath(path, ROOT)])
         ev = os.path.join(EV, rep + ".json")
         if not os.path.exists(ev):
-            log(f"window {i}: no valid optimization - skipped"); continue
+            MISSING.append(rep); log(f"window {i}: no valid optimization - skipped"); continue
         best, passed = choose(json.load(open(ev, encoding="utf-8"))["passes"], 9)
         if best is None:
-            log(f"window {i}: every combination wiped"); continue
+            MISSING.append(rep + " (all wiped)"); log(f"window {i}: every combination wiped"); continue
         params = {k: (str(int(num(best[k]))) if k != "Distance_multiplier" else str(num(best[k]))) for k in RANGES}
         json.dump({"window": i, "chosen": params, "eligible": passed}, open(os.path.join(EV, f"bdwf_w{i}_choice.json"), "w"), indent=1)
         single(f"bdwf_w{i}_test", dict(fixed, **params), c, d)

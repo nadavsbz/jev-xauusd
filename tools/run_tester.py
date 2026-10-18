@@ -73,6 +73,12 @@ def preflight(terminal, acc):
                 sys.exit(f"refusing: {os.path.basename(ini)} auto-starts a program ({key.strip()}=)")
     import MetaTrader5 as mt5
     login = int(acc["login"])
+    # a saved chart with an EA would start trading before trade_allowed is checked (review PR #23)
+    for chr_ in glob.glob(os.path.join(os.path.dirname(os.path.abspath(terminal)), "MQL5", "Profiles", "Charts", "**", "*.chr"), recursive=True):
+        raw = open(chr_, "rb").read()
+        txt = raw.decode("utf-16", errors="ignore") if raw.startswith(codecs.BOM_UTF16_LE) else raw.decode("utf-8", errors="ignore")
+        if "<expert>" in txt.lower():
+            sys.exit(f"refusing: chart {chr_} has an EA attached - remove it before the preflight login")
     if not mt5.initialize(path=terminal, login=login, password=acc["password"], server=acc["server"],
                           portable=True, timeout=240000):
         sys.exit(f"preflight login failed: {mt5.last_error()}")
