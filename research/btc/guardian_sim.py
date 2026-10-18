@@ -65,7 +65,7 @@ def equity_path(pos, bt, lo, hi, capital):
 SPREAD = 0.30   # USD per ounce paid when the guard closes at market (ASSUMED, RoboForex-Pro gold)
 
 
-def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False, kill=False):
+def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False, kill=False, entry_bar=True):
     """Event loop over minutes: positions taken unless skipped; floor closes all and skips until the
     original grid is flat (no original position open)."""
     pos = pos.sort_values("t0").reset_index(drop=True)
@@ -92,14 +92,19 @@ def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False, kill=F
         pos = pos.assign(blocked=False)
     a0 = np.searchsorted(bt, pos.t0.min(), "left"); a1 = np.searchsorted(bt, pos.t1.max(), "right")
     tt = bt[a0:a1]
-    opens = np.searchsorted(tt, pos.t0.values, "right"); closes = np.searchsorted(tt, pos.t1.values, "left")
+    # entry_bar=True (review PR #28): a position is live in the bar it opens in, so that bar's extremes can trip
+    # the floor (the guard checks every tick); its part of the bar before the entry is counted too, so this is
+    # the conservative bound. entry_bar=False (from the next bar) is the optimistic bound.
+    opens = np.searchsorted(tt, pos.t0.values, "right") - (1 if entry_bar else 0); opens = np.maximum(opens, 0)
+    closes = np.searchsorted(tt, pos.t1.values, "left")
     sgnv = np.where(pos.side == "buy", 1.0, -1.0) * pos.vol.values * K
     bal = capital; peak = capital; active = np.zeros(len(pos), bool); taken = 0; stops = []; resume_at = -1
     eq_path = np.empty(len(tt)); best_path = np.empty(len(tt)); by_open = {}; by_close = {}
     for idx, (o, c) in enumerate(zip(opens, closes)):
         by_open.setdefault(o, []).append(idx); by_close.setdefault(c, []).append(idx)
     # original grid flat: minutes where no original position is open
-    oo = np.searchsorted(tt, orig_open_t, "right"); oc = np.searchsorted(tt, orig_close_t, "left")
+    oo = np.maximum(np.searchsorted(tt, orig_open_t, "right") - (1 if entry_bar else 0), 0)
+    oc = np.searchsorted(tt, orig_close_t, "left")
     cnt = np.zeros(len(tt) + 1); np.add.at(cnt, np.clip(oo, 0, len(tt)), 1); np.add.at(cnt, np.clip(oc, 0, len(tt)), -1)
     open_orig = np.cumsum(cnt)[:len(tt)]
     for m in range(len(tt)):
@@ -163,10 +168,11 @@ def main():
                                        (0.15, False, False, False), (0.15, True, False, False),
                                        (0.15, False, True, False), (0.15, True, True, False),
                                        (0.15, False, False, True), (0.15, True, False, True)):
-            key = (f"cap={cap} floor={floor} block={block} bar_order={'good_first' if bf else 'bad_first'}"
-                   f" after_stop={'kill' if kill else 'reset_when_flat'}")
-            res[key] = guarded(pos, bt, lo, hi, cl, float(cap), floor, block, bf, kill)
-            r = res[key]; print(key, {k: r[k] for k in ("final", "max_dd_pct", "floor_stops", "wiped", "entries_taken")})
+            for eb in (True, False):
+                key = (f"cap={cap} floor={floor} block={block} bar_order={'good_first' if bf else 'bad_first'}"
+                       f" after_stop={'kill' if kill else 'reset_when_flat'} entry_bar={'live' if eb else 'next'}")
+                res[key] = guarded(pos, bt, lo, hi, cl, float(cap), floor, block, bf, kill, eb)
+                r = res[key]; print(key, {k: r[k] for k in ("final", "max_dd_pct", "floor_stops", "wiped", "entries_taken")})
     json.dump(res, open("docs/evidence/btc_guardian_sim.json", "w"), indent=1)
 
 
