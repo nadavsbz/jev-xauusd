@@ -36,9 +36,19 @@ def parse(rep):
     return d[d.type != "balance"], pairs
 
 
+def spec():
+    """What a result depends on (review PR #23): set file, EA and test period; reuse only on an exact match."""
+    import hashlib
+    h = lambda f: hashlib.sha256(open(f, "rb").read()).hexdigest() if os.path.exists(f) else None
+    return {"set_sha256": h(os.path.join(TERM, "MQL5", "Profiles", "Tester", SET)),
+            "ea_sha256": h(os.path.join(TERM, "MQL5", "Experts", "BTCbot", "BTC Bot.ex5")), "from": FROM, "to": TO}
+
+
 def run(dep):
     name = f"btc_split_{dep}" + ("" if SET == "btc_bot_2dig.set" else "_" + SET.replace(".set", ""))
     rep = os.path.join(TERM, name + ".htm")
+    if os.path.exists(rep):                 # never reuse a report by name (review PR #23)
+        os.remove(rep)
     for _ in range(3):
         if os.path.exists(rep):
             break
@@ -81,11 +91,13 @@ def main():
     out = sys.argv[1]
     deps = [int(x) for x in sys.argv[2:]] or [5000, 10000, 20000, 40000, 80000]
     res = json.load(open(out)) if os.path.exists(out) else []
-    done = {(r.get("set", "btc_bot_2dig.set"), r["deposit"]) for r in res}
+    sp = spec()
+    done = {(r.get("set", "btc_bot_2dig.set"), r["deposit"]) for r in res if r.get("spec") == sp}
+    res = [r for r in res if not ((r.get("set", "btc_bot_2dig.set"), r["deposit"]) not in done and r.get("set", "btc_bot_2dig.set") == SET and r["deposit"] in deps)]
     for dep in deps:
         if (SET, dep) in done:
             continue
-        res.append(run(dep)); print(res[-1], flush=True)
+        res.append(dict(run(dep), spec=sp)); print(res[-1], flush=True)
         json.dump(res, open(out, "w"), indent=1)
 
 

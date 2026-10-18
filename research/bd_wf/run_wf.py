@@ -29,6 +29,16 @@ def run(args):
     return r.returncode
 
 
+def tester_busy():
+    cmd = ("Get-Process terminal64,metatester64 -ErrorAction SilentlyContinue | "
+           "Where-Object { $_.Path -like 'C:\\MT5_JEV_TEST\\*' } | Measure-Object | Select-Object -ExpandProperty Count")
+    out = subprocess.run(["powershell", "-NoProfile", "-Command", cmd], capture_output=True, text=True, errors="replace").stdout
+    try:
+        return int(out.strip() or 0) > 0
+    except ValueError:
+        return True
+
+
 def num(x):
     return float(str(x).replace(" ", "").replace(",", "").replace("%", ""))
 
@@ -82,10 +92,21 @@ def main():
             break
         time.sleep(120)
     log("night chain done")
+    while tester_busy():          # a restart must never start a second tester run beside a running one
+        time.sleep(60)
     # spot check (review PR #22): bdcap_opt_ml02.json has no MaxLot_ column; one single pass of the chosen
     # combination on the same period must reproduce its optimization profit to verify that 0.2 was applied
     single("bdcap_spotcheck_ml02", {"MaxLot_": "0.2", "Martin_": "1.3", "MaxOrdersBuy": "10", "MaxOrdersSell": "10"},
            "2024.04.01", "2025.10.31")
+    # the spot check must reproduce the optimization's profit, or 0.2 was not what ran there (review PR #23)
+    sc = os.path.join(EV, "bdcap_spotcheck_ml02.json")
+    if not os.path.exists(sc):
+        log("spot check has no valid evidence - every step that depends on the cap choice stops"); return
+    got = num(json.load(open(sc, encoding="utf-8"))["summary_from_report"]["סך רווח נקי"])
+    json.dump({"expected": 12735.63, "got": got, "match": abs(got - 12735.63) <= 1.0},
+              open(os.path.join(EV, "bdcap_spotcheck_result.json"), "w"), indent=1)
+    if abs(got - 12735.63) > 1.0:
+        log(f"spot check MISMATCH: {got} vs 12735.63 - the 0.2 sweep result is not verified; dependent steps stop"); return
     # timeframes (docs/BD_TF_PLAN.md): BD-A on M5, M30, H1 (M15 = the spot check above), then the rule
     bda = {"MaxLot_": "0.2", "Martin_": "1.3", "MaxOrdersBuy": "10", "MaxOrdersSell": "10"}
     for tf in ("M5", "M30", "H1"):
