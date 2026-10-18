@@ -3,62 +3,80 @@
   "final": 1153.57,
   "mult": 0.046,
   "max_dd_pct": -97.3,
-  "wiped": true
+  "wiped": true,
+  "es5_daily_pct": -36.68,
+  "max_margin_use_pct": 649.4
  },
  "L=0.3 h=0.5 stop=3.0": {
-  "final": -24564.11,
-  "mult": -0.987,
-  "max_dd_pct": -201.3,
+  "final": -4937.63,
+  "mult": -0.198,
+  "max_dd_pct": -123.3,
   "wiped": true,
-  "hedges": 423
+  "es5_daily_pct": -45.06,
+  "hedges": 332,
+  "max_margin_use_pct": Infinity
  },
  "L=0.3 h=0.5 stop=6.0": {
-  "final": 5469.0,
-  "mult": 0.22,
-  "max_dd_pct": -84.3,
+  "final": 8341.84,
+  "mult": 0.335,
+  "max_dd_pct": -76.5,
   "wiped": false,
-  "hedges": 101
+  "es5_daily_pct": -28.85,
+  "hedges": 94,
+  "max_margin_use_pct": 118.1
  },
  "L=0.3 h=1.0 stop=3.0": {
-  "final": -50281.78,
-  "mult": -2.02,
-  "max_dd_pct": -309.4,
+  "final": -11028.83,
+  "mult": -0.443,
+  "max_dd_pct": -151.7,
   "wiped": true,
-  "hedges": 423
+  "es5_daily_pct": -76.42,
+  "hedges": 332,
+  "max_margin_use_pct": Infinity
  },
  "L=0.3 h=1.0 stop=6.0": {
-  "final": 9784.44,
-  "mult": 0.393,
-  "max_dd_pct": -73.8,
+  "final": 15530.12,
+  "mult": 0.624,
+  "max_dd_pct": -58.7,
   "wiped": false,
-  "hedges": 101
+  "es5_daily_pct": -20.24,
+  "hedges": 94,
+  "max_margin_use_pct": 83.8
  },
  "L=0.6 h=0.5 stop=3.0": {
-  "final": -23712.41,
-  "mult": -0.952,
-  "max_dd_pct": -197.1,
+  "final": -5167.1,
+  "mult": -0.208,
+  "max_dd_pct": -124.0,
   "wiped": true,
-  "hedges": 322
+  "es5_daily_pct": -45.29,
+  "hedges": 255,
+  "max_margin_use_pct": Infinity
  },
  "L=0.6 h=0.5 stop=6.0": {
-  "final": 6108.0,
-  "mult": 0.245,
-  "max_dd_pct": -82.6,
+  "final": 8910.18,
+  "mult": 0.358,
+  "max_dd_pct": -75.2,
   "wiped": false,
-  "hedges": 79
+  "es5_daily_pct": -28.03,
+  "hedges": 73,
+  "max_margin_use_pct": 109.8
  },
  "L=0.6 h=1.0 stop=3.0": {
-  "final": -48578.39,
-  "mult": -1.951,
-  "max_dd_pct": -299.3,
+  "final": -11487.77,
+  "mult": -0.461,
+  "max_dd_pct": -152.6,
   "wiped": true,
-  "hedges": 322
+  "es5_daily_pct": -77.25,
+  "hedges": 255,
+  "max_margin_use_pct": Infinity
  },
  "L=0.6 h=1.0 stop=6.0": {
-  "final": 11062.43,
-  "mult": 0.444,
-  "max_dd_pct": -70.2,
+  "final": 16666.79,
+  "mult": 0.669,
+  "max_dd_pct": -56.6,
   "wiped": false,
-  "hedges": 79
+  "es5_daily_pct": -18.9,
+  "hedges": 73,
+  "max_margin_use_pct": 77.6
  }
 }
