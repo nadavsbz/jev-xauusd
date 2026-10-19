@@ -1,0 +1,1116 @@
+{
+ "source": "docs/evidence/bdstoch_lv_sel.json",
+ "source_canonical_sha256": "bd8be705752441f8bffcd867235da33639533c6a3fbd1a006711d9a225443bdd",
+ "job": {
+  "report": "bdstoch_lv_sel",
+  "base_set": "bd2afterpoint_l001_sp50.set",
+  "fixed": {
+   "Use_Stoh": "true"
+  },
+  "ranges": {
+   "Up_Level": [
+    70,
+    10,
+    90
+   ],
+   "Down_Level": [
+    10,
+    10,
+    30
+   ],
+   "TF_Stoh": [
+    0,
+    16385,
+    16385
+   ]
+  },
+  "name": "Black Dragon 3",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2024.04.01",
+  "to": "2025.11.01",
+  "deposit": 24895,
+  "leverage": 1000
+ },
+ "grid": {
+  "Up_Level": [
+   70,
+   80,
+   90
+  ],
+  "Down_Level": [
+   10,
+   20,
+   30
+  ],
+  "TF_Stoh": [
+   0,
+   16385
+  ]
+ },
+ "rows": [
+  {
+   "Up_Level": 70,
+   "Down_Level": 30,
+   "TF_Stoh": 1,
+   "profit": 16603.22,
+   "dd": 60.9585,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 30,
+   "TF_Stoh": 1,
+   "profit": 15898.79,
+   "dd": 60.9663,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 30,
+   "TF_Stoh": 1,
+   "profit": 14500.59,
+   "dd": 40.3015,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 20,
+   "TF_Stoh": 1,
+   "profit": 14440.05,
+   "dd": 60.9979,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 30,
+   "TF_Stoh": 2,
+   "profit": 14420.26,
+   "dd": 35.8391,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 30,
+   "TF_Stoh": 3,
+   "profit": 14004.89,
+   "dd": 36.0102,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 20,
+   "TF_Stoh": 1,
+   "profit": 13735.62,
+   "dd": 61.0058,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 20,
+   "TF_Stoh": 2,
+   "profit": 13512.25,
+   "dd": 36.0099,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 30,
+   "TF_Stoh": 2,
+   "profit": 13433.51,
+   "dd": 36.0606,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 30,
+   "TF_Stoh": 3,
+   "profit": 13147.2,
+   "dd": 36.1559,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 30,
+   "TF_Stoh": 4,
+   "profit": 13089.27,
+   "dd": 36.0848,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 20,
+   "TF_Stoh": 3,
+   "profit": 12999.6,
+   "dd": 36.2084,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 30,
+   "TF_Stoh": 5,
+   "profit": 12774.21,
+   "dd": 33.1276,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 20,
+   "TF_Stoh": 2,
+   "profit": 12525.5,
+   "dd": 36.2335,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 30,
+   "TF_Stoh": 4,
+   "profit": 12415.83,
+   "dd": 36.3472,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 20,
+   "TF_Stoh": 1,
+   "profit": 12340.22,
+   "dd": 35.8598,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 10,
+   "TF_Stoh": 2,
+   "profit": 12291.17,
+   "dd": 36.2676,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 30,
+   "TF_Stoh": 5,
+   "profit": 12203.86,
+   "dd": 33.3331,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 20,
+   "TF_Stoh": 3,
+   "profit": 12141.91,
+   "dd": 36.3557,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 30,
+   "TF_Stoh": 2,
+   "profit": 12013.05,
+   "dd": 36.3705,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 30,
+   "TF_Stoh": 3,
+   "profit": 11989.7,
+   "dd": 36.334,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 20,
+   "TF_Stoh": 5,
+   "profit": 11539.78,
+   "dd": 33.3579,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 30,
+   "TF_Stoh": 4,
+   "profit": 11502.67,
+   "dd": 36.6348,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 30,
+   "TF_Stoh": 6,
+   "profit": 11495.78,
+   "dd": 36.7439,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 10,
+   "TF_Stoh": 3,
+   "profit": 11482.1,
+   "dd": 22.4781,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 10,
+   "TF_Stoh": 2,
+   "profit": 11304.42,
+   "dd": 36.4944,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 30,
+   "TF_Stoh": 5,
+   "profit": 11165.8,
+   "dd": 33.5884,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 30,
+   "TF_Stoh": 10,
+   "profit": 11157.74,
+   "dd": 54.2891,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 20,
+   "TF_Stoh": 2,
+   "profit": 11105.04,
+   "dd": 36.5464,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 20,
+   "TF_Stoh": 3,
+   "profit": 10984.41,
+   "dd": 36.5357,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 20,
+   "TF_Stoh": 5,
+   "profit": 10969.43,
+   "dd": 33.5662,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 10,
+   "TF_Stoh": 3,
+   "profit": 10624.41,
+   "dd": 22.5722,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 30,
+   "TF_Stoh": 6,
+   "profit": 10617.11,
+   "dd": 36.982,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 30,
+   "TF_Stoh": 12,
+   "profit": 10591.84,
+   "dd": 33.6938,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 30,
+   "TF_Stoh": 10,
+   "profit": 10223.35,
+   "dd": 54.3118,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 20,
+   "TF_Stoh": 6,
+   "profit": 10190.89,
+   "dd": 37.1889,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 20,
+   "TF_Stoh": 4,
+   "profit": 10052.89,
+   "dd": 39.1467,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 20,
+   "TF_Stoh": 5,
+   "profit": 9931.37,
+   "dd": 33.825,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 10,
+   "TF_Stoh": 2,
+   "profit": 9883.96,
+   "dd": 36.8118,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 10,
+   "TF_Stoh": 5,
+   "profit": 9761.85,
+   "dd": 37.3053,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 10,
+   "TF_Stoh": 1,
+   "profit": 9716.33,
+   "dd": 61.0951,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 20,
+   "TF_Stoh": 12,
+   "profit": 9665.14,
+   "dd": 33.8783,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 30,
+   "TF_Stoh": 12,
+   "profit": 9647.72,
+   "dd": 34.0311,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 20,
+   "TF_Stoh": 10,
+   "profit": 9612.19,
+   "dd": 54.3396,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 30,
+   "TF_Stoh": 6,
+   "profit": 9492.13,
+   "dd": 37.2576,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 10,
+   "TF_Stoh": 3,
+   "profit": 9466.91,
+   "dd": 22.686,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 20,
+   "TF_Stoh": 4,
+   "profit": 9379.45,
+   "dd": 39.4547,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 20,
+   "TF_Stoh": 6,
+   "profit": 9312.22,
+   "dd": 37.4328,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 30,
+   "TF_Stoh": 15,
+   "profit": 9249.34,
+   "dd": 36.9855,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 30,
+   "TF_Stoh": 0,
+   "profit": 9249.34,
+   "dd": 36.9855,
+   "wiped": false,
+   "registered": true
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 10,
+   "TF_Stoh": 5,
+   "profit": 9191.5,
+   "dd": 37.5407,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 10,
+   "TF_Stoh": 6,
+   "profit": 9079.12,
+   "dd": 37.4174,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 30,
+   "TF_Stoh": 10,
+   "profit": 9049.84,
+   "dd": 34.1226,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 10,
+   "TF_Stoh": 1,
+   "profit": 9011.9,
+   "dd": 61.103,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 30,
+   "TF_Stoh": 12,
+   "profit": 8834.82,
+   "dd": 34.3214,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 20,
+   "TF_Stoh": 12,
+   "profit": 8721.02,
+   "dd": 34.2194,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 20,
+   "TF_Stoh": 10,
+   "profit": 8677.8,
+   "dd": 54.3624,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 30,
+   "TF_Stoh": 15,
+   "profit": 8672.22,
+   "dd": 37.1592,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 30,
+   "TF_Stoh": 0,
+   "profit": 8672.22,
+   "dd": 37.1592,
+   "wiped": false,
+   "registered": true
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 10,
+   "TF_Stoh": 10,
+   "profit": 8473.5,
+   "dd": 54.4255,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 20,
+   "TF_Stoh": 4,
+   "profit": 8466.29,
+   "dd": 39.7939,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 10,
+   "TF_Stoh": 4,
+   "profit": 8241.08,
+   "dd": 24.2932,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 10,
+   "TF_Stoh": 6,
+   "profit": 8200.45,
+   "dd": 37.6644,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 20,
+   "TF_Stoh": 6,
+   "profit": 8187.24,
+   "dd": 37.715,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 10,
+   "TF_Stoh": 5,
+   "profit": 8153.44,
+   "dd": 37.831,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 20,
+   "TF_Stoh": 15,
+   "profit": 8057.22,
+   "dd": 37.4538,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 20,
+   "TF_Stoh": 0,
+   "profit": 8057.22,
+   "dd": 37.4538,
+   "wiped": false,
+   "registered": true
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 20,
+   "TF_Stoh": 12,
+   "profit": 7908.12,
+   "dd": 34.5129,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 30,
+   "TF_Stoh": 15,
+   "profit": 7836.16,
+   "dd": 37.5562,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 30,
+   "TF_Stoh": 0,
+   "profit": 7836.16,
+   "dd": 37.5562,
+   "wiped": false,
+   "registered": true
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 10,
+   "TF_Stoh": 12,
+   "profit": 7770.91,
+   "dd": 37.4698,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 10,
+   "TF_Stoh": 1,
+   "profit": 7616.5,
+   "dd": 6.433,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 10,
+   "TF_Stoh": 4,
+   "profit": 7567.64,
+   "dd": 24.4925,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 10,
+   "TF_Stoh": 10,
+   "profit": 7539.11,
+   "dd": 54.4483,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 20,
+   "TF_Stoh": 10,
+   "profit": 7504.29,
+   "dd": 34.291,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 20,
+   "TF_Stoh": 15,
+   "profit": 7480.1,
+   "dd": 37.6318,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 20,
+   "TF_Stoh": 0,
+   "profit": 7480.1,
+   "dd": 37.6318,
+   "wiped": false,
+   "registered": true
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 10,
+   "TF_Stoh": 15,
+   "profit": 7114.34,
+   "dd": 37.6743,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 10,
+   "TF_Stoh": 0,
+   "profit": 7114.34,
+   "dd": 37.6743,
+   "wiped": false,
+   "registered": true
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 10,
+   "TF_Stoh": 6,
+   "profit": 7075.47,
+   "dd": 37.95,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 10,
+   "TF_Stoh": 12,
+   "profit": 6826.79,
+   "dd": 37.8487,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 10,
+   "TF_Stoh": 4,
+   "profit": 6654.48,
+   "dd": 24.7059,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 20,
+   "TF_Stoh": 15,
+   "profit": 6644.04,
+   "dd": 38.039,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 20,
+   "TF_Stoh": 0,
+   "profit": 6644.04,
+   "dd": 38.039,
+   "wiped": false,
+   "registered": true
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 10,
+   "TF_Stoh": 15,
+   "profit": 6537.22,
+   "dd": 37.8544,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 10,
+   "TF_Stoh": 0,
+   "profit": 6537.22,
+   "dd": 37.8544,
+   "wiped": false,
+   "registered": true
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 10,
+   "TF_Stoh": 10,
+   "profit": 6365.6,
+   "dd": 34.655,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 10,
+   "TF_Stoh": 12,
+   "profit": 6013.89,
+   "dd": 38.1753,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 10,
+   "TF_Stoh": 15,
+   "profit": 5701.16,
+   "dd": 38.2664,
+   "wiped": false,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 10,
+   "TF_Stoh": 0,
+   "profit": 5701.16,
+   "dd": 38.2664,
+   "wiped": false,
+   "registered": true
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 20,
+   "TF_Stoh": 16385,
+   "profit": 4611.96,
+   "dd": 61.3732,
+   "wiped": false,
+   "registered": true
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 20,
+   "TF_Stoh": 16385,
+   "profit": 4093.69,
+   "dd": 61.3748,
+   "wiped": false,
+   "registered": true
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 10,
+   "TF_Stoh": 16385,
+   "profit": 3759.53,
+   "dd": 61.4237,
+   "wiped": false,
+   "registered": true
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 20,
+   "TF_Stoh": 16385,
+   "profit": 3295.38,
+   "dd": 61.3853,
+   "wiped": false,
+   "registered": true
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 10,
+   "TF_Stoh": 16385,
+   "profit": 3241.26,
+   "dd": 61.4253,
+   "wiped": false,
+   "registered": true
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 10,
+   "TF_Stoh": 16385,
+   "profit": 2442.95,
+   "dd": 61.4357,
+   "wiped": false,
+   "registered": true
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 20,
+   "TF_Stoh": 20,
+   "profit": -23133.63,
+   "dd": 93.3334,
+   "wiped": true,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 10,
+   "TF_Stoh": 20,
+   "profit": -23150.58,
+   "dd": 93.3515,
+   "wiped": true,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 20,
+   "TF_Stoh": 30,
+   "profit": -23156.89,
+   "dd": 93.4157,
+   "wiped": true,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 10,
+   "TF_Stoh": 30,
+   "profit": -23178.83,
+   "dd": 93.4572,
+   "wiped": true,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 20,
+   "TF_Stoh": 30,
+   "profit": -23215.06,
+   "dd": 93.622,
+   "wiped": true,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 20,
+   "TF_Stoh": 20,
+   "profit": -23218.46,
+   "dd": 93.6341,
+   "wiped": true,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 10,
+   "TF_Stoh": 20,
+   "profit": -23230.77,
+   "dd": 93.6776,
+   "wiped": true,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 10,
+   "TF_Stoh": 20,
+   "profit": -23235.41,
+   "dd": 93.6728,
+   "wiped": true,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 10,
+   "TF_Stoh": 30,
+   "profit": -23237.0,
+   "dd": 93.6767,
+   "wiped": true,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 10,
+   "TF_Stoh": 30,
+   "profit": -23267.06,
+   "dd": 93.8072,
+   "wiped": true,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 30,
+   "TF_Stoh": 30,
+   "profit": -23451.7,
+   "dd": 94.5787,
+   "wiped": true,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 30,
+   "TF_Stoh": 30,
+   "profit": -23545.4,
+   "dd": 94.9127,
+   "wiped": true,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 20,
+   "TF_Stoh": 20,
+   "profit": -23551.69,
+   "dd": 94.9351,
+   "wiped": true,
+   "registered": false
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 20,
+   "TF_Stoh": 30,
+   "profit": -23582.99,
+   "dd": 95.0474,
+   "wiped": true,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 30,
+   "TF_Stoh": 30,
+   "profit": -23603.57,
+   "dd": 95.1213,
+   "wiped": true,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 30,
+   "TF_Stoh": 16385,
+   "profit": -23762.88,
+   "dd": 96.2081,
+   "wiped": true,
+   "registered": true
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 30,
+   "TF_Stoh": 20,
+   "profit": -23897.46,
+   "dd": 96.3347,
+   "wiped": true,
+   "registered": false
+  },
+  {
+   "Up_Level": 80,
+   "Down_Level": 30,
+   "TF_Stoh": 20,
+   "profit": -23999.2,
+   "dd": 96.6963,
+   "wiped": true,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 30,
+   "TF_Stoh": 20,
+   "profit": -24084.03,
+   "dd": 96.9997,
+   "wiped": true,
+   "registered": false
+  },
+  {
+   "Up_Level": 90,
+   "Down_Level": 30,
+   "TF_Stoh": 16385,
+   "profit": -24844.63,
+   "dd": 99.8268,
+   "wiped": true,
+   "registered": true
+  },
+  {
+   "Up_Level": 70,
+   "Down_Level": 30,
+   "TF_Stoh": 16385,
+   "profit": -25613.75,
+   "dd": 102.3669,
+   "wiped": true,
+   "registered": true
+  }
+ ],
+ "chosen": {
+  "Up_Level": 70,
+  "Down_Level": 30,
+  "TF_Stoh": 0,
+  "profit": 9249.34,
+  "dd": 36.9855,
+  "wiped": false,
+  "registered": true
+ }
+}
