@@ -31,10 +31,10 @@ if c is None:
     sys.exit(1)
 ov = {"Use_Stoh": "true", "Up_Level": str(c["Up_Level"]), "Down_Level": str(c["Down_Level"]), "TF_Stoh": str(c["TF_Stoh"])}
 jobs = [{"report": "bdstochlv_test_eglobal", "base_set": "bd_3digit_cal.set", "overrides": ov,
-         "name": "Black Dragon 1", "expert": "BD\EA Black Dragon.ex5", "symbol": "XAUUSDc", "period": "M15",
+         "name": "Black Dragon 1", "expert": "BD\\EA Black Dragon.ex5", "symbol": "XAUUSDc", "period": "M15",
          "from": "2025.11.11", "to": "2026.10.15", "deposit": 24895, "leverage": 1000},
         {"report": "bdstochlv_test_2022", "base_set": "bd2afterpoint_l001_sp50.set", "overrides": ov,
-         "name": "Black Dragon 3", "expert": "BD\EA Black Dragon.ex5", "symbol": "XAUUSD", "period": "M15",
+         "name": "Black Dragon 3", "expert": "BD\\EA Black Dragon.ex5", "symbol": "XAUUSD", "period": "M15",
          "from": "2022.01.01", "to": "2024.04.01", "deposit": 24895, "leverage": 1000, "model": 1}]
 json.dump(jobs, open("research/bd_cap/queue_stochlv_test.json", "w"), indent=1)
 sys.exit(0)
