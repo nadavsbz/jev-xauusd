@@ -32,7 +32,7 @@ ShutdownTerminal=1
 UseLocal=1
 UseRemote=0
 UseCloud=0
-Visual=0
+Visual={visual}
 """
 
 
@@ -119,6 +119,8 @@ def main():
     p.add_argument("--detach", action="store_true", help="start the terminal and return once testing has started")
     p.add_argument("--optimization", type=int, default=0,
                    help="0 single pass, 1 slow complete (every combination of the ranges in the .set; local agents in parallel)")
+    p.add_argument("--visual", type=int, default=0,
+                   help="1: visual mode, the tester chart loads MQL5/Profiles/Templates/tester.tpl (research indicators)")
     a = p.parse_args()
 
     root = os.path.dirname(os.path.abspath(a.terminal))
@@ -137,7 +139,7 @@ def main():
             f.write(INI.format(login=int(acc["login"]), password=acc["password"], server=acc["server"],
                                expert=a.expert, set_line=f"ExpertParameters={a.set}\n" if a.set else "", symbol=a.symbol, period=a.period, model=a.model,
                                from_=a.from_, to=a.to, deposit=a.deposit, leverage=a.leverage, report=a.report,
-                               optimization=a.optimization))
+                               optimization=a.optimization, visual=a.visual))
         t0 = time.time()
         if a.detach:
             # The terminal runs on its own (survives this script); the config with the
