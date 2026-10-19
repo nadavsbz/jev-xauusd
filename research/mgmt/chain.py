@@ -22,7 +22,7 @@ import numpy as np, pandas as pd
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(ROOT, "tools")); sys.path.insert(0, os.path.join(ROOT, "research", "btc"))
 from run_queue import write_set, TERM          # noqa: E402
-from guardian_sim import deals, pair, equity_path  # noqa: E402
+from guardian_sim import deals, pair  # noqa: E402
 
 PY = sys.executable
 
@@ -50,103 +50,134 @@ def run(cfg, start, end, deposit, lot, rep):
     return htm
 
 
-def segment_end(cfg, htm, eq, level, bt, lo, hi):
-    """-> (equity at the end of the run or at the protection touch, hit time or None, minimum equity)."""
-    d = deals(htm)
-    if not len(d):
-        return eq, None, eq
-    pos, _ = pair(d)
+K = 100.0          # contract size of XAUUSD / XAUUSDc (pairing error 0.005 on the EGlobal report, VERIFIED)
+
+
+def path(pos, bt, lo, hi, ask_add, capital):
+    """Equity path of one run, the conservative side of every minute (review PR #31): buys at the bar low, sells
+    closed at the ASK (bar high + the bar's spread). Also returns the open volume per minute (closing commission)."""
+    a0 = np.searchsorted(bt, pos.t0.min(), "left"); a1 = np.searchsorted(bt, pos.t1.max(), "right")
+    tt = bt[a0:a1]; worst = np.zeros(len(tt)); best = np.zeros(len(tt)); real = np.zeros(len(tt)); vol = np.zeros(len(tt))
+    L, H, A = lo[a0:a1], hi[a0:a1], ask_add[a0:a1]
+    for r in pos.itertuples():
+        i = max(np.searchsorted(tt, r.t0, "right") - 1, 0); j = np.searchsorted(tt, r.t1, "left")
+        acc = r.cost_in + r.swap * (np.arange(j - i) + 1) / max(j - i, 1) if j > i else 0.0
+        if r.side == "buy":
+            worst[i:j] += r.vol * (L[i:j] - r.p0) * K + acc; best[i:j] += r.vol * (H[i:j] - r.p0) * K + acc
+        else:
+            worst[i:j] += -r.vol * (H[i:j] + A[i:j] - r.p0) * K + acc; best[i:j] += -r.vol * (L[i:j] + A[i:j] - r.p0) * K + acc
+        vol[i:j] += r.vol
+        real[np.searchsorted(tt, r.t1, "left"):] += r.net
+    return tt, capital + real + worst, capital + real + best, vol
+
+
+def window(cfg, B, start, end, eq, lot, level, peak, safe):
+    """One tester run from a flat account. -> dict with the equity at the end (or at the protection touch, after
+    the closing commission), hit time, the new running peak of the TOTAL (account + safe base, intra-run peak
+    included, review PR #31) and the worst drawdown of the total against that running peak."""
+    bt, lo, hi, ask_add = B
+    d = deals(run(cfg, start, end, eq, lot, f"mgmt_{cfg['tag']}"))
+    res = dict(start=str(start), end=str(end), eq_start=round(eq, 2), lot=lot, level=round(level, 2), hit=None)
+    pos = pair(d)[0] if len(d) else []
     if not len(pos):
-        return float(d.balance.iloc[-1]), None, eq
-    tt, e_lo, _ = equity_path(pos, bt, lo, hi, eq)
-    hit = np.nonzero(e_lo <= level)[0] if level > 0 else []
+        e1 = float(d.balance.iloc[-1]) if len(d) else eq
+        pk = max(peak, e1 + safe)
+        res.update(eq_end=round(e1, 2), min_eq=round(min(eq, e1), 2), peak=pk, dd=min(0.0, (min(eq, e1) + safe - pk) / pk))
+        return res
+    outs = d[d.dir == "out"]
+    cpl = float(outs.commission.sum() / outs.volume.sum()) if outs.volume.sum() else 0.0   # commission per lot, <= 0
+    tt, e_lo, e_hi, vol = path(pos, bt, lo, hi, ask_add, eq)
+    e_close = e_lo + vol * cpl
+    hit = np.nonzero(e_close <= level)[0] if level > 0 else []
+    k = hit[0] + 1 if len(hit) else len(tt)
+    runpk = np.maximum.accumulate(np.maximum(e_hi[:k] + safe, peak))
+    dd = float(((e_close[:k] + safe - runpk) / runpk).min())
     if len(hit):
-        return float(e_lo[hit[0]]), int(tt[hit[0]]), float(e_lo[hit[0]])
-    return float(d.balance.iloc[-1]), None, float(e_lo.min())
+        e1 = float(e_close[hit[0]]); res["hit"] = str(dt.datetime.utcfromtimestamp(int(tt[hit[0]])))
+    else:
+        e1 = float(d.balance.iloc[-1])
+    pk = max(float(runpk[-1]), e1 + safe)
+    res.update(eq_end=round(e1, 2), min_eq=round(float(e_close[:k].min()), 2), peak=pk, dd=round(min(dd, 0.0), 5))
+    return res
 
 
-def replay(cfg, bt, lo, hi):
-    """Validation mode: every row of the user's real schedule is one run that starts from the REAL equity and lot
-    of that row (anchored), with the row's protection level; its end is compared with the next row's real
-    equity plus what was moved out in between. Measures tester+reconstruction fidelity, not the rule."""
+def next_day(ts):
+    d = dt.datetime.fromisoformat(ts).date() + dt.timedelta(days=1)
+    while d.weekday() >= 5:
+        d += dt.timedelta(days=1)
+    return d
+
+
+def load_bars(cfg):
+    b = pd.read_csv(os.path.join(ROOT, cfg["bars"]))
+    point = 0.001 if cfg["symbol"].endswith("c") else 0.01          # XAUUSDc 3 digits, XAUUSD 2 digits
+    return b.time.values.astype(np.int64), b.low.values, b.high.values, b.spread.values * point
+
+
+def replay(cfg, B):
+    """Validation mode (MASTER_PLAN 4.3): each row of the user's real schedule starts from the REAL equity and lot of
+    that row (anchored) and runs to the next row's date. After a protection touch the account restarts the next
+    trading day with the same lot per equity and the same protection ratio (ASSUMED), until the next row
+    (review PR #31). The end is compared with the next row's real equity plus what was moved out in between."""
     rows = json.load(open(os.path.join(ROOT, cfg["schedule"]), encoding="utf-8"))
-    out = []
+    out = []; peak = rows[0]["eq"]; worst = 0.0
     for r, n in zip(rows[:-1], rows[1:]):
-        htm = run(cfg, dt.date.fromisoformat(r["date"]), dt.date.fromisoformat(n["date"]), r["eq"], r["lot"], f"mgmt_{cfg['tag']}")
-        e1, th, mn = segment_end(cfg, htm, r["eq"], r["level"], bt, lo, hi)
+        start, stop = dt.date.fromisoformat(r["date"]), dt.date.fromisoformat(n["date"])
+        eq = r["eq"]; peak = max(peak, eq); hits = []; ratio = r["level"] / r["eq"] if r["level"] else 0.0
+        while start < stop and eq > 0:
+            lot = max(0.01, round(r["lot"] * eq / r["eq"], 2))
+            w = window(cfg, B, start, stop, eq, lot, ratio * eq, peak, 0.0)
+            peak = w["peak"]; worst = min(worst, w["dd"]); eq = w["eq_end"]
+            if not w["hit"]:
+                break
+            hits.append(w["hit"]); start = next_day(w["hit"])
         real = (n["eq"] + n["withdrawn_cum"] - r["withdrawn_cum"]) / r["eq"]
-        row = dict(start=r["date"], end=n["date"], lot=r["lot"], level=r["level"], sim_growth=round(e1 / r["eq"], 4),
-                   real_growth=round(real, 4), hit=None if th is None else str(dt.datetime.utcfromtimestamp(th)),
-                   min_eq=round(mn, 2))
+        row = dict(start=r["date"], end=n["date"], lot=r["lot"], level=r["level"], sim_growth=round(eq / r["eq"], 4),
+                   real_growth=round(real, 4), hits=hits)
         out.append(row); print(row, flush=True)
     sim = float(np.prod([o["sim_growth"] for o in out])); real = float(np.prod([o["real_growth"] for o in out]))
-    summ = dict(config=cfg, segments=out, sim_multiple=round(sim, 3), real_multiple=round(real, 3),
-                ratio=round(sim / real, 3))
+    err = [abs(o["sim_growth"] - o["real_growth"]) for o in out]
+    summ = dict(config=cfg, segments=out, sim_multiple=round(sim, 3), real_multiple=round(real, 3), ratio=round(sim / real, 3),
+                median_abs_gap_pp=round(100 * float(np.median(err)), 2), sim_max_dd=round(worst, 4))
     json.dump(summ, open(os.path.join(ROOT, "docs", "evidence", f"mgmt_{cfg['tag']}.json"), "w", encoding="utf-8"), indent=1)
-    print(summ["sim_multiple"], summ["real_multiple"], summ["ratio"])
+    print(summ["sim_multiple"], summ["real_multiple"], summ["ratio"], summ["median_abs_gap_pp"], summ["sim_max_dd"])
 
 
 def main():
     cfg = json.load(open(sys.argv[1], encoding="utf-8"))
+    B = load_bars(cfg)
     if "schedule" in cfg:
-        b = pd.read_csv(os.path.join(ROOT, cfg["bars"]))
-        return replay(cfg, b.time.values.astype(np.int64), b.low.values, b.high.values)
+        return replay(cfg, B)
     tag = cfg["tag"]; out = os.path.join(ROOT, "data", "derived", "mgmt", tag + ".jsonl")
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    b = pd.read_csv(os.path.join(ROOT, cfg["bars"]))
-    bt, lo, hi = b.time.values.astype(np.int64), b.low.values, b.high.values
     done = [json.loads(l) for l in open(out, encoding="utf-8")] if os.path.exists(out) else []
     if done:                                     # restart after the last finished run
-        last = done[-1]; eq, safe = last["eq_end"], last["safe"]
+        last = done[-1]; eq, safe, peak = last["eq_end"], last["safe"], last["peak"]
         start = dt.date.fromisoformat(last["next_start"])
     else:
-        eq, safe = float(cfg["deposit"]), 0.0
+        eq, safe = float(cfg["deposit"]), 0.0; peak = eq
         start = dt.date.fromisoformat(cfg["from"])
     stop = dt.date.fromisoformat(cfg["to"])
     while start < stop and eq > 0:
         end = min(next_monday(start), stop)
-        lot = max(0.01, round(eq / cfg["divisor"], 2)); level = cfg["protect"] * eq
-        rep = f"mgmt_{tag}"
-        htm = run(cfg, start, end, eq, lot, rep)
-        d = deals(htm)
-        row = dict(start=str(start), end=str(end), eq_start=round(eq, 2), lot=lot, level=round(level, 2))
-        if len(d):
-            pos, unpaired = pair(d)
-            tt, e_lo, _ = equity_path(pos, bt, lo, hi, eq) if len(pos) else (np.array([]), np.array([]), None)
-            hit = np.nonzero(e_lo <= level)[0]
-            if len(hit):
-                th = int(tt[hit[0]]); eq_end = float(e_lo[hit[0]])
-                hd = dt.datetime.utcfromtimestamp(th).date()
-                nxt = hd + dt.timedelta(days=1)
-                while nxt.weekday() >= 5:
-                    nxt += dt.timedelta(days=1)
-                row.update(hit=True, hit_time=str(dt.datetime.utcfromtimestamp(th)), eq_end=round(eq_end, 2),
-                           min_eq=round(eq_end, 2), next_start=str(min(nxt, stop)), unpaired=unpaired)
-            else:
-                eq_end = float(d.balance.iloc[-1])
-                row.update(hit=False, eq_end=round(eq_end, 2),
-                           min_eq=round(float(e_lo.min()) if len(e_lo) else eq, 2), next_start=str(end), unpaired=unpaired)
-        else:
-            eq_end = eq
-            row.update(hit=False, eq_end=round(eq, 2), min_eq=round(eq, 2), next_start=str(end), unpaired=0)
-        gain = eq_end - eq
+        lot = max(0.01, round(eq / cfg["divisor"], 2))
+        w = window(cfg, B, start, end, eq, lot, cfg["protect"] * eq, peak, safe)
+        e1 = w["eq_end"]; gain = e1 - eq
         if gain > 0 and cfg.get("sweep", 0) > 0:
-            s = gain * cfg["sweep"]; safe += s; eq_end -= s; row["eq_end"] = round(eq_end, 2)
-        row["safe"] = round(safe, 2); row["total"] = round(eq_end + safe, 2)
+            s = gain * cfg["sweep"]; safe += s; e1 -= s
+        w.update(eq_end=round(e1, 2), safe=round(safe, 2), total=round(e1 + safe, 2),
+                 next_start=str(min(next_day(w["hit"]), stop)) if w["hit"] else str(end))
+        peak = w["peak"]
         with open(out, "a", encoding="utf-8") as f:
-            f.write(json.dumps(row) + "\n")
-        print(row, flush=True)
-        eq = eq_end; start = dt.date.fromisoformat(row["next_start"])
-        if start >= stop:
-            break
+            f.write(json.dumps(w) + "\n")
+        print(w, flush=True)
+        eq = e1; start = dt.date.fromisoformat(w["next_start"])
     rows = [json.loads(l) for l in open(out, encoding="utf-8")]
-    tot = np.array([r["total"] for r in rows]); worst = np.array([r["min_eq"] + r["safe"] for r in rows])
-    peak = np.maximum.accumulate(np.concatenate([[cfg["deposit"]], tot]))[:-1]
-    dd = float(((worst - peak) / peak).min()) if len(rows) else 0.0
     years = (dt.date.fromisoformat(rows[-1]["end"]) - dt.date.fromisoformat(cfg["from"])).days / 365.25
-    summ = dict(config=cfg, runs=len(rows), hits=sum(r["hit"] for r in rows), final_total=tot[-1],
-                multiple=round(tot[-1] / cfg["deposit"], 3), cagr=round((tot[-1] / cfg["deposit"]) ** (1 / years) - 1, 4),
-                max_dd_total=round(dd, 4), safe=rows[-1]["safe"])
+    fin = rows[-1]["total"]
+    summ = dict(config=cfg, runs=len(rows), hits=sum(bool(r["hit"]) for r in rows), final_total=fin,
+                multiple=round(fin / cfg["deposit"], 3), cagr=round((fin / cfg["deposit"]) ** (1 / years) - 1, 4),
+                max_dd_total=round(min(r["dd"] for r in rows), 4), safe=rows[-1]["safe"])
     json.dump(summ, open(os.path.join(ROOT, "docs", "evidence", f"mgmt_{tag}.json"), "w", encoding="utf-8"), indent=1)
     print(summ)
 
