@@ -76,6 +76,9 @@ def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False, kill=F
         m0 = pos.t0.values - pos.t0.values % 60          # start of the entry minute: only bars closed before it
         k = np.searchsorted(bt, m0, "left") - 1; kh = np.searchsorted(bt, m0 - 3600, "left") - 1
         ok = (k >= 0) & (kh >= 0)                       # no bar before the entry: no move known, no block
+        # the reference bar must lie inside the hour, as in JevGuardian (review PR #29): after a weekend or the
+        # daily break the hour-old bar is from the previous session, and then no move is known
+        ok &= bt[np.maximum(kh, 0)] >= bt[np.maximum(k, 0)] - 3600 - 60
         mv = np.where(ok, (cl[np.maximum(k, 0)] - cl[np.maximum(kh, 0)]) / cl[np.maximum(kh, 0)] * 100, 0.0)
         sgn = np.where(pos.side == "buy", 1, -1)
         blk = mv * sgn <= -1.0

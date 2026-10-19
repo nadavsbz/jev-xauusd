@@ -19,10 +19,11 @@ def main():
     a = p.parse_args()
     acc = load_account(a.accounts, a.name); login = int(acc["login"])
     assert_clean_terminal(a.terminal)
-    if not mt5.initialize(path=a.terminal, login=login, password=acc["password"], server=acc["server"],
-                          portable=True, timeout=240000):
-        sys.exit(f"initialize failed: {mt5.last_error()}")
     try:
+        # initialize inside try (review PR #29): a failed login can still have started the terminal
+        if not mt5.initialize(path=a.terminal, login=login, password=acc["password"], server=acc["server"],
+                              portable=True, timeout=240000):
+            sys.exit(f"initialize failed: {mt5.last_error()}")
         info = None
         for _ in range(12):
             info = mt5.account_info()
@@ -41,8 +42,19 @@ def main():
             out["symbols"][s] = None if si is None else {f: getattr(si, f) for f in FIELDS}
     finally:
         mt5.shutdown()
+        _kill_by_path(a.terminal)
     json.dump(out, open(a.out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(json.dumps(out, ensure_ascii=False)[:600])
+
+
+def _kill_by_path(terminal):
+    """Close the terminal this tool started (exact path), also when initialize failed (review PR #29)."""
+    import subprocess
+    out = subprocess.run(["powershell", "-NoProfile", "-Command",
+                          "Get-Process terminal64 -ErrorAction SilentlyContinue | Where-Object { $_.Path -eq '%s' } | "
+                          "ForEach-Object { $_.Id }" % os.path.abspath(terminal)], capture_output=True, text=True).stdout
+    for pid in out.split():
+        subprocess.run(["taskkill", "/PID", pid, "/F"], capture_output=True)
 
 
 if __name__ == "__main__":

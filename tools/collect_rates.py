@@ -70,10 +70,11 @@ def main():
     login = int(acc["login"])
     assert_clean_terminal(args.terminal)
 
-    if not mt5.initialize(path=args.terminal, login=login, password=acc["password"],
-                          server=acc["server"], portable=True, timeout=240000):
-        sys.exit(f"initialize failed: {mt5.last_error()}")
     try:
+        # initialize inside try (review PR #29): a failed login can still have started the terminal
+        if not mt5.initialize(path=args.terminal, login=login, password=acc["password"],
+                              server=acc["server"], portable=True, timeout=240000):
+            sys.exit(f"initialize failed: {mt5.last_error()}")
         info = mt5.account_info()
         for _ in range(12):  # the login switch can lag behind initialize()
             if info is not None and info.login == login:
@@ -146,6 +147,17 @@ def main():
         print(f"ok: {len(rows)} bars -> {out}")
     finally:
         mt5.shutdown()
+        _kill_by_path(args.terminal)
+
+
+def _kill_by_path(terminal):
+    """Close the terminal this tool started (exact path), also when initialize failed (review PR #29)."""
+    import subprocess
+    out = subprocess.run(["powershell", "-NoProfile", "-Command",
+                          "Get-Process terminal64 -ErrorAction SilentlyContinue | Where-Object { $_.Path -eq '%s' } | "
+                          "ForEach-Object { $_.Id }" % os.path.abspath(terminal)], capture_output=True, text=True).stdout
+    for pid in out.split():
+        subprocess.run(["taskkill", "/PID", pid, "/F"], capture_output=True)
 
 
 if __name__ == "__main__":

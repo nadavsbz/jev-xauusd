@@ -102,7 +102,7 @@ def validate_and_write(j, ranges, xml, ev):
             got.add(tuple(round(fv(p[k]), 6) for k in ranges))
         except (KeyError, ValueError):
             pass
-    bad = [p for p in passes if any(k in p and round(float(p[k]), 6) != round(float(v), 6) for k, v in j.get("fixed", {}).items())]
+    bad = [p for p in passes if any(k in p and round(fv(p[k]), 6) != round(fv(v), 6) for k, v in j.get("fixed", {}).items())]   # booleans too (review PR #29)
     if bad:
         got = set()
     out = {"job": j, "files": file_spec(j), "report_file": os.path.basename(xml), "passes": passes,
