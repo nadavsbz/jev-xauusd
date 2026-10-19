@@ -27,9 +27,10 @@ def main():
     assert_clean_terminal(TERM)
     acc = load_account(os.path.join(os.path.dirname(__file__), "..", "..", "accounts.json"), name)
     login = int(acc["login"])
-    if not mt5.initialize(path=TERM, login=login, password=acc["password"], server=acc["server"], portable=True, timeout=240000):
-        sys.exit(f"init failed {mt5.last_error()}")
     try:
+        # initialize inside the try (review PR #29): a failed login still closes the terminal it started
+        if not mt5.initialize(path=TERM, login=login, password=acc["password"], server=acc["server"], portable=True, timeout=240000):
+            sys.exit(f"init failed {mt5.last_error()}")
         for _ in range(12):
             i = mt5.account_info()
             if i and i.login == login:

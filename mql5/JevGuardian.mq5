@@ -130,6 +130,8 @@ double MovePctNow()
 
 // deposits and withdrawals are not trading results: move the peak by the same amount.
 // The history scan runs at most every 30 s, and always right before a floor stop is decided.
+double scanBalance = -1;   // account balance at the last successful history scan
+
 double SyncFlows(const bool force)
   {
    static datetime lastScan = 0;
@@ -138,6 +140,7 @@ double SyncFlows(const bool force)
    lastScan = TimeCurrent();
    double flows;
    if(!BalanceFlows(flows)) { lastScan = 0; return peak; }      // try again on the next check
+   scanBalance = AccountInfoDouble(ACCOUNT_BALANCE);
    // no baseline yet (the first scan at start failed): set it now WITHOUT moving the peak (review)
    if(!GlobalVariableCheck(gvFlows))
      {
@@ -163,7 +166,14 @@ void CheckFloor()
    double eq = AccountInfoDouble(ACCOUNT_EQUITY);
    // a new equity high may contain a deposit not scanned yet (review): sync first, so the deposit
    // is counted once (by the flow adjustment), then raise the peak
-   if(eq > peak) { peak = SyncFlows(true); if(eq > peak) { GlobalVariableSet(gvPeak, eq); peak = eq; } }
+   // the full scan is forced only when the balance moved since the last scan (a deposit always moves it);
+   // a run of new highs from floating profit stays on the 30 s limit (review PR #29)
+   if(eq > peak)
+     {
+      bool moved = MathAbs(AccountInfoDouble(ACCOUNT_BALANCE) - scanBalance) > 0.005;
+      peak = SyncFlows(moved);
+      if(eq > peak) { GlobalVariableSet(gvPeak, eq); peak = eq; }
+     }
    bool kill = GlobalVariableCheck(gvKill) && GlobalVariableGet(gvKill) > 0;
    if(!kill && !GlobalVariableCheck(gvFlows)) return;            // no flow baseline yet: the floor waits (review)
    if(!kill && FloorPct > 0 && eq <= peak * (1.0 - FloorPct / 100.0)) peak = SyncFlows(true);   // a withdrawal is not a loss
