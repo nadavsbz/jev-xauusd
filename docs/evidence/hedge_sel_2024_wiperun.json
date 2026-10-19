@@ -28,7 +28,7 @@
  "L=0.3 h=0.5 stop=6.0 order=stop_first": {
   "final": 8453.09,
   "mult": 0.34,
-  "max_dd_pct": -76.9,
+  "max_dd_pct": -78.8,
   "wiped": false,
   "es5_daily_pct": -28.69,
   "hedges": 94,
@@ -37,7 +37,7 @@
  "L=0.3 h=0.5 stop=6.0 order=best_first": {
   "final": 5580.25,
   "mult": 0.224,
-  "max_dd_pct": -84.8,
+  "max_dd_pct": -86.1,
   "wiped": false,
   "es5_daily_pct": -31.51,
   "hedges": 101,
@@ -46,7 +46,7 @@
  "L=0.3 h=1.0 stop=3.0 order=stop_first": {
   "final": -10230.22,
   "mult": -0.411,
-  "max_dd_pct": -150.4,
+  "max_dd_pct": -149.5,
   "wiped": true,
   "es5_daily_pct": -74.31,
   "hedges": 332,
@@ -64,7 +64,7 @@
  "L=0.3 h=1.0 stop=6.0 order=stop_first": {
   "final": 15752.62,
   "mult": 0.633,
-  "max_dd_pct": -59.8,
+  "max_dd_pct": -65.8,
   "wiped": false,
   "es5_daily_pct": -19.81,
   "hedges": 94,
@@ -73,7 +73,7 @@
  "L=0.3 h=1.0 stop=6.0 order=best_first": {
   "final": 10006.94,
   "mult": 0.402,
-  "max_dd_pct": -75.1,
+  "max_dd_pct": -79.3,
   "wiped": false,
   "es5_daily_pct": -28.0,
   "hedges": 101,
@@ -100,7 +100,7 @@
  "L=0.6 h=0.5 stop=6.0 order=stop_first": {
   "final": 9038.37,
   "mult": 0.363,
-  "max_dd_pct": -75.5,
+  "max_dd_pct": -77.5,
   "wiped": false,
   "es5_daily_pct": -27.86,
   "hedges": 73,
@@ -109,7 +109,7 @@
  "L=0.6 h=0.5 stop=6.0 order=best_first": {
   "final": 6236.19,
   "mult": 0.25,
-  "max_dd_pct": -83.0,
+  "max_dd_pct": -84.5,
   "wiped": false,
   "es5_daily_pct": -30.51,
   "hedges": 79,
@@ -118,7 +118,7 @@
  "L=0.6 h=1.0 stop=3.0 order=stop_first": {
   "final": -10709.42,
   "mult": -0.43,
-  "max_dd_pct": -151.4,
+  "max_dd_pct": -150.6,
   "wiped": true,
   "es5_daily_pct": -75.23,
   "hedges": 255,
@@ -136,7 +136,7 @@
  "L=0.6 h=1.0 stop=6.0 order=stop_first": {
   "final": 16923.18,
   "mult": 0.68,
-  "max_dd_pct": -57.7,
+  "max_dd_pct": -63.8,
   "wiped": false,
   "es5_daily_pct": -18.46,
   "hedges": 73,
@@ -145,7 +145,7 @@
  "L=0.6 h=1.0 stop=6.0 order=best_first": {
   "final": 11318.82,
   "mult": 0.455,
-  "max_dd_pct": -71.7,
+  "max_dd_pct": -76.3,
   "wiped": false,
   "es5_daily_pct": -26.05,
   "hedges": 79,

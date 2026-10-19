@@ -99,7 +99,7 @@ def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False, kill=F
     closes = np.searchsorted(tt, pos.t1.values, "left")
     sgnv = np.where(pos.side == "buy", 1.0, -1.0) * pos.vol.values * K
     bal = capital; peak = capital; active = np.zeros(len(pos), bool); taken = 0; stops = []; resume_at = -1
-    eq_path = np.empty(len(tt)); best_path = np.empty(len(tt)); by_open = {}; by_close = {}
+    eq_path = np.empty(len(tt)); best_path = np.empty(len(tt)); pk_path = np.empty(len(tt)); by_open = {}; by_close = {}
     for idx, (o, c) in enumerate(zip(opens, closes)):
         by_open.setdefault(o, []).append(idx); by_close.setdefault(c, []).append(idx)
     # original grid flat: minutes where no original position is open
@@ -132,6 +132,7 @@ def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False, kill=F
         if best_first and len(act):            # the bar's good extreme came first: raise the peak before the check
             peak = max(peak, bal + max(fl_l, fl_h))
         worst = bal + min(fl_l, fl_h)
+        pk_path[m] = peak                     # the peak the guard checks against in this bar (review PR #28)
         if floor and len(act) and worst <= peak * (1 - floor):
             # close all at the worse side; accrued costs and the closing side's spread are already inside worst
             bal = worst; active[:] = False
@@ -145,10 +146,10 @@ def guarded(pos, bt, lo, hi, cl, capital, floor, block, best_first=False, kill=F
         eq_path[m] = eq
         best_path[m] = bal + (max(fl_l, fl_h) if len(np.where(active)[0]) else 0.0)
         if eq <= 0:
-            eq_path[m:] = eq; best_path[m:] = eq; break
+            eq_path[m:] = eq; best_path[m:] = eq; pk_path[m:] = pk_path[m]; break
     # the drawdown peak also includes the good extreme of EARLIER bars (review PR #27)
     pk = np.maximum.accumulate(np.concatenate([[capital], np.maximum(eq_path, best_path)[:-1]]))
-    pk = np.maximum(pk, eq_path)
+    pk = np.maximum(np.maximum(pk, eq_path), np.maximum.accumulate(pk_path))
     return {"final": round(float(eq_path[-1]), 2), "max_dd_pct": round(float(((eq_path - pk) / pk).min() * 100), 1),
             "min_equity": round(float(eq_path.min()), 2), "floor_stops": len(stops), "entries_taken": taken,
             "wiped": bool(eq_path.min() <= capital * 0.05), "stops": [(str(pd.to_datetime(s[0], unit="s")), s[1], s[2]) for s in stops[:20]]}

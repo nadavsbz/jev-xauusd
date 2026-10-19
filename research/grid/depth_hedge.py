@@ -79,7 +79,7 @@ def run(rep, bars_csv, dep, scale=1.0):
     res = {"no_hedge": dict(summary(base, dep, tt, base_hi), max_margin_use_pct=margin_use(lots, None, cl, base, scale))}
     for (L, h, stop), order in itertools.product(GRID, ("stop_first", "best_first")):
         # rebuild the hedge path with realised P&L carried forward
-        path = np.zeros(len(tt)); cum = 0.0; opened = 0
+        path = np.zeros(len(tt)); path_hi = np.zeros(len(tt)); cum = 0.0; opened = 0   # hedge at worse / better extreme
         hl = np.zeros(len(tt))                       # the hedge lots actually open, per minute (review PR #27)
         for s in (1, -1):
             d = -s; state = None
@@ -88,7 +88,7 @@ def run(rep, bars_csv, dep, scale=1.0):
                     px = op[m] + (SPREAD if d == 1 else 0.0); state = [px, h * lots[s][m - 1], px]; opened += 1
                 if state is not None and lots[s][m] == 0:     # the chain closed inside the previous minute:
                     ex = fx[s].get(m, cl[m - 1]) + (0.0 if d == 1 else SPREAD)   # close at its last exit price
-                    path[m:] += d * (ex - state[0]) * state[1] * K; state = None
+                    v = d * (ex - state[0]) * state[1] * K; path[m:] += v; path_hi[m:] += v; state = None
                     continue
                 if state is not None:
                     px0, size, best = state
@@ -107,12 +107,14 @@ def run(rep, bars_csv, dep, scale=1.0):
                     if hit:
                         ex = stop_px + (0.0 if d == 1 else SPREAD)
                         val = d * (ex - px0) * size * K
-                        path[m:] += val; state = None
+                        path[m:] += val; path_hi[m:] += val; state = None
                     else:
                         path[m] += d * (worst - px0) * size * K      # the hedge's worse side inside the bar
+                        good = hi[m] if d == 1 else lo[m] + SPREAD     # and its better side, for the peak (review PR #28)
+                        path_hi[m] += d * (good - px0) * size * K
                         hl[m] += size
         eq = base + path * scale
-        res[f"L={L} h={h} stop={stop} order={order}"] = dict(summary(eq, dep, tt, base_hi + path * scale), hedges=opened,
+        res[f"L={L} h={h} stop={stop} order={order}"] = dict(summary(eq, dep, tt, base_hi + path_hi * scale), hedges=opened,
                                               max_margin_use_pct=margin_use(lots, hl, cl, eq, scale))
     return res
 

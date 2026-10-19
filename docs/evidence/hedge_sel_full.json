@@ -28,7 +28,7 @@
  "L=0.3 h=0.5 stop=6.0 order=stop_first": {
   "final": 16930.11,
   "mult": 0.68,
-  "max_dd_pct": -177.9,
+  "max_dd_pct": -171.6,
   "wiped": true,
   "es5_daily_pct": -22.4,
   "hedges": 655,
@@ -37,7 +37,7 @@
  "L=0.3 h=0.5 stop=6.0 order=best_first": {
   "final": -29965.54,
   "mult": -1.204,
-  "max_dd_pct": -310.7,
+  "max_dd_pct": -291.7,
   "wiped": true,
   "es5_daily_pct": -32.91,
   "hedges": 769,
@@ -46,7 +46,7 @@
  "L=0.3 h=1.0 stop=3.0 order=stop_first": {
   "final": -88849.71,
   "mult": -3.569,
-  "max_dd_pct": -604.4,
+  "max_dd_pct": -596.3,
   "wiped": true,
   "es5_daily_pct": -14.78,
   "hedges": 1991,
@@ -64,7 +64,7 @@
  "L=0.3 h=1.0 stop=6.0 order=stop_first": {
   "final": -35089.63,
   "mult": -1.41,
-  "max_dd_pct": -259.5,
+  "max_dd_pct": -235.8,
   "wiped": true,
   "es5_daily_pct": -43.16,
   "hedges": 655,
@@ -73,7 +73,7 @@
  "L=0.3 h=1.0 stop=6.0 order=best_first": {
   "final": -128880.94,
   "mult": -5.177,
-  "max_dd_pct": -638.0,
+  "max_dd_pct": -547.2,
   "wiped": true,
   "es5_daily_pct": -9.11,
   "hedges": 769,
@@ -100,7 +100,7 @@
  "L=0.6 h=0.5 stop=6.0 order=stop_first": {
   "final": 16510.59,
   "mult": 0.663,
-  "max_dd_pct": -174.6,
+  "max_dd_pct": -168.7,
   "wiped": true,
   "es5_daily_pct": -23.8,
   "hedges": 393,
@@ -109,7 +109,7 @@
  "L=0.6 h=0.5 stop=6.0 order=best_first": {
   "final": -28234.14,
   "mult": -1.134,
-  "max_dd_pct": -301.3,
+  "max_dd_pct": -283.5,
   "wiped": true,
   "es5_daily_pct": -32.61,
   "hedges": 483,
@@ -118,7 +118,7 @@
  "L=0.6 h=1.0 stop=3.0 order=stop_first": {
   "final": -87046.16,
   "mult": -3.497,
-  "max_dd_pct": -593.6,
+  "max_dd_pct": -585.8,
   "wiped": true,
   "es5_daily_pct": -15.23,
   "hedges": 1141,
@@ -136,7 +136,7 @@
  "L=0.6 h=1.0 stop=6.0 order=stop_first": {
   "final": -35928.67,
   "mult": -1.443,
-  "max_dd_pct": -256.5,
+  "max_dd_pct": -234.0,
   "wiped": true,
   "es5_daily_pct": -69.42,
   "hedges": 393,
@@ -145,7 +145,7 @@
  "L=0.6 h=1.0 stop=6.0 order=best_first": {
   "final": -125418.13,
   "mult": -5.038,
-  "max_dd_pct": -600.3,
+  "max_dd_pct": -519.5,
   "wiped": true,
   "es5_daily_pct": -9.24,
   "hedges": 483,
