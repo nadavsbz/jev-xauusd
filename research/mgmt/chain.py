@@ -54,21 +54,22 @@ K = 100.0          # contract size of XAUUSD / XAUUSDc (pairing error 0.005 on t
 
 
 def path(pos, bt, lo, hi, ask_add, capital):
-    """Equity path of one run, the conservative side of every minute (review PR #31): buys at the bar low, sells
-    closed at the ASK (bar high + the bar's spread). Also returns the open volume per minute (closing commission)."""
+    """Equity path of one run. The whole book is valued twice per minute, once with the price at the bar's LOW and
+    once at its HIGH (sells at the ASK = price + the bar's spread), and only then the worse/better total is taken:
+    the price cannot be at the low and the high at once (review PR #31, rounds 3 and 4). Also returns the open
+    volume per minute (closing commission)."""
     a0 = np.searchsorted(bt, pos.t0.min(), "left"); a1 = np.searchsorted(bt, pos.t1.max(), "right")
-    tt = bt[a0:a1]; worst = np.zeros(len(tt)); best = np.zeros(len(tt)); real = np.zeros(len(tt)); vol = np.zeros(len(tt))
+    tt = bt[a0:a1]; at_lo = np.zeros(len(tt)); at_hi = np.zeros(len(tt)); real = np.zeros(len(tt)); vol = np.zeros(len(tt))
     L, H, A = lo[a0:a1], hi[a0:a1], ask_add[a0:a1]
     for r in pos.itertuples():
         i = max(np.searchsorted(tt, r.t0, "right") - 1, 0); j = np.searchsorted(tt, r.t1, "left")
         acc = r.cost_in + r.swap * (np.arange(j - i) + 1) / max(j - i, 1) if j > i else 0.0
-        if r.side == "buy":
-            worst[i:j] += r.vol * (L[i:j] - r.p0) * K + acc; best[i:j] += r.vol * (H[i:j] - r.p0) * K + acc
-        else:
-            worst[i:j] += -r.vol * (H[i:j] + A[i:j] - r.p0) * K + acc; best[i:j] += -r.vol * (L[i:j] + A[i:j] - r.p0) * K + acc
+        sgn, add = (1, 0.0) if r.side == "buy" else (-1, A[i:j])
+        at_lo[i:j] += sgn * r.vol * (L[i:j] + add - r.p0) * K + acc
+        at_hi[i:j] += sgn * r.vol * (H[i:j] + add - r.p0) * K + acc
         vol[i:j] += r.vol
         real[np.searchsorted(tt, r.t1, "left"):] += r.net
-    return tt, capital + real + worst, capital + real + best, vol
+    return tt, capital + real + np.minimum(at_lo, at_hi), capital + real + np.maximum(at_lo, at_hi), vol
 
 
 def window(cfg, B, start, end, eq, lot, level, peak, safe):
@@ -120,13 +121,16 @@ def replay(cfg, B):
     trading day with the same lot per equity and the same protection ratio (ASSUMED), until the next row
     (review PR #31). The end is compared with the next row's real equity plus what was moved out in between."""
     rows = json.load(open(os.path.join(ROOT, cfg["schedule"]), encoding="utf-8"))
-    out = []; peak = rows[0]["eq"]; worst = 0.0
+    # what the user moved out (withdrawn_cum) is the safe base: it stays in the total, so a withdrawal is not a
+    # drawdown (review PR #31, round 4)
+    out = []; peak = rows[0]["eq"] + rows[0]["withdrawn_cum"]; worst = 0.0
     for r, n in zip(rows[:-1], rows[1:]):
         start, stop = dt.date.fromisoformat(r["date"]), dt.date.fromisoformat(n["date"])
-        eq = r["eq"]; peak = max(peak, eq); hits = []; ratio = r["level"] / r["eq"] if r["level"] else 0.0
+        eq = r["eq"]; safe = r["withdrawn_cum"]; peak = max(peak, eq + safe); hits = []
+        ratio = r["level"] / r["eq"] if r["level"] else 0.0
         while start < stop and eq > 0:
             lot = max(0.01, round(r["lot"] * eq / r["eq"], 2))
-            w = window(cfg, B, start, stop, eq, lot, ratio * eq, peak, 0.0)
+            w = window(cfg, B, start, stop, eq, lot, ratio * eq, peak, safe)
             peak = w["peak"]; worst = min(worst, w["dd"]); eq = w["eq_end"]
             if not w["hit"]:
                 break
