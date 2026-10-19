@@ -114,8 +114,16 @@ void RetryPending()
 // gold move over the last MoveMinutes, in % (closed M1 bars only)
 double MovePctNow()
   {
+   // the reference bar is found by TIME, not by bar count (review PR #29): after a weekend, a holiday or the
+   // daily break, bar 1+MoveMinutes may be hours old. No bar inside the window: no move is known, no block.
    double c0 = iClose(_Symbol, PERIOD_M1, 1);
-   double cN = iClose(_Symbol, PERIOD_M1, 1 + MoveMinutes);
+   datetime t0 = iTime(_Symbol, PERIOD_M1, 1);
+   datetime tref = t0 - (datetime)MoveMinutes * 60;
+   int k = iBarShift(_Symbol, PERIOD_M1, tref, false);          // the bar at or before tref
+   if(k < 1) return 0;
+   datetime tk = iTime(_Symbol, PERIOD_M1, k);
+   if(tk < tref - 60 || t0 - tk > (datetime)MoveMinutes * 60 + 60) return 0;   // a gap: the bar is not in the window
+   double cN = iClose(_Symbol, PERIOD_M1, k);
    if(c0 <= 0 || cN <= 0) return 0;
    return (c0 - cN) / cN * 100.0;
   }

@@ -157,7 +157,7 @@ def main():
                     print("testing started; the report will appear in", root)
                     break
             else:
-                print("terminal did not start testing within 10 minutes")
+                sys.exit("terminal did not start testing within 10 minutes")   # a failure, not a success (review PR #29)
             return
         proc = subprocess.run([a.terminal, "/portable", f"/config:{ini}"], timeout=a.timeout)
         print(f"terminal exited with {proc.returncode} after {time.time() - t0:.0f}s")
