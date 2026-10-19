@@ -56,7 +56,8 @@ def main():
     j = json.load(open(sys.argv[1], encoding="utf-8"))
     if "--revalidate" in sys.argv:          # check an existing XML report again with the current rule
         ev = os.path.join(ROOT, "docs", "evidence", j["report"] + ".json")
-        validate_and_write(j, dict(j["ranges"]), os.path.join(os.path.dirname(TERM), j["report"] + ".xml"), ev)
+        if not validate_and_write(j, dict(j["ranges"]), os.path.join(os.path.dirname(TERM), j["report"] + ".xml"), ev):
+            sys.exit("revalidation failed: evidence written as .invalid")
         return
     ev = os.path.join(ROOT, "docs", "evidence", j["report"] + ".json")
     if os.path.exists(ev):
@@ -81,7 +82,8 @@ def main():
     xml = os.path.join(os.path.dirname(TERM), j["report"] + ".xml")
     if r.returncode != 0 or not os.path.exists(xml):
         sys.exit(f"optimization failed (rc {r.returncode})")
-    validate_and_write(j, ranges, xml, ev)
+    if not validate_and_write(j, ranges, xml, ev):           # a rejected report is a failure (review PR #29)
+        sys.exit("validation failed: evidence written as .invalid")
 
 
 def validate_and_write(j, ranges, xml, ev):

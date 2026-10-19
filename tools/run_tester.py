@@ -79,10 +79,11 @@ def preflight(terminal, acc):
         txt = raw.decode("utf-16", errors="ignore") if raw.startswith(codecs.BOM_UTF16_LE) else raw.decode("utf-8", errors="ignore")
         if "<expert>" in txt.lower():
             sys.exit(f"refusing: chart {chr_} has an EA attached - remove it before the preflight login")
-    if not mt5.initialize(path=terminal, login=login, password=acc["password"], server=acc["server"],
-                          portable=True, timeout=240000):
-        sys.exit(f"preflight login failed: {mt5.last_error()}")
     try:
+        # initialize inside try (review PR #29): a failed login can still have started the terminal
+        if not mt5.initialize(path=terminal, login=login, password=acc["password"], server=acc["server"],
+                              portable=True, timeout=240000):
+            sys.exit(f"preflight login failed: {mt5.last_error()}")
         info = None
         for _ in range(12):                      # the login switch can lag behind initialize()
             info = mt5.account_info()
