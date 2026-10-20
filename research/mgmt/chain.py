@@ -101,12 +101,25 @@ def window(cfg, B, start, end, eq, lot, level, peak, safe, flat_after=None):
     hit = np.nonzero(e_close <= level)[0] if level > 0 else []
     f = None
     if flat_after is not None:
+        # the tester's own end-of-test closes are NOT a natural flat moment (review PR #34): every minute from
+        # the first such close on is excluded. They carry the comment "end of test"; as a fallback, exits at
+        # the run's very last deal time on its final day are treated the same way.
+        outs = d[d.dir == "out"]
+        eot = outs[outs.comment.str.contains("end of test", case=False, na=False)]
+        last_t = int(d.t.max()) if len(d) else 0
+        end_ts = int(dt.datetime.combine(end, dt.time()).replace(tzinfo=dt.timezone.utc).timestamp())
+        if eot.empty and len(outs) and last_t >= end_ts - 86400:
+            eot = outs[outs.t == last_t]
+        cut = int(eot.t.min()) if len(eot) else None
         tb = int(dt.datetime.combine(flat_after, dt.time()).replace(tzinfo=dt.timezone.utc).timestamp())
-        cand = np.nonzero((tt >= tb) & (vol == 0))[0]
+        natural = (tt >= tb) & (vol == 0)
+        if cut is not None:
+            natural &= tt < cut
+        cand = np.nonzero(natural)[0]
         if len(cand):
             f = int(cand[0])
-        elif tt[-1] >= tb or len(tt) == 0:
-            f = len(tt) - 1                       # flat after the last exit of the run
+        elif cut is None and tt[-1] >= tb:
+            f = len(tt) - 1                       # flat after the last (natural) exit of the run
     if len(hit) and (f is None or hit[0] <= f):
         k = hit[0] + 1
     elif f is not None:
@@ -194,6 +207,10 @@ def main():
             end = min(boundary + dt.timedelta(days=14), stop)   # room to reach a flat moment after the boundary
         lot = max(0.01, round(eq / cfg["divisor"], 2))
         w = window(cfg, B, start, end, eq, lot, cfg["protect"] * eq, peak, safe, flat_after=boundary)
+        tries = 1
+        while w.get("forced_end") and end < stop and tries < 6:     # no natural flat yet: run longer (review PR #34)
+            end = min(end + dt.timedelta(days=14), stop); tries += 1
+            w = window(cfg, B, start, end, eq, lot, cfg["protect"] * eq, peak, safe, flat_after=boundary)
         e1 = w["eq_end"]; gain = e1 - eq
         if gain > 0 and cfg.get("sweep", 0) > 0:
             s = gain * cfg["sweep"]; safe += s; e1 -= s

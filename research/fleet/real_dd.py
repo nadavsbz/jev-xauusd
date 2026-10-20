@@ -30,6 +30,20 @@ def bars(kind):
     return b.time.values.astype(np.int64), b.low.values, b.high.values, b.spread.values * point
 
 
+def rollover_swap(t, total):
+    """Swap of one position, booked step by step at the daily rollovers (server midnight) inside its life, with
+    the Wednesday-night rollover counted three times (review PR #34): never before it was charged."""
+    if len(t) == 0 or total == 0:
+        return 0.0
+    days = pd.to_datetime(t, unit="s").normalize()
+    roll = np.r_[False, days.values[1:] != days.values[:-1]]          # first minute of each new server day
+    wd = days.dayofweek.values                                         # the rollover into Thursday = Wed night
+    w = np.where(roll & (wd < 5), np.where(wd == 3, 3.0, 1.0), 0.0)
+    if w.sum() == 0:
+        return 0.0
+    return total * np.cumsum(w) / w.sum()
+
+
 def account(folder, kind, start=None):
     snap = sorted(d for d in glob.glob(os.path.join(ROOT, "data", "raw", folder, "2*")) if os.path.isdir(d))[-1]
     d = pd.read_csv(os.path.join(snap, "deals.csv")).sort_values("time_msc")
@@ -38,6 +52,10 @@ def account(folder, kind, start=None):
     gold = tr.symbol.astype(str).str.startswith("XAUUSD")
     bt, lo, hi, ask = bars(kind)
     t0 = int(d.time.min()); t1 = int(d.time.max())
+    # positions still open at the snapshot: rebuild up to the end of the bars (review PR #34), not the last deal
+    pos_in = set(tr[tr.entry == 0].position_id); pos_out = set(tr[tr.entry == 1].position_id)
+    if pos_in - pos_out:
+        t1 = max(t1, int(bt[-1]))
     a0 = np.searchsorted(bt, t0, "left"); a1 = np.searchsorted(bt, t1, "right")
     tt = bt[a0:a1]; L, H, A = lo[a0:a1], hi[a0:a1], ask[a0:a1]
     if len(tt) == 0 or bt[0] > t0 + 86400 * 3:
@@ -60,8 +78,10 @@ def account(folder, kind, start=None):
         outs = g[g.entry == 1]
         j = np.searchsorted(tt, outs.time.max(), "left") if len(outs) else len(tt)
         add = 0.0 if side == 1 else A[i:j]
-        fl_lo[i:j] += side * vol * (L[i:j] + add - p0) * K
-        fl_hi[i:j] += side * vol * (H[i:j] + add - p0) * K
+        # swap accrues over the position's life (review PR #34); the exit deal books the full swap into cash
+        acc = rollover_swap(tt[i:j], float(g.swap.sum()))
+        fl_lo[i:j] += side * vol * (L[i:j] + add - p0) * K + acc
+        fl_hi[i:j] += side * vol * (H[i:j] + add - p0) * K + acc
         n_float += 1
     worst = cash + np.minimum(fl_lo, fl_hi) + safe; best = cash + np.maximum(fl_lo, fl_hi) + safe
     # a deposit is new capital, not a gain: the peak is measured on the total minus the cumulated deposits

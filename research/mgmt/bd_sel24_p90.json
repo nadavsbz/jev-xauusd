@@ -1,0 +1,16 @@
+{
+ "expert": "BD\\EA Black Dragon.ex5",
+ "period": "M15",
+ "model": 4,
+ "divisor": 600000,
+ "protect": 0.9,
+ "sweep": 0.0,
+ "tag": "bd_sel24_p90",
+ "base_set": "bd2afterpoint_l001_sp50.set",
+ "name": "Black Dragon 3",
+ "symbol": "XAUUSD",
+ "from": "2024-04-01",
+ "to": "2025-11-01",
+ "deposit": 50000,
+ "bars": "data/raw/black_dragon_3/rates_XAUUSD_M1_20261016T160347Z/bars.csv"
+}
