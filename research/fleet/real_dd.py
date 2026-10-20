@@ -30,6 +30,20 @@ def bars(kind):
     return b.time.values.astype(np.int64), b.low.values, b.high.values, b.spread.values * point
 
 
+def rollover_swap(t, total):
+    """Swap of one position, booked step by step at the daily rollovers (server midnight) inside its life, with
+    the Wednesday-night rollover counted three times (review PR #34): never before it was charged."""
+    if len(t) == 0 or total == 0:
+        return 0.0
+    days = pd.to_datetime(t, unit="s").normalize()
+    roll = np.r_[False, days.values[1:] != days.values[:-1]]          # first minute of each new server day
+    wd = days.dayofweek.values                                         # the rollover into Thursday = Wed night
+    w = np.where(roll & (wd < 5), np.where(wd == 3, 3.0, 1.0), 0.0)
+    if w.sum() == 0:
+        return 0.0
+    return total * np.cumsum(w) / w.sum()
+
+
 def account(folder, kind, start=None):
     snap = sorted(d for d in glob.glob(os.path.join(ROOT, "data", "raw", folder, "2*")) if os.path.isdir(d))[-1]
     d = pd.read_csv(os.path.join(snap, "deals.csv")).sort_values("time_msc")
@@ -65,7 +79,7 @@ def account(folder, kind, start=None):
         j = np.searchsorted(tt, outs.time.max(), "left") if len(outs) else len(tt)
         add = 0.0 if side == 1 else A[i:j]
         # swap accrues over the position's life (review PR #34); the exit deal books the full swap into cash
-        sw = float(g.swap.sum()); acc = sw * (np.arange(j - i) + 1) / max(j - i, 1) if j > i else 0.0
+        acc = rollover_swap(tt[i:j], float(g.swap.sum()))
         fl_lo[i:j] += side * vol * (L[i:j] + add - p0) * K + acc
         fl_hi[i:j] += side * vol * (H[i:j] + add - p0) * K + acc
         n_float += 1
