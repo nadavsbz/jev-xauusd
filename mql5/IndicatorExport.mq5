@@ -15,6 +15,7 @@ input string OutFile       = "indicator_export.csv";
 
 int handle = INVALID_HANDLE, fh = INVALID_HANDLE;
 datetime last_bar = 0;
+long     valid = 0;          // buffer values actually read: 0 at the end = the export failed (review PR #34)
 
 int OnInit()
   {
@@ -39,7 +40,7 @@ void OnTick()
    double v[1];
    for(int b = 0; b < MaxBuffers; b++)
      {
-      if(CopyBuffer(handle, b, 1, 1, v) == 1 && v[0] != EMPTY_VALUE) line += "," + DoubleToString(v[0], 6);
+      if(CopyBuffer(handle, b, 1, 1, v) == 1 && v[0] != EMPTY_VALUE) { line += "," + DoubleToString(v[0], 6); valid++; }
       else line += ",";
      }
    FileWriteString(fh, line + "\n");
@@ -47,6 +48,7 @@ void OnTick()
 
 void OnDeinit(const int reason)
   {
-   if(fh != INVALID_HANDLE) FileClose(fh);
+   if(fh != INVALID_HANDLE) { FileWriteString(fh, "#valid_values=" + IntegerToString(valid) + "\n"); FileClose(fh); }
+   if(valid == 0) Print("EXPORT FAILED: no buffer value was read");
    if(handle != INVALID_HANDLE) IndicatorRelease(handle);
   }
