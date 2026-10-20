@@ -1,0 +1,52 @@
+{
+ "server": "EGlobalTrade-Classic",
+ "account_currency": "CNT",
+ "pulled_utc": "2026-10-15T23:11:13.982821+00:00",
+ "symbols": {
+  "XAUUSDc": {
+   "name": "XAUUSDc",
+   "description": "Gold vs US Dollar",
+   "digits": 3,
+   "point": 0.001,
+   "trade_contract_size": 100.0,
+   "volume_min": 0.01,
+   "volume_step": 0.01,
+   "volume_max": 1000.0,
+   "currency_base": "USD",
+   "currency_profit": "USD",
+   "currency_margin": "USD",
+   "trade_tick_size": 0.001,
+   "trade_tick_value": 0.0
+  },
+  "$US100c": {
+   "name": "$US100c",
+   "description": "US Tech 100 Index",
+   "digits": 1,
+   "point": 0.1,
+   "trade_contract_size": 100.0,
+   "volume_min": 0.01,
+   "volume_step": 0.01,
+   "volume_max": 1000.0,
+   "currency_base": "USD",
+   "currency_profit": "USD",
+   "currency_margin": "USD",
+   "trade_tick_size": 0.1,
+   "trade_tick_value": 0.0
+  },
+  "$US500c": {
+   "name": "$US500c",
+   "description": "US 500 Index",
+   "digits": 2,
+   "point": 0.01,
+   "trade_contract_size": 100.0,
+   "volume_min": 0.01,
+   "volume_step": 0.01,
+   "volume_max": 1000.0,
+   "currency_base": "USD",
+   "currency_profit": "USD",
+   "currency_margin": "USD",
+   "trade_tick_size": 0.01,
+   "trade_tick_value": 0.0
+  }
+ }
+}

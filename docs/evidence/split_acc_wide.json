@@ -1,0 +1,62 @@
+{
+ "w=0.25 rest=bull": {
+  "annual_pct": 26.5,
+  "max_dd_pct": -20.6,
+  "final": 1.242
+ },
+ "w=0.25 rest=cash": {
+  "annual_pct": 19.9,
+  "max_dd_pct": -21.3,
+  "final": 1.181
+ },
+ "w=0.25 rest=dbmf": {
+  "annual_pct": 38.1,
+  "max_dd_pct": -20.9,
+  "final": 1.345
+ },
+ "w=0.3 rest=bull": {
+  "annual_pct": 30.1,
+  "max_dd_pct": -24.3,
+  "final": 1.274
+ },
+ "w=0.3 rest=cash": {
+  "annual_pct": 23.9,
+  "max_dd_pct": -25.1,
+  "final": 1.218
+ },
+ "w=0.3 rest=dbmf": {
+  "annual_pct": 40.9,
+  "max_dd_pct": -24.3,
+  "final": 1.371
+ },
+ "w=0.35 rest=bull": {
+  "annual_pct": 33.7,
+  "max_dd_pct": -27.9,
+  "final": 1.306
+ },
+ "w=0.35 rest=cash": {
+  "annual_pct": 27.9,
+  "max_dd_pct": -28.7,
+  "final": 1.254
+ },
+ "w=0.35 rest=dbmf": {
+  "annual_pct": 43.7,
+  "max_dd_pct": -27.7,
+  "final": 1.396
+ },
+ "w=0.4 rest=bull": {
+  "annual_pct": 37.3,
+  "max_dd_pct": -31.4,
+  "final": 1.339
+ },
+ "w=0.4 rest=cash": {
+  "annual_pct": 31.9,
+  "max_dd_pct": -32.2,
+  "final": 1.29
+ },
+ "w=0.4 rest=dbmf": {
+  "annual_pct": 46.6,
+  "max_dd_pct": -31.0,
+  "final": 1.421
+ }
+}

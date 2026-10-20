@@ -1,0 +1,32 @@
+{
+ "report": "bdstoch_lv_sel",
+ "base_set": "bd2afterpoint_l001_sp50.set",
+ "fixed": {
+  "Use_Stoh": "true"
+ },
+ "ranges": {
+  "Up_Level": [
+   70,
+   10,
+   90
+  ],
+  "Down_Level": [
+   10,
+   10,
+   30
+  ],
+  "TF_Stoh": [
+   0,
+   16385,
+   16385
+  ]
+ },
+ "name": "Black Dragon 3",
+ "expert": "BD\\EA Black Dragon.ex5",
+ "symbol": "XAUUSD",
+ "period": "M15",
+ "from": "2024.04.01",
+ "to": "2025.11.01",
+ "deposit": 24895,
+ "leverage": 1000
+}

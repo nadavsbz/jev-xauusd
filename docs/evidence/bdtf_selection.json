@@ -1,0 +1,22 @@
+{
+ "rows": {
+  "M15": {
+   "Profit": "12,735.63",
+   "Equity DD %": "32.42"
+  },
+  "M5": {
+   "Profit": "-24,840.02",
+   "Equity DD %": "99.91"
+  },
+  "M30": {
+   "Profit": "-24,864.62",
+   "Equity DD %": "99.90"
+  },
+  "H1": {
+   "Profit": "-24,837.40",
+   "Equity DD %": "99.80"
+  }
+ },
+ "chosen": "M15",
+ "passes_rule": false
+}

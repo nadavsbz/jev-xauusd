@@ -1,0 +1,69 @@
+[
+ {
+  "base_set": "bd2afterpoint_l001_sp50.set",
+  "name": "Black Dragon 3",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2022.01.01",
+  "to": "2024.04.01",
+  "deposit": 24895,
+  "leverage": 1000,
+  "model": 1,
+  "report": "bdanti_2022_s300_12",
+  "overrides": {
+   "Use_Stoh": "true"
+  }
+ },
+ {
+  "base_set": "bd2afterpoint_l001_sp50.set",
+  "name": "Black Dragon 3",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2022.01.01",
+  "to": "2024.04.01",
+  "deposit": 24895,
+  "leverage": 1000,
+  "model": 1,
+  "report": "bdanti_2022_s550_12",
+  "overrides": {
+   "Use_Stoh": "true",
+   "Fix_Distance": "550"
+  }
+ },
+ {
+  "base_set": "bd2afterpoint_l001_sp50.set",
+  "name": "Black Dragon 3",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2022.01.01",
+  "to": "2024.04.01",
+  "deposit": 24895,
+  "leverage": 1000,
+  "model": 1,
+  "report": "bdanti_2022_s550_16",
+  "overrides": {
+   "Use_Stoh": "true",
+   "Fix_Distance": "550",
+   "Distance_multiplier": "1.6"
+  }
+ },
+ {
+  "base_set": "bd2afterpoint_l001_sp50.set",
+  "name": "Black Dragon 3",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2022.01.01",
+  "to": "2024.04.01",
+  "deposit": 24895,
+  "leverage": 1000,
+  "model": 1,
+  "report": "bdanti_2022_orig",
+  "overrides": {
+   "Use_Stoh": "false"
+  }
+ }
+]

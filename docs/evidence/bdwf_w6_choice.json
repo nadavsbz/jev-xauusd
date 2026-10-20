@@ -1,0 +1,10 @@
+{
+ "window": 6,
+ "chosen": {
+  "Fix_Distance": "300",
+  "Distance_multiplier": "1.2",
+  "TP_": "300",
+  "OverlapOrderNumber": "5"
+ },
+ "eligible": true
+}

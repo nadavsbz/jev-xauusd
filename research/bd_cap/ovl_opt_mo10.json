@@ -1,0 +1,23 @@
+{
+ "report": "bdovl_sel_mo10",
+ "base_set": "bd2afterpoint_l001_sp50.set",
+ "fixed": {
+  "MaxOrdersBuy": "10",
+  "MaxOrdersSell": "10"
+ },
+ "ranges": {
+  "Overlap": [
+   0,
+   1,
+   1
+  ]
+ },
+ "name": "Black Dragon 3",
+ "expert": "BD\\EA Black Dragon.ex5",
+ "symbol": "XAUUSD",
+ "period": "M15",
+ "from": "2024.04.01",
+ "to": "2025.11.01",
+ "deposit": 24895,
+ "leverage": 1000
+}
