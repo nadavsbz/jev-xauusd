@@ -60,8 +60,10 @@ def account(folder, kind, start=None):
         outs = g[g.entry == 1]
         j = np.searchsorted(tt, outs.time.max(), "left") if len(outs) else len(tt)
         add = 0.0 if side == 1 else A[i:j]
-        fl_lo[i:j] += side * vol * (L[i:j] + add - p0) * K
-        fl_hi[i:j] += side * vol * (H[i:j] + add - p0) * K
+        # swap accrues over the position's life (review PR #34); the exit deal books the full swap into cash
+        sw = float(g.swap.sum()); acc = sw * (np.arange(j - i) + 1) / max(j - i, 1) if j > i else 0.0
+        fl_lo[i:j] += side * vol * (L[i:j] + add - p0) * K + acc
+        fl_hi[i:j] += side * vol * (H[i:j] + add - p0) * K + acc
         n_float += 1
     worst = cash + np.minimum(fl_lo, fl_hi) + safe; best = cash + np.maximum(fl_lo, fl_hi) + safe
     # a deposit is new capital, not a gain: the peak is measured on the total minus the cumulated deposits
