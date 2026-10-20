@@ -38,6 +38,10 @@ def account(folder, kind, start=None):
     gold = tr.symbol.astype(str).str.startswith("XAUUSD")
     bt, lo, hi, ask = bars(kind)
     t0 = int(d.time.min()); t1 = int(d.time.max())
+    # positions still open at the snapshot: rebuild up to the end of the bars (review PR #34), not the last deal
+    pos_in = set(tr[tr.entry == 0].position_id); pos_out = set(tr[tr.entry == 1].position_id)
+    if pos_in - pos_out:
+        t1 = max(t1, int(bt[-1]))
     a0 = np.searchsorted(bt, t0, "left"); a1 = np.searchsorted(bt, t1, "right")
     tt = bt[a0:a1]; L, H, A = lo[a0:a1], hi[a0:a1], ask[a0:a1]
     if len(tt) == 0 or bt[0] > t0 + 86400 * 3:
