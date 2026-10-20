@@ -34,7 +34,13 @@ def directions(d):
     """-> {buffer: Series of +1/-1/NaN per bar} for every buffer that carries information."""
     out = {}
     for b in [c for c in d.columns if c.startswith("b")]:
-        v = pd.to_numeric(d[b], errors="coerce")
+        raw = pd.to_numeric(d[b], errors="coerce")
+        u = set(raw.dropna().unique())
+        if u and u <= {-1.0, 1.0}:                        # a direction buffer itself (e.g. dot / candle colour)
+            out[f"{b}_dir"] = raw.ffill(); continue
+        if u and u <= {0.0, 1.0} and len(u) == 2:          # a 0/1 flag: 1 = up is ASSUMED, the reverse is the mirror
+            out[f"{b}_flag"] = raw * 2 - 1; continue
+        v = raw
         v = v.where((v.abs() < 1e7) & (v != 0))
         share = v.notna().mean()
         if share == 0:
@@ -69,7 +75,9 @@ def main():
         cl["with"] = st * cl.sgn
         ok = cl["with"].notna()
         c, n = cl[ok & cl.crash], cl[ok & ~cl.crash]
+        deep = cl[ok & (cl.mae_pct <= -5.0)]                 # descriptive only: the truly deep baskets (>= 5% floating loss)
         res["buffers"][name] = dict(
+            deep_baskets=int(len(deep)), deep_against_share=round(float((deep["with"] < 0).mean()), 3) if len(deep) else None,
             crash_against_share=round(float((c["with"] < 0).mean()), 3) if len(c) else None,
             normal_against_share=round(float((n["with"] < 0).mean()), 3) if len(n) else None,
             # what the rule "only open with the indicator" keeps and drops (in cents, the account's real pnl)
