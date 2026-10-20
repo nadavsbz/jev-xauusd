@@ -4,7 +4,7 @@
   "base_set": "tc_2d.set",
   "overrides": {},
   "name": "Black Dragon 3",
-  "expert": "Other\\TrendCatcher.ex5",
+  "expert": "Other\\TrendCatcherEA.ex5",
   "symbol": "XAUUSD",
   "period": "M15",
   "from": "2024.04.01",
@@ -17,7 +17,7 @@
   "base_set": "tc_3d.set",
   "overrides": {},
   "name": "Black Dragon 1",
-  "expert": "Other\\TrendCatcher.ex5",
+  "expert": "Other\\TrendCatcherEA.ex5",
   "symbol": "XAUUSDc",
   "period": "M15",
   "from": "2025.11.11",
@@ -30,7 +30,7 @@
   "base_set": "tc_2d.set",
   "overrides": {},
   "name": "Black Dragon 3",
-  "expert": "Other\\TrendCatcher.ex5",
+  "expert": "Other\\TrendCatcherEA.ex5",
   "symbol": "XAUUSD",
   "period": "M15",
   "from": "2022.01.01",
@@ -38,5 +38,18 @@
   "deposit": 50000,
   "leverage": 1000,
   "model": 1
+ },
+ {
+  "report": "tai_calib_2d",
+  "base_set": "empty.set",
+  "overrides": {},
+  "name": "Black Dragon 3",
+  "expert": "Other\\TrendAI_EA.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2025.09.01",
+  "to": "2025.10.01",
+  "deposit": 50000,
+  "leverage": 1000
  }
 ]
