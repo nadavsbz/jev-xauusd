@@ -78,10 +78,13 @@ def path(pos, bt, lo, hi, ask_add, capital, cl=None):
     return tt, lo_t, hi_t, vol
 
 
-def window(cfg, B, start, end, eq, lot, level, peak, safe):
+def window(cfg, B, start, end, eq, lot, level, peak, safe, flat_after=None):
     """One tester run from a flat account. -> dict with the equity at the end (or at the protection touch, after
     the closing commission), hit time, the new running peak of the TOTAL (account + safe base, intra-run peak
-    included, review PR #31) and the worst drawdown of the total against that running peak."""
+    included, review PR #31) and the worst drawdown of the total against that running peak.
+    flat_after (a date): the user changes the lot only when NO position is open (user, 20.10.2026), so the run is
+    cut at the first minute on/after that date with nothing open; 'flat' gives that time. If the book is never
+    flat before the run ends, the tester's end-of-test close is used and 'forced_end' is set (ASSUMED rare)."""
     bt, lo, hi, ask_add = B[:4]
     d = deals(run(cfg, start, end, eq, lot, f"mgmt_{cfg['tag']}"))
     res = dict(start=str(start), end=str(end), eq_start=round(eq, 2), lot=lot, level=round(level, 2), hit=None)
@@ -96,13 +99,28 @@ def window(cfg, B, start, end, eq, lot, level, peak, safe):
     tt, e_lo, e_hi, vol = path(pos, bt, lo, hi, ask_add, eq)
     e_close = e_lo + vol * cpl
     hit = np.nonzero(e_close <= level)[0] if level > 0 else []
-    k = hit[0] + 1 if len(hit) else len(tt)
+    f = None
+    if flat_after is not None:
+        tb = int(dt.datetime.combine(flat_after, dt.time()).replace(tzinfo=dt.timezone.utc).timestamp())
+        cand = np.nonzero((tt >= tb) & (vol == 0))[0]
+        if len(cand):
+            f = int(cand[0])
+        elif tt[-1] >= tb or len(tt) == 0:
+            f = len(tt) - 1                       # flat after the last exit of the run
+    if len(hit) and (f is None or hit[0] <= f):
+        k = hit[0] + 1
+    elif f is not None:
+        k = f + 1; hit = []
+    else:
+        k = len(tt)
     runpk = np.maximum.accumulate(np.maximum(e_hi[:k] + safe, peak))
     dd = float(((e_close[:k] + safe - runpk) / runpk).min())
     if len(hit):
         e1 = float(e_close[hit[0]]); res["hit"] = str(dt.datetime.utcfromtimestamp(int(tt[hit[0]])))
+    elif f is not None:
+        e1 = float(e_close[f]); res["flat"] = str(dt.datetime.utcfromtimestamp(int(tt[f])))
     else:
-        e1 = float(d.balance.iloc[-1])
+        e1 = float(d.balance.iloc[-1]); res["forced_end"] = flat_after is not None
     pk = max(float(runpk[-1]), e1 + safe)
     res.update(eq_end=round(e1, 2), min_eq=round(float(e_close[:k].min()), 2), peak=pk, dd=round(min(dd, 0.0), 5))
     return res
@@ -169,14 +187,19 @@ def main():
         start = dt.date.fromisoformat(cfg["from"])
     stop = dt.date.fromisoformat(cfg["to"])
     while start < stop and eq > 0:
-        end = min(next_monday(start), stop)
+        boundary = next_monday(start)
+        if boundary >= stop:
+            boundary, end = None, stop
+        else:
+            end = min(boundary + dt.timedelta(days=14), stop)   # room to reach a flat moment after the boundary
         lot = max(0.01, round(eq / cfg["divisor"], 2))
-        w = window(cfg, B, start, end, eq, lot, cfg["protect"] * eq, peak, safe)
+        w = window(cfg, B, start, end, eq, lot, cfg["protect"] * eq, peak, safe, flat_after=boundary)
         e1 = w["eq_end"]; gain = e1 - eq
         if gain > 0 and cfg.get("sweep", 0) > 0:
             s = gain * cfg["sweep"]; safe += s; e1 -= s
         w.update(eq_end=round(e1, 2), safe=round(safe, 2), total=round(e1 + safe, 2),
-                 next_start=str(min(next_day(w["hit"]), stop)) if w["hit"] else str(end))
+                 next_start=str(min(next_day(w["hit"] or w.get("flat") or str(end)), stop))
+                 if (w["hit"] or w.get("flat")) else str(end))   # ASSUMED: the next run starts the day after
         peak = w["peak"]
         with open(out, "a", encoding="utf-8") as f:
             f.write(json.dumps(w) + "\n")
