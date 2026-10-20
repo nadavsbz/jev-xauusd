@@ -1,0 +1,22 @@
+# BTC Bot strategy parameters (copied from the user's set file 'btc bot mt5-2digits.set'; panel/colour lines left out)
+# sha256 of the full set file: c0fa982e0b1ae944f43ab5800e4841c96ad421e370ff6675bfd21c604c255695
+NewCycle_=true
+Flag_Trade_Buy_=true
+Flag_Trade_Sell_=true
+Flag_Use_hedge=true
+MaxOrdersBuy=25
+MaxOrdersSell=25
+Lot_Init_=0.01
+Autolot_=false
+Martin_=1.2
+MaxLot_=1.0
+TP_=100
+SL_=0
+Overlap=true
+OverlapOrderNumber=6
+OverlapPercent=3
+Fix_Distance=300
+Order_dinamic_distance=8
+Dynamic_distance_start=300
+Distance_multiplier=1.2
+Flag_Use_News=false

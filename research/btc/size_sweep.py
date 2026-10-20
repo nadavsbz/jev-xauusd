@@ -78,13 +78,15 @@ def run(dep):
     end = low.t.iloc[0] if len(low) else tr.t.iloc[-1]
     dd_abs = float(re.sub(r"[^\d.]", "", (pairs.get("שווי הפסד מקסימלי") or "0").split("(")[0]) or 0)
     quality = next((v for v in pairs.values() if "טיקים" in v or "ticks" in v.lower()), None)
-    return {"set": SET, "deposit": dep, "wiped": bool(len(low)) or bool(stuck), "end": str(end.date()), "final": round(float(tr.balance.iloc[-1]), 2),
+    wiped, stuck = bool(len(low)), bool(stuck)
+    return {"set": SET, "deposit": dep, "report_sha256": __import__("hashlib").sha256(open(rep, "rb").read()).hexdigest(),
+            "wiped": wiped, "stuck": stuck, "survived": not (wiped or stuck), "end": str(end.date()), "final": round(float(tr.balance.iloc[-1]), 2),
             "net": round(float(net.sum()), 2), "equity_dd": pairs.get("שווי הפסד מקסימלי") or pairs.get("Equity Drawdown Maximal"),
             "equity_dd_usd": dd_abs,
             # the registered safety margin: the deposit must cover 1.5x the worst equity drawdown, and survive
-            "meets_margin_1_5": (not (bool(len(low)) or bool(stuck))) and dep >= 1.5 * dd_abs,
+            "meets_margin_1_5": (not (wiped or stuck)) and dep >= 1.5 * dd_abs,
             "trading_days": int((day != 0).sum()), "avg_per_trading_day": round(float(day[day != 0].mean()), 2),
-            "worst_day": round(float(day.min()), 2), "worst_day_date": str(day.idxmin().date()), "history_quality": quality}
+            "worst_day": round(float(day.min()), 2), "worst_day_date": str(day.idxmin().date()), "history_quality": "real ticks 100%" if quality and "100%" in quality else quality}
 
 
 def main():
