@@ -25,10 +25,10 @@ def daily(report, cfg_path, out):
     cfg = json.load(open(cfg_path, encoding="utf-8")); B = chain.load_bars(cfg)
     d = chain.deals(report); pos = chain.pair(d)[0]
     dep = float(d.balance.iloc[0] - d.profit.iloc[0] - d.commission.iloc[0] - d.swap.iloc[0])
-    tt, e_lo, e_hi, _ = chain.path(pos, *B, dep)
-    s = pd.DataFrame({"t": pd.to_datetime(tt, unit="s"), "lo": e_lo, "hi": e_hi})
+    tt, e_lo, e_hi, _, e_cl = chain.path(pos, *B[:4], dep, cl=B[4])
+    s = pd.DataFrame({"t": pd.to_datetime(tt, unit="s"), "lo": e_lo, "cl": e_cl})
     g = s.groupby(s.t.dt.date)
-    close = g.lo.last(); worst = g.lo.min(); prev = close.shift(1).fillna(dep)
+    close = g.cl.last(); worst = g.lo.min(); prev = close.shift(1).fillna(dep)   # ret at the close price (review PR #31)
     pd.DataFrame({"date": close.index, "ret": ((close - prev) / prev).values,
                   "worst": ((worst - prev) / prev).values}).to_csv(out, index=False)
     print(out, len(close), "days")

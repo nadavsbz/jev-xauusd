@@ -53,13 +53,14 @@ def run(cfg, start, end, deposit, lot, rep):
 K = 100.0          # contract size of XAUUSD / XAUUSDc (pairing error 0.005 on the EGlobal report, VERIFIED)
 
 
-def path(pos, bt, lo, hi, ask_add, capital):
+def path(pos, bt, lo, hi, ask_add, capital, cl=None):
     """Equity path of one run. The whole book is valued twice per minute, once with the price at the bar's LOW and
     once at its HIGH (sells at the ASK = price + the bar's spread), and only then the worse/better total is taken:
     the price cannot be at the low and the high at once (review PR #31, rounds 3 and 4). Also returns the open
     volume per minute (closing commission)."""
     a0 = np.searchsorted(bt, pos.t0.min(), "left"); a1 = np.searchsorted(bt, pos.t1.max(), "right")
     tt = bt[a0:a1]; at_lo = np.zeros(len(tt)); at_hi = np.zeros(len(tt)); real = np.zeros(len(tt)); vol = np.zeros(len(tt))
+    at_cl = np.zeros(len(tt)); C = cl[a0:a1] if cl is not None else None
     L, H, A = lo[a0:a1], hi[a0:a1], ask_add[a0:a1]
     for r in pos.itertuples():
         i = max(np.searchsorted(tt, r.t0, "right") - 1, 0); j = np.searchsorted(tt, r.t1, "left")
@@ -67,16 +68,21 @@ def path(pos, bt, lo, hi, ask_add, capital):
         sgn, add = (1, 0.0) if r.side == "buy" else (-1, A[i:j])
         at_lo[i:j] += sgn * r.vol * (L[i:j] + add - r.p0) * K + acc
         at_hi[i:j] += sgn * r.vol * (H[i:j] + add - r.p0) * K + acc
+        if C is not None:
+            at_cl[i:j] += sgn * r.vol * (C[i:j] + add - r.p0) * K + acc
         vol[i:j] += r.vol
         real[np.searchsorted(tt, r.t1, "left"):] += r.net
-    return tt, capital + real + np.minimum(at_lo, at_hi), capital + real + np.maximum(at_lo, at_hi), vol
+    lo_t, hi_t = capital + real + np.minimum(at_lo, at_hi), capital + real + np.maximum(at_lo, at_hi)
+    if C is not None:                                   # the equity at the bar's CLOSE (daily close-to-close returns)
+        return tt, lo_t, hi_t, vol, capital + real + at_cl
+    return tt, lo_t, hi_t, vol
 
 
 def window(cfg, B, start, end, eq, lot, level, peak, safe):
     """One tester run from a flat account. -> dict with the equity at the end (or at the protection touch, after
     the closing commission), hit time, the new running peak of the TOTAL (account + safe base, intra-run peak
     included, review PR #31) and the worst drawdown of the total against that running peak."""
-    bt, lo, hi, ask_add = B
+    bt, lo, hi, ask_add = B[:4]
     d = deals(run(cfg, start, end, eq, lot, f"mgmt_{cfg['tag']}"))
     res = dict(start=str(start), end=str(end), eq_start=round(eq, 2), lot=lot, level=round(level, 2), hit=None)
     pos = pair(d)[0] if len(d) else []
@@ -112,7 +118,7 @@ def next_day(ts):
 def load_bars(cfg):
     b = pd.read_csv(os.path.join(ROOT, cfg["bars"]))
     point = 0.001 if cfg["symbol"].endswith("c") else 0.01          # XAUUSDc 3 digits, XAUUSD 2 digits
-    return b.time.values.astype(np.int64), b.low.values, b.high.values, b.spread.values * point
+    return b.time.values.astype(np.int64), b.low.values, b.high.values, b.spread.values * point, b.close.values
 
 
 def replay(cfg, B):
