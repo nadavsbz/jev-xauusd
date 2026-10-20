@@ -9,6 +9,8 @@
 // the tester loads an iCustom indicator automatically only when its name is a constant; with an input name it
 // must be declared (review PR #34)
 #property tester_indicator "Strong_Support.ex5"
+#property tester_indicator "Trend AI.ex5"
+#property tester_indicator "Trend Catcher.ex5"
 input string IndicatorName = "Strong_Support";   // path under MQL5/Indicators, without .ex5
 input int    MaxBuffers    = 10;                 // buffers tried; the ones that fail are written as empty
 input string OutFile       = "indicator_export.csv";
