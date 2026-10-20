@@ -1,0 +1,61 @@
+{
+ "job": {
+  "report": "bdovl_sel_mo6",
+  "base_set": "bd2afterpoint_l001_sp50.set",
+  "fixed": {
+   "MaxOrdersBuy": "6",
+   "MaxOrdersSell": "6"
+  },
+  "ranges": {
+   "Overlap": [
+    0,
+    1,
+    1
+   ]
+  },
+  "name": "Black Dragon 3",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2024.04.01",
+  "to": "2025.11.01",
+  "deposit": 24895,
+  "leverage": 1000
+ },
+ "files": {
+  "ea_sha256": "29c6ce71d3700cced83e5d5d6bc379c5b7f1154c0b53669ab6bce43ab89701b3",
+  "set_sha256": "8bae631dbbe15c46ccfb2143856adcd040436488486bb49853666b1c956e4659"
+ },
+ "report_file": "bdovl_sel_mo6.xml",
+ "passes": [
+  {
+   "Pass": "1",
+   "Result": "9.97",
+   "Profit": "-24885.03",
+   "Expected Payoff": "-3.064659",
+   "Profit Factor": "0.386770",
+   "Recovery Factor": "-0.997661",
+   "Sharpe Ratio": "-2.335864",
+   "Custom": "0",
+   "Equity DD %": "99.9600",
+   "Trades": "8120",
+   "Overlap": "true"
+  },
+  {
+   "Pass": "0",
+   "Result": "9.97",
+   "Profit": "-24885.03",
+   "Expected Payoff": "-3.064659",
+   "Profit Factor": "0.386770",
+   "Recovery Factor": "-0.997661",
+   "Sharpe Ratio": "-2.335864",
+   "Custom": "0",
+   "Equity DD %": "99.9600",
+   "Trades": "8120",
+   "Overlap": "false"
+  }
+ ],
+ "fixed_as_columns": [],
+ "combinations_expected": 2,
+ "combinations_found": 2
+}
