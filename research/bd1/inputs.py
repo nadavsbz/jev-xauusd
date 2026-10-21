@@ -8,12 +8,12 @@ import pandas as pd
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "tools"))
 from market_calendar import check_trading_days  # noqa: E402
 
-RAW = "data/raw/black_dragon_1"
+RAW = os.environ.get("JEV_RAW", "data/raw/black_dragon_1")      # other fleet accounts: docs/FLEET_STATUS.md
 # The report's snapshots. The forward test (docs/BD1_GUARD_FORWARD.md) points
 # at newer pulls through the environment; the report itself never does.
 DEALS_SNAPSHOT = os.environ.get("JEV_DEALS_SNAPSHOT", "20261015T120553Z")
 RATES_SNAPSHOT = os.environ.get("JEV_RATES_SNAPSHOT", "rates_XAUUSDc_M1_20261015T144411Z")
-START = pd.Timestamp("2025-11-11").timestamp()   # first deal of magic 5555
+START = pd.Timestamp(os.environ.get("JEV_START", "2025-11-11")).timestamp()   # first deal of magic 5555 (account 1)
 MAGIC = 5555
 # Forward paper test, registered 2026-10-15 before any of its data existed (docs/BD1_GUARD_FORWARD.md)
 FORWARD_START = "2026-10-16"   # inclusive, by basket start (t0, server time)

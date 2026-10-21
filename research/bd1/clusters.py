@@ -7,6 +7,7 @@ closes and OUT_BY closes reduce the open volume at the time they happen.
 the default also counts the partial minutes of entry and exit (overstates)."""
 import os, sys, numpy as np, pandas as pd
 from inputs import load, START, MAGIC
+SYMBOL = os.environ.get("JEV_SYMBOL", "XAUUSDc")      # XAUUSD on the other broker of the fleet
 
 STRICT = "--strict" in sys.argv
 deals, bars = load()
@@ -15,7 +16,7 @@ deals["cash"] = deals.profit + deals.commission + deals.swap + deals.fee
 # position (manual trades, other magics), so manual losses do not shrink the
 # denominator of robot returns. Deposits/withdrawals stay in.
 deals["bal_after"] = deals.cash.cumsum()
-x = deals[deals.symbol == "XAUUSDc"]
+x = deals[deals.symbol == SYMBOL]
 ENTRY_IN, EXITS = 0, (1, 3)                     # 1 = OUT, 3 = OUT_BY
 if set(x.entry) - {ENTRY_IN, *EXITS}:
     sys.exit(f"unexpected entry types {set(x.entry)}")       # e.g. INOUT reversals
@@ -92,7 +93,7 @@ robot_pids = set(p.position_id)
 # later belong to the capital the robot started with
 t_robot = p.t0.min()
 opened_after = set(x[(x.entry == ENTRY_IN) & (x.time >= t_robot)].position_id) - robot_pids
-excl = deals.position_id.isin(opened_after) & (deals.symbol == "XAUUSDc")
+excl = deals.position_id.isin(opened_after) & (deals.symbol == SYMBOL)
 deals["bal_robot"] = deals.bal_after - deals.cash.where(excl, 0).cumsum()
 print(f"excluded positions' P&L since start: {deals.cash[excl].sum():.2f}")
 bal_t = deals.time.values; bal_v = deals.bal_robot.values
