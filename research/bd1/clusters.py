@@ -202,6 +202,7 @@ np.savez_compressed(f"{OUT}/record_lows_strict.npz" if STRICT else f"{OUT}/recor
                     **{str(k): v for k, v in lows_by_cid.items()})
 np.savez_compressed(f"{OUT}/levels_strict.npz" if STRICT else f"{OUT}/levels.npz",
                     **{str(k): v for k, v in levels_by_cid.items()})
+p.to_csv(f"{OUT}/positions_strict.csv" if STRICT else f"{OUT}/positions.csv", index=False)   # per position, with its basket
 np.savez_compressed(f"{OUT}/paths_strict.npz" if STRICT else f"{OUT}/paths.npz",
                     **{str(k): v for k, v in paths_by_cid.items()})
 print(len(o), "baskets;", o.guard.sum(), "with a guard (magic 0) close")
