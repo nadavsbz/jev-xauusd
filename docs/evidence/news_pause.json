@@ -1,0 +1,88 @@
+{
+ "accounts": {
+  "1": {
+   "baskets": 9926,
+   "deep": 28,
+   "deep_near_news": 2,
+   "share_all_near_news": 0.036,
+   "share_deep_near_news": 0.071,
+   "blocked": 136,
+   "blocked_deep": 1,
+   "x_actual": 9.138,
+   "x_rule": 10.968,
+   "saved_pct": 22.66,
+   "lost_pct": 7.29
+  },
+  "2": {
+   "baskets": 1904,
+   "deep": 5,
+   "deep_near_news": 0,
+   "share_all_near_news": 0.048,
+   "share_deep_near_news": 0.0,
+   "blocked": 29,
+   "blocked_deep": 0,
+   "x_actual": 1.307,
+   "x_rule": 1.285,
+   "saved_pct": 0.0,
+   "lost_pct": 1.73
+  },
+  "3": {
+   "baskets": 8342,
+   "deep": 19,
+   "deep_near_news": 0,
+   "share_all_near_news": 0.032,
+   "share_deep_near_news": 0.0,
+   "blocked": 98,
+   "blocked_deep": 0,
+   "x_actual": 1.339,
+   "x_rule": 1.297,
+   "saved_pct": 0.38,
+   "lost_pct": 3.58
+  },
+  "5": {
+   "baskets": 5784,
+   "deep": 13,
+   "deep_near_news": 0,
+   "share_all_near_news": 0.041,
+   "share_deep_near_news": 0.0,
+   "blocked": 77,
+   "blocked_deep": 0,
+   "x_actual": 1.457,
+   "x_rule": 1.406,
+   "saved_pct": 0.41,
+   "lost_pct": 4.0
+  },
+  "6": {
+   "baskets": 3967,
+   "deep": 11,
+   "deep_near_news": 0,
+   "share_all_near_news": 0.041,
+   "share_deep_near_news": 0.0,
+   "blocked": 55,
+   "blocked_deep": 0,
+   "x_actual": 2.224,
+   "x_rule": 2.163,
+   "saved_pct": 0.43,
+   "lost_pct": 3.23
+  },
+  "8": {
+   "baskets": 4296,
+   "deep": 18,
+   "deep_near_news": 2,
+   "share_all_near_news": 0.038,
+   "share_deep_near_news": 0.111,
+   "blocked": 60,
+   "blocked_deep": 1,
+   "x_actual": 0.864,
+   "x_rule": 1.846,
+   "saved_pct": 54.64,
+   "lost_pct": 2.96
+  }
+ },
+ "fleet": {
+  "saved_pct_sum": 78.52,
+  "lost_pct_sum": 22.79,
+  "accounts_not_worse": 2,
+  "passes": false
+ }
+}
