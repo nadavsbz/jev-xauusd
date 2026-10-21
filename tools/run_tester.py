@@ -25,7 +25,7 @@ ToDate={to}
 ForwardMode=0
 Deposit={deposit}
 Leverage=1:{leverage}
-ExecutionMode=0
+ExecutionMode={delay}
 Report={report}
 ReplaceReport=1
 ShutdownTerminal=1
@@ -117,6 +117,7 @@ def main():
     p.add_argument("--leverage", type=int, default=1000)
     p.add_argument("--report", required=True, help="report name, relative to the terminal folder")
     p.add_argument("--timeout", type=int, default=4 * 3600)
+    p.add_argument("--delay", type=int, default=0, help="execution delay: 0 none, -1 random, N fixed milliseconds")
     p.add_argument("--detach", action="store_true", help="start the terminal and return once testing has started")
     p.add_argument("--optimization", type=int, default=0,
                    help="0 single pass, 1 slow complete (every combination of the ranges in the .set; local agents in parallel)")
@@ -140,7 +141,7 @@ def main():
             f.write(INI.format(login=int(acc["login"]), password=acc["password"], server=acc["server"],
                                expert=a.expert, set_line=f"ExpertParameters={a.set}\n" if a.set else "", symbol=a.symbol, period=a.period, model=a.model,
                                from_=a.from_, to=a.to, deposit=a.deposit, leverage=a.leverage, report=a.report,
-                               optimization=a.optimization, visual=a.visual))
+                               optimization=a.optimization, visual=a.visual, delay=a.delay))
         t0 = time.time()
         if a.detach:
             # The terminal runs on its own (survives this script); the config with the

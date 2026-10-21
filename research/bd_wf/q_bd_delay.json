@@ -1,0 +1,32 @@
+[
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 24895,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "report": "bd_cal_delay_rand",
+  "overrides": {},
+  "from": "2025.11.11",
+  "to": "2026.10.14",
+  "delay": -1,
+  "model": 4
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 24895,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "report": "bd_cal_delay_300",
+  "overrides": {},
+  "from": "2025.11.11",
+  "to": "2026.10.14",
+  "delay": 300,
+  "model": 4
+ }
+]
