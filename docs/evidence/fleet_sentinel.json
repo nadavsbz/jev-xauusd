@@ -1,0 +1,71 @@
+{
+ "alerts": 203,
+ "accounts": {
+  "1": {
+   "baskets": 9926,
+   "blocked": 412,
+   "blocked_deep": 2,
+   "deep": 28,
+   "x_actual": 9.138,
+   "x_rule": 9.609,
+   "saved_pct": 24.95,
+   "lost_pct": 23.65
+  },
+  "2": {
+   "baskets": 1904,
+   "blocked": 55,
+   "blocked_deep": 0,
+   "deep": 5,
+   "x_actual": 1.307,
+   "x_rule": 1.249,
+   "saved_pct": 0.0,
+   "lost_pct": 4.53
+  },
+  "3": {
+   "baskets": 8342,
+   "blocked": 381,
+   "blocked_deep": 5,
+   "deep": 19,
+   "x_actual": 1.339,
+   "x_rule": 1.902,
+   "saved_pct": 51.84,
+   "lost_pct": 25.52
+  },
+  "5": {
+   "baskets": 5784,
+   "blocked": 209,
+   "blocked_deep": 2,
+   "deep": 13,
+   "x_actual": 1.457,
+   "x_rule": 1.712,
+   "saved_pct": 28.16,
+   "lost_pct": 15.05
+  },
+  "6": {
+   "baskets": 3967,
+   "blocked": 172,
+   "blocked_deep": 1,
+   "deep": 11,
+   "x_actual": 2.224,
+   "x_rule": 1.933,
+   "saved_pct": 0.83,
+   "lost_pct": 14.93
+  },
+  "8": {
+   "baskets": 4296,
+   "blocked": 143,
+   "blocked_deep": 2,
+   "deep": 18,
+   "x_actual": 0.864,
+   "x_rule": 1.048,
+   "saved_pct": 28.83,
+   "lost_pct": 14.57
+  }
+ },
+ "fleet": {
+  "saved": 134.61,
+  "lost": 98.25,
+  "accounts_not_worse": 4,
+  "passes": true
+ }
+}
