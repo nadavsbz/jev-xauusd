@@ -15,7 +15,8 @@ for k, d in DIRS.items():
     o = o[(o.t0 >= T0) & (o.t1 <= T1)].reset_index(drop=True)
     i = np.searchsorted(tclose, o.t0.values, side="right") - 1
     r = np.where(i >= 0, reg.values[np.maximum(i, 0)], 0)
-    sgn = np.where(o.side == "B", 1, -1)
+    pos = pd.read_csv(os.path.join(d, "positions_strict.csv"))
+    sgn = o.cid.map(pos.sort_values("t0_msc").groupby("cid").sgn.first()).fillna(0).values   # side of the FIRST entry (review PR 36)
     blk = r * sgn < 0
     xa, xr = float(np.prod(1 + o.pnl_pct / 100)), float(np.prod(1 + o.pnl_pct[~blk] / 100))
     bb = o[blk]; s_, l_ = float(-bb.pnl_pct[bb.pnl_pct < 0].sum()), float(bb.pnl_pct[bb.pnl_pct > 0].sum())

@@ -1,71 +1,58 @@
 {
- "alerts": 203,
  "accounts": {
   "1": {
    "baskets": 9926,
-   "blocked": 412,
-   "blocked_deep": 2,
-   "deep": 28,
+   "blocked": 847,
    "x_actual": 9.138,
-   "x_rule": 9.609,
-   "saved_pct": 24.95,
-   "lost_pct": 23.65
+   "x_rule": 6.173,
+   "gain_actual_usd": 2307,
+   "gain_rule_usd": 1466
   },
   "2": {
    "baskets": 1904,
-   "blocked": 55,
-   "blocked_deep": 0,
-   "deep": 5,
+   "blocked": 158,
    "x_actual": 1.307,
-   "x_rule": 1.249,
-   "saved_pct": 0.0,
-   "lost_pct": 4.53
+   "x_rule": 1.251,
+   "gain_actual_usd": 157,
+   "gain_rule_usd": 128
   },
   "3": {
    "baskets": 8342,
-   "blocked": 381,
-   "blocked_deep": 5,
-   "deep": 19,
+   "blocked": 774,
    "x_actual": 1.339,
-   "x_rule": 1.902,
-   "saved_pct": 51.84,
-   "lost_pct": 25.52
+   "x_rule": 1.521,
+   "gain_actual_usd": 170,
+   "gain_rule_usd": 261
   },
   "5": {
    "baskets": 5784,
-   "blocked": 209,
-   "blocked_deep": 2,
-   "deep": 13,
+   "blocked": 512,
    "x_actual": 1.457,
-   "x_rule": 1.712,
-   "saved_pct": 28.16,
-   "lost_pct": 15.05
+   "x_rule": 1.208,
+   "gain_actual_usd": 366,
+   "gain_rule_usd": 166
   },
   "6": {
    "baskets": 3967,
-   "blocked": 172,
-   "blocked_deep": 1,
-   "deep": 11,
+   "blocked": 434,
    "x_actual": 2.224,
-   "x_rule": 1.933,
-   "saved_pct": 0.83,
-   "lost_pct": 14.93
+   "x_rule": 1.96,
+   "gain_actual_usd": 846,
+   "gain_rule_usd": 663
   },
   "8": {
    "baskets": 4296,
-   "blocked": 143,
-   "blocked_deep": 2,
-   "deep": 18,
+   "blocked": 387,
    "x_actual": 0.864,
-   "x_rule": 1.048,
-   "saved_pct": 28.83,
-   "lost_pct": 14.57
+   "x_rule": 1.019,
+   "gain_actual_usd": -68,
+   "gain_rule_usd": 9
   }
  },
  "fleet": {
-  "saved": 134.61,
-  "lost": 98.25,
-  "accounts_not_worse": 4,
-  "passes": true
+  "gain_actual_usd": 3778,
+  "gain_rule_usd": 2696,
+  "accounts_not_worse": 2,
+  "passes": false
  }
 }
