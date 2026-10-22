@@ -53,7 +53,7 @@ def one(i, T, q, S):
     elif jb < 10**9:
         val = base; worst = base + bad[:jb + 1].min()
     elif i1 - (m + 1) < HOLD:
-        return None                                      # censored: data ends before the 10-day horizon (PR 35 review)
+        return "censored"                                # data ends before the 10-day horizon (PR 35 review)
     else:
         last = sum(np.where(sj > 0, cl[i1 - 1] - pj, pj - cl[i1 - 1] - spr[i1 - 1]) * vj * K + cj for sj, vj, pj, cj in zip(s2, v2, px2, c2))
         val = base + last; worst = base + bad.min()
@@ -63,16 +63,23 @@ def one(i, T, q, S):
 
 def run(T, q, S):
     r = o.pnl_pct.values.copy(); tr = o.mae_pct.values.copy(); cases = []
+    keep = np.ones(len(o), bool)                       # censored baskets leave BOTH the rule and its baseline (PR 37 review)
     for i in range(len(o)):
         x = one(i, T, q, S)
+        if isinstance(x, str):
+            keep[i] = False
+            continue
         if x is None:
             continue
         cases.append(dict(t=str(pd.to_datetime(x[2], unit="s")), sim=round(x[0], 2), real=round(float(r[i]), 2), guard=bool(o.guard[i])))
         r[i], tr[i] = x[0], x[1]
-    out = {"T": T, "q": q, "S": S, "triggered": len(cases), "cases": cases}
+    out = {"T": T, "q": q, "S": S, "triggered": len(cases), "censored": int((~keep).sum()), "cases": cases, "base": {}}
     for h, msk in {"h1": o.t0.values < HALF, "h2": o.t0.values >= HALF, "all": np.ones(len(o), bool)}.items():
+        msk = msk & keep
         eq, dd = max_drawdown(r[msk] / 100, tr[msk] / 100)
         out[h] = (round(float(eq[-1]), 3), round(float(dd), 2))
+        eq, dd = max_drawdown(o.pnl_pct.values[msk] / 100, o.mae_pct.values[msk] / 100)
+        out["base"][h] = (round(float(eq[-1]), 3), round(float(dd), 2))
     return out
 
 
@@ -85,7 +92,7 @@ if __name__ == "__main__":
     for T in (10, 15):
         for q in (0.5, 0.75, 1.0):
             for S in ((25, 35) if q < 1 else (99,)):
-                x = run(T, q, S); a = res["actual"]
+                x = run(T, q, S); a = x["base"]
                 x["candidate"] = q < 1 and all(x[h][0] > a[h][0] and x[h][1] > a[h][1] for h in ("h1", "h2"))
                 res["grid"].append(x)
                 print(T, q, S, "h1", x["h1"], "h2", x["h2"], "all", x["all"], "n", x["triggered"], "candidate", x["candidate"], flush=True)
