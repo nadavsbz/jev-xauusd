@@ -1,0 +1,96 @@
+{
+ "train": {
+  "thresholds": {
+   "vol": 1.4690973325999346,
+   "expand": 1.0248934187256582,
+   "trend": 0.6111122738462765
+  },
+  "net_kept_by_feature": {
+   "vol": -39022.770000000004,
+   "expand": -41679.88000000002,
+   "trend": -39282.880000000005
+  },
+  "net_all": -26806.6,
+  "chosen": "vol",
+  "feature": "vol",
+  "weeks": 91,
+  "weeks_blocked": 30,
+  "baskets": 13709,
+  "net_switch": -39022.77,
+  "worst_all": -66154.27,
+  "worst_switch": -66154.27,
+  "deep_all": 2,
+  "deep_switch": 2,
+  "per_feature": {
+   "vol": {
+    "net_switch": -39022.77,
+    "worst_switch": -66154.27
+   },
+   "expand": {
+    "net_switch": -41679.88,
+    "worst_switch": -66154.27
+   },
+   "trend": {
+    "net_switch": -39282.88,
+    "worst_switch": -66154.27
+   }
+  }
+ },
+ "test1": {
+  "feature": "vol",
+  "weeks": 83,
+  "weeks_blocked": 39,
+  "baskets": 19018,
+  "net_all": 44069.11,
+  "net_switch": 17501.91,
+  "worst_all": -74671.07,
+  "worst_switch": -15516.4,
+  "deep_all": 10,
+  "deep_switch": 4,
+  "per_feature": {
+   "vol": {
+    "net_switch": 17501.91,
+    "worst_switch": -15516.4
+   },
+   "expand": {
+    "net_switch": 19204.66,
+    "worst_switch": -74671.07
+   },
+   "trend": {
+    "net_switch": 26697.58,
+    "worst_switch": -74671.07
+   }
+  },
+  "pass_net": false,
+  "pass_worst": true
+ },
+ "test2": {
+  "feature": "vol",
+  "weeks": 49,
+  "weeks_blocked": 46,
+  "baskets": 14286,
+  "net_all": 22619.65,
+  "net_switch": 929.83,
+  "worst_all": -20217.51,
+  "worst_switch": -786.62,
+  "deep_all": 6,
+  "deep_switch": 0,
+  "per_feature": {
+   "vol": {
+    "net_switch": 929.83,
+    "worst_switch": -786.62
+   },
+   "expand": {
+    "net_switch": 15364.73,
+    "worst_switch": -20217.51
+   },
+   "trend": {
+    "net_switch": 15279.76,
+    "worst_switch": -20217.51
+   }
+  },
+  "pass_net": false,
+  "pass_worst": true
+ },
+ "verdict": false
+}
