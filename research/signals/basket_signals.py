@@ -62,7 +62,9 @@ def main():
     exp = load_export(os.path.join(ROOT, "data", "derived", "indicators", f"{tag}_acc1_m15.csv"))
     cl = pd.read_csv(os.path.join(ROOT, "data", "derived", "bd1_forward", "clusters_strict.csv"))
     cl = cl[(cl.t0 >= exp.index.min() + 3600) & (cl.t1 <= exp.index.max())].copy()
-    cl["sgn"] = np.where(cl.side == "B", 1.0, -1.0)
+    pos = pd.read_csv(os.path.join(ROOT, "data", "derived", "bd1_forward", "positions_strict.csv"))
+    # side of the FIRST entry; the "side" column is the union of all sides ("B,S"), review PR 36
+    cl["sgn"] = cl.cid.map(pos.sort_values("t0_msc").groupby("cid").sgn.first()).astype(float)
     # crash baskets: the worst 5% by floating loss (MAE) in % of the balance; registered in docs/BD_SIGNALS_PLAN.md
     thr = cl.mae_pct.quantile(0.05)
     cl["crash"] = cl.mae_pct <= thr

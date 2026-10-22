@@ -1,0 +1,56 @@
+{
+ "-4.0_6h": {
+  "saved": 128.34,
+  "lost": 77.11,
+  "accounts_not_worse": 4,
+  "passes": true
+ },
+ "-4.0_12h": {
+  "saved": 217.83,
+  "lost": 123.22,
+  "accounts_not_worse": 5,
+  "passes": true
+ },
+ "-4.0_24h": {
+  "saved": 300.98,
+  "lost": 190.22,
+  "accounts_not_worse": 4,
+  "passes": true
+ },
+ "-5.0_6h": {
+  "saved": 128.18,
+  "lost": 60.99,
+  "accounts_not_worse": 4,
+  "passes": true
+ },
+ "-5.0_12h": {
+  "saved": 134.61,
+  "lost": 98.25,
+  "accounts_not_worse": 4,
+  "passes": true
+ },
+ "-5.0_24h": {
+  "saved": 211.3,
+  "lost": 145.99,
+  "accounts_not_worse": 4,
+  "passes": true
+ },
+ "-7.0_6h": {
+  "saved": 96.86,
+  "lost": 41.68,
+  "accounts_not_worse": 4,
+  "passes": true
+ },
+ "-7.0_12h": {
+  "saved": 103.27,
+  "lost": 69.43,
+  "accounts_not_worse": 4,
+  "passes": true
+ },
+ "-7.0_24h": {
+  "saved": 103.31,
+  "lost": 106.22,
+  "accounts_not_worse": 3,
+  "passes": false
+ }
+}
