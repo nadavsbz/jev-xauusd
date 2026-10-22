@@ -1,0 +1,96 @@
+{
+ "train": {
+  "thresholds": {
+   "vol": 1.386891927931899,
+   "expand": 1.0550741854914014,
+   "trend": 0.6040476634573726
+  },
+  "net_kept_by_feature": {
+   "vol": -41139.70000000001,
+   "expand": -41099.25,
+   "trend": -39578.049999999996
+  },
+  "net_all": -26806.6,
+  "chosen": "trend",
+  "feature": "trend",
+  "weeks": 91,
+  "weeks_blocked": 31,
+  "baskets": 13709,
+  "net_switch": -39578.05,
+  "worst_all": -64981.37,
+  "worst_switch": -64981.37,
+  "deep_all": 2,
+  "deep_switch": 1,
+  "per_feature": {
+   "vol": {
+    "net_switch": -41139.7,
+    "worst_switch": -64981.37
+   },
+   "expand": {
+    "net_switch": -41099.25,
+    "worst_switch": -64981.37
+   },
+   "trend": {
+    "net_switch": -39578.05,
+    "worst_switch": -64981.37
+   }
+  }
+ },
+ "test1": {
+  "feature": "trend",
+  "weeks": 83,
+  "weeks_blocked": 36,
+  "baskets": 19018,
+  "net_all": 44069.11,
+  "net_switch": 26131.72,
+  "worst_all": -74358.78,
+  "worst_switch": -74358.78,
+  "deep_all": 10,
+  "deep_switch": 5,
+  "per_feature": {
+   "vol": {
+    "net_switch": 14883.5,
+    "worst_switch": -15515.12
+   },
+   "expand": {
+    "net_switch": 22249.73,
+    "worst_switch": -74358.78
+   },
+   "trend": {
+    "net_switch": 26131.72,
+    "worst_switch": -74358.78
+   }
+  },
+  "pass_net": false,
+  "pass_worst": false
+ },
+ "test2": {
+  "feature": "trend",
+  "weeks": 49,
+  "weeks_blocked": 17,
+  "baskets": 14286,
+  "net_all": 22619.65,
+  "net_switch": 15279.76,
+  "worst_all": -20097.84,
+  "worst_switch": -20097.84,
+  "deep_all": 6,
+  "deep_switch": 4,
+  "per_feature": {
+   "vol": {
+    "net_switch": 0.0,
+    "worst_switch": NaN
+   },
+   "expand": {
+    "net_switch": 16019.38,
+    "worst_switch": -20097.84
+   },
+   "trend": {
+    "net_switch": 15279.76,
+    "worst_switch": -20097.84
+   }
+  },
+  "pass_net": false,
+  "pass_worst": false
+ },
+ "verdict": false
+}

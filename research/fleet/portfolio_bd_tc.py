@@ -24,7 +24,7 @@ for p, (bd, tc) in PERIODS.items():
     res[p] = {"bd_lot0": lb, "tc_lot0": lt}
     for w in WS:
         eq = CAP + (b + w * t).cumsum()
-        dd = float((eq / eq.cummax() - 1).min()); res[p][str(w)] = dict(profit_pct=round(float(eq.iloc[-1] / CAP - 1) * 100, 1),
+        dd = float((eq / eq.cummax().clip(lower=CAP) - 1).min()); res[p][str(w)] = dict(profit_pct=round(float(eq.iloc[-1] / CAP - 1) * 100, 1),
                                                                      max_dd_realised_pct=round(dd * 100, 1), min_eq_pct=round(float(eq.min() / CAP) * 100, 1))
     res[p]["corr_daily"] = round(float(np.corrcoef(b, t)[0, 1]), 3)
     print(p, json.dumps(res[p]))

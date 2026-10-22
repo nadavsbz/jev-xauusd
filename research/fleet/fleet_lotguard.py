@@ -106,7 +106,7 @@ if __name__ == "__main__":
     res = {"grid": []}
     for R in (400e3, 500e3, 600e3, 700e3, 800e3, 1e6, 1.2e6):
         for G in (10, 15, 20, 25, 30):
-            W = fleet(accs, R, G)
+            W = fleet(accs, R, G, weekly=False)          # the registered model; weekly is a separate comparison
             x = {"R": int(R), "G": G, "in_sample_x": round(float(np.prod(1 + W[:, 0])), 2)}
             x.update(boot(W)); res["grid"].append(x); print(x, flush=True)
     el = [x for x in res["grid"] if x["p_dd50"] <= 0.05]

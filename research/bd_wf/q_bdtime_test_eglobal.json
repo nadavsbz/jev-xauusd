@@ -1,0 +1,22 @@
+[
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 24895,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "report": "bdtime_test_eglobal",
+  "overrides": {
+   "MaxLot_": "0.2",
+   "Martin_": "1.3",
+   "MaxOrdersBuy": "10",
+   "MaxOrdersSell": "10",
+   "Start_Hour": "2",
+   "End_Hour": "21"
+  },
+  "from": "2025.11.11",
+  "to": "2026.10.14"
+ }
+]
