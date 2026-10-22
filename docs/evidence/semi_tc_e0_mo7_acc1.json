@@ -1,0 +1,94 @@
+{
+ "report_file": "semi_tc_e0_mo7_acc1.htm",
+ "report_sha256": "410a1f52c8aa86575fc170c8b4a9bd3d7934669d80c84362a1239fd6b1d12026",
+ "settings": {
+  "יועץ אוטומטי (רובוט)": "SemiTrend",
+  "צמד": "XAUUSDc",
+  "תקופה": "M15 (2025.11.11 - 2026.10.15)",
+  "חברה": "E-Global Trade and Finance Group, Inc.",
+  "מטבע": "USD",
+  "פיקדון התחלתי": "50,000.00",
+  "מינוף": "1:1000",
+  "איכות היסטוריה": "טיקים אמיתיים 100%"
+ },
+ "inputs": [
+  "Ind=Trend Catcher",
+  "DirBuffer=7",
+  "EntryMode=0",
+  "UseH4=true",
+  "CutOnFlip=true",
+  "Lot=0.16",
+  "Martin=1.5",
+  "MaxLot=5.0",
+  "MaxOrders=7",
+  "Dist=3.0",
+  "DynFrom=6",
+  "DynMult=1.2",
+  "TP=1.0",
+  "Magic=77001"
+ ],
+ "summary_from_report": {
+  "סך רווח נקי": "5,966.52",
+  "רווח ברוטו": "11,544.21",
+  "מאזן הפסד מקסימלי": "947.05 (1.78%)",
+  "שווי הפסד מקסימלי": "13,180.90 (25.41%)",
+  "הפסד ברוטו": "-5,577.69",
+  "מקדם רווח": "2.07",
+  "סך עסקאות": "191"
+ },
+ "recomputed": {
+  "deposit": 50000.0,
+  "entries": 191,
+  "trading_profit_before_costs": 6382.43,
+  "commission": -394.31,
+  "swap": -21.6,
+  "net": 5966.52,
+  "lots_opened": 56.33,
+  "exit_deals": 191,
+  "exit_win_rate_pct": 71.2,
+  "exit_avg_win": 84.88,
+  "exit_avg_loss": -94.24,
+  "daily_realised_pct_of_deposit_per_weekday": {
+   "count": 242.0,
+   "mean": 0.049,
+   "std": 0.154,
+   "min": -0.006,
+   "25%": 0.0,
+   "50%": 0.0,
+   "75%": 0.033,
+   "max": 1.28
+  },
+  "worst_days_pct": {
+   "2026-05-11": -0.01,
+   "2025-11-12": 0.0,
+   "2025-11-13": 0.0,
+   "2025-11-17": 0.0,
+   "2025-11-18": 0.0
+  },
+  "active_days": 94,
+  "end_of_test_closes": 0,
+  "end_of_test_net": 0.0,
+  "end_of_test_date": null
+ },
+ "job": {
+  "report": "semi_tc_e0_mo7_acc1",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "0",
+   "MaxOrders": "7"
+  },
+  "name": "Black Dragon 1",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "from": "2025.11.11",
+  "to": "2026.10.15",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ "files": {
+  "ea_sha256": "092c23452311140f983d5794faeca0139de4fc840a2c0ac43d26585ccc826b69",
+  "set_sha256": "0c737a9d4674c05c5e18f9f8c886d2ace883fbb96e5489bcfb312e44fe4f4efa"
+ }
+}

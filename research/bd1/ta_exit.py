@@ -24,8 +24,8 @@ def hourly_feats(b):
     f = pd.DataFrame(index=g.index)
     f["z"] = (g.close - mid) / sd
     f["bw"] = (4 * sd / mid).rolling(720, min_periods=200).rank(pct=True)
-    f["to_lo"] = (g.close - g.low.rolling("28D").min()) / adr
-    f["to_hi"] = (g.high.rolling("28D").max() - g.close) / adr
+    f["to_lo"] = (g.close - g.low.rolling("20D").min()) / adr
+    f["to_hi"] = (g.high.rolling("20D").max() - g.close) / adr
     f["adx"] = adx(g); f["rsi"] = rsi(g.close); f["mom4"] = (g.close - g.close.shift(4)) / adr
     f["tclose"] = (g.index.astype("int64") // 10**9) + 3600          # known at the bar's close
     return f.dropna()

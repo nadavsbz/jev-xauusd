@@ -57,6 +57,7 @@ def basket_table(run, src):
             for r in x.itertuples():
                 act = (bt[i0:i1] + 3600 > r.t0) & (bt[i0:i1] < r.t1)
                 fl += np.where(act, sgn * (px - r.p0) * g.K * r.vol, 0)
+                fl += np.where(bt[i0:i1] >= r.t1, r.net, 0)          # realised cash stays in the basket (PR 37 review)
             worst = float(fl.min())
         d0 = pd.to_datetime(t0, unit="s").normalize()
         rows.append(dict(week=d0 - pd.Timedelta(days=d0.weekday()), net=x.net.sum(), worst=min(worst, x.net.sum())))
@@ -67,7 +68,10 @@ tabs = {k: basket_table(r, "eg" if k == "test2" else "ss") for k, r in RUNS.item
 for k, b in tabs.items():
     wf = week_feats(sorted(b.week.unique()), "eg" if k == "test2" else "ss")
     tabs[k] = b.join(wf, on="week")
-tr = tabs["train"]; wtr = tr.drop_duplicates("week")
+tr = tabs["train"]
+# all calendar weeks of the training period, not only weeks with a basket (PR 37 review)
+allw = pd.date_range("2022-01-03", "2024-03-25", freq="W-MON")
+wtr = week_feats(list(allw), "ss")
 thr = {f: float(wtr[f].quantile(0.67)) for f in ("vol", "expand", "trend")}
 score = {f: float(tr[~(tr[f] > thr[f])].net.sum()) for f in thr}
 best = max(score, key=score.get)

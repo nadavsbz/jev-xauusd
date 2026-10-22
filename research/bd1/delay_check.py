@@ -41,6 +41,7 @@ for rep in sys.argv[2:]:
         for r in x.itertuples():
             act = (bt[i0:i1] >= r.t0 - 59) & (bt[i0:i1] < r.t1)
             fl += np.where(act, sgn * (px - r.p0) * g.K * r.vol, 0)
+            fl += np.where(bt[i0:i1] >= r.t1, r.net, 0)          # realised cash stays in the basket
         b0 = bal[bal.t <= t0].balance
         b0 = float(b0.iloc[-1]) if len(b0) else float(bal.balance.iloc[0])
         k = int(np.argmin(fl)); day = str(pd.to_datetime(bt[i0 + k], unit="s").date())
