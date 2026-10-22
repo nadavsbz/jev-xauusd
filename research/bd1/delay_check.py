@@ -44,8 +44,10 @@ for rep in sys.argv[2:]:
             fl += np.where(bt[i0:i1] >= r.t1, r.net, 0)          # realised cash stays in the basket
         b0 = bal[bal.t <= t0].balance
         b0 = float(b0.iloc[-1]) if len(b0) else float(bal.balance.iloc[0])
-        k = int(np.argmin(fl)); day = str(pd.to_datetime(bt[i0 + k], unit="s").date())
-        worst[day] = min(worst.get(day, 0), fl[k] / b0 * 100)
+        # minimum per calendar day over the basket's whole life, not only its global trough (PR 37 review)
+        days = pd.to_datetime(bt[i0:i1], unit="s").date.astype(str)
+        for day, v in pd.Series(fl).groupby(days).min().items():
+            worst[day] = min(worst.get(day, 0), v / b0 * 100)
     st["worst_float_pct"] = {dd: round(worst.get(dd, 0), 1) for dd in ("2026-04-21", "2026-04-28", "2026-04-30", "2026-05-28")}
     st["days_below_15"] = sorted(k for k, v in worst.items() if v <= -15)
     out[os.path.basename(rep)] = st
