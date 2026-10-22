@@ -1,0 +1,67 @@
+[
+ {
+  "report": "bdfx_eurusd_night",
+  "base_set": "ea_black_dragon_mt5_eurusd_m15_starthour_20_endhour_5.set",
+  "overrides": {},
+  "name": "Black Dragon 3",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "EURUSD",
+  "period": "M15",
+  "from": "2022.01.01",
+  "to": "2026.10.15",
+  "deposit": 10000,
+  "leverage": 1000
+ },
+ {
+  "report": "bdfx_eurusd_m30",
+  "base_set": "ea_black_dragon_mt5_eurusd_m30.set",
+  "overrides": {},
+  "name": "Black Dragon 3",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "EURUSD",
+  "period": "M30",
+  "from": "2022.01.01",
+  "to": "2026.10.15",
+  "deposit": 10000,
+  "leverage": 1000
+ },
+ {
+  "report": "bdfx_audcad",
+  "base_set": "ea_black_dragon_mt5_audcad_nzdcad_m15.set",
+  "overrides": {},
+  "name": "Black Dragon 3",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "AUDCAD",
+  "period": "M15",
+  "from": "2022.01.01",
+  "to": "2026.10.15",
+  "deposit": 10000,
+  "leverage": 1000
+ },
+ {
+  "report": "bdfx_nzdcad",
+  "base_set": "ea_black_dragon_mt5_audcad_nzdcad_m15.set",
+  "overrides": {},
+  "name": "Black Dragon 3",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "NZDCAD",
+  "period": "M15",
+  "from": "2022.01.01",
+  "to": "2026.10.15",
+  "deposit": 10000,
+  "leverage": 1000
+ },
+ {
+  "report": "bdfx_gbpusd_h1",
+  "base_set": "ea_black_dragon_mt5_gbpusd_h1.set",
+  "overrides": {},
+  "name": "Black Dragon 3",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "GBPUSD",
+  "period": "H1",
+  "from": "2022.01.01",
+  "to": "2026.10.15",
+  "deposit": 10000,
+  "leverage": 1000
+ }
+]

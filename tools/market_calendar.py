@@ -24,7 +24,7 @@ SHORT = {    # early close / late open: fewer bars expected
 KNOWN_UNTIL = date(2027, 6, 30)   # holidays are listed up to here; extend before using later data
 FULL_DAY_MIN_BARS = 1300     # a full day has ~1380 M1 bars
 SHORT_DAY_MIN_BARS = 1000
-MAX_INTRADAY_GAP_MIN = 65    # the daily break is ~60 min (62 in DST-mismatch weeks)
+MAX_INTRADAY_GAP_MIN = int(__import__("os").environ.get("JEV_MAX_GAP_MIN", 65))   # the daily break is ~60 min (62 in DST-mismatch weeks); the broker of accounts 2-6 breaks 66 min -> 70
 
 
 def check_trading_days(times, first_day, last_full_day):

@@ -1,0 +1,93 @@
+{
+ "report_file": "semi_tc_e1_sel24.htm",
+ "report_sha256": "48731994872c48c97e949b682e501d604efc34a6dba799935bde35e21c9d7a80",
+ "settings": {
+  "יועץ אוטומטי (רובוט)": "SemiTrend",
+  "צמד": "XAUUSD",
+  "תקופה": "M15 (2024.04.01 - 2025.11.01)",
+  "חברה": "RoboForex Ltd",
+  "מטבע": "USD",
+  "פיקדון התחלתי": "50,000.00",
+  "מינוף": "1:1000",
+  "איכות היסטוריה": "טיקים אמיתיים 100%"
+ },
+ "inputs": [
+  "Ind=Trend Catcher",
+  "DirBuffer=7",
+  "EntryMode=1",
+  "UseH4=true",
+  "CutOnFlip=true",
+  "Lot=0.16",
+  "Martin=1.5",
+  "MaxLot=5.0",
+  "MaxOrders=10",
+  "Dist=3.0",
+  "DynFrom=6",
+  "DynMult=1.2",
+  "TP=1.0",
+  "Magic=77001"
+ ],
+ "summary_from_report": {
+  "סך רווח נקי": "39,731.00",
+  "רווח ברוטו": "342,750.14",
+  "מאזן הפסד מקסימלי": "19,949.91 (35.90%)",
+  "שווי הפסד מקסימלי": "27,089.27 (49.68%)",
+  "הפסד ברוטו": "-303,019.14",
+  "מקדם רווח": "1.13",
+  "סך עסקאות": "10575"
+ },
+ "recomputed": {
+  "deposit": 50000.0,
+  "entries": 10575,
+  "trading_profit_before_costs": 42985.82,
+  "commission": 0.0,
+  "swap": -3254.82,
+  "net": 39731.0,
+  "lots_opened": 2536.16,
+  "exit_deals": 10575,
+  "exit_win_rate_pct": 70.54,
+  "exit_avg_win": 45.95,
+  "exit_avg_loss": -97.28,
+  "daily_realised_pct_of_deposit_per_weekday": {
+   "count": 415.0,
+   "mean": 0.191,
+   "std": 2.593,
+   "min": -24.703,
+   "25%": -0.058,
+   "50%": 0.0,
+   "75%": 1.261,
+   "max": 7.544
+  },
+  "worst_days_pct": {
+   "2024-08-02": -24.7,
+   "2024-08-15": -20.79,
+   "2025-03-20": -14.41,
+   "2024-04-12": -11.59,
+   "2025-04-22": -8.88
+  },
+  "active_days": 313,
+  "end_of_test_closes": 0,
+  "end_of_test_net": 0.0,
+  "end_of_test_date": null
+ },
+ "job": {
+  "report": "semi_tc_e1_sel24",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "1"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2024.04.01",
+  "to": "2025.11.01",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ "files": {
+  "ea_sha256": "092c23452311140f983d5794faeca0139de4fc840a2c0ac43d26585ccc826b69",
+  "set_sha256": "94b64035bcb3d2d6234e3c2e65c3f76e354614afade9304e92f8a18fef2b8bce"
+ }
+}

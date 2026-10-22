@@ -7,6 +7,7 @@ closes and OUT_BY closes reduce the open volume at the time they happen.
 the default also counts the partial minutes of entry and exit (overstates)."""
 import os, sys, numpy as np, pandas as pd
 from inputs import load, START, MAGIC
+SYMBOL = os.environ.get("JEV_SYMBOL", "XAUUSDc")      # XAUUSD on the other broker of the fleet
 
 STRICT = "--strict" in sys.argv
 deals, bars = load()
@@ -15,7 +16,7 @@ deals["cash"] = deals.profit + deals.commission + deals.swap + deals.fee
 # position (manual trades, other magics), so manual losses do not shrink the
 # denominator of robot returns. Deposits/withdrawals stay in.
 deals["bal_after"] = deals.cash.cumsum()
-x = deals[deals.symbol == "XAUUSDc"]
+x = deals[deals.symbol == SYMBOL]
 ENTRY_IN, EXITS = 0, (1, 3)                     # 1 = OUT, 3 = OUT_BY
 if set(x.entry) - {ENTRY_IN, *EXITS}:
     sys.exit(f"unexpected entry types {set(x.entry)}")       # e.g. INOUT reversals
@@ -92,7 +93,7 @@ robot_pids = set(p.position_id)
 # later belong to the capital the robot started with
 t_robot = p.t0.min()
 opened_after = set(x[(x.entry == ENTRY_IN) & (x.time >= t_robot)].position_id) - robot_pids
-excl = deals.position_id.isin(opened_after) & (deals.symbol == "XAUUSDc")
+excl = deals.position_id.isin(opened_after) & (deals.symbol == SYMBOL)
 deals["bal_robot"] = deals.bal_after - deals.cash.where(excl, 0).cumsum()
 print(f"excluded positions' P&L since start: {deals.cash[excl].sum():.2f}")
 bal_t = deals.time.values; bal_v = deals.bal_robot.values
@@ -102,7 +103,7 @@ def span(tt, ta, tb):
         return np.searchsorted(tt, ta, side="right"), np.searchsorted(tt, tb - 59, side="left")
     return np.searchsorted(tt, ta - 59), np.searchsorted(tt, tb, side="right")
 
-out, lows_by_cid, levels_by_cid = [], {}, {}
+out, lows_by_cid, levels_by_cid, paths_by_cid = [], {}, {}, {}
 for c, g in p.groupby("cid"):
     t0, t1 = g.t0.min(), g.t1.max()
     i0 = np.searchsorted(bt, t0 - 59); i1 = np.searchsorted(bt, t1, side="right")
@@ -143,6 +144,8 @@ for c, g in p.groupby("cid"):
         if len(idx) and b0 > 0:
             peaks = np.maximum.accumulate(best_all)[idx]
             lows_by_cid[c] = np.c_[fl[idx] / b0 * 100, peaks / b0 * 100]
+        if b0 > 0 and worst / b0 <= -0.03:               # the full minute path of deep baskets (BD_RESCUE_PLAN.md)
+            paths_by_cid[c] = np.c_[tt, fl / b0 * 100, best_all / b0 * 100]
         # state when the k-th position of the basket opens (k = 1..n), using only
         # what was known at that moment:
         # - cut value = P&L already realised by closed positions + the open positions
@@ -200,6 +203,9 @@ np.savez_compressed(f"{OUT}/record_lows_strict.npz" if STRICT else f"{OUT}/recor
                     **{str(k): v for k, v in lows_by_cid.items()})
 np.savez_compressed(f"{OUT}/levels_strict.npz" if STRICT else f"{OUT}/levels.npz",
                     **{str(k): v for k, v in levels_by_cid.items()})
+p.to_csv(f"{OUT}/positions_strict.csv" if STRICT else f"{OUT}/positions.csv", index=False)   # per position, with its basket
+np.savez_compressed(f"{OUT}/paths_strict.npz" if STRICT else f"{OUT}/paths.npz",
+                    **{str(k): v for k, v in paths_by_cid.items()})
 print(len(o), "baskets;", o.guard.sum(), "with a guard (magic 0) close")
 for X in (5, 10, 15, 20):
     print(f"MAE <= -{X}%: {(o.mae_pct <= -X).sum()}")

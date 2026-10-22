@@ -1,0 +1,58 @@
+{
+ "accounts": {
+  "1": {
+   "baskets": 9926,
+   "blocked": 847,
+   "x_actual": 9.138,
+   "x_rule": 6.173,
+   "gain_actual_usd": 2307,
+   "gain_rule_usd": 1466
+  },
+  "2": {
+   "baskets": 1904,
+   "blocked": 158,
+   "x_actual": 1.307,
+   "x_rule": 1.251,
+   "gain_actual_usd": 157,
+   "gain_rule_usd": 128
+  },
+  "3": {
+   "baskets": 8342,
+   "blocked": 774,
+   "x_actual": 1.339,
+   "x_rule": 1.521,
+   "gain_actual_usd": 170,
+   "gain_rule_usd": 261
+  },
+  "5": {
+   "baskets": 5784,
+   "blocked": 512,
+   "x_actual": 1.457,
+   "x_rule": 1.208,
+   "gain_actual_usd": 366,
+   "gain_rule_usd": 166
+  },
+  "6": {
+   "baskets": 3967,
+   "blocked": 434,
+   "x_actual": 2.224,
+   "x_rule": 1.96,
+   "gain_actual_usd": 846,
+   "gain_rule_usd": 663
+  },
+  "8": {
+   "baskets": 4296,
+   "blocked": 387,
+   "x_actual": 0.864,
+   "x_rule": 1.019,
+   "gain_actual_usd": -68,
+   "gain_rule_usd": 9
+  }
+ },
+ "fleet": {
+  "gain_actual_usd": 3778,
+  "gain_rule_usd": 2696,
+  "accounts_not_worse": 2,
+  "passes": false
+ }
+}

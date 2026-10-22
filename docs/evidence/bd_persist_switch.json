@@ -1,0 +1,79 @@
+{
+ "train": {
+  "thresholds": {
+   "VR6": 1.0579792735031175,
+   "VR24": 0.8769294767599163
+  },
+  "net_kept_by_feature": {
+   "VR6": 23120.96,
+   "VR24": -37639.08
+  },
+  "net_all": -26806.6,
+  "chosen": "VR6",
+  "feature": "VR6",
+  "baskets": 13709,
+  "blocked": 4060,
+  "net_switch": 23120.96,
+  "worst_all": -64981.37,
+  "worst_switch": -6221.42,
+  "deep_all": 2,
+  "deep_switch": 1,
+  "per_feature": {
+   "VR6": {
+    "net_switch": 23120.96,
+    "worst_switch": -6221.42
+   },
+   "VR24": {
+    "net_switch": -37639.08,
+    "worst_switch": -64981.37
+   }
+  }
+ },
+ "test1": {
+  "feature": "VR6",
+  "baskets": 19018,
+  "blocked": 6256,
+  "net_all": 44069.11,
+  "net_switch": 31062.11,
+  "worst_all": -74358.78,
+  "worst_switch": -68178.09,
+  "deep_all": 10,
+  "deep_switch": 9,
+  "per_feature": {
+   "VR6": {
+    "net_switch": 31062.11,
+    "worst_switch": -68178.09
+   },
+   "VR24": {
+    "net_switch": 21500.29,
+    "worst_switch": -15515.12
+   }
+  },
+  "pass_net": false,
+  "pass_worst": false
+ },
+ "test2": {
+  "feature": "VR6",
+  "baskets": 14286,
+  "blocked": 3936,
+  "net_all": 22619.65,
+  "net_switch": 17408.12,
+  "worst_all": -20097.84,
+  "worst_switch": -20097.84,
+  "deep_all": 6,
+  "deep_switch": 6,
+  "per_feature": {
+   "VR6": {
+    "net_switch": 17408.12,
+    "worst_switch": -20097.84
+   },
+   "VR24": {
+    "net_switch": 16192.35,
+    "worst_switch": -20097.84
+   }
+  },
+  "pass_net": false,
+  "pass_worst": false
+ },
+ "verdict": false
+}

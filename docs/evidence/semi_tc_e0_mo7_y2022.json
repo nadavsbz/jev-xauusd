@@ -1,0 +1,95 @@
+{
+ "report_file": "semi_tc_e0_mo7_y2022.htm",
+ "report_sha256": "cae5821bb8c9dbd87ef77bc6f6898c30cc8c5424519f43bbff8162808ae2cae8",
+ "settings": {
+  "יועץ אוטומטי (רובוט)": "SemiTrend",
+  "צמד": "XAUUSD",
+  "תקופה": "M15 (2022.01.01 - 2024.04.01)",
+  "חברה": "RoboForex Ltd",
+  "מטבע": "USD",
+  "פיקדון התחלתי": "50,000.00",
+  "מינוף": "1:1000",
+  "איכות היסטוריה": "98%"
+ },
+ "inputs": [
+  "Ind=Trend Catcher",
+  "DirBuffer=7",
+  "EntryMode=0",
+  "UseH4=true",
+  "CutOnFlip=true",
+  "Lot=0.16",
+  "Martin=1.5",
+  "MaxLot=5.0",
+  "MaxOrders=7",
+  "Dist=3.0",
+  "DynFrom=6",
+  "DynMult=1.2",
+  "TP=1.0",
+  "Magic=77001"
+ ],
+ "summary_from_report": {
+  "סך רווח נקי": "2,490.72",
+  "רווח ברוטו": "10,988.16",
+  "מאזן הפסד מקסימלי": "1,142.42 (2.18%)",
+  "שווי הפסד מקסימלי": "1,306.36 (2.50%)",
+  "הפסד ברוטו": "-8,497.44",
+  "מקדם רווח": "1.29",
+  "סך עסקאות": "418"
+ },
+ "recomputed": {
+  "deposit": 50000.0,
+  "entries": 418,
+  "trading_profit_before_costs": 2525.04,
+  "commission": 0.0,
+  "swap": -34.32,
+  "net": 2490.72,
+  "lots_opened": 83.21,
+  "exit_deals": 418,
+  "exit_win_rate_pct": 69.14,
+  "exit_avg_win": 38.02,
+  "exit_avg_loss": -65.87,
+  "daily_realised_pct_of_deposit_per_weekday": {
+   "count": 585.0,
+   "mean": 0.009,
+   "std": 0.15,
+   "min": -1.572,
+   "25%": 0.0,
+   "50%": 0.0,
+   "75%": 0.037,
+   "max": 0.702
+  },
+  "worst_days_pct": {
+   "2022-08-05": -1.57,
+   "2023-07-27": -1.51,
+   "2023-01-17": -1.27,
+   "2023-05-04": -0.83,
+   "2022-01-21": -0.72
+  },
+  "active_days": 229,
+  "end_of_test_closes": 0,
+  "end_of_test_net": 0.0,
+  "end_of_test_date": null
+ },
+ "job": {
+  "report": "semi_tc_e0_mo7_y2022",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "0",
+   "MaxOrders": "7"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2022.01.01",
+  "to": "2024.04.01",
+  "deposit": 50000,
+  "leverage": 1000,
+  "model": 1
+ },
+ "files": {
+  "ea_sha256": "092c23452311140f983d5794faeca0139de4fc840a2c0ac43d26585ccc826b69",
+  "set_sha256": "428a0cf8ea4670e0e179514a60bef2e29a863041f72ee64909fa4478037ee2c6"
+ }
+}

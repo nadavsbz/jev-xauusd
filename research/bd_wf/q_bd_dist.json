@@ -1,0 +1,116 @@
+[
+ {
+  "report": "bd_dist20_y2022",
+  "base_set": "bd2afterpoint_l001_sp50.set",
+  "overrides": {
+   "TP_": "400",
+   "Fix_Distance": "600",
+   "Dynamic_distance_start": "400",
+   "iTS": "120",
+   "iTD": "20"
+  },
+  "name": "Black Dragon 3",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2022.01.01",
+  "to": "2024.04.01",
+  "deposit": 24895,
+  "leverage": 1000
+ },
+ {
+  "report": "bd_dist20_sel24",
+  "base_set": "bd2afterpoint_l001_sp50.set",
+  "overrides": {
+   "TP_": "400",
+   "Fix_Distance": "600",
+   "Dynamic_distance_start": "400",
+   "iTS": "120",
+   "iTD": "20"
+  },
+  "name": "Black Dragon 3",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2024.04.01",
+  "to": "2025.11.01",
+  "deposit": 24895,
+  "leverage": 1000
+ },
+ {
+  "report": "bd_dist20_acc1",
+  "base_set": "bd_3digit_cal.set",
+  "overrides": {
+   "TP_": "4000",
+   "Fix_Distance": "6000",
+   "Dynamic_distance_start": "4000",
+   "iTS": "1200",
+   "iTD": "200"
+  },
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "from": "2025.11.11",
+  "to": "2026.10.14",
+  "deposit": 24895,
+  "leverage": 1000
+ },
+ {
+  "report": "bd_dist15_y2022",
+  "base_set": "bd2afterpoint_l001_sp50.set",
+  "overrides": {
+   "TP_": "300",
+   "Fix_Distance": "450",
+   "Dynamic_distance_start": "300",
+   "iTS": "90",
+   "iTD": "15"
+  },
+  "name": "Black Dragon 3",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2022.01.01",
+  "to": "2024.04.01",
+  "deposit": 24895,
+  "leverage": 1000
+ },
+ {
+  "report": "bd_dist15_sel24",
+  "base_set": "bd2afterpoint_l001_sp50.set",
+  "overrides": {
+   "TP_": "300",
+   "Fix_Distance": "450",
+   "Dynamic_distance_start": "300",
+   "iTS": "90",
+   "iTD": "15"
+  },
+  "name": "Black Dragon 3",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2024.04.01",
+  "to": "2025.11.01",
+  "deposit": 24895,
+  "leverage": 1000
+ },
+ {
+  "report": "bd_dist15_acc1",
+  "base_set": "bd_3digit_cal.set",
+  "overrides": {
+   "TP_": "3000",
+   "Fix_Distance": "4500",
+   "Dynamic_distance_start": "3000",
+   "iTS": "900",
+   "iTD": "150"
+  },
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "from": "2025.11.11",
+  "to": "2026.10.14",
+  "deposit": 24895,
+  "leverage": 1000
+ }
+]

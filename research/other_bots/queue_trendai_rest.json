@@ -1,0 +1,34 @@
+[
+ {
+  "report": "tai_acc1",
+  "base_set": "tai_2d.set",
+  "overrides": {
+   "TP_": "2000",
+   "iTD": "1000",
+   "Fix_Distance": "2000",
+   "Dynamic_distance_start": "2000"
+  },
+  "name": "Black Dragon 1",
+  "expert": "Other\\TrendAI_EA.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "from": "2025.11.11",
+  "to": "2026.10.15",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "tai_y2022",
+  "base_set": "tai_2d.set",
+  "overrides": {},
+  "name": "Black Dragon 3",
+  "expert": "Other\\TrendAI_EA.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2022.01.01",
+  "to": "2024.04.01",
+  "deposit": 50000,
+  "leverage": 1000,
+  "model": 1
+ }
+]

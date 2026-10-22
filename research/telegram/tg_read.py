@@ -25,17 +25,35 @@ async def main():
             async for d in c.iter_dialogs():
                 if d.is_group or d.is_channel:
                     print(d.id, "|", d.name, "|", getattr(d.entity, "participants_count", ""), flush=True)
+        elif sys.argv[1] == "files":          # documents whose name matches each search word, newest first
+            from telethon.tl.types import InputMessagesFilterDocument
+            did, out, words = sys.argv[2], sys.argv[3], sys.argv[4:]; os.makedirs(out, exist_ok=True)
+            have = set(os.listdir(out)); got = 0
+            for w in words:
+                async for m in c.iter_messages(did, search=w, filter=InputMessagesFilterDocument, limit=300):
+                    if m.file and m.file.name and m.file.name.lower().endswith((".set", ".pdf", ".txt", ".zip")):
+                        name = f"{m.id}_{m.file.name}"
+                        if name not in have:
+                            await m.download_media(file=os.path.join(out, name)); have.add(name); got += 1
+                print(w, "done", flush=True)
+            print("downloaded:", got)
         elif sys.argv[1] == "dump":
-            did, out = int(sys.argv[2]), sys.argv[3]; os.makedirs(out, exist_ok=True)
-            rows = []
-            async for m in c.iter_messages(did, limit=None):
-                r = {"id": m.id, "date": m.date.isoformat(), "from": m.sender_id, "reply_to": m.reply_to_msg_id,
-                     "text": m.message or "", "file": None}
-                if m.document and m.file and m.file.name and m.file.name.lower().endswith((".set", ".pdf", ".txt", ".docx", ".ini", ".zip")):
-                    p = await m.download_media(file=os.path.join(out, "files", f"{m.id}_{m.file.name}"))
-                    r["file"] = os.path.basename(p) if p else None
-                rows.append(r)
-            json.dump(rows, open(os.path.join(out, "messages.json"), "w", encoding="utf-8"), ensure_ascii=False)
-            print("messages:", len(rows), "files:", sum(1 for r in rows if r["file"]))
+            a = sys.argv[2]; did = int(a) if a.lstrip("-").isdigit() else a; out = sys.argv[3]; os.makedirs(out, exist_ok=True)
+            # written line by line (a long group can outlive any timeout); files already on disk are skipped
+            fdir = os.path.join(out, "files"); os.makedirs(fdir, exist_ok=True); have = set(os.listdir(fdir))
+            n = nf = 0
+            with open(os.path.join(out, "messages.jsonl"), "w", encoding="utf-8") as fo:
+                async for m in c.iter_messages(did, limit=None):
+                    r = {"id": m.id, "date": m.date.isoformat(), "from": m.sender_id, "reply_to": m.reply_to_msg_id,
+                         "text": m.message or "", "file": None}
+                    if m.document and m.file and m.file.name and m.file.name.lower().endswith((".set", ".pdf", ".txt", ".docx", ".ini", ".zip")):
+                        name = f"{m.id}_{m.file.name}"
+                        if name not in have:
+                            await m.download_media(file=os.path.join(fdir, name))
+                        r["file"] = name; nf += 1
+                    fo.write(json.dumps(r, ensure_ascii=False) + chr(10)); n += 1
+                    if n % 2000 == 0:
+                        fo.flush(); print("messages so far:", n, r["date"][:10], flush=True)
+            print("messages:", n, "files:", nf, flush=True)
 
 asyncio.run(main())

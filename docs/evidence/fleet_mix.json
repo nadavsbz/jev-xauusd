@@ -1,0 +1,50 @@
+{
+ "all_A": {
+  "median_x": 1.42,
+  "p10_x": 1.04,
+  "p_dd50": 0.001,
+  "p_dd25": 0.532,
+  "p_6pct_month": 0.078,
+  "in_sample_x": 1.33
+ },
+ "all_C": {
+  "median_x": 1.58,
+  "p10_x": 1.06,
+  "p_dd50": 0.005,
+  "p_dd25": 0.823,
+  "p_6pct_month": 0.221,
+  "in_sample_x": 1.48
+ },
+ "all_B": {
+  "median_x": 1.7,
+  "p10_x": 1.02,
+  "p_dd50": 0.055,
+  "p_dd25": 0.999,
+  "p_6pct_month": 0.34,
+  "in_sample_x": 1.59
+ },
+ "half_A_half_B": {
+  "median_x": 1.4,
+  "p10_x": 0.93,
+  "p_dd50": 0.014,
+  "p_dd25": 0.883,
+  "p_6pct_month": 0.129,
+  "in_sample_x": 1.35
+ },
+ "half_C_half_B": {
+  "median_x": 1.56,
+  "p10_x": 0.99,
+  "p_dd50": 0.023,
+  "p_dd25": 0.929,
+  "p_6pct_month": 0.23,
+  "in_sample_x": 1.49
+ },
+ "half_A_half_D": {
+  "median_x": 1.55,
+  "p10_x": 1.08,
+  "p_dd50": 0.002,
+  "p_dd25": 0.699,
+  "p_6pct_month": 0.178,
+  "in_sample_x": 1.43
+ }
+}

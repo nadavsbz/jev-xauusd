@@ -1,0 +1,94 @@
+{
+ "y2022": {
+  "bd_lot0": 0.01,
+  "tc_lot0": 0.01,
+  "0": {
+   "profit_pct": -335.1,
+   "max_dd_realised_pct": -144.6,
+   "min_eq_pct": -235.1
+  },
+  "0.1": {
+   "profit_pct": -281.5,
+   "max_dd_realised_pct": -136.0,
+   "min_eq_pct": -201.9
+  },
+  "0.2": {
+   "profit_pct": -228.0,
+   "max_dd_realised_pct": -128.4,
+   "min_eq_pct": -168.7
+  },
+  "0.3": {
+   "profit_pct": -174.4,
+   "max_dd_realised_pct": -121.6,
+   "min_eq_pct": -135.6
+  },
+  "0.5": {
+   "profit_pct": -67.3,
+   "max_dd_realised_pct": -110.0,
+   "min_eq_pct": -69.2
+  },
+  "corr_daily": 0.015
+ },
+ "sel24": {
+  "bd_lot0": 0.01,
+  "tc_lot0": 0.01,
+  "0": {
+   "profit_pct": 550.9,
+   "max_dd_realised_pct": 0.0,
+   "min_eq_pct": 100.7
+  },
+  "0.1": {
+   "profit_pct": 641.0,
+   "max_dd_realised_pct": 0.0,
+   "min_eq_pct": 100.8
+  },
+  "0.2": {
+   "profit_pct": 731.2,
+   "max_dd_realised_pct": 0.0,
+   "min_eq_pct": 100.9
+  },
+  "0.3": {
+   "profit_pct": 821.4,
+   "max_dd_realised_pct": 0.0,
+   "min_eq_pct": 101.0
+  },
+  "0.5": {
+   "profit_pct": 1001.7,
+   "max_dd_realised_pct": 0.0,
+   "min_eq_pct": 101.2
+  },
+  "corr_daily": 0.019
+ },
+ "acc1": {
+  "bd_lot0": 0.01,
+  "tc_lot0": 0.01,
+  "0": {
+   "profit_pct": 282.7,
+   "max_dd_realised_pct": 0.0,
+   "min_eq_pct": 101.0
+  },
+  "0.1": {
+   "profit_pct": 218.9,
+   "max_dd_realised_pct": -49.6,
+   "min_eq_pct": 83.9
+  },
+  "0.2": {
+   "profit_pct": 155.1,
+   "max_dd_realised_pct": -89.2,
+   "min_eq_pct": 20.1
+  },
+  "0.3": {
+   "profit_pct": 91.3,
+   "max_dd_realised_pct": -121.2,
+   "min_eq_pct": -43.7
+  },
+  "0.5": {
+   "profit_pct": -36.3,
+   "max_dd_realised_pct": -169.8,
+   "min_eq_pct": -171.4
+  },
+  "corr_daily": 0.003
+ },
+ "passing": [],
+ "chosen": null
+}

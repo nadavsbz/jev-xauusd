@@ -1,0 +1,198 @@
+[
+ {
+  "report": "semi_tc_e0_sel24",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "0"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2024.04.01",
+  "to": "2025.11.01",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi_tc_e0_acc1",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "0"
+  },
+  "name": "Black Dragon 1",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "from": "2025.11.11",
+  "to": "2026.10.15",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi_tc_e0_y2022",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "0"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2022.01.01",
+  "to": "2024.04.01",
+  "deposit": 50000,
+  "leverage": 1000,
+  "model": 1
+ },
+ {
+  "report": "semi_tc_e1_sel24",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "1"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2024.04.01",
+  "to": "2025.11.01",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi_tc_e1_acc1",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "1"
+  },
+  "name": "Black Dragon 1",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "from": "2025.11.11",
+  "to": "2026.10.15",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi_tc_e1_y2022",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "1"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2022.01.01",
+  "to": "2024.04.01",
+  "deposit": 50000,
+  "leverage": 1000,
+  "model": 1
+ },
+ {
+  "report": "semi_tai_e0_sel24",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend AI",
+   "EntryMode": "0"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2024.04.01",
+  "to": "2025.11.01",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi_tai_e0_acc1",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend AI",
+   "EntryMode": "0"
+  },
+  "name": "Black Dragon 1",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "from": "2025.11.11",
+  "to": "2026.10.15",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi_tai_e0_y2022",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend AI",
+   "EntryMode": "0"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2022.01.01",
+  "to": "2024.04.01",
+  "deposit": 50000,
+  "leverage": 1000,
+  "model": 1
+ },
+ {
+  "report": "semi_tai_e1_sel24",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend AI",
+   "EntryMode": "1"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2024.04.01",
+  "to": "2025.11.01",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi_tai_e1_acc1",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend AI",
+   "EntryMode": "1"
+  },
+  "name": "Black Dragon 1",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "from": "2025.11.11",
+  "to": "2026.10.15",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi_tai_e1_y2022",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend AI",
+   "EntryMode": "1"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2022.01.01",
+  "to": "2024.04.01",
+  "deposit": 50000,
+  "leverage": 1000,
+  "model": 1
+ }
+]

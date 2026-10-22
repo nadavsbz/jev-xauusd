@@ -1,0 +1,15 @@
+[
+ {
+  "report": "bdfx_audcad_oos",
+  "base_set": "ea_black_dragon_mt5_audcad_nzdcad_m15.set",
+  "overrides": {},
+  "name": "Black Dragon 3",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "AUDCAD",
+  "period": "M15",
+  "from": "2018.01.01",
+  "to": "2021.12.31",
+  "deposit": 10000,
+  "leverage": 1000
+ }
+]

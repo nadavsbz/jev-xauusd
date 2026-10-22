@@ -1,0 +1,58 @@
+{
+ "tag": "tai",
+ "baskets": 11721,
+ "crash_threshold_mae_pct": -0.431,
+ "crash_baskets": 587,
+ "buffers": {
+  "b2_arrow": {
+   "deep_baskets": 60,
+   "deep_against_share": 0.45,
+   "crash_against_share": 0.397,
+   "normal_against_share": 0.506,
+   "pnl_with": 77421.3,
+   "pnl_against": 99426.16,
+   "crash_pnl_against": 1359.87,
+   "covered": 11721
+  },
+  "b3_arrow": {
+   "deep_baskets": 60,
+   "deep_against_share": 0.55,
+   "crash_against_share": 0.603,
+   "normal_against_share": 0.494,
+   "pnl_with": 99426.16,
+   "pnl_against": 77421.3,
+   "crash_pnl_against": -35659.06,
+   "covered": 11721
+  },
+  "b4_arrow": {
+   "deep_baskets": 60,
+   "deep_against_share": 0.45,
+   "crash_against_share": 0.397,
+   "normal_against_share": 0.506,
+   "pnl_with": 77421.3,
+   "pnl_against": 99426.16,
+   "crash_pnl_against": 1359.87,
+   "covered": 11721
+  },
+  "b5_arrow": {
+   "deep_baskets": 60,
+   "deep_against_share": 0.55,
+   "crash_against_share": 0.603,
+   "normal_against_share": 0.494,
+   "pnl_with": 99426.16,
+   "pnl_against": 77421.3,
+   "crash_pnl_against": -35659.06,
+   "covered": 11721
+  },
+  "b7_dir": {
+   "deep_baskets": 60,
+   "deep_against_share": 0.25,
+   "crash_against_share": 0.288,
+   "normal_against_share": 0.324,
+   "pnl_with": 101383.92,
+   "pnl_against": 75463.54,
+   "crash_pnl_against": 8430.18,
+   "covered": 11721
+  }
+ }
+}

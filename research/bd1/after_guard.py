@@ -9,7 +9,7 @@ deals, bars = load()
 import os
 DER = os.environ.get("JEV_DERIVED", "data/derived/bd1")      # same derived folder as clusters.py (review PR #22)
 o = pd.read_csv(os.path.join(DER, "clusters_strict.csv"))
-x = deals[deals.symbol == "XAUUSDc"]
+x = deals[deals.symbol == os.environ.get("JEV_SYMBOL", "XAUUSDc")]
 ins = x[(x.entry == 0) & (x.magic == MAGIC)].set_index("position_id")
 ex = x[x.entry.isin((1, 3))].assign(is_guard=lambda e: (e.magic == 0) & (e.reason == 3),  # guard = automatic close
                                    c=lambda e: e.commission + e.swap + e.fee)
