@@ -14,7 +14,7 @@ HALF = pd.Timestamp("2026-05-01").timestamp()
 
 
 def apply(D, f):
-    r = o.pnl_pct.values.copy(); tr = o.mae_pct.values.copy(); rescued = []
+    r = o.pnl_pct.values.copy(); tr = o.mae_pct.values.copy(); ru = o.runup_before_pct.values.copy(); rescued = []
     for i, c in enumerate(o.cid.values):
         a = P.get(str(c))
         if a is None:
@@ -36,11 +36,13 @@ def apply(D, f):
         rescued.append(dict(cid=int(c), t=str(pd.to_datetime(a[j, 0], unit="s")), worst=round(float(worst[j]), 2),
                             exit=round(float(val), 2), real=round(float(o.pnl_pct[i]), 2), guard=bool(o.guard[i])))
         r[i] = val; tr[i] = worst[j]
-    return r, tr, rescued
+        ru[i] = a[:j + 1, 2].max()                   # peak up to the simulated exit only (PR 35 review)
+    return r, tr, ru, rescued
 
 
-def score(r, tr, m):
-    eq, dd = max_drawdown(r[m] / 100, tr[m] / 100, o.runup_before_pct.values[m] / 100, None)
+def score(r, tr, m, ru=None):
+    ru = o.runup_before_pct.values if ru is None else ru
+    eq, dd = max_drawdown(r[m] / 100, tr[m] / 100, ru[m] / 100, None)
     return round(float(eq[-1]), 3), round(float(dd), 2)
 
 
@@ -49,8 +51,8 @@ base = {h: score(o.pnl_pct.values, o.mae_pct.values, m) for h, m in halves.items
 res = {"baskets": len(o), "deep_paths": len(P), "actual": base, "grid": []}
 for D in (5, 10, 15):
     for f in (0.5, 0.33):
-        r, tr, resc = apply(D, f)
-        s = {h: score(r, tr, m) for h, m in halves.items()}
+        r, tr, ru, resc = apply(D, f)
+        s = {h: score(r, tr, m, ru) for h, m in halves.items()}
         cand = all(s[h][0] > base[h][0] and s[h][1] > base[h][1] for h in ("h1", "h2"))
         res["grid"].append(dict(D=D, f=f, **s, rescued=len(resc), saved_guard=sum(x["guard"] for x in resc),
                                 cost_recovered=sum(x["real"] > 0 for x in resc), candidate=cand, cases=resc))

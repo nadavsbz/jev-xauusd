@@ -52,6 +52,8 @@ def one(i, T, q, S):
         val = -(S + SLIP2) / 100 * b0; worst = val
     elif jb < 10**9:
         val = base; worst = base + bad[:jb + 1].min()
+    elif i1 - (m + 1) < HOLD:
+        return None                                      # censored: data ends before the 10-day horizon (PR 35 review)
     else:
         last = sum(np.where(sj > 0, cl[i1 - 1] - pj, pj - cl[i1 - 1] - spr[i1 - 1]) * vj * K + cj for sj, vj, pj, cj in zip(s2, v2, px2, c2))
         val = base + last; worst = base + bad.min()
