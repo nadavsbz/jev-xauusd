@@ -1,0 +1,83 @@
+{
+ "report_file": "exp_tai_acc1.htm",
+ "report_sha256": "a566aa540f2270106b620ba5bfa6766a8a81d1b0aefc40797b4672c5793fb903",
+ "settings": {
+  "יועץ אוטומטי (רובוט)": "IndicatorExport",
+  "צמד": "XAUUSDc",
+  "תקופה": "M15 (2025.11.11 - 2026.10.15)",
+  "חברה": "E-Global Trade and Finance Group, Inc.",
+  "מטבע": "USD",
+  "פיקדון התחלתי": "10,000.00",
+  "מינוף": "1:1000",
+  "איכות היסטוריה": "100%"
+ },
+ "inputs": [
+  "IndicatorName=Trend AI",
+  "MaxBuffers=10",
+  "OutFile=tai_acc1_m15.csv"
+ ],
+ "summary_from_report": {
+  "סך רווח נקי": "0.00",
+  "רווח ברוטו": "0.00",
+  "מאזן הפסד מקסימלי": "0.00 (0.00%)",
+  "שווי הפסד מקסימלי": "0.00 (0.00%)",
+  "הפסד ברוטו": "0.00",
+  "מקדם רווח": "0.00",
+  "סך עסקאות": "0"
+ },
+ "recomputed": {
+  "deposit": 10000.0,
+  "entries": 0,
+  "trading_profit_before_costs": 0.0,
+  "commission": 0.0,
+  "swap": 0.0,
+  "net": 0.0,
+  "lots_opened": 0.0,
+  "exit_deals": 0,
+  "exit_win_rate_pct": null,
+  "exit_avg_win": null,
+  "exit_avg_loss": null,
+  "daily_realised_pct_of_deposit_per_weekday": {
+   "count": 242.0,
+   "mean": 0.0,
+   "std": 0.0,
+   "min": 0.0,
+   "25%": 0.0,
+   "50%": 0.0,
+   "75%": 0.0,
+   "max": 0.0
+  },
+  "worst_days_pct": {
+   "2025-11-11": 0.0,
+   "2025-11-12": 0.0,
+   "2025-11-13": 0.0,
+   "2025-11-14": 0.0,
+   "2025-11-17": 0.0
+  },
+  "active_days": 0,
+  "end_of_test_closes": 0,
+  "end_of_test_net": 0.0,
+  "end_of_test_date": null
+ },
+ "job": {
+  "report": "exp_tai_acc1",
+  "base_set": "exp_tai_acc1.set",
+  "overrides": {
+   "MaxBuffers": "10"
+  },
+  "name": "Black Dragon 1",
+  "expert": "Jev\\IndicatorExport.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "from": "2025.11.11",
+  "to": "2026.10.15",
+  "deposit": 10000,
+  "leverage": 1000,
+  "model": 1,
+  "csv": "tai_acc1_m15.csv"
+ },
+ "files": {
+  "ea_sha256": "80b02199c891c096cccfe60fa540f418e2ec11f3d4777ce865a20bea03dae287",
+  "set_sha256": "b3c0a12c3101fbb73765228e4d77d23b0fa68eb464abe56f10f850a838cda533"
+ }
+}
