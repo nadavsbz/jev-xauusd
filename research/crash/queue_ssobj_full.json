@@ -23,7 +23,7 @@
   "overrides": {
    "OutFile": "ss_obj_eg.csv"
   },
-  "name": "Black Dragon 3",
+  "name": "Black Dragon 1",
   "expert": "Jev\\SSObjExport.ex5",
   "symbol": "XAUUSDc",
   "period": "H1",
