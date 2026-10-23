@@ -170,10 +170,10 @@ datetime lastEntry = 0, lastBar = 0, crashUntil = 0, riskUntil = 0, errUntil = 0
 ulong lastBlastMs = 0;
 int crashCalmBars = 0; bool inCrash = false;
 
-struct PState { ulong t; double vsl; double peak; datetime peakT; datetime lockT; ulong slMs; };
+struct PState { ulong t; double vsl; double peak; datetime peakT; datetime lockT; ulong slMs; datetime slFailT; };
 PState st[];
 
-int Find(ulong t) { for(int i = 0; i < ArraySize(st); i++) if(st[i].t == t) return i; int n = ArraySize(st); ArrayResize(st, n + 1); st[n].t = t; st[n].vsl = 0; st[n].peak = 0; st[n].peakT = 0; st[n].lockT = 0; st[n].slMs = 0; return n; }
+int Find(ulong t) { for(int i = 0; i < ArraySize(st); i++) if(st[i].t == t) return i; int n = ArraySize(st); ArrayResize(st, n + 1); st[n].t = t; st[n].vsl = 0; st[n].peak = 0; st[n].peakT = 0; st[n].lockT = 0; st[n].slMs = 0; st[n].slFailT = 0; return n; }
 
 int OnInit()
   {
@@ -316,8 +316,9 @@ void OnTick()
       if(InpUseSecureProfit && !trailing && pr >= InpLockActivateProfit * per001)
         {
          if(st[k].lockT == 0) st[k].lockT = now;
-         if(now - st[k].lockT >= InpLockConfirmSeconds)
-            st[k].vsl = MathMax(st[k].vsl, op + cost + MoneyToPrice(InpSecureNetProfit * per001, vol));
+         double lk = op + cost + MoneyToPrice(InpSecureNetProfit * per001, vol);
+         if(now - st[k].lockT >= InpLockConfirmSeconds && lk <= bid - dist)   // v2: not closer than the trailing distance
+            st[k].vsl = MathMax(st[k].vsl, lk);
         }
       else if(!trailing) st[k].lockT = 0;
       // trailing
@@ -329,8 +330,10 @@ void OnTick()
       trailing = st[k].vsl > 0;
       // virtual stop hit -> close
       if(trailing && bid <= st[k].vsl) { trade.PositionClose(t); continue; }
-      // fallback: profit gave back FallbackPercent of the peak and stayed there FallbackSeconds
-      if(InpUseTrailingFallback && trailing && st[k].peak > 0 && pr < st[k].peak * (1 - InpFallbackPercent / 100) && now - st[k].peakT >= InpFallbackSeconds && pr > 0)
+      // fallback (v2): only when the broker refused the SL move for FallbackSeconds and the profit has
+      // fallen FallbackPercent below its peak - a backup for "invalid stops", not an exit rule of its own
+      if(InpUseTrailingFallback && trailing && st[k].slFailT > 0 && now - st[k].slFailT >= InpFallbackSeconds
+         && st[k].peak > 0 && pr < st[k].peak * (1 - InpFallbackPercent / 100) && pr > 0)
         { trade.PositionClose(t); continue; }
       if(InpCloseNearProfit && trailing && st[k].peak > 0 && pr < st[k].peak * InpNearProfitThreshold && pr > 0) { trade.PositionClose(t); continue; }
       // real broker SL: the virtual one itself, or (phantom) further away
@@ -340,7 +343,7 @@ void OnTick()
          real = NormalizeDouble(real, _Digits);
          int lvl = (int)SymbolInfoInteger(_Symbol, SYMBOL_TRADE_STOPS_LEVEL);
          if(real > sl + _Point && bid - real > lvl * _Point && ms - st[k].slMs >= (ulong)InpSLUpdateCooldownMs)
-           { if(trade.PositionModify(t, real, 0)) st[k].slMs = ms; }
+           { if(trade.PositionModify(t, real, 0)) { st[k].slMs = ms; st[k].slFailT = 0; } else if(st[k].slFailT == 0) st[k].slFailT = now; }
         }
       datetime ot = (datetime)PositionGetInteger(POSITION_TIME);
       if(ot >= newestT) { newestT = ot; newestOp = op; newestTrail = trailing; }
@@ -421,16 +424,17 @@ void OnTick()
       // chain: stack above while the newest trails
       if(why == "" && newestTrail && !(InpBlockChainOnBearPred && bearPred))
         {
-         double cs = InpUseFixedChainSpacing ? InpChainSpacingPoints * _Point : minGap;
+         double cs = MathMax(InpUseFixedChainSpacing ? InpChainSpacingPoints * _Point : minGap, tStart);   // v2
          if(ask >= newestOp + cs) why = "chain";
         }
       // pace keeper
-      if(why == "" && InpUsePaceKeeper && newestTrail && now - lastEntry >= InpPaceTargetSeconds && !(InpBlockChainOnBearPred && bearPred) && ask - newestOp >= minGap) why = "pace";
+      if(why == "" && InpUsePaceKeeper && newestTrail && now - lastEntry >= InpPaceTargetSeconds && !(InpBlockChainOnBearPred && bearPred) && ask - newestOp >= MathMax(minGap, tStart)) why = "pace";   // v2
       // every candle
+      // v2: "every candle" adds only below the whole ladder (a mini-DCA once per bar), never above
       if(why == "" && InpUseEveryCandle && !bearPred)
         {
          datetime bt = iTime(_Symbol, TF, 0);
-         if(bt != lastBar && (now - lastEntry) >= InpActivityCooldownBars * PeriodSeconds(TF) && MathAbs(ask - newestOp) >= minGap && ask < highest) why = "candle";
+         if(bt != lastBar && (now - lastEntry) >= InpActivityCooldownBars * PeriodSeconds(TF) && ask <= lowest - MathMax(minGap, tDist)) why = "candle";
         }
       // coherence burst
       if(why == "" && InpUseCoherenceBurst && ms - lastBlastMs >= (ulong)InpCoherenceBlastCooldownMs && (ml == 0 || ml >= InpCoherenceBlastMinMarginLevel))
