@@ -1,0 +1,41 @@
+[
+ {
+  "report": "bull_dev_testbull4",
+  "base_set": "dev_testbull4.set",
+  "overrides": {},
+  "name": "Black Dragon 1",
+  "expert": "Market\\EA Bull Scalper.ex5",
+  "symbol": "$US100c",
+  "period": "M30",
+  "from": "2025.03.31",
+  "to": "2026.10.14",
+  "deposit": 5000000,
+  "leverage": 1000
+ },
+ {
+  "report": "bull_dev_bull_new_profit",
+  "base_set": "dev_bull_new_profit.set",
+  "overrides": {},
+  "name": "Black Dragon 1",
+  "expert": "Market\\EA Bull Scalper.ex5",
+  "symbol": "$US100c",
+  "period": "M30",
+  "from": "2025.03.31",
+  "to": "2026.10.14",
+  "deposit": 5000000,
+  "leverage": 1000
+ },
+ {
+  "report": "bull_dev_bull100",
+  "base_set": "dev_bull100.set",
+  "overrides": {},
+  "name": "Black Dragon 1",
+  "expert": "Market\\EA Bull Scalper.ex5",
+  "symbol": "$US100c",
+  "period": "M30",
+  "from": "2025.03.31",
+  "to": "2026.10.14",
+  "deposit": 5000000,
+  "leverage": 1000
+ }
+]
