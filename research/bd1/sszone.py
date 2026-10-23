@@ -81,12 +81,21 @@ def table(k):
         side = hi < p0 if sgn == 1 else lo > p0
         dist = (p0 - hi[side]) if sgn == 1 else (lo[side] - p0)
         room = float(dist.min() / p0 * 100) if side.any() else np.inf
-        lo24, hi24 = snap(Z, keys, t0 - 24 * 3600)
-        i0, i1 = np.searchsorted(ct, t0 - 24 * 3600), np.searchsorted(ct, t0 - 3599)   # bars closed before t0
+        # the last 24 H1 bars closed by t0 (open time <= t0 - 1h); PR 38 review: the window had only 23 bars
+        i1 = np.searchsorted(ct, t0 - 3600, side="right"); i0 = max(0, i1 - 24)
         c = cv[i0:i1]
-        p24 = cv[i0 - 1] if i0 > 0 else p0
+        # zones from the snapshot taken at or before the open of the first window bar, and the reference price
+        # is the close of the bar BEFORE that snapshot (known when it was written); PR 38 review (P1): it was
+        # the close of the bar after the snapshot, i.e. one hour in its future
+        lo24, hi24, kz = np.array([]), np.array([]), None
+        if i1 > i0:
+            j = np.searchsorted(keys, ct[i0], side="right") - 1
+            if j >= 0:
+                kz = keys[j]; lo24, hi24 = Z[kz]
+        jp = np.searchsorted(ct, kz - 3600) if kz is not None else -1
+        p24 = cv[jp] if kz is not None and 0 <= jp < len(ct) and ct[jp] == kz - 3600 else np.nan
         broke = False
-        if len(c) and len(lo24):
+        if len(c) and len(lo24) and np.isfinite(p24):
             if sgn == 1:
                 s = hi24 < p24; broke = bool(s.any() and (c.min() < lo24[s].max()))
             else:

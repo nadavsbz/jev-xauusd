@@ -3,18 +3,18 @@
   "room_threshold_pct": 1.2458035481898708,
   "net_kept": {
    "room": -36191.31000000001,
-   "broke": -30514.989999999983
+   "broke": -30490.409999999996
   },
   "net_all": -26806.59999999999,
   "chosen": "broke",
   "share_inf_room": 0.0032095703552410823,
-  "share_broke": 0.10299803049091838
+  "share_broke": 0.12648624990881902
  },
  "train": {
   "baskets": 13709,
-  "blocked": 1412,
+  "blocked": 1734,
   "net_all": -26807,
-  "net_kept": -30515,
+  "net_kept": -30490,
   "worst_all": -64981,
   "worst_kept": -64981,
   "deep_all": 2,
@@ -22,20 +22,20 @@
  },
  "test1": {
   "baskets": 19018,
-  "blocked": 1332,
+  "blocked": 1746,
   "net_all": 44069,
-  "net_kept": 41983,
+  "net_kept": 40832,
   "worst_all": -74359,
   "worst_kept": -74359,
   "deep_all": 10,
-  "deep_kept": 10,
+  "deep_kept": 9,
   "pass": false
  },
  "test2": {
   "baskets": 14286,
-  "blocked": 908,
+  "blocked": 1236,
   "net_all": 22620,
-  "net_kept": 20759,
+  "net_kept": 20482,
   "worst_all": -20098,
   "worst_kept": -20098,
   "deep_all": 6,
