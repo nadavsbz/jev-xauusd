@@ -1,8 +1,8 @@
 [
  {"report": "bull_tip_tf1", "base_set": "bull_ftmo_nasdaq.set", "overrides": {"InpLotSize": "0.01", "InpMaxPositions": "10", "InpUseRiskLimit": "false", "InpAiLookbackTF": "1"},
-  "name": "Black Dragon 1", "expert": "Market\EA Bull Scalper.ex5", "symbol": "$US100c", "period": "M30", "from": "2025.03.31", "to": "2026.10.14", "deposit": 500000, "leverage": 1000},
+  "name": "Black Dragon 1", "expert": "Market\\EA Bull Scalper.ex5", "symbol": "$US100c", "period": "M30", "from": "2025.03.31", "to": "2026.10.14", "deposit": 500000, "leverage": 1000},
  {"report": "bull_tip_tf5", "base_set": "bull_ftmo_nasdaq.set", "overrides": {"InpLotSize": "0.01", "InpMaxPositions": "10", "InpUseRiskLimit": "false", "InpAiLookbackTF": "5"},
-  "name": "Black Dragon 1", "expert": "Market\EA Bull Scalper.ex5", "symbol": "$US100c", "period": "M30", "from": "2025.03.31", "to": "2026.10.14", "deposit": 500000, "leverage": 1000},
+  "name": "Black Dragon 1", "expert": "Market\\EA Bull Scalper.ex5", "symbol": "$US100c", "period": "M30", "from": "2025.03.31", "to": "2026.10.14", "deposit": 500000, "leverage": 1000},
  {"report": "bull_tip_tf15", "base_set": "bull_ftmo_nasdaq.set", "overrides": {"InpLotSize": "0.01", "InpMaxPositions": "10", "InpUseRiskLimit": "false", "InpAiLookbackTF": "15"},
-  "name": "Black Dragon 1", "expert": "Market\EA Bull Scalper.ex5", "symbol": "$US100c", "period": "M30", "from": "2025.03.31", "to": "2026.10.14", "deposit": 500000, "leverage": 1000}
+  "name": "Black Dragon 1", "expert": "Market\\EA Bull Scalper.ex5", "symbol": "$US100c", "period": "M30", "from": "2025.03.31", "to": "2026.10.14", "deposit": 500000, "leverage": 1000}
 ]
