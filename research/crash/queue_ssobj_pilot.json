@@ -4,7 +4,7 @@
   "base_set": "ss_obj.set",
   "overrides": {},
   "name": "Black Dragon 3",
-  "expert": "Jev\SSObjExport.ex5",
+  "expert": "Jev\\SSObjExport.ex5",
   "symbol": "XAUUSD",
   "period": "H1",
   "from": "2024.04.01",
