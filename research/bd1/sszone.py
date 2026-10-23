@@ -102,7 +102,7 @@ def main():
     rule = {"room": lambda b: b.room > thr, "broke": lambda b: b.broke}
     score = {f: float(tr[~rule[f](tr)].net.sum()) for f in rule}
     best = max(score, key=score.get)
-    res = {"train": dict(room_threshold_pct=thr, net_kept=score, net_all=float(tr.net.sum()), chosen=best,
+    res = {"selection": dict(room_threshold_pct=thr, net_kept=score, net_all=float(tr.net.sum()), chosen=best,
                          share_inf_room=float(np.isinf(tr.room).mean()), share_broke=float(tr.broke.mean()))}
     for k, b in tabs.items():
         blk = rule[best](b); kept = b[~blk]
