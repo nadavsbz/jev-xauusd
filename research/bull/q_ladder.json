@@ -13,37 +13,6 @@
   "to": "2026.10.14"
  },
  {
-  "name": "Black Dragon 1",
-  "expert": "Jev\\LadderScalper.ex5",
-  "symbol": "$US100c",
-  "period": "M30",
-  "deposit": 500000,
-  "leverage": 1000,
-  "base_set": "ladder_base.set",
-  "report": "ladder_eg_m15",
-  "overrides": {
-   "AiTF": "15"
-  },
-  "from": "2025.03.31",
-  "to": "2026.10.14"
- },
- {
-  "name": "Black Dragon 1",
-  "expert": "Jev\\LadderScalper.ex5",
-  "symbol": "$US100c",
-  "period": "M30",
-  "deposit": 500000,
-  "leverage": 1000,
-  "base_set": "ladder_base.set",
-  "report": "ladder_eg_m5_guards",
-  "overrides": {
-   "UseContext": "true",
-   "UseCrashPause": "true"
-  },
-  "from": "2025.03.31",
-  "to": "2026.10.14"
- },
- {
   "name": "Robo ECN demo",
   "expert": "Jev\\LadderScalper.ex5",
   "symbol": ".USTECHCash",
@@ -54,23 +23,6 @@
   "base_set": "ladder_base.set",
   "report": "ladder_bear_m5",
   "overrides": {},
-  "from": "2021.11.01",
-  "to": "2023.01.31"
- },
- {
-  "name": "Robo ECN demo",
-  "expert": "Jev\\LadderScalper.ex5",
-  "symbol": ".USTECHCash",
-  "period": "M30",
-  "deposit": 5000,
-  "leverage": 500,
-  "model": 1,
-  "base_set": "ladder_base.set",
-  "report": "ladder_bear_m5_guards",
-  "overrides": {
-   "UseContext": "true",
-   "UseCrashPause": "true"
-  },
   "from": "2021.11.01",
   "to": "2023.01.31"
  }
