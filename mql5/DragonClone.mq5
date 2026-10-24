@@ -35,6 +35,8 @@ input int    MaxSpred = 200;
 input bool   LogSpread = false;
 input bool   OneAddPerBar = true;     // ours, measured: BD never adds more than one level per basket per M15 bar       // ours: print the spread at every new M15 bar in trading hours (calibration)
 input bool   LotFromNewest = true;    // ours, measured: next grid lot = newest open order x Martin_
+input int    EntryTickDelay = 1;      // ours, measured 25.10: a third of BD first entries fill at a later tick of the bar-open second
+input bool   TrailBySL = true;        // ours, measured 25.10: BD basket exits never below iTS-iTD, i.e. a real stop at the server
 input int    Start_Hour = 2;
 input int    End_Hour = 21;
 input long   Magic = 5555;
@@ -158,6 +160,24 @@ void CloseSide(int side)
    trailOn[side] = false; hiWater[side] = 0;
   }
 
+void SetSideSL(int side, double slPx)   // move every position of the side to one stop; only ever tighten
+  {
+   slPx = NormalizeDouble(slPx, _Digits);
+   double minD = SymbolInfoInteger(_Symbol, SYMBOL_TRADE_STOPS_LEVEL) * _Point;
+   double px = side == 0 ? SymbolInfoDouble(_Symbol, SYMBOL_BID) : SymbolInfoDouble(_Symbol, SYMBOL_ASK);
+   if(side == 0 ? slPx > px - minD : slPx < px + minD) { CloseSide(side); return; }   // already through the stop
+   for(int i = PositionsTotal() - 1; i >= 0; i--)
+     {
+      ulong t = PositionGetTicket(i);
+      if(!PositionSelectByTicket(t) || PositionGetInteger(POSITION_MAGIC) != Magic || PositionGetString(POSITION_SYMBOL) != _Symbol) continue;
+      int s = PositionGetInteger(POSITION_TYPE) == POSITION_TYPE_BUY ? 0 : 1;
+      if(s != side) continue;
+      double cur = PositionGetDouble(POSITION_SL);
+      bool better = cur == 0 || (side == 0 ? slPx > cur + _Point / 2 : slPx < cur - _Point / 2);
+      if(better) trade.PositionModify(t, slPx, PositionGetDouble(POSITION_TP));
+     }
+  }
+
 bool CrashNow()
   {
    int n = G_CrashBars; MqlRates r[]; ArraySetAsSeries(r, true);
@@ -193,7 +213,8 @@ void OnTick()
       if(Trail_Mode > 0)
         {
          if(move >= iTS * _Point) { trailOn[side] = true; hiWater[side] = MathMax(hiWater[side], move); }
-         if(trailOn[side] && move <= hiWater[side] - iTD * _Point) { CloseSide(side); continue; }
+         if(trailOn[side] && TrailBySL) SetSideSL(side, avg + sg * (hiWater[side] - iTD * _Point));
+         else if(trailOn[side] && move <= hiWater[side] - iTD * _Point) { CloseSide(side); continue; }
         }
       // overlap: newest + oldest together when their sum covers OverlapPercent% of the oldest loss;
       // measured on 7.10.2026 (live1m_bdreal): BD closes the pair only with MORE than OverlapOrderNumber orders
@@ -228,8 +249,10 @@ void OnTick()
 
    // new baskets on a new M15 bar
    datetime bt = iTime(_Symbol, PERIOD_M15, 0);
-   if(bt == lastBar) return;
-   lastBar = bt;
+   static int tickInBar = 0;
+   if(bt != lastBar) { lastBar = bt; tickInBar = 0; }
+   else tickInBar++;
+   if(tickInBar != EntryTickDelay) return;   // act once per bar, on tick number EntryTickDelay (0 = the first tick)
    if(!NewCycle_ || crash) return;
    MqlDateTime dt; TimeToStruct(now, dt);
    if(dt.hour < Start_Hour || dt.hour >= End_Hour) return;
