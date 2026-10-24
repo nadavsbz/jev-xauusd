@@ -35,8 +35,9 @@ input int    MaxSpred = 200;
 input bool   LogSpread = false;
 input bool   OneAddPerBar = true;     // ours, measured: BD never adds more than one level per basket per M15 bar       // ours: print the spread at every new M15 bar in trading hours (calibration)
 input bool   LotFromNewest = true;    // ours, measured: next grid lot = newest open order x Martin_
-input int    EntryTickDelay = 1;      // ours, measured 25.10: a third of BD first entries fill at a later tick of the bar-open second
+input int    EntryTickDelay = 0;      // ours, measured 25.10: a third of BD first entries fill at a later tick of the bar-open second
 input bool   TrailBySL = true;        // ours, measured 25.10: BD basket exits never below iTS-iTD, i.e. a real stop at the server
+input bool   OpenUsesBarAdd = true;   // ours, measured: no level 2 in the bar where the basket opened
 input int    Start_Hour = 2;
 input int    End_Hour = 21;
 input long   Magic = 5555;
@@ -271,6 +272,9 @@ void OnTick()
    Bsk b; Scan(dir, b);
    if(b.n > 0) return;
    if(!Flag_Use_hedge) { Bsk o; Scan(1 - dir, o); if(o.n > 0) return; }
-   if(dir == 0 && Flag_Trade_Buy_) trade.Buy(LotFor(1), _Symbol, 0, 0, 0, sOrdComm);
-   if(dir == 1 && Flag_Trade_Sell_) trade.Sell(LotFor(1), _Symbol, 0, 0, 0, sOrdComm);
+   // the opening order also uses the bar's one add (measured 25.10: 82% of BD level-2 adds fall on the NEXT bar open)
+   bool opened = false;
+   if(dir == 0 && Flag_Trade_Buy_) opened = trade.Buy(LotFor(1), _Symbol, 0, 0, 0, sOrdComm);
+   if(dir == 1 && Flag_Trade_Sell_) opened = trade.Sell(LotFor(1), _Symbol, 0, 0, 0, sOrdComm);
+   if(opened && OpenUsesBarAdd && trade.ResultRetcode() == TRADE_RETCODE_DONE) lastAddBar[dir] = bt;
   }

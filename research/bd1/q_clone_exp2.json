@@ -1,0 +1,40 @@
+[
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 109829,
+  "leverage": 1000,
+  "base_set": "dc4_bd_3digit_cal.set",
+  "from": "2026.09.01",
+  "to": "2026.10.01",
+  "report": "exp2_sep26_obt",
+  "overrides": {
+   "MaxSpred": "350",
+   "Lot_Init_": "0.18",
+   "EntryTickDelay": "0",
+   "TrailBySL": "true",
+   "OpenUsesBarAdd": "true"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 109829,
+  "leverage": 1000,
+  "base_set": "dc4_bd_3digit_cal.set",
+  "from": "2026.09.01",
+  "to": "2026.10.01",
+  "report": "exp2_sep26_obf",
+  "overrides": {
+   "MaxSpred": "350",
+   "Lot_Init_": "0.18",
+   "EntryTickDelay": "0",
+   "TrailBySL": "true",
+   "OpenUsesBarAdd": "false"
+  }
+ }
+]
