@@ -1,0 +1,173 @@
+[
+ {
+  "base_set": "dev_testbull4.set",
+  "overrides": {
+   "InpLotSize": "0.01",
+   "InpMaxPositions": "10",
+   "InpUseRiskLimit": "false",
+   "InpAiLookbackTF": "5"
+  },
+  "name": "Robo ECN demo",
+  "expert": "Market\\EA Bull Scalper.ex5",
+  "symbol": ".USTECHCash",
+  "period": "M30",
+  "deposit": 10000,
+  "leverage": 500,
+  "model": 1,
+  "report": "bullrf_testbull4_10k",
+  "from": "2025.03.31",
+  "to": "2026.10.14"
+ },
+ {
+  "base_set": "dev_testbull4.set",
+  "overrides": {
+   "InpLotSize": "0.01",
+   "InpMaxPositions": "10",
+   "InpUseRiskLimit": "false",
+   "InpAiLookbackTF": "5"
+  },
+  "name": "Robo ECN demo",
+  "expert": "Market\\EA Bull Scalper.ex5",
+  "symbol": ".USTECHCash",
+  "period": "M30",
+  "deposit": 50000,
+  "leverage": 500,
+  "model": 1,
+  "report": "bullrf_testbull4_50k",
+  "from": "2025.03.31",
+  "to": "2026.10.14"
+ },
+ {
+  "base_set": "dev_testbull4.set",
+  "overrides": {
+   "InpLotSize": "0.01",
+   "InpMaxPositions": "10",
+   "InpUseRiskLimit": "false",
+   "InpAiLookbackTF": "5"
+  },
+  "name": "Robo ECN demo",
+  "expert": "Market\\EA Bull Scalper.ex5",
+  "symbol": ".USTECHCash",
+  "period": "M30",
+  "deposit": 100000,
+  "leverage": 500,
+  "model": 1,
+  "report": "bullrf_testbull4_100k",
+  "from": "2025.03.31",
+  "to": "2026.10.14"
+ },
+ {
+  "base_set": "dev_bull_new_profit.set",
+  "overrides": {
+   "InpLotSize": "0.01",
+   "InpMaxPositions": "10",
+   "InpUseRiskLimit": "false",
+   "InpAiLookbackTF": "5"
+  },
+  "name": "Robo ECN demo",
+  "expert": "Market\\EA Bull Scalper.ex5",
+  "symbol": ".USTECHCash",
+  "period": "M30",
+  "deposit": 10000,
+  "leverage": 500,
+  "model": 1,
+  "report": "bullrf_new_profit_10k",
+  "from": "2025.03.31",
+  "to": "2026.10.14"
+ },
+ {
+  "base_set": "dev_bull_new_profit.set",
+  "overrides": {
+   "InpLotSize": "0.01",
+   "InpMaxPositions": "10",
+   "InpUseRiskLimit": "false",
+   "InpAiLookbackTF": "5"
+  },
+  "name": "Robo ECN demo",
+  "expert": "Market\\EA Bull Scalper.ex5",
+  "symbol": ".USTECHCash",
+  "period": "M30",
+  "deposit": 50000,
+  "leverage": 500,
+  "model": 1,
+  "report": "bullrf_new_profit_50k",
+  "from": "2025.03.31",
+  "to": "2026.10.14"
+ },
+ {
+  "base_set": "dev_bull_new_profit.set",
+  "overrides": {
+   "InpLotSize": "0.01",
+   "InpMaxPositions": "10",
+   "InpUseRiskLimit": "false",
+   "InpAiLookbackTF": "5"
+  },
+  "name": "Robo ECN demo",
+  "expert": "Market\\EA Bull Scalper.ex5",
+  "symbol": ".USTECHCash",
+  "period": "M30",
+  "deposit": 100000,
+  "leverage": 500,
+  "model": 1,
+  "report": "bullrf_new_profit_100k",
+  "from": "2025.03.31",
+  "to": "2026.10.14"
+ },
+ {
+  "base_set": "dev_bull100.set",
+  "overrides": {
+   "InpLotSize": "0.01",
+   "InpMaxPositions": "10",
+   "InpUseRiskLimit": "false",
+   "InpAiLookbackTF": "5"
+  },
+  "name": "Robo ECN demo",
+  "expert": "Market\\EA Bull Scalper.ex5",
+  "symbol": ".USTECHCash",
+  "period": "M30",
+  "deposit": 10000,
+  "leverage": 500,
+  "model": 1,
+  "report": "bullrf_bull100_10k",
+  "from": "2025.03.31",
+  "to": "2026.10.14"
+ },
+ {
+  "base_set": "dev_bull100.set",
+  "overrides": {
+   "InpLotSize": "0.01",
+   "InpMaxPositions": "10",
+   "InpUseRiskLimit": "false",
+   "InpAiLookbackTF": "5"
+  },
+  "name": "Robo ECN demo",
+  "expert": "Market\\EA Bull Scalper.ex5",
+  "symbol": ".USTECHCash",
+  "period": "M30",
+  "deposit": 50000,
+  "leverage": 500,
+  "model": 1,
+  "report": "bullrf_bull100_50k",
+  "from": "2025.03.31",
+  "to": "2026.10.14"
+ },
+ {
+  "base_set": "dev_bull100.set",
+  "overrides": {
+   "InpLotSize": "0.01",
+   "InpMaxPositions": "10",
+   "InpUseRiskLimit": "false",
+   "InpAiLookbackTF": "5"
+  },
+  "name": "Robo ECN demo",
+  "expert": "Market\\EA Bull Scalper.ex5",
+  "symbol": ".USTECHCash",
+  "period": "M30",
+  "deposit": 100000,
+  "leverage": 500,
+  "model": 1,
+  "report": "bullrf_bull100_100k",
+  "from": "2025.03.31",
+  "to": "2026.10.14"
+ }
+]

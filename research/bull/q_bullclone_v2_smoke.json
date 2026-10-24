@@ -1,0 +1,20 @@
+[
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\BullClone.ex5",
+  "symbol": "$US100c",
+  "period": "M30",
+  "leverage": 1000,
+  "from": "2025.03.31",
+  "to": "2025.05.01",
+  "report": "bc2_short_smoke",
+  "base_set": "dev_testbull4.set",
+  "overrides": {
+   "InpLotSize": "0.01",
+   "InpMaxPositions": "10",
+   "InpUseRiskLimit": "false",
+   "InpAiLookbackTF": "5"
+  },
+  "deposit": 500000
+ }
+]
