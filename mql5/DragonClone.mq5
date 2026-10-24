@@ -34,6 +34,7 @@ input string sOrdComm = "DragonClone";
 input int    MaxSpred = 200;
 input bool   LogSpread = false;
 input bool   OneAddPerBar = true;     // ours, measured: BD never adds more than one level per basket per M15 bar       // ours: print the spread at every new M15 bar in trading hours (calibration)
+input bool   LotFromNewest = true;    // ours, measured: next grid lot = newest open order x Martin_
 input int    Start_Hour = 2;
 input int    End_Hour = 21;
 input long   Magic = 5555;
@@ -95,6 +96,7 @@ int OnInit()
    hEma = iMA(_Symbol, PERIOD_M15, EmaPeriod, 0, MODE_EMA, PRICE_CLOSE);
    hEmaD = iMA(_Symbol, PERIOD_D1, G_ContextEma, 0, MODE_EMA, PRICE_CLOSE);
    if(hEma == INVALID_HANDLE || hEmaD == INVALID_HANDLE) return INIT_FAILED;
+   if(AccountInfoInteger(ACCOUNT_MARGIN_MODE) != ACCOUNT_MARGIN_MODE_RETAIL_HEDGING) { Print("DragonClone needs a hedging account"); return INIT_FAILED; }
    trade.SetExpertMagicNumber(Magic);
    trailOn[0] = trailOn[1] = false; hiWater[0] = hiWater[1] = 0;
    return INIT_SUCCEEDED;
@@ -111,21 +113,28 @@ double LotFor(int level)   // level 1..N
    return MathMin(MathMax(l, vmin), MaxLot_);
   }
 
+double NextLot(double newestV)   // the level whose lot is the newest open order, plus one (BD rounds from Lot_Init_, not step by step)
+  {
+   int k = 1; double best = DBL_MAX;
+   for(int lv = 1; lv <= 60; lv++) { double d = MathAbs(LotFor(lv) - newestV); if(d < best - 1e-9) { best = d; k = lv; } }
+   return LotFor(k + 1);
+  }
+
 double DistFor(int level)  // distance before opening order number `level` (2..N), in price
   {
    if(level < Order_dinamic_distance) return Fix_Distance * _Point;
    return Dynamic_distance_start * _Point * MathPow(Distance_multiplier, level - Order_dinamic_distance);
   }
 
-struct Bsk { int n; double vol; double pv; double last; double profit; ulong oldest; double oldestP; ulong newest; double newestP; datetime oldestT; datetime newestT; };
+struct Bsk { int n; double newestV; double vol; double pv; double last; double profit; ulong oldest; double oldestP; ulong newest; double newestP; datetime oldestT; datetime newestT; };
 
 void Scan(int side, Bsk &b)   // side 0 buy, 1 sell
   {
-   b.n = 0; b.vol = 0; b.pv = 0; b.last = 0; b.profit = 0; b.oldest = 0; b.newest = 0; b.oldestT = D'2100.01.01'; b.newestT = 0; b.oldestP = 0; b.newestP = 0;
+   b.n = 0; b.newestV = 0; b.vol = 0; b.pv = 0; b.last = 0; b.profit = 0; b.oldest = 0; b.newest = 0; b.oldestT = D'2100.01.01'; b.newestT = 0; b.oldestP = 0; b.newestP = 0;
    for(int i = PositionsTotal() - 1; i >= 0; i--)
      {
       ulong t = PositionGetTicket(i);
-      if(!PositionSelectByTicket(t) || PositionGetInteger(POSITION_MAGIC) != Magic) continue;
+      if(!PositionSelectByTicket(t) || PositionGetInteger(POSITION_MAGIC) != Magic || PositionGetString(POSITION_SYMBOL) != _Symbol) continue;
       int s = PositionGetInteger(POSITION_TYPE) == POSITION_TYPE_BUY ? 0 : 1;
       if(s != side) continue;
       double v = PositionGetDouble(POSITION_VOLUME), p = PositionGetDouble(POSITION_PRICE_OPEN);
@@ -133,7 +142,7 @@ void Scan(int side, Bsk &b)   // side 0 buy, 1 sell
       datetime ot = (datetime)PositionGetInteger(POSITION_TIME);
       b.n++; b.vol += v; b.pv += v * p; b.profit += pr;
       if(ot < b.oldestT) { b.oldestT = ot; b.oldest = t; b.oldestP = pr; }
-      if(ot >= b.newestT) { b.newestT = ot; b.newest = t; b.newestP = pr; b.last = p; }
+      if(ot >= b.newestT) { b.newestT = ot; b.newest = t; b.newestP = pr; b.last = p; b.newestV = v; }
      }
   }
 
@@ -142,7 +151,7 @@ void CloseSide(int side)
    for(int i = PositionsTotal() - 1; i >= 0; i--)
      {
       ulong t = PositionGetTicket(i);
-      if(!PositionSelectByTicket(t) || PositionGetInteger(POSITION_MAGIC) != Magic) continue;
+      if(!PositionSelectByTicket(t) || PositionGetInteger(POSITION_MAGIC) != Magic || PositionGetString(POSITION_SYMBOL) != _Symbol) continue;
       int s = PositionGetInteger(POSITION_TYPE) == POSITION_TYPE_BUY ? 0 : 1;
       if(s == side) trade.PositionClose(t);
      }
@@ -191,7 +200,10 @@ void OnTick()
       if(Overlap && b.n > OverlapOrderNumber && b.oldestP < 0 && b.newestP > 0 && b.newest != b.oldest)
         {
          if(b.newestP + b.oldestP >= -b.oldestP * OverlapPercent / 100)
-           { trade.PositionClose(b.newest); trade.PositionClose(b.oldest); continue; }
+           {   // close the oldest only after the newest (the profit that covers it) is really closed (QA PR 40)
+            if(trade.PositionClose(b.newest) && trade.ResultRetcode() == TRADE_RETCODE_DONE) trade.PositionClose(b.oldest);
+            continue;
+           }
         }
       // next level
       int maxo = side == 0 ? MaxOrdersBuy : MaxOrdersSell;
@@ -204,8 +216,12 @@ void OnTick()
          datetime barNow = iTime(_Symbol, PERIOD_M15, 0);
          if(hit && spr <= MaxSpred && !(OneAddPerBar && lastAddBar[side] == barNow))
            {
-            bool ok = side == 0 ? trade.Buy(LotFor(lvl), _Symbol, 0, 0, 0, sOrdComm) : trade.Sell(LotFor(lvl), _Symbol, 0, 0, 0, sOrdComm);
-            if(ok) lastAddBar[side] = barNow;
+            // lot: the newest open order x Martin_ (measured 7.10.2026: after an Overlap pair close BD adds
+            // 3.08 after a remaining 2.05, i.e. the progression continues from the newest order, it does not
+            // restart from the remaining count; QA PR 40). LotFromNewest=false restores the old count rule.
+            double lot = LotFromNewest ? NextLot(b.newestV) : LotFor(lvl);
+            bool ok = side == 0 ? trade.Buy(lot, _Symbol, 0, 0, 0, sOrdComm) : trade.Sell(lot, _Symbol, 0, 0, 0, sOrdComm);
+            if(ok && trade.ResultRetcode() == TRADE_RETCODE_DONE && trade.ResultDeal() > 0) lastAddBar[side] = barNow;
            }
         }
      }
