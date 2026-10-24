@@ -186,8 +186,9 @@ void OnTick()
          if(move >= iTS * _Point) { trailOn[side] = true; hiWater[side] = MathMax(hiWater[side], move); }
          if(trailOn[side] && move <= hiWater[side] - iTD * _Point) { CloseSide(side); continue; }
         }
-      // overlap: newest + oldest together when their sum covers OverlapPercent% of the oldest loss
-      if(Overlap && b.n >= OverlapOrderNumber && b.oldestP < 0 && b.newestP > 0 && b.newest != b.oldest)
+      // overlap: newest + oldest together when their sum covers OverlapPercent% of the oldest loss;
+      // measured on 7.10.2026 (live1m_bdreal): BD closes the pair only with MORE than OverlapOrderNumber orders
+      if(Overlap && b.n > OverlapOrderNumber && b.oldestP < 0 && b.newestP > 0 && b.newest != b.oldest)
         {
          if(b.newestP + b.oldestP >= -b.oldestP * OverlapPercent / 100)
            { trade.PositionClose(b.newest); trade.PositionClose(b.oldest); continue; }
