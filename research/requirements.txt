@@ -3,3 +3,5 @@ pandas>=2.2,<3
 numpy
 websocket-client
 openpyxl
+scipy
+MetaTrader5
