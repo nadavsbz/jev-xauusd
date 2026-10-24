@@ -1,0 +1,17 @@
+[
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 24895,
+  "leverage": 1000,
+  "base_set": "dc2_bd_3digit_cal.set",
+  "from": "2025.11.11",
+  "to": "2026.10.14",
+  "report": "dc_acc1_spr350",
+  "overrides": {
+   "MaxSpred": "350"
+  }
+ }
+]

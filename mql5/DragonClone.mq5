@@ -32,6 +32,8 @@ input bool   flag_Hand_Ord = false;
 input bool   Flag_Use_hedge = true;
 input string sOrdComm = "DragonClone";
 input int    MaxSpred = 200;
+input bool   LogSpread = false;
+input bool   OneAddPerBar = true;     // ours, measured: BD never adds more than one level per basket per M15 bar       // ours: print the spread at every new M15 bar in trading hours (calibration)
 input int    Start_Hour = 2;
 input int    End_Hour = 21;
 input long   Magic = 5555;
@@ -84,7 +86,7 @@ input double G_BasketStopPct = 0;      // 0 = off; close a basket at this floati
 
 CTrade trade;
 int hEma, hEmaD;
-datetime lastBar = 0, crashUntil = 0;
+datetime lastBar = 0, crashUntil = 0, lastAddBar[2] = {0, 0};
 double hiWater[2], peakBasketProfit[2];
 bool trailOn[2];
 
@@ -198,9 +200,11 @@ void OnTick()
          double d = DistFor(lvl);
          bool hit = side == 0 ? (ask <= b.last - d) : (bid >= b.last + d);
          long spr = SymbolInfoInteger(_Symbol, SYMBOL_SPREAD);
-         if(hit && spr <= MaxSpred)
+         datetime barNow = iTime(_Symbol, PERIOD_M15, 0);
+         if(hit && spr <= MaxSpred && !(OneAddPerBar && lastAddBar[side] == barNow))
            {
-            if(side == 0) trade.Buy(LotFor(lvl), _Symbol, 0, 0, 0, sOrdComm); else trade.Sell(LotFor(lvl), _Symbol, 0, 0, 0, sOrdComm);
+            bool ok = side == 0 ? trade.Buy(LotFor(lvl), _Symbol, 0, 0, 0, sOrdComm) : trade.Sell(LotFor(lvl), _Symbol, 0, 0, 0, sOrdComm);
+            if(ok) lastAddBar[side] = barNow;
            }
         }
      }
@@ -212,6 +216,7 @@ void OnTick()
    if(!NewCycle_ || crash) return;
    MqlDateTime dt; TimeToStruct(now, dt);
    if(dt.hour < Start_Hour || dt.hour >= End_Hour) return;
+   if(LogSpread) PrintFormat("SPR %s %d %.2f", TimeToString(bt), (int)SymbolInfoInteger(_Symbol, SYMBOL_SPREAD), SymbolInfoDouble(_Symbol, SYMBOL_BID));
    if(SymbolInfoInteger(_Symbol, SYMBOL_SPREAD) > MaxSpred) return;
    double c = iClose(_Symbol, PERIOD_M15, 1), e = B(hEma, 1);
    if(e <= 0) return;

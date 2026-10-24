@@ -1,0 +1,30 @@
+[
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 24895,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2025.11.11",
+  "to": "2025.12.11",
+  "report": "dc_acc1_nov_spr200",
+  "overrides": {}
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 24895,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2025.11.11",
+  "to": "2025.12.11",
+  "report": "dc_acc1_nov_nospr",
+  "overrides": {
+   "MaxSpred": "99999"
+  }
+ }
+]
