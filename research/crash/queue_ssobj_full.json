@@ -1,0 +1,38 @@
+[
+ {
+  "report": "ssobj_robo",
+  "base_set": "ss_obj.set",
+  "overrides": {
+   "OutFile": "ss_obj_robo.csv"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SSObjExport.ex5",
+  "symbol": "XAUUSD",
+  "period": "H1",
+  "from": "2022.01.01",
+  "to": "2025.11.01",
+  "deposit": 10000,
+  "leverage": 1000,
+  "model": 1,
+  "visual": 1,
+  "timeout": 36000
+ },
+ {
+  "report": "ssobj_eg",
+  "base_set": "ss_obj.set",
+  "overrides": {
+   "OutFile": "ss_obj_eg.csv"
+  },
+  "name": "Black Dragon 1",
+  "expert": "Jev\\SSObjExport.ex5",
+  "symbol": "XAUUSDc",
+  "period": "H1",
+  "from": "2025.11.01",
+  "to": "2026.10.15",
+  "deposit": 10000,
+  "leverage": 1000,
+  "model": 1,
+  "visual": 1,
+  "timeout": 36000
+ }
+]

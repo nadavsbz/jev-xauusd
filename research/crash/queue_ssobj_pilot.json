@@ -1,0 +1,18 @@
+[
+ {
+  "report": "ssobj_pilot",
+  "base_set": "ss_obj.set",
+  "overrides": {},
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SSObjExport.ex5",
+  "symbol": "XAUUSD",
+  "period": "H1",
+  "from": "2024.04.01",
+  "to": "2024.05.01",
+  "deposit": 10000,
+  "leverage": 1000,
+  "model": 1,
+  "visual": 1,
+  "timeout": 3600
+ }
+]

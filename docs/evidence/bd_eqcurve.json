@@ -1,0 +1,44 @@
+{
+ "selection": {
+  "net_kept_by_n": {
+   "20": -26806.6,
+   "50": -26806.6,
+   "100": -26806.6
+  },
+  "net_all": -26806.6,
+  "chosen_n": 20
+ },
+ "train": {
+  "baskets": 13709,
+  "blocked": 0,
+  "net_all": -26807,
+  "net_kept": -26807,
+  "worst_all": -64981,
+  "worst_kept": -64981,
+  "deep_all": 2,
+  "deep_kept": 2
+ },
+ "test1": {
+  "baskets": 19018,
+  "blocked": 6,
+  "net_all": 44069,
+  "net_kept": 44064,
+  "worst_all": -74359,
+  "worst_kept": -74359,
+  "deep_all": 10,
+  "deep_kept": 10,
+  "pass": false
+ },
+ "test2": {
+  "baskets": 14286,
+  "blocked": 0,
+  "net_all": 22620,
+  "net_kept": 22620,
+  "worst_all": -20098,
+  "worst_kept": -20098,
+  "deep_all": 6,
+  "deep_kept": 6,
+  "pass": false
+ },
+ "candidate": false
+}
