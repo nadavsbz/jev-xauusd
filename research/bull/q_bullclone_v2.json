@@ -1,0 +1,88 @@
+[
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\BullClone.ex5",
+  "symbol": "$US100c",
+  "period": "M30",
+  "leverage": 1000,
+  "from": "2025.03.31",
+  "to": "2026.10.14",
+  "report": "bc2_testbull4_tips_tf5",
+  "base_set": "dev_testbull4.set",
+  "overrides": {
+   "InpLotSize": "0.01",
+   "InpMaxPositions": "10",
+   "InpUseRiskLimit": "false",
+   "InpAiLookbackTF": "5"
+  },
+  "deposit": 500000
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\BullClone.ex5",
+  "symbol": "$US100c",
+  "period": "M30",
+  "leverage": 1000,
+  "from": "2025.03.31",
+  "to": "2026.10.14",
+  "report": "bc2_new_profit_tips_tf5",
+  "base_set": "dev_bull_new_profit.set",
+  "overrides": {
+   "InpLotSize": "0.01",
+   "InpMaxPositions": "10",
+   "InpUseRiskLimit": "false",
+   "InpAiLookbackTF": "5"
+  },
+  "deposit": 500000
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\BullClone.ex5",
+  "symbol": "$US100c",
+  "period": "M30",
+  "leverage": 1000,
+  "from": "2025.03.31",
+  "to": "2026.10.14",
+  "report": "bc2_bull100_tips_tf5",
+  "base_set": "dev_bull100.set",
+  "overrides": {
+   "InpLotSize": "0.01",
+   "InpMaxPositions": "10",
+   "InpUseRiskLimit": "false",
+   "InpAiLookbackTF": "5"
+  },
+  "deposit": 500000
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\BullClone.ex5",
+  "symbol": "$US100c",
+  "period": "M30",
+  "leverage": 1000,
+  "from": "2025.03.31",
+  "to": "2026.10.14",
+  "report": "bc2_testbull4_asis",
+  "base_set": "dev_testbull4.set",
+  "overrides": {},
+  "deposit": 5000000
+ },
+ {
+  "name": "Robo ECN demo",
+  "expert": "Jev\\BullClone.ex5",
+  "symbol": ".USTECHCash",
+  "period": "M30",
+  "leverage": 500,
+  "model": 1,
+  "from": "2021.11.01",
+  "to": "2023.01.31",
+  "report": "bc2_testbull4_tips_tf5_bear2022",
+  "base_set": "dev_testbull4.set",
+  "overrides": {
+   "InpLotSize": "0.01",
+   "InpMaxPositions": "10",
+   "InpUseRiskLimit": "false",
+   "InpAiLookbackTF": "5"
+  },
+  "deposit": 5000
+ }
+]

@@ -8,7 +8,7 @@ Usage: python tools/run_queue.py QUEUE_JSON RESULTS_JSONL
 QUEUE_JSON: [{"report": "...", "base_set": "...", "overrides": {"MaxLot_": "0.5"}, "name": "Black Dragon 3",
               "expert": "BD\\EA Black Dragon.ex5", "symbol": "XAUUSD", "period": "M15",
               "from": "2024.04.01", "to": "2025.10.31", "deposit": 24895, "leverage": 1000}]"""
-import json, os, re, subprocess, sys
+import json, os, re, subprocess, sys, time
 
 TERM = r"C:\MT5_JEV_TEST\terminal64.exe"
 SETS = r"C:\MT5_JEV_TEST\MQL5\Profiles\Tester"
@@ -55,8 +55,12 @@ def main():
                "--expert", j["expert"], "--set", set_name, "--symbol", j["symbol"], "--period", j["period"],
                "--from", j["from"], "--to", j["to"], "--deposit", str(j["deposit"]),
                "--leverage", str(j["leverage"]), "--report", j["report"]] + (["--model", str(j["model"])] if "model" in j else [])             + ["--timeout", str(j.get("timeout", 43200))] + (["--delay", str(j["delay"])] if "delay" in j else []) + (["--visual", str(j["visual"])] if "visual" in j else [])   # 12 h by default: M5 real-tick runs pass 4 h
-        r = subprocess.run(cmd, cwd=os.path.join(ROOT, "tools"), capture_output=True, text=True)
-        htm = os.path.join(os.path.dirname(TERM), j["report"] + ".htm")
+        for attempt in range(4):      # the broker sometimes refuses the preflight login: wait and retry
+            r = subprocess.run(cmd, cwd=os.path.join(ROOT, "tools"), capture_output=True, text=True)
+            if "Authorization failed" not in (r.stdout + r.stderr):
+                break
+            time.sleep(120 * (attempt + 1))
+        htm =os.path.join(os.path.dirname(TERM), j["report"] + ".htm")
         row = {"report": j["report"], "overrides": j.get("overrides", {}), "from": j["from"], "to": j["to"],
                "deposit": j["deposit"], "rc": r.returncode}
         if os.path.exists(htm):
