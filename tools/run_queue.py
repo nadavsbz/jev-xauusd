@@ -60,6 +60,9 @@ def main():
             if "Authorization failed" not in (r.stdout + r.stderr):
                 break
             time.sleep(120 * (attempt + 1))
+        if "Authorization failed" in (r.stdout + r.stderr):   # broker down (e.g. weekend maintenance): stop this pass, the caller retries later
+            print(json.dumps({"report": j["report"], "error": "Authorization failed after retries, pass stopped"}), flush=True)
+            sys.exit(3)
         htm =os.path.join(os.path.dirname(TERM), j["report"] + ".htm")
         row = {"report": j["report"], "overrides": j.get("overrides", {}), "from": j["from"], "to": j["to"],
                "deposit": j["deposit"], "rc": r.returncode}
