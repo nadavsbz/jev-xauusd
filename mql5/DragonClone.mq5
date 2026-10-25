@@ -38,6 +38,8 @@ input bool   LotFromNewest = true;    // ours, measured: next grid lot = newest 
 input int    EntryTickDelay = 0;      // ours, measured 25.10: a third of BD first entries fill at a later tick of the bar-open second
 input bool   TrailBySL = true;        // ours, measured 25.10: BD basket exits never below iTS-iTD, i.e. a real stop at the server
 input bool   OpenUsesBarAdd = true;   // ours, measured: no level 2 in the bar where the basket opened
+input bool   LotFromOldest = true;    // ours, measured 25.10: next lot = oldest open lot x Martin_^(open count); explains 3.11/4.63/4.67 after Overlap
+input bool   OverlapAtCount = true;   // ours, measured 25.10: Overlap fires with OverlapOrderNumber orders on the side (>=), not more
 input int    Start_Hour = 2;
 input int    End_Hour = 21;
 input long   Magic = 5555;
@@ -123,17 +125,23 @@ double NextLot(double newestV)   // the level whose lot is the newest open order
    return LotFor(k + 1);
   }
 
+double OldestLot(double oldestV, int n)   // oldest open lot x Martin_^n (25.10: 0.41 x 1.5^5 = 3.11, 0.61 x 1.5^5 = 4.63)
+  {
+   double l = NormalizeDouble(oldestV * MathPow(Martin_, n), 2);
+   return MathMin(MathMax(l, SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MIN)), MaxLot_);
+  }
+
 double DistFor(int level)  // distance before opening order number `level` (2..N), in price
   {
    if(level < Order_dinamic_distance) return Fix_Distance * _Point;
    return Dynamic_distance_start * _Point * MathPow(Distance_multiplier, level - Order_dinamic_distance);
   }
 
-struct Bsk { int n; double newestV; double vol; double pv; double last; double profit; ulong oldest; double oldestP; ulong newest; double newestP; datetime oldestT; datetime newestT; };
+struct Bsk { int n; double newestV; double oldestV; double vol; double pv; double last; double profit; ulong oldest; double oldestP; ulong newest; double newestP; datetime oldestT; datetime newestT; };
 
 void Scan(int side, Bsk &b)   // side 0 buy, 1 sell
   {
-   b.n = 0; b.newestV = 0; b.vol = 0; b.pv = 0; b.last = 0; b.profit = 0; b.oldest = 0; b.newest = 0; b.oldestT = D'2100.01.01'; b.newestT = 0; b.oldestP = 0; b.newestP = 0;
+   b.n = 0; b.newestV = 0; b.oldestV = 0; b.vol = 0; b.pv = 0; b.last = 0; b.profit = 0; b.oldest = 0; b.newest = 0; b.oldestT = D'2100.01.01'; b.newestT = 0; b.oldestP = 0; b.newestP = 0;
    for(int i = PositionsTotal() - 1; i >= 0; i--)
      {
       ulong t = PositionGetTicket(i);
@@ -144,7 +152,7 @@ void Scan(int side, Bsk &b)   // side 0 buy, 1 sell
       double pr = PositionGetDouble(POSITION_PROFIT) + PositionGetDouble(POSITION_SWAP);
       datetime ot = (datetime)PositionGetInteger(POSITION_TIME);
       b.n++; b.vol += v; b.pv += v * p; b.profit += pr;
-      if(ot < b.oldestT) { b.oldestT = ot; b.oldest = t; b.oldestP = pr; }
+      if(ot < b.oldestT) { b.oldestT = ot; b.oldest = t; b.oldestP = pr; b.oldestV = v; }
       if(ot >= b.newestT) { b.newestT = ot; b.newest = t; b.newestP = pr; b.last = p; b.newestV = v; }
      }
   }
@@ -217,9 +225,10 @@ void OnTick()
          if(trailOn[side] && TrailBySL) SetSideSL(side, avg + sg * (hiWater[side] - iTD * _Point));
          else if(trailOn[side] && move <= hiWater[side] - iTD * _Point) { CloseSide(side); continue; }
         }
-      // overlap: newest + oldest together when their sum covers OverlapPercent% of the oldest loss;
-      // measured on 7.10.2026 (live1m_bdreal): BD closes the pair only with MORE than OverlapOrderNumber orders
-      if(Overlap && b.n > OverlapOrderNumber && b.oldestP < 0 && b.newestP > 0 && b.newest != b.oldest)
+      // overlap: newest + oldest together when their gross sum covers OverlapPercent% of the oldest loss
+      // (25.10, val_sep26_bdreal: all 26 BD pair closes fire with 7 orders on the side and just above 3%, e.g. 60.36 vs 59.1)
+      int ovN = OverlapAtCount ? OverlapOrderNumber : OverlapOrderNumber + 1;
+      if(Overlap && b.n >= ovN && b.oldestP < 0 && b.newestP > 0 && b.newest != b.oldest)
         {
          if(b.newestP + b.oldestP >= -b.oldestP * OverlapPercent / 100)
            {   // close the oldest only after the newest (the profit that covers it) is really closed (QA PR 40)
@@ -241,7 +250,7 @@ void OnTick()
             // lot: the newest open order x Martin_ (measured 7.10.2026: after an Overlap pair close BD adds
             // 3.08 after a remaining 2.05, i.e. the progression continues from the newest order, it does not
             // restart from the remaining count; QA PR 40). LotFromNewest=false restores the old count rule.
-            double lot = LotFromNewest ? NextLot(b.newestV) : LotFor(lvl);
+            double lot = LotFromOldest ? OldestLot(b.oldestV, b.n) : LotFromNewest ? NextLot(b.newestV) : LotFor(lvl);
             bool ok = side == 0 ? trade.Buy(lot, _Symbol, 0, 0, 0, sOrdComm) : trade.Sell(lot, _Symbol, 0, 0, 0, sOrdComm);
             if(ok && trade.ResultRetcode() == TRADE_RETCODE_DONE && trade.ResultDeal() > 0) lastAddBar[side] = barNow;
            }
