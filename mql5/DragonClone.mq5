@@ -40,8 +40,8 @@ input bool   TrailBySL = true;        // ours, measured 25.10: BD basket exits n
 input bool   OpenUsesBarAdd = true;   // ours, measured: no level 2 in the bar where the basket opened
 input bool   LotFromOldest = true;    // ours, measured 25.10: next lot = oldest open lot x Martin_^(open count); explains 3.11/4.63/4.67 after Overlap
 input bool   EntryRetrySpread = true;  // ours, VERIFIED 25.10 with MaxSpred=200 (reproduces the 28.5.2026 14:30 wipe): a bar skipped for spread is retried on later ticks of the same bar
-input bool   OverlapResetsTrail = false; // ours, hypothesis 25.10 (8.6.2026 02:28): an Overlap pair close clears the basket trailing and its stops
-input bool   TrailIncludesSwap = false; // ours, hypothesis 25.10 (8.6.2026 02:28): basket trailing counts from the breakeven price incl. swap
+input bool   OverlapResetsTrail = false; // ours, tested 25.10 (exp4_jun26): no effect on any deal; kept off
+input bool   TrailIncludesSwap = true;  // ours, VERIFIED 25.10 (8.6.2026 02:28, reproduces the June wipe): basket trailing counts from the breakeven price incl. swap
 input bool   OverlapAtCount = true;   // ours, measured 25.10: Overlap fires with OverlapOrderNumber orders on the side (>=), not more
 input int    Start_Hour = 2;
 input int    End_Hour = 21;
