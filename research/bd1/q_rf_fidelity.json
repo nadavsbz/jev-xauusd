@@ -1,0 +1,62 @@
+[
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 26699,
+  "leverage": 1000,
+  "from": "2022.09.01",
+  "to": "2022.10.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "base_set": "bd2afterpoint_l001_sp50.set",
+  "report": "rf_sep22_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.01"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 26699,
+  "leverage": 1000,
+  "from": "2022.09.01",
+  "to": "2022.10.01",
+  "expert": "Jev\\DragonClone_v3.ex5",
+  "base_set": "dcv5_2d.set",
+  "report": "rf_sep22_clone",
+  "overrides": {
+   "Lot_Init_": "0.01"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 26699,
+  "leverage": 1000,
+  "from": "2023.06.01",
+  "to": "2023.07.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "base_set": "bd2afterpoint_l001_sp50.set",
+  "report": "rf_jun23_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.01"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 26699,
+  "leverage": 1000,
+  "from": "2023.06.01",
+  "to": "2023.07.01",
+  "expert": "Jev\\DragonClone_v3.ex5",
+  "base_set": "dcv5_2d.set",
+  "report": "rf_jun23_clone",
+  "overrides": {
+   "Lot_Init_": "0.01"
+  }
+ }
+]

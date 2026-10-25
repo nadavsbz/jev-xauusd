@@ -65,6 +65,27 @@ void V5Reset(int side) { pDone[side] = false; }""", None),
 void V5Reset(int side) { }""", None),
 }
 
+VARIANTS["v5m"] = ("all cut rules together (partial in two stages + rescue + freeze + time), each behind its inputs",
+ VARIANTS["v5a"][1] + VARIANTS["v5b"][1] + ["input double P_At2 = 0;               // v5m: second partial cut at this loss % (0 = off)",
+                                             "input double P_Frac2 = 0.3;           // v5m: share of the remaining volume closed at the second stage"]
+ + VARIANTS["v5c"][1] + VARIANTS["v5d"][1],
+ "bool rArmed[2]; bool pDone[2]; bool pDone2[2];",
+ """bool V5Guard(int side, Bsk &b)
+  {
+   double l = LossPct(b);
+   if(T_Hours > 0 && TimeCurrent() - b.oldestT >= T_Hours * 3600 && l >= T_Loss) { CloseSide(side); return true; }
+   if(R_Arm > 0)
+     {
+      if(l >= R_Arm) rArmed[side] = true;
+      if(rArmed[side] && l <= R_Exit) { CloseSide(side); rArmed[side] = false; return true; }
+     }
+   if(P_At > 0 && !pDone[side] && l >= P_At) { pDone[side] = true; CloseOldest(side, P_Frac * b.vol); return true; }
+   if(P_At2 > 0 && pDone[side] && !pDone2[side] && l >= P_At2) { pDone2[side] = true; CloseOldest(side, P_Frac2 * b.vol); return true; }
+   return false;
+  }
+void V5Reset(int side) { rArmed[side] = false; pDone[side] = false; pDone2[side] = false; }""",
+ VARIANTS["v5c"][4])
+
 def sub1(s, a, b):
     assert s.count(a) == 1, a
     return s.replace(a, b)
@@ -86,4 +107,5 @@ def build(name, desc, inputs, globs, guard, addok, src=SRC):
 if __name__ == "__main__":
     for n, v in VARIANTS.items(): build(n, *v); print(n)
     # combination: partial cut on top of the news-time pause variant (v4c); hooks do not overlap
+    build("v5ma", VARIANTS["v5m"][0] + " + lot step-down after Overlap (v4a)", *VARIANTS["v5m"][1:], src="mql5/DragonClone_v4a.mq5"); print("v5ma")
     build("v5bc", "partial cut + news-time pause (v4c)", *VARIANTS["v5b"][1:], src="mql5/DragonClone_v4c.mq5"); print("v5bc")
