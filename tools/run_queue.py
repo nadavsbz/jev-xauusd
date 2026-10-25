@@ -35,6 +35,28 @@ def write_set(base, overrides, out):
     open(os.path.join(SETS, out), "wb").write(b"\xff\xfe" + t.encode("utf-16-le"))
 
 
+MIN_FREE_GB = 25        # 24.10.2026: a 43 GB tester log filled C:, and Windows then deleted app data to free space
+MAX_LOG_GB = 1
+
+def disk_guard():
+    """Before every run: drop tester logs above MAX_LOG_GB, and stop the queue if C: still has < MIN_FREE_GB free."""
+    tdir = os.path.dirname(TERM)
+    for root in [os.path.join(tdir, "Tester", "logs"), os.path.join(tdir, "logs")] +                 [os.path.join(tdir, "Tester", a, "logs") for a in os.listdir(os.path.join(tdir, "Tester")) if a.startswith("Agent-")]:
+        if not os.path.isdir(root):
+            continue
+        for n in os.listdir(root):
+            p = os.path.join(root, n)
+            try:
+                if n.endswith(".log") and os.path.getsize(p) > MAX_LOG_GB * 2**30:
+                    os.remove(p); print(json.dumps({"disk_guard": "removed tester log", "file": p}), flush=True)
+            except OSError:
+                pass        # the log of a running tester is locked; it is checked again before the next run
+    free = __import__("shutil").disk_usage(tdir[:3]).free / 2**30
+    if free < MIN_FREE_GB:
+        print(json.dumps({"disk_guard": "stop", "free_gb": round(free, 1)}), flush=True)
+        sys.exit(4)
+
+
 def main():
     jobs = json.load(open(sys.argv[1], encoding="utf-8")); res_path = sys.argv[2]
     failed = []                                   # jobs that did not produce valid evidence (review PR #27)
@@ -46,6 +68,7 @@ def main():
             if old.get("job") == j and old.get("files") == file_spec(j):
                 continue
             os.replace(ev, ev + ".stale")
+        disk_guard()
         set_name = j["report"] + ".set"
         write_set(j["base_set"], j.get("overrides", {}), set_name)
         subprocess.run(["powershell", "-NoProfile", "-Command",
