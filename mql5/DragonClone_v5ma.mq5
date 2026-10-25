@@ -52,6 +52,9 @@ input double P_Frac2 = 0.3;           // v5m: share of the remaining volume clos
 input double F_Freeze = 0;            // v5c: no new levels while the basket loss is above this % of balance (0 = off)
 input double T_Hours = 0;             // v5d: basket age in hours (oldest open order) (0 = off)
 input double T_Loss = 5;              // v5d: ...and loss at least this % of balance -> close the basket
+input double G_FloorPct = 0;          // live-like guard (user, manual report): equity floor = balance x (1 - this %) (0 = off)
+input int    G_FloorDays = 14;         // ...the floor is reset to the current balance every this many days
+input int    G_FloorFrom = 20260403;   // ...and only from this date, YYYYMMDD (account 1 had no guard before 3.4.2026)
 input string qw8 = "//--- v4a (ours) ---//";
 input int    LotAfterOverlap = 0;     // v4a: after an Overlap close cap the next lots: 1 = the closed oldest lot, 2 = the closed newest lot, 3 = closed newest / Martin_   // ours, measured 25.10: Overlap fires with OverlapOrderNumber orders on the side (>=), not more
 input int    Start_Hour = 2;
@@ -245,6 +248,17 @@ void V4Reset(int side) { ovNewV[side] = 0; ovOldV[side] = 0; ovCnt[side] = 0; }
 bool V4EntryOk() { return true; }
 
 // ---- v5ma hooks ----
+double flFloor = 0; datetime flSet = 0;
+bool FloorHit()   // whole-account floor like the user's guard: when equity falls to it, everything is closed
+  {
+   MqlDateTime d; TimeToStruct(TimeCurrent(), d);
+   if(G_FloorPct <= 0 || d.year * 10000 + d.mon * 100 + d.day < G_FloorFrom) return false;
+   if(flSet == 0 || TimeCurrent() - flSet >= G_FloorDays * 86400) { flFloor = AccountInfoDouble(ACCOUNT_BALANCE) * (1 - G_FloorPct / 100); flSet = TimeCurrent(); }
+   if(AccountInfoDouble(ACCOUNT_EQUITY) > flFloor) return false;
+   flSet = 0;   // after a cut the floor is set again from the new balance
+   return true;
+  }
+
 double LossPct(Bsk &b) { return b.profit < 0 ? -b.profit / AccountInfoDouble(ACCOUNT_BALANCE) * 100 : 0; }
 
 void CloseOldest(int side, double volTarget)   // close the oldest positions of the side until volTarget lots are closed
@@ -305,6 +319,7 @@ void OnTick()
       double move = sg * (px - avg);
       // basket stop (guard)
       if(G_BasketStopPct > 0 && b.profit < -G_BasketStopPct / 100 * AccountInfoDouble(ACCOUNT_EQUITY)) { CloseSide(side); continue; }
+      if(FloorHit()) { CloseSide(0); CloseSide(1); continue; }
       if(V5Guard(side, b)) continue;
       // hard TP
       if(TP_Mode > 0 && TP_ > 0 && move >= TP_ * _Point) { CloseSide(side); continue; }

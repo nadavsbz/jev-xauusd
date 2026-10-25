@@ -4,7 +4,22 @@ with default inputs it trades exactly like v3. Losses are measured in % of BALAN
 Hooks: V5Guard (per side, every tick, after Scan; returns true when it closed something) and V5AddOk (allow an add)."""
 SRC = "mql5/DragonClone_v3.mq5"
 
-COMMON = """double LossPct(Bsk &b) { return b.profit < 0 ? -b.profit / AccountInfoDouble(ACCOUNT_BALANCE) * 100 : 0; }
+FLOOR_INPUTS = ["input double G_FloorPct = 0;          // live-like guard (user, manual report): equity floor = balance x (1 - this %) (0 = off)",
+                "input int    G_FloorDays = 14;         // ...the floor is reset to the current balance every this many days",
+                "input int    G_FloorFrom = 20260403;   // ...and only from this date, YYYYMMDD (account 1 had no guard before 3.4.2026)"]
+
+COMMON = """double flFloor = 0; datetime flSet = 0;
+bool FloorHit()   // whole-account floor like the user's guard: when equity falls to it, everything is closed
+  {
+   MqlDateTime d; TimeToStruct(TimeCurrent(), d);
+   if(G_FloorPct <= 0 || d.year * 10000 + d.mon * 100 + d.day < G_FloorFrom) return false;
+   if(flSet == 0 || TimeCurrent() - flSet >= G_FloorDays * 86400) { flFloor = AccountInfoDouble(ACCOUNT_BALANCE) * (1 - G_FloorPct / 100); flSet = TimeCurrent(); }
+   if(AccountInfoDouble(ACCOUNT_EQUITY) > flFloor) return false;
+   flSet = 0;   // after a cut the floor is set again from the new balance
+   return true;
+  }
+
+double LossPct(Bsk &b) { return b.profit < 0 ? -b.profit / AccountInfoDouble(ACCOUNT_BALANCE) * 100 : 0; }
 
 void CloseOldest(int side, double volTarget)   // close the oldest positions of the side until volTarget lots are closed
   {
@@ -93,13 +108,13 @@ def sub1(s, a, b):
 def build(name, desc, inputs, globs, guard, addok, src=SRC):
     s = open(src, encoding="utf-8").read()
     s = s.replace("//| FROZEN v3", f"//| DragonClone_{name}: frozen v3 + {desc}. Default inputs = v3.\n//| was FROZEN v3", 1)
-    s = sub1(s, "input bool   OverlapAtCount = true;", "input bool   OverlapAtCount = true;\ninput string qw9 = \"//--- " + name + " (ours) ---//\";\n" + "\n".join(inputs))
+    s = sub1(s, "input bool   OverlapAtCount = true;", "input bool   OverlapAtCount = true;\ninput string qw9 = \"//--- " + name + " (ours) ---//\";\n" + "\n".join(inputs + FLOOR_INPUTS))
     s = sub1(s, "datetime lastBar = 0, crashUntil = 0, lastAddBar[2] = {0, 0};", "datetime lastBar = 0, crashUntil = 0, lastAddBar[2] = {0, 0};\n" + globs)
     add = addok or "bool V5AddOk(int side, Bsk &b) { return true; }"
     s = sub1(s, "void OnTick()", "// ---- " + name + " hooks ----\n" + COMMON + "\n" + guard + "\n" + add + "\n\nvoid OnTick()")
     reset = "hiWater[side] = 0; V4Reset(side); continue; }" if src != SRC else "hiWater[side] = 0; continue; }"   # a v4 source already has its own reset hook
     s = sub1(s, reset, reset.replace("continue; }", "V5Reset(side); continue; }"))
-    s = sub1(s, "AccountInfoDouble(ACCOUNT_EQUITY)) { CloseSide(side); continue; }", "AccountInfoDouble(ACCOUNT_EQUITY)) { CloseSide(side); continue; }\n      if(V5Guard(side, b)) continue;")
+    s = sub1(s, "AccountInfoDouble(ACCOUNT_EQUITY)) { CloseSide(side); continue; }", "AccountInfoDouble(ACCOUNT_EQUITY)) { CloseSide(side); continue; }\n      if(FloorHit()) { CloseSide(0); CloseSide(1); continue; }\n      if(V5Guard(side, b)) continue;")
     s = sub1(s, "double lot = LotFromOldest ? OldestLot(b.oldestV, b.n) : LotFromNewest ? NextLot(b.newestV) : LotFor(lvl);",
              "double lot = LotFromOldest ? OldestLot(b.oldestV, b.n) : LotFromNewest ? NextLot(b.newestV) : LotFor(lvl);\n            if(!V5AddOk(side, b)) continue;")
     open(f"mql5/DragonClone_{name}.mq5", "w", encoding="utf-8").write(s)
