@@ -17,7 +17,7 @@ def main():
     try:
         for _ in range(40):
             try:
-                tabs = json.load(urllib.request.urlopen("http://127.0.0.1:9333/json")); break
+                tabs = json.load(urllib.request.urlopen("http://localhost:9333/json")); break
             except Exception:
                 time.sleep(0.5)
         ws_url = [t for t in tabs if t["type"] == "page"][0]["webSocketDebuggerUrl"]

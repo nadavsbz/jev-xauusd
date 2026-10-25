@@ -52,7 +52,7 @@ def main():
         x = x.sort_values("t0")
         if len(x) > 1:
             sg = 1 if x.side.iloc[0] == "buy" else -1
-            gaps += list(sg * np.diff(x.p0.to_numpy()))
+            gaps += list(-sg * np.diff(x.p0.to_numpy()))   # review PR 39: positive = the new entry is lower for buys (higher for sells)
     gaps = pd.Series(gaps, dtype=float)
     ts = pd.to_datetime(pos.t0, unit="s")
     q = lambda s: {str(k): round(float(v), 3) for k, v in s.quantile([0.05, 0.25, 0.5, 0.75, 0.95]).items()}

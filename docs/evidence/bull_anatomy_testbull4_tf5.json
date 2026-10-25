@@ -55,13 +55,13 @@
   "0.95": 8326.943
  },
  "entry_gap_in_stack_price_quantiles (positive = new entry is BETTER priced, i.e. DCA down for buys)": {
-  "0.05": -238.48,
-  "0.25": 20.0,
-  "0.5": 30.9,
-  "0.75": 44.375,
-  "0.95": 81.385
+  "0.05": -81.385,
+  "0.25": -44.375,
+  "0.5": -30.9,
+  "0.75": -20.0,
+  "0.95": 238.48
  },
- "share_adds_lower_pct (DCA)": 92.3,
+ "share_adds_lower_pct (DCA)": 7.7,
  "entries_by_hour_server": {
   "0": 50,
   "1": 34,
