@@ -39,6 +39,9 @@ input int    EntryTickDelay = 0;      // ours, measured 25.10: a third of BD fir
 input bool   TrailBySL = true;        // ours, measured 25.10: BD basket exits never below iTS-iTD, i.e. a real stop at the server
 input bool   OpenUsesBarAdd = true;   // ours, measured: no level 2 in the bar where the basket opened
 input bool   LotFromOldest = true;    // ours, measured 25.10: next lot = oldest open lot x Martin_^(open count); explains 3.11/4.63/4.67 after Overlap
+input bool   EntryRetrySpread = true;  // ours, VERIFIED 25.10 with MaxSpred=200 (reproduces the 28.5.2026 14:30 wipe): a bar skipped for spread is retried on later ticks of the same bar
+input bool   OverlapResetsTrail = false; // ours, hypothesis 25.10 (8.6.2026 02:28): an Overlap pair close clears the basket trailing and its stops
+input bool   TrailIncludesSwap = false; // ours, hypothesis 25.10 (8.6.2026 02:28): basket trailing counts from the breakeven price incl. swap
 input bool   OverlapAtCount = true;   // ours, measured 25.10: Overlap fires with OverlapOrderNumber orders on the side (>=), not more
 input int    Start_Hour = 2;
 input int    End_Hour = 21;
@@ -93,7 +96,7 @@ input double G_BasketStopPct = 0;      // 0 = off; close a basket at this floati
 CTrade trade;
 int hEma, hEmaD;
 datetime lastBar = 0, crashUntil = 0, lastAddBar[2] = {0, 0};
-double hiWater[2], peakBasketProfit[2];
+double hiWater[2], peakBasketProfit[2], trailAvg[2];
 bool trailOn[2];
 
 int OnInit()
@@ -137,11 +140,11 @@ double DistFor(int level)  // distance before opening order number `level` (2..N
    return Dynamic_distance_start * _Point * MathPow(Distance_multiplier, level - Order_dinamic_distance);
   }
 
-struct Bsk { int n; double newestV; double oldestV; double vol; double pv; double last; double profit; ulong oldest; double oldestP; ulong newest; double newestP; datetime oldestT; datetime newestT; };
+struct Bsk { int n; double swap; double newestV; double oldestV; double vol; double pv; double last; double profit; ulong oldest; double oldestP; ulong newest; double newestP; datetime oldestT; datetime newestT; };
 
 void Scan(int side, Bsk &b)   // side 0 buy, 1 sell
   {
-   b.n = 0; b.newestV = 0; b.oldestV = 0; b.vol = 0; b.pv = 0; b.last = 0; b.profit = 0; b.oldest = 0; b.newest = 0; b.oldestT = D'2100.01.01'; b.newestT = 0; b.oldestP = 0; b.newestP = 0;
+   b.n = 0; b.swap = 0; b.newestV = 0; b.oldestV = 0; b.vol = 0; b.pv = 0; b.last = 0; b.profit = 0; b.oldest = 0; b.newest = 0; b.oldestT = D'2100.01.01'; b.newestT = 0; b.oldestP = 0; b.newestP = 0;
    for(int i = PositionsTotal() - 1; i >= 0; i--)
      {
       ulong t = PositionGetTicket(i);
@@ -151,7 +154,7 @@ void Scan(int side, Bsk &b)   // side 0 buy, 1 sell
       double v = PositionGetDouble(POSITION_VOLUME), p = PositionGetDouble(POSITION_PRICE_OPEN);
       double pr = PositionGetDouble(POSITION_PROFIT) + PositionGetDouble(POSITION_SWAP);
       datetime ot = (datetime)PositionGetInteger(POSITION_TIME);
-      b.n++; b.vol += v; b.pv += v * p; b.profit += pr;
+      b.n++; b.swap += PositionGetDouble(POSITION_SWAP); b.vol += v; b.pv += v * p; b.profit += pr;
       if(ot < b.oldestT) { b.oldestT = ot; b.oldest = t; b.oldestP = pr; b.oldestV = v; }
       if(ot >= b.newestT) { b.newestT = ot; b.newest = t; b.newestP = pr; b.last = p; b.newestV = v; }
      }
@@ -187,6 +190,18 @@ void SetSideSL(int side, double slPx)   // move every position of the side to on
      }
   }
 
+void ClearTrail(int side)   // trailing off and the stops removed from the rest of the side
+  {
+   trailOn[side] = false; hiWater[side] = 0;
+   for(int i = PositionsTotal() - 1; i >= 0; i--)
+     {
+      ulong t = PositionGetTicket(i);
+      if(!PositionSelectByTicket(t) || PositionGetInteger(POSITION_MAGIC) != Magic || PositionGetString(POSITION_SYMBOL) != _Symbol) continue;
+      int s = PositionGetInteger(POSITION_TYPE) == POSITION_TYPE_BUY ? 0 : 1;
+      if(s == side && PositionGetDouble(POSITION_SL) != 0) trade.PositionModify(t, 0, PositionGetDouble(POSITION_TP));
+     }
+  }
+
 bool CrashNow()
   {
    int n = G_CrashBars; MqlRates r[]; ArraySetAsSeries(r, true);
@@ -213,6 +228,10 @@ void OnTick()
       Bsk b; Scan(side, b);
       if(b.n == 0) { trailOn[side] = false; hiWater[side] = 0; continue; }
       double avg = b.pv / b.vol, px = side == 0 ? bid : ask, sg = side == 0 ? 1 : -1;
+      if(TrailIncludesSwap) avg -= sg * b.swap / (b.vol * SymbolInfoDouble(_Symbol, SYMBOL_TRADE_CONTRACT_SIZE));   // negative swap moves breakeven away
+      // keep the trailing stop an absolute price when an Overlap pair close shifts the average (Codex PR 40, P2)
+      if(trailOn[side] && trailAvg[side] > 0 && MathAbs(avg - trailAvg[side]) > _Point / 2) hiWater[side] += sg * (trailAvg[side] - avg);
+      trailAvg[side] = avg;
       double move = sg * (px - avg);
       // basket stop (guard)
       if(G_BasketStopPct > 0 && b.profit < -G_BasketStopPct / 100 * AccountInfoDouble(ACCOUNT_EQUITY)) { CloseSide(side); continue; }
@@ -233,6 +252,7 @@ void OnTick()
          if(b.newestP + b.oldestP >= -b.oldestP * OverlapPercent / 100)
            {   // close the oldest only after the newest (the profit that covers it) is really closed (QA PR 40)
             if(trade.PositionClose(b.newest) && trade.ResultRetcode() == TRADE_RETCODE_DONE) trade.PositionClose(b.oldest);
+            if(OverlapResetsTrail) ClearTrail(side);
             continue;
            }
         }
@@ -259,15 +279,17 @@ void OnTick()
 
    // new baskets on a new M15 bar
    datetime bt = iTime(_Symbol, PERIOD_M15, 0);
-   static int tickInBar = 0;
-   if(bt != lastBar) { lastBar = bt; tickInBar = 0; }
+   static int tickInBar = 0; static bool pending = false;
+   if(bt != lastBar) { lastBar = bt; tickInBar = 0; pending = true; }
    else tickInBar++;
-   if(tickInBar != EntryTickDelay) return;   // act once per bar, on tick number EntryTickDelay (0 = the first tick)
+   if(EntryRetrySpread) { if(!pending) return; }                   // until the bar's entry decision is made
+   else if(tickInBar != EntryTickDelay) return;   // act once per bar, on tick number EntryTickDelay (0 = the first tick)
    if(!NewCycle_ || crash) return;
    MqlDateTime dt; TimeToStruct(now, dt);
    if(dt.hour < Start_Hour || dt.hour >= End_Hour) return;
    if(LogSpread) PrintFormat("SPR %s %d %.2f", TimeToString(bt), (int)SymbolInfoInteger(_Symbol, SYMBOL_SPREAD), SymbolInfoDouble(_Symbol, SYMBOL_BID));
-   if(SymbolInfoInteger(_Symbol, SYMBOL_SPREAD) > MaxSpred) return;
+   if(SymbolInfoInteger(_Symbol, SYMBOL_SPREAD) > MaxSpred) return;   // with EntryRetrySpread: try again next tick
+   pending = false;
    double c = iClose(_Symbol, PERIOD_M15, 1), e = B(hEma, 1);
    if(e <= 0) return;
    int dir = c > e ? 0 : (c < e ? 1 : -1);
