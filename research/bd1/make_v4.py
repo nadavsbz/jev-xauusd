@@ -75,6 +75,13 @@ def combo(name, *parts):
             assert k not in fn, (name, k); fn[k] = v
     VARIANTS[name] = (" + ".join(ds), ins, chr(10).join(x for x in gl if x), fn)
 combo("v4cd", "v4c", "v4d")
+VARIANTS["v4bc"] = ("exposure cap + news-time pause", VARIANTS["v4b"][1] + VARIANTS["v4c"][1], "",
+ {"add": """bool V4AddOk(int side, Bsk &b, double lot)
+  {
+   if(InNewsPause()) return false;
+   if(ExpoLotsPer100k <= 0) return true;
+   return b.vol + lot <= ExpoLotsPer100k * AccountInfoDouble(ACCOUNT_EQUITY) / 100000.0;
+  }""", "entry": VARIANTS["v4c"][3]["entry"], "extra": VARIANTS["v4c"][3]["extra"]})
 
 def sub1(s, a, b):
     assert s.count(a) == 1, a
