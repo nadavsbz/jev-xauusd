@@ -87,6 +87,10 @@ VARIANTS["v4all"] = ("news pause + exposure cap + lot step-down after Overlap", 
  VARIANTS["v4a"][2], {"lot": VARIANTS["v4a"][3]["lot"], "ov": VARIANTS["v4a"][3]["ov"], "reset": VARIANTS["v4a"][3]["reset"],
   "add": VARIANTS["v4bc"][3]["add"], "entry": VARIANTS["v4c"][3]["entry"], "extra": VARIANTS["v4c"][3]["extra"]})
 
+VARIANTS["v4ac"] = ("news pause + lot step-down after Overlap", VARIANTS["v4a"][1] + VARIANTS["v4c"][1], VARIANTS["v4a"][2],
+ {"lot": VARIANTS["v4a"][3]["lot"], "ov": VARIANTS["v4a"][3]["ov"], "reset": VARIANTS["v4a"][3]["reset"],
+  "add": VARIANTS["v4c"][3]["add"], "entry": VARIANTS["v4c"][3]["entry"], "extra": VARIANTS["v4c"][3]["extra"]})
+
 def sub1(s, a, b):
     assert s.count(a) == 1, a
     return s.replace(a, b)
