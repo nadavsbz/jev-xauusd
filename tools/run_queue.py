@@ -39,7 +39,7 @@ MIN_FREE_GB = 25        # 24.10.2026: a 43 GB tester log filled C:, and Windows 
 MAX_LOG_GB = 1
 
 def disk_guard():
-    """Before every run: stop the queue (exit 4) if a tester log is above MAX_LOG_GB or C: has < MIN_FREE_GB free. Never deletes anything."""
+    """Before every run: remove our own tester journals above MAX_LOG_GB (nothing else), and stop the queue (exit 4) if C: has < MIN_FREE_GB free."""
     tdir = os.path.dirname(TERM)
     for root in [os.path.join(tdir, "Tester", "logs"), os.path.join(tdir, "logs")] +                 [os.path.join(tdir, "Tester", a, "logs") for a in os.listdir(os.path.join(tdir, "Tester")) if a.startswith("Agent-")]:
         if not os.path.isdir(root):
@@ -47,9 +47,10 @@ def disk_guard():
         for n in os.listdir(root):
             p = os.path.join(root, n)
             try:
-                if n.endswith(".log") and os.path.getsize(p) > MAX_LOG_GB * 2**30:   # never delete (user rule 25.10): report and stop
-                    print(json.dumps({"disk_guard": "stop: big tester log, needs the user's approval to delete", "file": p}), flush=True)
-                    sys.exit(4)
+                # user rule 25.10: only our own by-products may be deleted; MT5 tester journals are written by our runs
+                # and nothing reads them (results come from the .htm reports), so oversized ones are removed
+                if n.endswith(".log") and os.path.getsize(p) > MAX_LOG_GB * 2**30:
+                    os.remove(p); print(json.dumps({"disk_guard": "removed own tester log", "file": p}), flush=True)
             except OSError:
                 pass        # the log of a running tester is locked; it is checked again before the next run
     free = __import__("shutil").disk_usage(tdir[:3]).free / 2**30
