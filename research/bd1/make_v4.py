@@ -91,6 +91,15 @@ VARIANTS["v4ac"] = ("news pause + lot step-down after Overlap", VARIANTS["v4a"][
  {"lot": VARIANTS["v4a"][3]["lot"], "ov": VARIANTS["v4a"][3]["ov"], "reset": VARIANTS["v4a"][3]["reset"],
   "add": VARIANTS["v4c"][3]["add"], "entry": VARIANTS["v4c"][3]["entry"], "extra": VARIANTS["v4c"][3]["extra"]})
 
+VARIANTS["v4f"] = ("no new baskets on chosen weekdays (crash signs 25.10: Thursday baskets lost in all 5 periods)",
+ ["input int    DayOffMask = 0;          // v4f: weekdays without NEW baskets, bits Mon=1 Tue=2 Wed=4 Thu=8 Fri=16 (0 = off); open baskets go on"],
+ "", {"entry": """bool V4EntryOk()
+  {
+   if(DayOffMask <= 0) return true;
+   MqlDateTime t; TimeToStruct(TimeCurrent(), t);
+   return t.day_of_week < 1 || t.day_of_week > 5 || (DayOffMask & (1 << (t.day_of_week - 1))) == 0;
+  }"""})
+
 def sub1(s, a, b):
     assert s.count(a) == 1, a
     return s.replace(a, b)

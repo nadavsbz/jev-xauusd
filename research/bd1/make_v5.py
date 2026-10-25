@@ -123,4 +123,5 @@ if __name__ == "__main__":
     for n, v in VARIANTS.items(): build(n, *v); print(n)
     # combination: partial cut on top of the news-time pause variant (v4c); hooks do not overlap
     build("v5ma", VARIANTS["v5m"][0] + " + lot step-down after Overlap (v4a)", *VARIANTS["v5m"][1:], src="mql5/DragonClone_v4a.mq5"); print("v5ma")
+    build("v6day", "floor guard + partial-cut inputs on the weekday filter (v4f)", *VARIANTS["v5b"][1:], src="mql5/DragonClone_v4f.mq5"); print("v6day")
     build("v5bc", "partial cut + news-time pause (v4c)", *VARIANTS["v5b"][1:], src="mql5/DragonClone_v4c.mq5"); print("v5bc")
