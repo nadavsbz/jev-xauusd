@@ -66,6 +66,15 @@ VARIANTS = {
    "ov": "void V4OnOverlap(int side, Bsk &b) { ovCnt[side]++; }",
    "reset": "void V4Reset(int side) { ovCnt[side] = 0; }"}),
 }
+# combinations: inputs, globals and hooks of two variants together (hooks must not overlap)
+def combo(name, *parts):
+    ins, gl, fn, ds = [], [], {}, []
+    for p in parts:
+        d, i, g, f = VARIANTS[p]; ins += i; gl.append(g); ds.append(d)
+        for k, v in f.items():
+            assert k not in fn, (name, k); fn[k] = v
+    VARIANTS[name] = (" + ".join(ds), ins, chr(10).join(x for x in gl if x), fn)
+combo("v4cd", "v4c", "v4d")
 
 def sub1(s, a, b):
     assert s.count(a) == 1, a
