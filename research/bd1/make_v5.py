@@ -69,14 +69,15 @@ def sub1(s, a, b):
     assert s.count(a) == 1, a
     return s.replace(a, b)
 
-def build(name, desc, inputs, globs, guard, addok):
-    s = open(SRC, encoding="utf-8").read()
+def build(name, desc, inputs, globs, guard, addok, src=SRC):
+    s = open(src, encoding="utf-8").read()
     s = s.replace("//| FROZEN v3", f"//| DragonClone_{name}: frozen v3 + {desc}. Default inputs = v3.\n//| was FROZEN v3", 1)
     s = sub1(s, "input bool   OverlapAtCount = true;", "input bool   OverlapAtCount = true;\ninput string qw9 = \"//--- " + name + " (ours) ---//\";\n" + "\n".join(inputs))
     s = sub1(s, "datetime lastBar = 0, crashUntil = 0, lastAddBar[2] = {0, 0};", "datetime lastBar = 0, crashUntil = 0, lastAddBar[2] = {0, 0};\n" + globs)
     add = addok or "bool V5AddOk(int side, Bsk &b) { return true; }"
     s = sub1(s, "void OnTick()", "// ---- " + name + " hooks ----\n" + COMMON + "\n" + guard + "\n" + add + "\n\nvoid OnTick()")
-    s = sub1(s, "if(b.n == 0) { trailOn[side] = false; hiWater[side] = 0; continue; }", "if(b.n == 0) { trailOn[side] = false; hiWater[side] = 0; V5Reset(side); continue; }")
+    reset = "hiWater[side] = 0; V4Reset(side); continue; }" if src != SRC else "hiWater[side] = 0; continue; }"   # a v4 source already has its own reset hook
+    s = sub1(s, reset, reset.replace("continue; }", "V5Reset(side); continue; }"))
     s = sub1(s, "AccountInfoDouble(ACCOUNT_EQUITY)) { CloseSide(side); continue; }", "AccountInfoDouble(ACCOUNT_EQUITY)) { CloseSide(side); continue; }\n      if(V5Guard(side, b)) continue;")
     s = sub1(s, "double lot = LotFromOldest ? OldestLot(b.oldestV, b.n) : LotFromNewest ? NextLot(b.newestV) : LotFor(lvl);",
              "double lot = LotFromOldest ? OldestLot(b.oldestV, b.n) : LotFromNewest ? NextLot(b.newestV) : LotFor(lvl);\n            if(!V5AddOk(side, b)) continue;")
@@ -84,3 +85,5 @@ def build(name, desc, inputs, globs, guard, addok):
 
 if __name__ == "__main__":
     for n, v in VARIANTS.items(): build(n, *v); print(n)
+    # combination: partial cut on top of the news-time pause variant (v4c); hooks do not overlap
+    build("v5bc", "partial cut + news-time pause (v4c)", *VARIANTS["v5b"][1:], src="mql5/DragonClone_v4c.mq5"); print("v5bc")
