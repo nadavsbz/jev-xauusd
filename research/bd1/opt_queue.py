@@ -36,7 +36,7 @@ def jobs1():
     # code round (v8): grid distances widen with volatility; K = 0 must reproduce opt_base exactly
     for t, o in [("v8k0", {"AtrDistK": "0"}), ("v8k05", {"AtrDistK": "0.5"}), ("v8k1", {"AtrDistK": "1"}),
                  ("v8k15", {"AtrDistK": "1.5"}), ("v8k1m2", {"AtrDistK": "1", "AtrDistMax": "2"})]:
-        j = job("eg2526", "opt_" + t, {**BASE, **o}); j.update(expert="Jev\DragonClone_v8.ex5", base_set="dcv8_base.set"); q.append(j)
+        j = job("eg2526", "opt_" + t, {**BASE, **o}); j.update(expert=r"Jev\DragonClone_v8.ex5", base_set="dcv8_base.set"); q.append(j)
     for j in q: j["report"] = j["report"].replace("v7_eg2526_", "opt1_")
     return q
 
