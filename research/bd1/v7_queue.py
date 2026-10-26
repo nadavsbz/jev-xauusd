@@ -34,6 +34,11 @@ ROUNDS = {
                                   ("crash", {"G_Crash": "true"}),
                                   ("d24lao4", {"DayOffMask": "24", "LotAfterOverlap": "4"}),
                                   ("d24ntop", {"DayOffMask": "24", "NewsFile": "news_top_{b}.txt"})] for p in PERIODS],
+ # round 3 (robustness of day24, docs/BD_V7_PLAN.md): Thu+Fri came from earlier analysis of the same years, so every other
+ # 2-day pair and Thu / Fri alone must NOT do as well if the effect is real; and day24 with the wide news window / G_Crash
+ "r3": [(p[0], f"day{m}", {"DayOffMask": str(m)}) for m in (8, 16, 3, 5, 9, 17, 6, 10, 18, 12, 20) for p in PERIODS]
+     + [(p[0], t, o) for t, o in [("d24ntopw", {"DayOffMask": "24", "NewsFile": "news_top_{b}.txt", "NewsBeforeMin": "60", "NewsAfterMin": "240"}),
+                                  ("d24ntc", {"DayOffMask": "24", "NewsFile": "news_top_{b}.txt", "G_Crash": "true"})] for p in PERIODS],
 }
 
 if __name__ == "__main__":
