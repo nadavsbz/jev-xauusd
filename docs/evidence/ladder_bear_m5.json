@@ -1,0 +1,97 @@
+{
+ "report_file": "ladder_bear_m5.htm",
+ "report_sha256": "982ed4588cd921df5ef9f837e52075c13839bffdf9aa46cc5c21568447dfbc4d",
+ "settings": {
+  "יועץ אוטומטי (רובוט)": "LadderScalper",
+  "צמד": ".USTECHCash",
+  "תקופה": "M30 (2021.11.01 - 2023.01.31)",
+  "חברה": "RoboForex Ltd",
+  "מטבע": "USD",
+  "פיקדון התחלתי": "5,000.00",
+  "מינוף": "1:500",
+  "איכות היסטוריה": "99%"
+ },
+ "inputs": [
+  "Lot=0.01",
+  "MaxPositions=10",
+  "AiTF=5",
+  "AtrPeriod=14",
+  "SpaceMult=3.0",
+  "TrailStartMult=1.0",
+  "TrailDistMult=0.5",
+  "MinStepMult=0.1",
+  "StackOnTrail=true",
+  "CooldownSec=60",
+  "CostAware=true",
+  "CommPerLot=0.0",
+  "UseContext=false",
+  "ContextEma=50",
+  "UseCrashPause=false",
+  "CrashBars=15",
+  "CrashAtrMult=3.0",
+  "CrashPauseMin=120",
+  "MaxTotalLots=1.0",
+  "Magic=77101"
+ ],
+ "summary_from_report": {
+  "סך רווח נקי": "-538.69",
+  "רווח ברוטו": "59.80",
+  "מאזן הפסד מקסימלי": "598.49 (11.83%)",
+  "שווי הפסד מקסימלי": "706.94 (14.00%)",
+  "הפסד ברוטו": "-598.49",
+  "מקדם רווח": "0.10",
+  "סך עסקאות": "555"
+ },
+ "recomputed": {
+  "deposit": 5000.0,
+  "entries": 555,
+  "trading_profit_before_costs": -397.01,
+  "commission": 0.0,
+  "swap": -141.68,
+  "net": -538.69,
+  "lots_opened": 5.55,
+  "exit_deals": 555,
+  "exit_win_rate_pct": 98.2,
+  "exit_avg_win": 0.11,
+  "exit_avg_loss": -59.85,
+  "daily_realised_pct_of_deposit_per_weekday": {
+   "count": 326.0,
+   "mean": -0.033,
+   "std": 0.663,
+   "min": -11.97,
+   "25%": 0.0,
+   "50%": 0.0,
+   "75%": 0.0,
+   "max": 0.13
+  },
+  "worst_days_pct": {
+   "2023-01-30": -11.97,
+   "2021-11-11": 0.0,
+   "2021-11-12": 0.0,
+   "2021-11-26": 0.0,
+   "2021-12-02": 0.0
+  },
+  "active_days": 30,
+  "end_of_test_closes": 10,
+  "end_of_test_net": -598.49,
+  "end_of_test_date": "2023-01-30"
+ },
+ "job": {
+  "name": "Robo ECN demo",
+  "expert": "Jev\\LadderScalper.ex5",
+  "symbol": ".USTECHCash",
+  "period": "M30",
+  "deposit": 5000,
+  "leverage": 500,
+  "model": 1,
+  "base_set": "ladder_base.set",
+  "report": "ladder_bear_m5",
+  "overrides": {},
+  "from": "2021.11.01",
+  "to": "2023.01.31"
+ },
+ "files": {
+  "ea_sha256": "f77ebabc6aaf1815d29500647839f047284380c966972606fde69173fbb0dd9a",
+  "set_sha256": "1a9c6d4ac60e69fedd6d6354e40dc8dc02c88c117a09d7d5551fb48bba7564a9"
+ }
+}
