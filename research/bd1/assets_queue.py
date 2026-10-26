@@ -35,3 +35,7 @@ print(f"gold spread {g.spread_adr_pct:.2f}% of the daily range"); print(t.to_str
 order = {sym: i for i, sym in enumerate(t.symbol)}          # cheapest spreads first
 q.sort(key=lambda j: (order[j["symbol"]], j["from"]))
 json.dump(q, open("research/bd1/q_assets.json", "w"), indent=1); print(len(q), "jobs")
+# Codex PR 41 round 2 (P1): the old build converted swap to price by the contract size, wrong when the profit currency is not USD;
+# ALL those symbols run again with the fixed build (as_<SYM>_<year>_fx), and their old runs count as not tested
+fx = [dict(j, report=j["report"] + "_fx") for j in q if s.loc[j["symbol"], "profit_ccy"] != "USD"]
+json.dump(fx, open("research/bd1/q_assets_fx.json", "w"), indent=1); print(len(fx), "fx jobs")

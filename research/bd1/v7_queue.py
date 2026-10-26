@@ -41,7 +41,8 @@ ROUNDS = {
                                   ("d24ntc", {"DayOffMask": "24", "NewsFile": "news_top_{b}.txt", "G_Crash": "true"})] for p in PERIODS],
  # after the Codex PR 41 fixes (swap via tick value, NewsFile checked in OnInit, RandDayPct): the fixed build must reproduce
  # the old results on gold exactly, then the exposure-matched control: no new baskets on 40% of weekdays drawn at random
- "fixcheck": [(p, f"{t}_fx", o) for p, t, o in [("rf2022", "off", {}), ("eg2526", "off", {}), ("rf2024", "d24ntop", {"DayOffMask": "24", "NewsFile": "news_top_{b}.txt"})]],
+ "fixcheck": [(p, f"{t}_fx", o) for p, t, o in [("rf2022", "off", {}), ("eg2526", "off", {}), ("rf2024", "d24ntop", {"DayOffMask": "24", "NewsFile": "news_top_{b}.txt"}),
+                                                   ("rf2022", "off0", {"RandDayPct": "0", "RandSeed": "1"})]],   # the new set inputs, at their defaults
  "r4": [(p[0], f"rnd{k}", {"RandDayPct": "40", "RandSeed": str(k)}) for k in range(1, 11) for p in PERIODS],
 }
 

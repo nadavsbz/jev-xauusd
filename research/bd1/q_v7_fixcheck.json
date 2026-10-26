@@ -59,5 +59,27 @@
    "DayOffMask": "24",
    "NewsFile": "news_top_rf.txt"
   }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 1000,
+  "base_set": "dcv7_2d.set",
+  "from": "2022.01.03",
+  "to": "2023.01.01",
+  "expert": "Jev\\DragonClone_v7.ex5",
+  "report": "v7_rf2022_off0_fx",
+  "overrides": {
+   "Autolot_": "true",
+   "Autolotsize_": "6000",
+   "G_FloorPct": "15",
+   "G_FloorDays": "14",
+   "P_At": "0",
+   "G_FloorFrom": "20220101",
+   "RandDayPct": "0",
+   "RandSeed": "1"
+  }
  }
 ]
