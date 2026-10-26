@@ -13,7 +13,7 @@ from sklearn.metrics import roc_auc_score
 sys.path.insert(0, "research/bd1"); from news_files import us_dst
 
 PERIODS = ["rf2022", "rf2023", "rf2024", "rf2025", "eg2526"]
-TF = {"h1": 4, "h4": 16, "d1": 96}
+TF = {"h1": 4, "h4": 16, "d1": 96}   # (first run only)
 CF = "C:/Users/Benza/AppData/Roaming/MetaQuotes/Terminal/Common/Files/"
 
 def rsi(c, n):
@@ -37,18 +37,31 @@ def features(p):
     tr = pd.concat([h - l, (h - c.shift()).abs(), (l - c.shift()).abs()], axis=1).max(axis=1)
     atr_d = tr.rolling(96 * 20, min_periods=96 * 5).mean() * 96 ** 0.5   # ~ daily range scale
     F = pd.DataFrame(index=b.index)
-    for k, m in TF.items():
-        atr = tr.rolling(14 * m, min_periods=4 * m).mean() * m ** 0.5
-        mid = c.rolling(20 * m).mean(); sd = c.rolling(20 * m).std()
-        F[f"bb_pb_{k}"] = (c - (mid - 2 * sd)) / (4 * sd)
-        F[f"bb_w_{k}"] = 4 * sd / c
-        F[f"rsi_{k}"] = rsi(c, 14 * m)
+    # real H1/H4/D1 bars (broker clock) built from M15 OHLCV; every M15 bar gets the values of the last TF bar CLOSED by its own
+    # close (Codex PR 42, P1: the first run used M15 windows x 4/16/96 instead of TF bars, and a 5-day D1 channel)
+    m15 = pd.DataFrame({"o": b.open.values, "h": h.values, "l": l.values, "c": c.values, "v": v.values}, index=ts)
+    close_t = ts + pd.Timedelta(minutes=15)
+    for k, rule in (("h1", "1h"), ("h4", "4h"), ("d1", "1D")):
+        T = m15.resample(rule, label="left", closed="left").agg({"o": "first", "h": "max", "l": "min", "c": "last", "v": "sum"}).dropna()
+        last = m15.index.to_series().resample(rule, label="left", closed="left").max().reindex(T.index)
+        T["close_t"] = last + pd.Timedelta(minutes=15)          # the TF bar is closed when its last M15 bar is closed
+        tc, th, tl = T.c, T.h, T.l
+        ttr = pd.concat([th - tl, (th - tc.shift()).abs(), (tl - tc.shift()).abs()], axis=1).max(axis=1)
+        atr = ttr.rolling(14, min_periods=5).mean()
+        mid = tc.rolling(20).mean(); sd = tc.rolling(20).std()
+        G = pd.DataFrame(index=T.index)
+        G[f"bb_pb_{k}"] = (tc - (mid - 2 * sd)) / (4 * sd); G[f"bb_w_{k}"] = 4 * sd / tc
+        G[f"rsi_{k}"] = rsi(tc, 14)
         for e in (20, 50, 200):
-            F[f"ema{e}_{k}"] = (c - c.ewm(span=e * m).mean()) / atr
-        F[f"align_{k}"] = np.sign(c.ewm(span=20 * m).mean() - c.ewm(span=50 * m).mean()) + np.sign(c.ewm(span=50 * m).mean() - c.ewm(span=200 * m).mean())
-        n = 20 * m if k != "d1" else 480   # D1 channel over 5 days (20 days = 1,920 bars is too slow here)
-        s, r2, pos = linreg(c, n)
-        F[f"ch_slope_{k}"] = s * n / atr; F[f"ch_r2_{k}"] = r2; F[f"ch_pos_{k}"] = pos
+            G[f"ema{e}_{k}"] = (tc - tc.ewm(span=e).mean()) / atr
+        G[f"align_{k}"] = np.sign(tc.ewm(span=20).mean() - tc.ewm(span=50).mean()) + np.sign(tc.ewm(span=50).mean() - tc.ewm(span=200).mean())
+        s, r2, pos = linreg(tc, 20)
+        G[f"ch_slope_{k}"] = s * 20 / atr.values; G[f"ch_r2_{k}"] = r2; G[f"ch_pos_{k}"] = pos
+        G["close_t"] = T.close_t.values
+        G = G.sort_values("close_t")
+        j = pd.merge_asof(pd.DataFrame({"t": close_t.values}), G, left_on="t", right_on="close_t", direction="backward")
+        for col in G.columns:
+            if col != "close_t": F[col] = j[col].values
     for n in (4, 16, 96, 480, 1920):
         F[f"roc_{n}"] = np.log(c / c.shift(n)) / (atr_d / c)
     for n, nm in ((96, "1d"), (480, "1w"), (1920, "20d")):
