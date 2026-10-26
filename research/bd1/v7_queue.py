@@ -39,6 +39,10 @@ ROUNDS = {
  "r3": [(p[0], f"day{m}", {"DayOffMask": str(m)}) for m in (8, 16, 3, 5, 9, 17, 6, 10, 18, 12, 20) for p in PERIODS]
      + [(p[0], t, o) for t, o in [("d24ntopw", {"DayOffMask": "24", "NewsFile": "news_top_{b}.txt", "NewsBeforeMin": "60", "NewsAfterMin": "240"}),
                                   ("d24ntc", {"DayOffMask": "24", "NewsFile": "news_top_{b}.txt", "G_Crash": "true"})] for p in PERIODS],
+ # after the Codex PR 41 fixes (swap via tick value, NewsFile checked in OnInit, RandDayPct): the fixed build must reproduce
+ # the old results on gold exactly, then the exposure-matched control: no new baskets on 40% of weekdays drawn at random
+ "fixcheck": [(p, f"{t}_fx", o) for p, t, o in [("rf2022", "off", {}), ("eg2526", "off", {}), ("rf2024", "d24ntop", {"DayOffMask": "24", "NewsFile": "news_top_{b}.txt"})]],
+ "r4": [(p[0], f"rnd{k}", {"RandDayPct": "40", "RandSeed": str(k)}) for k in range(1, 11) for p in PERIODS],
 }
 
 if __name__ == "__main__":

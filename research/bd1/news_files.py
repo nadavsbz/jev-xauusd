@@ -13,11 +13,23 @@ TOP = "Nonfarm Payrolls|^CPI|Core CPI|Fed Interest Rate Decision|FOMC Press Conf
 def us_dst(ts):
     """US daylight saving: 2nd Sunday of March 02:00 EST (07:00 UTC) to 1st Sunday of November 02:00 EDT (06:00 UTC)."""
     y = ts.year
-    m = pd.Timestamp(y, 3, 1); s = m + pd.Timedelta(days=(6 - m.weekday()) % 7 + 7) + pd.Timedelta(hours=7)
-    n = pd.Timestamp(y, 11, 1); e = n + pd.Timedelta(days=(6 - n.weekday()) % 7) + pd.Timedelta(hours=6)
+    m = pd.Timestamp(y, 3, 1); s = m + pd.Timedelta(days=int((6 - m.weekday()) % 7 + 7)) + pd.Timedelta(hours=7)
+    n = pd.Timestamp(y, 11, 1); e = n + pd.Timedelta(days=int((6 - n.weekday()) % 7)) + pd.Timedelta(hours=6)
     return s <= ts < e
 
+def check_utc(cal):
+    """The calendar times must be UTC (Codex PR 41, P1: MT5 returns trade-server time). Anchor: every NFP is 08:30 New York,
+    i.e. 13:30 UTC in winter and 12:30 UTC in US daylight saving. Known exception in the MT5 calendar: the delayed September 2025
+    report (after the shutdown) released 20.11.2025 08:30 New York = 13:30 UTC is listed at 12:30 UTC, an hour early (a calendar
+    error, not a clock shift); it is kept as listed, so that one window opens an hour early."""
+    nfp = cal[cal.event == "Nonfarm Payrolls"]
+    bad = [x for x in nfp.time if (pd.Timestamp(x, unit="s").hour, pd.Timestamp(x, unit="s").minute) != ((12 if us_dst(pd.Timestamp(x, unit="s")) else 13), 30)]
+    bad = [x for x in bad if x != 1763641800]   # 2025-11-20 12:30 UTC, the known exception
+    assert len(nfp) > 0 and not bad, f"calendar not in UTC: {len(bad)} of {len(nfp)} NFP releases off 08:30 New York"
+    return len(nfp)
+
 def build(cal):
+    check_utc(cal)
     tiers = {"top": cal[(cal.importance == 3) & cal.event.str.contains(TOP, regex=True)],
              "high": cal[cal.importance == 3], "med": cal[cal.importance >= 2]}
     out = {}
