@@ -61,7 +61,21 @@ def jobs2():
     for j in q: j["report"] = j["report"].replace("v7_eg2526_", "opt2_").replace("v7_rf", "opt2_rf")
     return q
 
+# round 3: Martin_ 1.6 failed the start-date sensitivity rule (5.1.2026: +58% vs base +90%), so by the registered rule the combination
+# is the other four values; the same dev runs (full + 2 shifts) and the 4 RoboForex years
+PICK3 = {k: v for k, v in PICK.items() if k != "Martin_"}
+
+def jobs3():
+    q = [job("eg2526", "opt_combo4", {**BASE, **PICK3})]
+    for sn, d in SHIFTS:
+        j = job("eg2526", f"opt_combo4_{sn}", {**BASE, **PICK3}); j["from"] = d; q.append(j)
+    rf = {k: (str(round(RF_BASE[k] * float(v) / EG_BASE[k])) if k in EG_BASE else v) for k, v in PICK3.items()}
+    for p in ("rf2022", "rf2023", "rf2024", "rf2025"):
+        q.append(job(p, "opt_combo4", {**BASE, **rf}))
+    for j in q: j["report"] = j["report"].replace("v7_eg2526_", "opt3_").replace("v7_rf", "opt3_rf")
+    return q
+
 if __name__ == "__main__":
-    q = {"1": jobs1, "2": jobs2}[sys.argv[1]]()
+    q = {"1": jobs1, "2": jobs2, "3": jobs3}[sys.argv[1]]()
     json.dump(q, open(f"research/bd1/q_opt{sys.argv[1]}.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(len(q), "jobs")
