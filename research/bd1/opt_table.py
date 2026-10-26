@@ -13,4 +13,4 @@ bn, bd = rows.get("base", (None, None))
 print(f"{'tag':10}{'net%':>8}{'DD%':>7}{'net/DD':>8}  promising")
 for t, (n, d) in sorted(rows.items(), key=lambda x: -x[1][0]):
     ok = bn is not None and n >= bn * 1.10 and d <= bd * 1.2
-    print(f"{t:10}{n:+8.0f}{d:7.1f}{n / d:8.2f}  {'YES' if ok else ''}")
+    print(f"{t:10}{n:+8.0f}{d:7.1f}{(n / d if d else 0):8.2f}  {'YES' if ok else ''}")
