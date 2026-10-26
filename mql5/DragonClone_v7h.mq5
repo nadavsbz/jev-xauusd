@@ -241,9 +241,9 @@ bool InNewsPause()
       while(!FileIsEnding(h)) { string s = FileReadString(h); if(StringLen(s) < 5) continue; ArrayResize(nwT, nwN + 1); nwT[nwN++] = StringToInteger(s); }
       FileClose(h); PrintFormat("v7: %d news events loaded", nwN);
      }
-   for(int i = 0; i < nwN; i++)   // times are sorted; a linear scan from the first future-ish event is enough at this size
-      if(now >= nwT[i] - NewsBeforeMin * 60 && now < nwT[i] + NewsAfterMin * 60) return true;
-   return false;
+   static int k = 0;   // the file is sorted and tester time only moves forward: skip the events whose window has ended
+   while(k < nwN && nwT[k] + NewsAfterMin * 60 <= now) k++;
+   return k < nwN && now >= nwT[k] - NewsBeforeMin * 60;
   }
 
 double BaseLot()   // level-1 lot without MaxLot_

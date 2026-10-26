@@ -12,7 +12,7 @@ def job(period, tag, extra):
     rf = p.startswith("rf")
     o = {"Autolot_": "true", "Autolotsize_": "6000", "G_FloorPct": "15", "G_FloorDays": "14", "P_At": "0"}
     if ff: o["G_FloorFrom"] = ff
-    o.update(extra)
+    o.update({k: v.replace("{b}", "rf" if rf else "eg") for k, v in extra.items()})
     return {"name": "Black Dragon 3" if rf else "Black Dragon 1", "symbol": "XAUUSD" if rf else "XAUUSDc", "period": "M15",
             "deposit": 120000, "leverage": 1000, "base_set": "dcv7_2d.set" if rf else "dcv7_base.set", "from": f, "to": t,
             "expert": "Jev\\DragonClone_v7.ex5", "report": f"v7_{p}_{tag}", "overrides": o}
@@ -26,6 +26,14 @@ ROUNDS = {
  # round 1b: the v7 baseline on every period, and a determinism check (v7_rf2022_off came out -95.7K vs lr3_rf2022_6k -90.8K,
  # first different deal 10.1.2022 01:00): the same v7 run again, and the lr3 job (v5b) again
  "r1b": [("rf2022", "off2", {})] + [(p[0], "off", {}) for p in PERIODS[1:]],
+ # round 2: days, scheduled news (MT5 calendar, broker clock), unscheduled moves (G_Crash), and the user's lot flag with days
+ "r2": [(p[0], t, o) for t, o in [("day24", {"DayOffMask": "24"}),
+                                  ("ntop", {"NewsFile": "news_top_{b}.txt"}),
+                                  ("nhigh", {"NewsFile": "news_high_{b}.txt"}),
+                                  ("ntopw", {"NewsFile": "news_top_{b}.txt", "NewsBeforeMin": "60", "NewsAfterMin": "240"}),
+                                  ("crash", {"G_Crash": "true"}),
+                                  ("d24lao4", {"DayOffMask": "24", "LotAfterOverlap": "4"}),
+                                  ("d24ntop", {"DayOffMask": "24", "NewsFile": "news_top_{b}.txt"})] for p in PERIODS],
 }
 
 if __name__ == "__main__":
