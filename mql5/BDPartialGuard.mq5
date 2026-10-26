@@ -22,13 +22,14 @@ input bool   DryRun = false;           // true = only log what it would close
 input int    TimerMs = 250;            // check interval (also checked on every tick)
 
 CTrade trade;
-bool pDone[2];
+bool pDone[2];        // the cut of this basket was triggered
+double pLeft[2];      // lots of that cut still to close: retried on every check until 0 (Codex PR 42, P1)
 
 int OnInit()
   {
    if(AccountInfoInteger(ACCOUNT_MARGIN_MODE) != ACCOUNT_MARGIN_MODE_RETAIL_HEDGING) { Print("BDPartialGuard needs a hedging account"); return INIT_FAILED; }
    trade.SetExpertMagicNumber(0);       // its own closes carry no magic, like the live guard
-   pDone[0] = pDone[1] = false;
+   pDone[0] = pDone[1] = false; pLeft[0] = pLeft[1] = 0;
    EventSetMillisecondTimer(TimerMs);
    PrintFormat("BDPartialGuard on %s: magic %I64d, partial %.1f%% -> %.0f%% of volume, backstop %.1f%%, dry run %s",
                _Symbol, BD_Magic, P_At, P_Frac * 100, G_StopPctEquity, DryRun ? "yes" : "no");
@@ -61,7 +62,7 @@ bool CloseTicket(ulong t, string why)
    return ok;
   }
 
-void CloseOldest(int side, double volTarget)   // oldest first, until volTarget lots are closed
+double CloseOldest(int side, double volTarget)   // oldest first, until volTarget lots are closed; returns the lots really closed
   {
    double done = 0; ulong skip[]; int ns = 0;
    while(done < volTarget - 1e-9)
@@ -81,6 +82,7 @@ void CloseOldest(int side, double volTarget)   // oldest first, until volTarget 
       done += bv;
       if(DryRun) { ArrayResize(skip, ns + 1); skip[ns++] = best; }   // in a dry run nothing closes: walk on
      }
+   return done;
   }
 
 void CloseSide(int side)
@@ -98,14 +100,16 @@ void Check()
    for(int side = 0; side < 2; side++)
      {
       Side s; Scan(side, s);
-      if(s.n == 0) { pDone[side] = false; continue; }
+      if(s.n == 0) { pDone[side] = false; pLeft[side] = 0; continue; }
       if(G_StopPctEquity > 0 && s.profit < -G_StopPctEquity / 100 * AccountInfoDouble(ACCOUNT_EQUITY))
         { PrintFormat("backstop: side %d loss %.2f", side, s.profit); CloseSide(side); continue; }
       if(P_At > 0 && !pDone[side] && LossPct(s) >= P_At)
         {
          PrintFormat("partial cut: side %d loss %.2f%% of balance, closing %.2f of %.2f lots", side, LossPct(s), P_Frac * s.vol, s.vol);
-         pDone[side] = true; CloseOldest(side, P_Frac * s.vol);
+         pDone[side] = true; pLeft[side] = P_Frac * s.vol;
         }
+      // a failed or partial close (disconnect, server reject) does not end the cut: the rest is retried on the next check
+      if(pLeft[side] > 1e-9) pLeft[side] = MathMax(0, pLeft[side] - CloseOldest(side, pLeft[side]));
      }
   }
 
