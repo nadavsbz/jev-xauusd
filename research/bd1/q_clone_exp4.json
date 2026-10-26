@@ -1,0 +1,48 @@
+[
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 154918,
+  "leverage": 1000,
+  "base_set": "dc7_bd_3digit_cal.set",
+  "from": "2026.06.01",
+  "to": "2026.07.01",
+  "report": "exp4_jun26_ortt",
+  "overrides": {
+   "MaxSpred": "200",
+   "Lot_Init_": "0.23",
+   "EntryTickDelay": "0",
+   "TrailBySL": "true",
+   "OpenUsesBarAdd": "true",
+   "LotFromOldest": "true",
+   "OverlapAtCount": "true",
+   "EntryRetrySpread": "true",
+   "OverlapResetsTrail": "true"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 154918,
+  "leverage": 1000,
+  "base_set": "dc7_bd_3digit_cal.set",
+  "from": "2026.06.01",
+  "to": "2026.07.01",
+  "report": "exp4_jun26_ortf",
+  "overrides": {
+   "MaxSpred": "200",
+   "Lot_Init_": "0.23",
+   "EntryTickDelay": "0",
+   "TrailBySL": "true",
+   "OpenUsesBarAdd": "true",
+   "LotFromOldest": "true",
+   "OverlapAtCount": "true",
+   "EntryRetrySpread": "true",
+   "OverlapResetsTrail": "false"
+  }
+ }
+]

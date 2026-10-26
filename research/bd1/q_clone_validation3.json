@@ -1,0 +1,107 @@
+[
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 26699,
+  "leverage": 1000,
+  "base_set": "dc5_bd_3digit_cal.set",
+  "from": "2025.12.01",
+  "to": "2026.01.01",
+  "report": "val3_dec25_clone",
+  "overrides": {
+   "MaxSpred": "350",
+   "Lot_Init_": "0.01",
+   "EntryTickDelay": "0",
+   "TrailBySL": "true",
+   "OpenUsesBarAdd": "true",
+   "LotFromOldest": "true",
+   "OverlapAtCount": "true"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 74229,
+  "leverage": 1000,
+  "base_set": "dc5_bd_3digit_cal.set",
+  "from": "2026.03.01",
+  "to": "2026.04.01",
+  "report": "val3_mar26_clone",
+  "overrides": {
+   "MaxSpred": "350",
+   "Lot_Init_": "0.10",
+   "EntryTickDelay": "0",
+   "TrailBySL": "true",
+   "OpenUsesBarAdd": "true",
+   "LotFromOldest": "true",
+   "OverlapAtCount": "true"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 111729,
+  "leverage": 1000,
+  "base_set": "dc5_bd_3digit_cal.set",
+  "from": "2026.05.01",
+  "to": "2026.06.01",
+  "report": "val3_may26_clone",
+  "overrides": {
+   "MaxSpred": "350",
+   "Lot_Init_": "0.25",
+   "EntryTickDelay": "0",
+   "TrailBySL": "true",
+   "OpenUsesBarAdd": "true",
+   "LotFromOldest": "true",
+   "OverlapAtCount": "true"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 154918,
+  "leverage": 1000,
+  "base_set": "dc5_bd_3digit_cal.set",
+  "from": "2026.06.01",
+  "to": "2026.07.01",
+  "report": "val3_jun26_clone",
+  "overrides": {
+   "MaxSpred": "350",
+   "Lot_Init_": "0.23",
+   "EntryTickDelay": "0",
+   "TrailBySL": "true",
+   "OpenUsesBarAdd": "true",
+   "LotFromOldest": "true",
+   "OverlapAtCount": "true"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 109829,
+  "leverage": 1000,
+  "base_set": "dc5_bd_3digit_cal.set",
+  "from": "2026.09.01",
+  "to": "2026.10.01",
+  "report": "val3_sep26_clone",
+  "overrides": {
+   "MaxSpred": "350",
+   "Lot_Init_": "0.18",
+   "EntryTickDelay": "0",
+   "TrailBySL": "true",
+   "OpenUsesBarAdd": "true",
+   "LotFromOldest": "true",
+   "OverlapAtCount": "true"
+  }
+ }
+]

@@ -1,0 +1,112 @@
+{
+ "dec25": {
+  "live_baskets": 1307,
+  "live_net": 1648,
+  "clone": {
+   "baskets": 1400,
+   "net": 1609,
+   "same_bar": 0.943,
+   "same_side": 1.0,
+   "same_levels": 0.838,
+   "exit_60s": 0.753,
+   "worst_basket": -1
+  },
+  "bdreal": {
+   "baskets": 1339,
+   "net": 1454,
+   "same_bar": 0.989,
+   "same_side": 1.0,
+   "same_levels": 0.971,
+   "exit_60s": 0.886,
+   "worst_basket": 0
+  }
+ },
+ "mar26": {
+  "live_baskets": 1301,
+  "live_net": 25655,
+  "clone": {
+   "baskets": 1478,
+   "net": 20143,
+   "same_bar": 0.97,
+   "same_side": 1.0,
+   "same_levels": 0.716,
+   "exit_60s": 0.721,
+   "worst_basket": -14
+  },
+  "bdreal": {
+   "baskets": 1374,
+   "net": 18368,
+   "same_bar": 0.972,
+   "same_side": 1.0,
+   "same_levels": 0.926,
+   "exit_60s": 0.809,
+   "worst_basket": 4
+  }
+ },
+ "may26": {
+  "live_baskets": 1136,
+  "live_net": 63092,
+  "clone": {
+   "baskets": 1287,
+   "net": -113459,
+   "same_bar": 0.955,
+   "same_side": 1.0,
+   "same_levels": 0.775,
+   "exit_60s": 0.684,
+   "worst_basket": -160528
+  },
+  "bdreal": {
+   "baskets": 1190,
+   "net": -112786,
+   "same_bar": 0.946,
+   "same_side": 1.0,
+   "same_levels": 0.923,
+   "exit_60s": 0.764,
+   "worst_basket": -158171
+  }
+ },
+ "jun26": {
+  "live_baskets": 1240,
+  "live_net": 47783,
+  "clone": {
+   "baskets": 1409,
+   "net": 65622,
+   "same_bar": 0.984,
+   "same_side": 1.0,
+   "same_levels": 0.773,
+   "exit_60s": 0.716,
+   "worst_basket": -29
+  },
+  "bdreal": {
+   "baskets": 301,
+   "net": -155538,
+   "same_bar": 0.191,
+   "same_side": 1.0,
+   "same_levels": 0.911,
+   "exit_60s": 0.734,
+   "worst_basket": -163340
+  }
+ },
+ "sep26": {
+  "live_baskets": 1229,
+  "live_net": 40469,
+  "clone": {
+   "baskets": 1487,
+   "net": 33977,
+   "same_bar": 0.985,
+   "same_side": 1.0,
+   "same_levels": 0.8,
+   "exit_60s": 0.719,
+   "worst_basket": -401
+  },
+  "bdreal": {
+   "baskets": 1342,
+   "net": 35416,
+   "same_bar": 0.986,
+   "same_side": 1.0,
+   "same_levels": 0.96,
+   "exit_60s": 0.861,
+   "worst_basket": 6
+  }
+ }
+}

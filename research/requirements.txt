@@ -1,0 +1,7 @@
+# Research tools (Python 3.12). pandas 3 changes the basket split of vol_lot_map.baskets (10,596 -> 9,320 baskets on dc_acc1_base), so stay on 2.x.
+pandas>=2.2,<3
+numpy
+websocket-client
+openpyxl
+scipy
+MetaTrader5

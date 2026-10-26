@@ -1,0 +1,90 @@
+[
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 111729,
+  "leverage": 1000,
+  "base_set": "dc6_bd_3digit_cal.set",
+  "from": "2026.05.01",
+  "to": "2026.06.01",
+  "report": "exp3_may26_retry200",
+  "overrides": {
+   "MaxSpred": "200",
+   "Lot_Init_": "0.25",
+   "EntryTickDelay": "0",
+   "TrailBySL": "true",
+   "OpenUsesBarAdd": "true",
+   "LotFromOldest": "true",
+   "OverlapAtCount": "true",
+   "EntryRetrySpread": "true"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 111729,
+  "leverage": 1000,
+  "base_set": "dc6_bd_3digit_cal.set",
+  "from": "2026.05.01",
+  "to": "2026.06.01",
+  "report": "exp3_may26_retry350",
+  "overrides": {
+   "MaxSpred": "350",
+   "Lot_Init_": "0.25",
+   "EntryTickDelay": "0",
+   "TrailBySL": "true",
+   "OpenUsesBarAdd": "true",
+   "LotFromOldest": "true",
+   "OverlapAtCount": "true",
+   "EntryRetrySpread": "true"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 109829,
+  "leverage": 1000,
+  "base_set": "dc6_bd_3digit_cal.set",
+  "from": "2026.09.01",
+  "to": "2026.10.01",
+  "report": "exp3_sep26_retry200",
+  "overrides": {
+   "MaxSpred": "200",
+   "Lot_Init_": "0.18",
+   "EntryTickDelay": "0",
+   "TrailBySL": "true",
+   "OpenUsesBarAdd": "true",
+   "LotFromOldest": "true",
+   "OverlapAtCount": "true",
+   "EntryRetrySpread": "true"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 109829,
+  "leverage": 1000,
+  "base_set": "dc6_bd_3digit_cal.set",
+  "from": "2026.09.01",
+  "to": "2026.10.01",
+  "report": "exp3_sep26_retry350",
+  "overrides": {
+   "MaxSpred": "350",
+   "Lot_Init_": "0.18",
+   "EntryTickDelay": "0",
+   "TrailBySL": "true",
+   "OpenUsesBarAdd": "true",
+   "LotFromOldest": "true",
+   "OverlapAtCount": "true",
+   "EntryRetrySpread": "true"
+  }
+ }
+]

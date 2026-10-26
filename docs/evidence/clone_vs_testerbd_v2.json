@@ -1,0 +1,42 @@
+{
+ "dec25": {
+  "bd_baskets": 1339,
+  "clone_baskets": 1400,
+  "same_bar": 0.941,
+  "same_side": 1.0,
+  "same_levels": 0.858,
+  "exit_60s": 0.832
+ },
+ "mar26": {
+  "bd_baskets": 1374,
+  "clone_baskets": 1478,
+  "same_bar": 0.975,
+  "same_side": 1.0,
+  "same_levels": 0.77,
+  "exit_60s": 0.847
+ },
+ "may26": {
+  "bd_baskets": 1190,
+  "clone_baskets": 1287,
+  "same_bar": 0.97,
+  "same_side": 1.0,
+  "same_levels": 0.81,
+  "exit_60s": 0.827
+ },
+ "jun26": {
+  "bd_baskets": 301,
+  "clone_baskets": 1409,
+  "same_bar": 0.977,
+  "same_side": 1.0,
+  "same_levels": 0.806,
+  "exit_60s": 0.813
+ },
+ "sep26": {
+  "bd_baskets": 1342,
+  "clone_baskets": 1487,
+  "same_bar": 0.99,
+  "same_side": 1.0,
+  "same_levels": 0.823,
+  "exit_60s": 0.814
+ }
+}

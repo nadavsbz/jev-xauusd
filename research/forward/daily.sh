@@ -14,6 +14,6 @@ export JEV_DEALS_SNAPSHOT=$(ls $RAW | grep -E '^[0-9]{8}T' | sort | tail -1)
 export JEV_RATES_SNAPSHOT=$(ls $RAW | grep -E '^rates_XAUUSDc_M1_' | sort | tail -1)
 export JEV_DERIVED=data/derived/bd1_forward
 echo "snapshots: $JEV_DEALS_SNAPSHOT $JEV_RATES_SNAPSHOT"
-python research/bd1/clusters.py --strict | tail -1
-python research/forward/compare.py data/derived/bd1_forward/compare.json
-python research/forward/crash_signal.py data/derived/bd1_forward/crash_signal.csv
+$PY research/bd1/clusters.py --strict | tail -1
+$PY research/forward/compare.py data/derived/bd1_forward/compare.json
+$PY research/forward/crash_signal.py data/derived/bd1_forward/crash_signal.csv
