@@ -79,9 +79,15 @@ def features(p):
     j = np.searchsorted(ev, t_close)
     F["min_to_news"] = np.where(j < len(ev), (ev[np.minimum(j, len(ev) - 1)] - t_close) / 60, 1e4).clip(max=1e4)
     F["news_24h"] = np.searchsorted(ev, t_close + 86400) - j
-    # label: +-2% within the next 96 bars
-    fh = h[::-1].rolling(96, min_periods=1).max()[::-1].shift(-1); fl = l[::-1].rolling(96, min_periods=1).min()[::-1].shift(-1)
-    y = ((fh / c - 1 >= 0.02) | (1 - fl / c >= 0.02)).astype(float); y[b.index[-96:]] = np.nan
+    # label: +-2% within the next 24 h BY TIMESTAMP (bars starting in (close, close + 24h]); a bar whose 24 h horizon runs past the
+    # end of the data has no label (Codex PR 42, P2: 96 bars can span a weekend and reach Monday)
+    tt = b.time.values; hv = h.values; lv = l.values
+    end = np.searchsorted(tt, tt + 900 + 86400, side="left")      # first bar starting at or after close + 24h
+    fh = np.full(len(tt), np.nan); fl = np.full(len(tt), np.nan)
+    for i in range(len(tt)):
+        if end[i] > i + 1: fh[i] = hv[i + 1:end[i]].max(); fl[i] = lv[i + 1:end[i]].min()
+    y = pd.Series(((fh / c.values - 1 >= 0.02) | (1 - fl / c.values >= 0.02)).astype(float), index=b.index)
+    y[(tt + 900 + 86400) > tt[-1]] = np.nan
     F["y"] = y; F["time"] = b.time; F["period"] = p
     return F
 
