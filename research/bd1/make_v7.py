@@ -90,6 +90,10 @@ SWAP_OLD = "avg -= sg * b.swap / (b.vol * SymbolInfoDouble(_Symbol, SYMBOL_TRADE
 SWAP_NEW = ("avg -= sg * b.swap / (b.vol * SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_VALUE) / SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_SIZE));"
             "   // money -> price through the tick value, also when the profit currency is not the deposit currency (Codex PR 41, P1); = contract size on gold")
 INIT_OLD = "   return INIT_SUCCEEDED;"
+# a basket closed inside OnTick (TP, trailing, basket stop, floor) can be followed by a new basket on the same side in the same tick;
+# the v4/v5 per-basket state must be cleared at that boundary too, not only when a later scan finds the side empty (Codex PR 39, P1)
+CLOSE_OLD = "   trailOn[side] = false; hiWater[side] = 0;\n  }"
+CLOSE_NEW = "   trailOn[side] = false; hiWater[side] = 0;\n   V4Reset(side); V5Reset(side);   // Codex PR 39, P1\n  }"
 INIT_NEW = "   if(NewsFile != \"\" && LoadNews() <= 0) { Print(\"v7: NewsFile set but no events loaded\"); return INIT_PARAMETERS_INCORRECT; }\n" + INIT_OLD
 
 if __name__ == "__main__":
@@ -99,6 +103,6 @@ if __name__ == "__main__":
     make_v4.build("v7h", *make_v4.VARIANTS["v7h"])
     make_v5.build("v7", "floor guard + partial-cut inputs on all crash-day flags (v7h)", *make_v5.VARIANTS["v5b"][1:], src="mql5/DragonClone_v7h.mq5")
     p = "mql5/DragonClone_v7.mq5"; src = open(p, encoding="utf-8").read()
-    assert src.count(SWAP_OLD) == 1 and src.count(INIT_OLD) == 1
-    open(p, "w", encoding="utf-8").write(src.replace(SWAP_OLD, SWAP_NEW).replace(INIT_OLD, INIT_NEW))
+    assert src.count(SWAP_OLD) == 1 and src.count(INIT_OLD) == 1 and src.count(CLOSE_OLD) == 1
+    open(p, "w", encoding="utf-8").write(src.replace(SWAP_OLD, SWAP_NEW).replace(INIT_OLD, INIT_NEW).replace(CLOSE_OLD, CLOSE_NEW))
     print("v7")

@@ -43,7 +43,9 @@ ROUNDS = {
  # the old results on gold exactly, then the exposure-matched control: no new baskets on 40% of weekdays drawn at random
  "fixcheck": [(p, f"{t}_fx", o) for p, t, o in [("rf2022", "off", {}), ("eg2526", "off", {}), ("rf2024", "d24ntop", {"DayOffMask": "24", "NewsFile": "news_top_{b}.txt"}),
                                                    ("rf2022", "off0", {"RandDayPct": "0", "RandSeed": "1"})]],   # the new set inputs, at their defaults
- "r4": [(p[0], f"rnd{k}", {"RandDayPct": "40", "RandSeed": str(k)}) for k in range(1, 11) for p in PERIODS],
+ "r4": [(p[0], f"rnd{k}", {"RandDayPct": "40", "RandSeed": str(k)}) for k in range(1, 11) for p in PERIODS]
+     # Codex PR 39 (P1): v4/v5 state is now also cleared when a basket closes inside OnTick; the user's lot flag reruns with the fix
+     + [(p[0], "lao4_fx", {"LotAfterOverlap": "4"}) for p in PERIODS],
 }
 
 if __name__ == "__main__":
