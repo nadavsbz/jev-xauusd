@@ -40,7 +40,42 @@ def jobs1():
     for j in q: j["report"] = j["report"].replace("v7_eg2526_", "opt1_")
     return q
 
+# round 2 (docs/BD_OPT_PLAN.md): the 5 promising values with the best net/DD per parameter, in order of improvement, and their
+# combination; robustness: base, each value and the combo also from two shifted starts (15.12.2025, 5.1.2026); then the combo and
+# the base on the 4 RoboForex years (conditional historical comparison), mapped per parameter (price params x RF base / EG base)
+PICK = {"iTS": "900", "Fix_Distance": "3500", "Martin_": "1.6", "Distance_multiplier": "1.0", "Dynamic_distance_start": "1500"}
+EG_BASE = {"iTS": 600, "Fix_Distance": 3000, "Dynamic_distance_start": 2000}
+RF_BASE = {"iTS": 60, "Fix_Distance": 300, "Dynamic_distance_start": 200}
+SHIFTS = [("s1215", "2025.12.15"), ("s0105", "2026.01.05")]
+
+def jobs2():
+    q = []
+    cfgs = [("base", {})] + [(f"{k}{v}".replace(".", ""), {k: v}) for k, v in PICK.items()] + [("combo", dict(PICK))]
+    for t, o in cfgs:
+        if t == "combo": q.append(job("eg2526", "opt_combo", {**BASE, **o}))
+        for sn, d in SHIFTS:
+            j = job("eg2526", f"opt_{t}_{sn}", {**BASE, **o}); j["from"] = d; q.append(j)
+    rf = {k: (str(round(RF_BASE[k] * float(v) / EG_BASE[k])) if k in EG_BASE else v) for k, v in PICK.items()}
+    for p in ("rf2022", "rf2023", "rf2024", "rf2025"):
+        q.append(job(p, "opt_combo", {**BASE, **rf}))
+    for j in q: j["report"] = j["report"].replace("v7_eg2526_", "opt2_").replace("v7_rf", "opt2_rf")
+    return q
+
+# round 3: Martin_ 1.6 failed the start-date sensitivity rule (5.1.2026: +58% vs base +90%), so by the registered rule the combination
+# is the other four values; the same dev runs (full + 2 shifts) and the 4 RoboForex years
+PICK3 = {k: v for k, v in PICK.items() if k != "Martin_"}
+
+def jobs3():
+    q = [job("eg2526", "opt_combo4", {**BASE, **PICK3})]
+    for sn, d in SHIFTS:
+        j = job("eg2526", f"opt_combo4_{sn}", {**BASE, **PICK3}); j["from"] = d; q.append(j)
+    rf = {k: (str(round(RF_BASE[k] * float(v) / EG_BASE[k])) if k in EG_BASE else v) for k, v in PICK3.items()}
+    for p in ("rf2022", "rf2023", "rf2024", "rf2025"):
+        q.append(job(p, "opt_combo4", {**BASE, **rf}))
+    for j in q: j["report"] = j["report"].replace("v7_eg2526_", "opt3_").replace("v7_rf", "opt3_rf")
+    return q
+
 if __name__ == "__main__":
-    q = {"1": jobs1}[sys.argv[1]]()
+    q = {"1": jobs1, "2": jobs2, "3": jobs3}[sys.argv[1]]()
     json.dump(q, open(f"research/bd1/q_opt{sys.argv[1]}.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(len(q), "jobs")
