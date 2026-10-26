@@ -50,7 +50,9 @@ input int    NewsPauseFrom = 0;       // v7: fixed daily pause start, server HHM
 input int    NewsPauseMin = 0;        // v7: ...its length in minutes
 input string NewsFile = "";           // v7: event times file in Common\\Files, one unix time (server clock) per line ('' = off)
 input int    NewsBeforeMin = 30;      // v7: pause starts this many minutes before an event
-input int    NewsAfterMin = 60;       // v7: ...and ends this many minutes after it   // ours, measured 25.10: Overlap fires with OverlapOrderNumber orders on the side (>=), not more
+input int    NewsAfterMin = 60;       // v7: ...and ends this many minutes after it
+input int    RandDayPct = 0;          // v7 control: no new baskets on this % of weekdays, drawn per day (0 = off; 40 = as many days as Thu+Fri)
+input int    RandSeed = 1;            // v7 control: ...the seed of that draw   // ours, measured 25.10: Overlap fires with OverlapOrderNumber orders on the side (>=), not more
 input int    Start_Hour = 2;
 input int    End_Hour = 21;
 input long   Magic = 5555;
@@ -223,6 +225,21 @@ bool CrashNow()
 
 // ---- v7h hooks ----
 long nwT[]; int nwN = -1;
+int LoadNews()   // OnInit fails when NewsFile is set but no event loads (Codex PR 41, P1): a news run must never silently become the baseline
+  {
+   nwN = 0;
+   int h = FileOpen(NewsFile, FILE_READ | FILE_TXT | FILE_COMMON | FILE_ANSI);
+   if(h == INVALID_HANDLE) { Print("v7: news file not found: ", NewsFile); return 0; }
+   while(!FileIsEnding(h)) { string s = FileReadString(h); if(StringLen(s) < 5) continue; ArrayResize(nwT, nwN + 1); nwT[nwN++] = StringToInteger(s); }
+   FileClose(h); PrintFormat("v7: %d news events loaded", nwN);
+   return nwN;
+  }
+uint DayHash(long day)   // RandDayPct: a fixed pseudo-random draw per calendar day and seed
+  {
+   uint h = (uint)(day * 2654435761) ^ (uint)(RandSeed * 40503);
+   h ^= h >> 13; h *= 0x5bd1e995; h ^= h >> 15;
+   return h;
+  }
 bool InNewsPause()
   {
    datetime now = TimeCurrent();
@@ -233,14 +250,7 @@ bool InNewsPause()
       if(t.day_of_week >= 1 && t.day_of_week <= 5 && m >= s && m < s + NewsPauseMin) return true;
      }
    if(NewsFile == "") return false;
-   if(nwN < 0)
-     {
-      nwN = 0;
-      int h = FileOpen(NewsFile, FILE_READ | FILE_TXT | FILE_COMMON | FILE_ANSI);
-      if(h == INVALID_HANDLE) { Print("v7: news file not found: ", NewsFile); return false; }
-      while(!FileIsEnding(h)) { string s = FileReadString(h); if(StringLen(s) < 5) continue; ArrayResize(nwT, nwN + 1); nwT[nwN++] = StringToInteger(s); }
-      FileClose(h); PrintFormat("v7: %d news events loaded", nwN);
-     }
+   if(nwN < 0) LoadNews();
    static int k = 0;   // the file is sorted and tester time only moves forward: skip the events whose window has ended
    while(k < nwN && nwT[k] + NewsAfterMin * 60 <= now) k++;
    return k < nwN && now >= nwT[k] - NewsBeforeMin * 60;
@@ -276,9 +286,11 @@ void V4Reset(int side) { ovNewV[side] = 0; ovOldV[side] = 0; ovCnt[side] = 0; }
 bool V4EntryOk()
   {
    if(InNewsPause()) return false;
-   if(DayOffMask <= 0) return true;
    MqlDateTime t; TimeToStruct(TimeCurrent(), t);
-   return t.day_of_week < 1 || t.day_of_week > 5 || (DayOffMask & (1 << (t.day_of_week - 1))) == 0;
+   bool wd = t.day_of_week >= 1 && t.day_of_week <= 5;
+   if(RandDayPct > 0 && wd && DayHash((long)TimeCurrent() / 86400) % 100 < (uint)RandDayPct) return false;
+   if(DayOffMask <= 0) return true;
+   return !wd || (DayOffMask & (1 << (t.day_of_week - 1))) == 0;
   }
 
 void OnTick()

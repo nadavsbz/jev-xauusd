@@ -31,13 +31,14 @@ void OnTimer()
    int fh = FileOpen(OutName + "_high.txt", FILE_WRITE | FILE_TXT | FILE_COMMON | FILE_ANSI);
    int fm = FileOpen(OutName + "_med.txt", FILE_WRITE | FILE_TXT | FILE_COMMON | FILE_ANSI);
    FileWrite(fa, "time", "importance", "event", "actual", "forecast", "prev");
+   long off = (long)(TimeTradeServer() - TimeGMT());   // calendar times are trade-server time: write UTC (Codex PR 41, P1); research/bd1/news_files.py checks it on NFP
    long lastH = 0, lastM = 0; int nh = 0, nm = 0;
    for(int i = 0; i < n; i++)   // CalendarValueHistory returns the values sorted by time
      {
       MqlCalendarEvent e;
       if(!CalendarEventById(v[i].event_id, e)) continue;
-      FileWrite(fa, (long)v[i].time, (int)e.importance, e.name, Val(v[i].actual_value), Val(v[i].forecast_value), Val(v[i].prev_value));
-      long t = (long)v[i].time;
+      FileWrite(fa, (long)v[i].time - off, (int)e.importance, e.name, Val(v[i].actual_value), Val(v[i].forecast_value), Val(v[i].prev_value));
+      long t = (long)v[i].time - off;
       if(e.importance == CALENDAR_IMPORTANCE_HIGH && t != lastH) { FileWriteString(fh, IntegerToString(t) + "\r\n"); lastH = t; nh++; }
       if(e.importance >= CALENDAR_IMPORTANCE_MODERATE && t != lastM) { FileWriteString(fm, IntegerToString(t) + "\r\n"); lastM = t; nm++; }
      }
