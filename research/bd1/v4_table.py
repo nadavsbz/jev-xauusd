@@ -8,7 +8,7 @@ import guardian_sim as g
 
 CRASH_DAYS = {"2026-05-28": "may26", "2026-05-29": "may26", "2026-06-05": "jun26", "2026-06-08": "jun26", "2026-07-01": "jul26",
               "2026-07-30": "jul26b", "2026-07-31": "jul26b", "2026-08-10": "aug26", "2026-08-27": "aug26", "2026-10-12": "oct26"}
-CRASH = ["may26", "jun26", "jul26", "jul26b", "aug26", "oct26"]; NORMAL = ["dec25", "mar26", "sep26"]
+CRASH = ["may26", "jun26", "jul26", "aug26", "oct26"]   # jul26b overlaps jul26: reported apart, never summed (Codex PR 39, P1); NORMAL = ["dec25", "mar26", "sep26"]
 
 def run(rep):
     e = f"docs/evidence/{rep}.json"

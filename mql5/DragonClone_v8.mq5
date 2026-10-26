@@ -205,6 +205,7 @@ void CloseSide(int side)
       if(s == side) trade.PositionClose(t);
      }
    trailOn[side] = false; hiWater[side] = 0;
+   V4Reset(side); V5Reset(side);   // Codex PR 39, P1
   }
 
 void SetSideSL(int side, double slPx)   // move every position of the side to one stop; only ever tighten

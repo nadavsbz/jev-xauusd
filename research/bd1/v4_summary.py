@@ -3,7 +3,7 @@ Usage: python research/bd1/v4_summary.py TAG [TAG ...]   (reads docs/evidence/<T
 v3 baseline: v3_<m>, else val5_<m>_clone (same code, validated run)."""
 import json, os, sys
 
-CRASH = ["may26", "jun26", "jul26", "jul26b", "aug26", "oct26"]; NORMAL = ["dec25", "mar26", "sep26"]
+CRASH = ["may26", "jun26", "jul26", "aug26", "oct26"]   # jul26b overlaps jul26: reported apart, never summed (Codex PR 39, P1); NORMAL = ["dec25", "mar26", "sep26"]
 
 def ev(rep):
     p = f"docs/evidence/{rep}.json"
