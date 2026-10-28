@@ -45,6 +45,18 @@ rep("""   for(int side = 0; side < 2; side++)
       curSide = side;
       Bsk b; Scan(side, b);""")
 rep("if(move >= iTS * _Point) { trailOn[side] = true;", "if(move >= TS() * _Point) { trailOn[side] = true;")
-rep("   bool opened = false;\n", "   bool opened = false;\n   wideB[dir] = RegimeWide();   // v9: the regime is fixed for the life of the basket\n")
+rep("   bool opened = false;\n", "   bool opened = false;\n   wideB[dir] = RegimeWide();   // v9: the regime is fixed for the life of the basket\n"
+    "   if(!MQLInfoInteger(MQL_TESTER)) GlobalVariableSet(WideGv(dir), wideB[dir] ? 1 : 0);\n")
+# a restart of a live/demo terminal with a basket open must keep the regime it opened with (Codex PR 42, P2): stored per magic,
+# symbol and side at the open, read back in OnInit; the tester never runs either part
+rep("int    TS()   {", """string WideGv(int side) { return StringFormat("dcv9_wide_%I64d_%s_%d", Magic, _Symbol, side); }
+void WideRestore()
+  {
+   if(MQLInfoInteger(MQL_TESTER)) return;
+   for(int s = 0; s < 2; s++)
+      if(GlobalVariableCheck(WideGv(s))) { wideB[s] = GlobalVariableGet(WideGv(s)) > 0; PrintFormat("v9: side %d regime restored: %s", s, wideB[s] ? "wide" : "normal"); }
+  }
+int    TS()   {""")
+rep("   trailOn[0] = trailOn[1] = false; hiWater[0] = hiWater[1] = 0;\n", "   trailOn[0] = trailOn[1] = false; hiWater[0] = hiWater[1] = 0;\n   WideRestore();\n")
 open("mql5/DragonClone_v9.mq5", "w", encoding="utf-8").write(src.replace("DragonClone_v7", "DragonClone_v9"))
 print("v9")

@@ -30,15 +30,31 @@ double V4Lot(int side, Bsk &b, double lot)
    return lot;
   }"""
 
-PAUSE = """long nwT[]; int nwN = -1;
+PAUSE = """long nwT[]; int nwN = -1, nwK = 0; datetime nwMod = 0, nwChk = 0, nwWarn = 0;
 int LoadNews()   // OnInit fails when NewsFile is set but no event loads (Codex PR 41, P1): a news run must never silently become the baseline
   {
-   nwN = 0;
+   long t[]; int n = 0;
    int h = FileOpen(NewsFile, FILE_READ | FILE_TXT | FILE_COMMON | FILE_ANSI);
-   if(h == INVALID_HANDLE) { Print("v7: news file not found: ", NewsFile); return 0; }
-   while(!FileIsEnding(h)) { string s = FileReadString(h); if(StringLen(s) < 5) continue; ArrayResize(nwT, nwN + 1); nwT[nwN++] = StringToInteger(s); }
-   FileClose(h); PrintFormat("v7: %d news events loaded", nwN);
+   if(h == INVALID_HANDLE) { Print("v7: news file not found: ", NewsFile); if(nwN < 0) nwN = 0; return 0; }
+   while(!FileIsEnding(h)) { string s = FileReadString(h); if(StringLen(s) < 5) continue; ArrayResize(t, n + 1); t[n++] = StringToInteger(s); }
+   FileClose(h);
+   if(n == 0) { Print("v7: news file empty: ", NewsFile); if(nwN < 0) nwN = 0; return 0; }   // a failed reload keeps the loaded events
+   ArrayFree(nwT); ArrayCopy(nwT, t); nwN = n; nwK = 0;
+   nwMod = (datetime)FileGetInteger(NewsFile, FILE_MODIFY_DATE, true);
+   PrintFormat("v7: %d news events loaded, last %s", nwN, TimeToString((datetime)nwT[nwN - 1]));
    return nwN;
+  }
+void NewsLive(datetime now)   // live/demo only (the tester never runs it): hourly, reload the file when it was replaced on disk, and
+  {                           // alert once a day when it covers less than 14 days ahead (Codex PR 42, P1: the calendar ends mid-demo)
+   if(MQLInfoInteger(MQL_TESTER) || TimeLocal() - nwChk < 3600) return;
+   nwChk = TimeLocal();
+   datetime md = (datetime)FileGetInteger(NewsFile, FILE_MODIFY_DATE, true);
+   if(md > 0 && md != nwMod) LoadNews();
+   if((nwN <= 0 || nwT[nwN - 1] < now + 14 * 86400) && TimeLocal() - nwWarn >= 86400)
+     {
+      nwWarn = TimeLocal();
+      Alert("v7: ", NewsFile, " covers events only until ", nwN > 0 ? TimeToString((datetime)nwT[nwN - 1]) : "-", " - refresh it (docs/BD_REGIME2_PLAN.md)");
+     }
   }
 uint DayHash(long day)   // RandDayPct: a fixed pseudo-random draw per calendar day and seed
   {
@@ -57,9 +73,10 @@ bool InNewsPause()
      }
    if(NewsFile == "") return false;
    if(nwN < 0) LoadNews();
-   static int k = 0;   // the file is sorted and tester time only moves forward: skip the events whose window has ended
-   while(k < nwN && nwT[k] + NewsAfterMin * 60 <= now) k++;
-   return k < nwN && now >= nwT[k] - NewsBeforeMin * 60;
+   NewsLive(now);
+   // the file is sorted and time only moves forward: skip the events whose window has ended (nwK restarts at 0 after a reload)
+   while(nwK < nwN && nwT[nwK] + NewsAfterMin * 60 <= now) nwK++;
+   return nwK < nwN && now >= nwT[nwK] - NewsBeforeMin * 60;
   }"""
 
 ENTRY = """bool V4EntryOk()
