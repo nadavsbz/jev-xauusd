@@ -2,7 +2,10 @@
 Source: the MT5 economic calendar, USD, exported in UTC by mql5/CalendarExport.mq5 (data/derived/news/mt5_calendar_usd.csv).
 Broker clocks, measured from M15 range spikes at US releases (26.10.2026): RoboForex = UTC+2, UTC+3 during US daylight saving;
 EGlobal = UTC+2 all year.
-Usage: python research/bd1/news_files.py [--check]   (--check: compare with the files already in data/derived/news, write nothing)"""
+Usage: python research/bd1/news_files.py [--check | --refresh]
+  --check:   compare with the files already in data/derived/news, write nothing
+  --refresh: first copy the latest CalendarExport output (Common\\Files\\news_usd_all.csv) over mt5_calendar_usd.csv, then build
+             (the weekly demo refresh, docs/BD_REGIME2_PLAN.md; Codex PR 42, P1: the export never reached the build input)"""
 import shutil, sys
 import pandas as pd
 
@@ -41,9 +44,15 @@ def build(cal):
     return out
 
 if __name__ == "__main__":
+    if "--refresh" in sys.argv:
+        shutil.copy(CF + "news_usd_all.csv", D + "mt5_calendar_usd.csv")
     files = build(pd.read_csv(D + "mt5_calendar_usd.csv", encoding="latin1"))
     for f, txt in files.items():
         if "--check" in sys.argv:
             print(f, "same" if open(D + f).read() == txt else "DIFFERENT")
         else:
             open(D + f, "w").write(txt); shutil.copy(D + f, CF + f); print(f, txt.count("\n"))
+    if "--check" not in sys.argv:   # coverage: the demo needs the last top event at least 14 days ahead
+        last = max(int(x) for x in files["news_top_eg.txt"].split())
+        days = (last - pd.Timestamp.now(tz="UTC").timestamp()) / 86400
+        print(f"last top event {pd.Timestamp(last, unit='s')} (EGlobal clock), {days:.0f} days ahead", "OK" if days >= 14 else "SHORT: export again")

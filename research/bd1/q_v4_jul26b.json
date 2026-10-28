@@ -1,0 +1,178 @@
+[
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone_v3.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 128764,
+  "leverage": 1000,
+  "base_set": "dcv4_base.set",
+  "from": "2026.07.02",
+  "to": "2026.08.01",
+  "report": "v3_jul26b",
+  "overrides": {
+   "Lot_Init_": "0.24"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone_v4a.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 128764,
+  "leverage": 1000,
+  "base_set": "dcv4_base.set",
+  "from": "2026.07.02",
+  "to": "2026.08.01",
+  "report": "v4a1_jul26b",
+  "overrides": {
+   "Lot_Init_": "0.24",
+   "LotAfterOverlap": "1"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone_v4a.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 128764,
+  "leverage": 1000,
+  "base_set": "dcv4_base.set",
+  "from": "2026.07.02",
+  "to": "2026.08.01",
+  "report": "v4a2_jul26b",
+  "overrides": {
+   "Lot_Init_": "0.24",
+   "LotAfterOverlap": "2"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone_v4a.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 128764,
+  "leverage": 1000,
+  "base_set": "dcv4_base.set",
+  "from": "2026.07.02",
+  "to": "2026.08.01",
+  "report": "v4a3_jul26b",
+  "overrides": {
+   "Lot_Init_": "0.24",
+   "LotAfterOverlap": "3"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone_v3.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 128764,
+  "leverage": 1000,
+  "base_set": "dcv4_base.set",
+  "from": "2026.07.02",
+  "to": "2026.08.01",
+  "report": "v3stop15_jul26b",
+  "overrides": {
+   "Lot_Init_": "0.24",
+   "G_BasketStopPct": "15"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone_v4c.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 128764,
+  "leverage": 1000,
+  "base_set": "dcv4_base.set",
+  "from": "2026.07.02",
+  "to": "2026.08.01",
+  "report": "v4c35_jul26b",
+  "overrides": {
+   "Lot_Init_": "0.24",
+   "NewsPauseFrom": "1425",
+   "NewsPauseMin": "35"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone_v4b.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 128764,
+  "leverage": 1000,
+  "base_set": "dcv4_base.set",
+  "from": "2026.07.02",
+  "to": "2026.08.01",
+  "report": "v4b8_jul26b",
+  "overrides": {
+   "Lot_Init_": "0.24",
+   "ExpoLotsPer100k": "8"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone_v4e.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 128764,
+  "leverage": 1000,
+  "base_set": "dcv4_base.set",
+  "from": "2026.07.02",
+  "to": "2026.08.01",
+  "report": "v4e2_jul26b",
+  "overrides": {
+   "Lot_Init_": "0.24",
+   "MaxOverlaps": "2"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone_v3.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 128764,
+  "leverage": 1000,
+  "base_set": "dcv4_base.set",
+  "from": "2026.07.02",
+  "to": "2026.08.01",
+  "report": "v3maxlot2_jul26b",
+  "overrides": {
+   "Lot_Init_": "0.24",
+   "MaxLot_": "2.05"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone_v4d.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 128764,
+  "leverage": 1000,
+  "base_set": "dcv4_base.set",
+  "from": "2026.07.02",
+  "to": "2026.08.01",
+  "report": "v4d15_jul26b",
+  "overrides": {
+   "Lot_Init_": "0.24",
+   "AtrDistMult": "1.5"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\DragonClone_v4e.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 128764,
+  "leverage": 1000,
+  "base_set": "dcv4_base.set",
+  "from": "2026.07.02",
+  "to": "2026.08.01",
+  "report": "v4e1_jul26b",
+  "overrides": {
+   "Lot_Init_": "0.24",
+   "MaxOverlaps": "1"
+  }
+ }
+]

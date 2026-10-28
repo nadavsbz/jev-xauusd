@@ -1,0 +1,190 @@
+[
+ {
+  "name": "Black Dragon 1",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 26699,
+  "leverage": 1000,
+  "base_set": "dcv5_base.set",
+  "from": "2024.12.01",
+  "to": "2025.10.24",
+  "expert": "Jev\\DragonClone_v3.ex5",
+  "report": "oos_v3g20",
+  "overrides": {
+   "Autolot_": "true",
+   "Autolotsize_": "6000",
+   "G_BasketStopPct": "20"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 26699,
+  "leverage": 1000,
+  "base_set": "dcv5_base.set",
+  "from": "2024.12.01",
+  "to": "2025.10.24",
+  "expert": "Jev\\DragonClone_v5b.ex5",
+  "report": "oos_v5b_10_30",
+  "overrides": {
+   "Autolot_": "true",
+   "Autolotsize_": "6000",
+   "G_BasketStopPct": "20",
+   "P_At": "10",
+   "P_Frac": "0.3"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 26699,
+  "leverage": 1000,
+  "base_set": "dcv5_base.set",
+  "from": "2025.12.01",
+  "to": "2026.10.24",
+  "expert": "Jev\\DragonClone_v5b.ex5",
+  "report": "year_v5b_8_20",
+  "overrides": {
+   "Autolot_": "true",
+   "Autolotsize_": "6000",
+   "G_BasketStopPct": "20",
+   "P_At": "8",
+   "P_Frac": "0.2"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 26699,
+  "leverage": 1000,
+  "base_set": "dcv5_base.set",
+  "from": "2025.12.01",
+  "to": "2026.10.24",
+  "expert": "Jev\\DragonClone_v5b.ex5",
+  "report": "year_v5b_8_30",
+  "overrides": {
+   "Autolot_": "true",
+   "Autolotsize_": "6000",
+   "G_BasketStopPct": "20",
+   "P_At": "8",
+   "P_Frac": "0.3"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 26699,
+  "leverage": 1000,
+  "base_set": "dcv5_base.set",
+  "from": "2025.12.01",
+  "to": "2026.10.24",
+  "expert": "Jev\\DragonClone_v5b.ex5",
+  "report": "year_v5b_8_40",
+  "overrides": {
+   "Autolot_": "true",
+   "Autolotsize_": "6000",
+   "G_BasketStopPct": "20",
+   "P_At": "8",
+   "P_Frac": "0.4"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 26699,
+  "leverage": 1000,
+  "base_set": "dcv5_base.set",
+  "from": "2025.12.01",
+  "to": "2026.10.24",
+  "expert": "Jev\\DragonClone_v5b.ex5",
+  "report": "year_v5b_10_20",
+  "overrides": {
+   "Autolot_": "true",
+   "Autolotsize_": "6000",
+   "G_BasketStopPct": "20",
+   "P_At": "10",
+   "P_Frac": "0.2"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 26699,
+  "leverage": 1000,
+  "base_set": "dcv5_base.set",
+  "from": "2025.12.01",
+  "to": "2026.10.24",
+  "expert": "Jev\\DragonClone_v5b.ex5",
+  "report": "year_v5b_10_40",
+  "overrides": {
+   "Autolot_": "true",
+   "Autolotsize_": "6000",
+   "G_BasketStopPct": "20",
+   "P_At": "10",
+   "P_Frac": "0.4"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 26699,
+  "leverage": 1000,
+  "base_set": "dcv5_base.set",
+  "from": "2025.12.01",
+  "to": "2026.10.24",
+  "expert": "Jev\\DragonClone_v5b.ex5",
+  "report": "year_v5b_12_20",
+  "overrides": {
+   "Autolot_": "true",
+   "Autolotsize_": "6000",
+   "G_BasketStopPct": "20",
+   "P_At": "12",
+   "P_Frac": "0.2"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 26699,
+  "leverage": 1000,
+  "base_set": "dcv5_base.set",
+  "from": "2025.12.01",
+  "to": "2026.10.24",
+  "expert": "Jev\\DragonClone_v5b.ex5",
+  "report": "year_v5b_12_30",
+  "overrides": {
+   "Autolot_": "true",
+   "Autolotsize_": "6000",
+   "G_BasketStopPct": "20",
+   "P_At": "12",
+   "P_Frac": "0.3"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 26699,
+  "leverage": 1000,
+  "base_set": "dcv5_base.set",
+  "from": "2025.12.01",
+  "to": "2026.10.24",
+  "expert": "Jev\\DragonClone_v5b.ex5",
+  "report": "year_v5b_12_40",
+  "overrides": {
+   "Autolot_": "true",
+   "Autolotsize_": "6000",
+   "G_BasketStopPct": "20",
+   "P_At": "12",
+   "P_Frac": "0.4"
+  }
+ }
+]

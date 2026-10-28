@@ -1,0 +1,82 @@
+[
+ {
+  "name": "Black Dragon 3",
+  "expert": "Jev\\BarExport.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 100000,
+  "leverage": 1000,
+  "base_set": "bar_export.set",
+  "model": 1,
+  "from": "2022.01.01",
+  "to": "2023.01.01",
+  "report": "barexp_rf2022",
+  "overrides": {
+   "OutName": "bars_rf2022"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "expert": "Jev\\BarExport.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 100000,
+  "leverage": 1000,
+  "base_set": "bar_export.set",
+  "model": 1,
+  "from": "2023.01.01",
+  "to": "2024.01.01",
+  "report": "barexp_rf2023",
+  "overrides": {
+   "OutName": "bars_rf2023"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "expert": "Jev\\BarExport.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 100000,
+  "leverage": 1000,
+  "base_set": "bar_export.set",
+  "model": 1,
+  "from": "2024.01.01",
+  "to": "2025.01.01",
+  "report": "barexp_rf2024",
+  "overrides": {
+   "OutName": "bars_rf2024"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "expert": "Jev\\BarExport.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 100000,
+  "leverage": 1000,
+  "base_set": "bar_export.set",
+  "model": 1,
+  "from": "2025.01.01",
+  "to": "2025.10.25",
+  "report": "barexp_rf2025",
+  "overrides": {
+   "OutName": "bars_rf2025"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "Jev\\BarExport.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 100000,
+  "leverage": 1000,
+  "base_set": "bar_export.set",
+  "model": 1,
+  "from": "2025.11.01",
+  "to": "2026.10.25",
+  "report": "barexp_eg2526",
+  "overrides": {
+   "OutName": "bars_eg2526"
+  }
+ }
+]

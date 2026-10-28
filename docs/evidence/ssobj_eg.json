@@ -1,0 +1,82 @@
+{
+ "report_file": "ssobj_eg.htm",
+ "report_sha256": "f833a0d7c2c86370a982481ad5187c0ce02c4eb9d05efbecbe59b6eae8a8e89d",
+ "settings": {
+  "יועץ אוטומטי (רובוט)": "SSObjExport",
+  "צמד": "XAUUSDc",
+  "תקופה": "H1 (2025.11.01 - 2026.10.15)",
+  "חברה": "E-Global Trade and Finance Group, Inc.",
+  "מטבע": "USD",
+  "פיקדון התחלתי": "10,000.00",
+  "מינוף": "1:1000",
+  "איכות היסטוריה": "100%"
+ },
+ "inputs": [
+  "OutFile=ss_obj_eg.csv"
+ ],
+ "summary_from_report": {
+  "סך רווח נקי": "0.00",
+  "רווח ברוטו": "0.00",
+  "מאזן הפסד מקסימלי": "0.00 (0.00%)",
+  "שווי הפסד מקסימלי": "0.00 (0.00%)",
+  "הפסד ברוטו": "0.00",
+  "מקדם רווח": "0.00",
+  "סך עסקאות": "0"
+ },
+ "recomputed": {
+  "deposit": 10000.0,
+  "entries": 0,
+  "trading_profit_before_costs": 0.0,
+  "commission": 0.0,
+  "swap": 0.0,
+  "net": 0.0,
+  "lots_opened": 0.0,
+  "exit_deals": 0,
+  "exit_win_rate_pct": null,
+  "exit_avg_win": null,
+  "exit_avg_loss": null,
+  "daily_realised_pct_of_deposit_per_weekday": {
+   "count": 248.0,
+   "mean": 0.0,
+   "std": 0.0,
+   "min": 0.0,
+   "25%": 0.0,
+   "50%": 0.0,
+   "75%": 0.0,
+   "max": 0.0
+  },
+  "worst_days_pct": {
+   "2025-11-03": 0.0,
+   "2025-11-04": 0.0,
+   "2025-11-05": 0.0,
+   "2025-11-06": 0.0,
+   "2025-11-07": 0.0
+  },
+  "active_days": 0,
+  "end_of_test_closes": 0,
+  "end_of_test_net": 0.0,
+  "end_of_test_date": null
+ },
+ "job": {
+  "report": "ssobj_eg",
+  "base_set": "ss_obj.set",
+  "overrides": {
+   "OutFile": "ss_obj_eg.csv"
+  },
+  "name": "Black Dragon 1",
+  "expert": "Jev\\SSObjExport.ex5",
+  "symbol": "XAUUSDc",
+  "period": "H1",
+  "from": "2025.11.01",
+  "to": "2026.10.15",
+  "deposit": 10000,
+  "leverage": 1000,
+  "model": 1,
+  "visual": 1,
+  "timeout": 36000
+ },
+ "files": {
+  "ea_sha256": "1fb28fd505081d2a0fbd5048ecc91c5da3cbd67f9c6e299c307e2cd61ba2efc9",
+  "set_sha256": "056426b9bdf47d788e5c0ec3edc38bfd773b61f52e524492d7b0a91f8704b665"
+ }
+}

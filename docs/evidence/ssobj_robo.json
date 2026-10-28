@@ -1,0 +1,82 @@
+{
+ "report_file": "ssobj_robo.htm",
+ "report_sha256": "664e29febb5e982414cd02eceb247631e8bd06fec99c6eb6ecf25912e845d04c",
+ "settings": {
+  "יועץ אוטומטי (רובוט)": "SSObjExport",
+  "צמד": "XAUUSD",
+  "תקופה": "H1 (2022.01.01 - 2025.11.01)",
+  "חברה": "RoboForex Ltd",
+  "מטבע": "USD",
+  "פיקדון התחלתי": "10,000.00",
+  "מינוף": "1:1000",
+  "איכות היסטוריה": "98%"
+ },
+ "inputs": [
+  "OutFile=ss_obj_robo.csv"
+ ],
+ "summary_from_report": {
+  "סך רווח נקי": "0.00",
+  "רווח ברוטו": "0.00",
+  "מאזן הפסד מקסימלי": "0.00 (0.00%)",
+  "שווי הפסד מקסימלי": "0.00 (0.00%)",
+  "הפסד ברוטו": "0.00",
+  "מקדם רווח": "0.00",
+  "סך עסקאות": "0"
+ },
+ "recomputed": {
+  "deposit": 10000.0,
+  "entries": 0,
+  "trading_profit_before_costs": 0.0,
+  "commission": 0.0,
+  "swap": 0.0,
+  "net": 0.0,
+  "lots_opened": 0.0,
+  "exit_deals": 0,
+  "exit_win_rate_pct": null,
+  "exit_avg_win": null,
+  "exit_avg_loss": null,
+  "daily_realised_pct_of_deposit_per_weekday": {
+   "count": 1000.0,
+   "mean": 0.0,
+   "std": 0.0,
+   "min": 0.0,
+   "25%": 0.0,
+   "50%": 0.0,
+   "75%": 0.0,
+   "max": 0.0
+  },
+  "worst_days_pct": {
+   "2022-01-03": 0.0,
+   "2022-01-04": 0.0,
+   "2022-01-05": 0.0,
+   "2022-01-06": 0.0,
+   "2022-01-07": 0.0
+  },
+  "active_days": 0,
+  "end_of_test_closes": 0,
+  "end_of_test_net": 0.0,
+  "end_of_test_date": null
+ },
+ "job": {
+  "report": "ssobj_robo",
+  "base_set": "ss_obj.set",
+  "overrides": {
+   "OutFile": "ss_obj_robo.csv"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SSObjExport.ex5",
+  "symbol": "XAUUSD",
+  "period": "H1",
+  "from": "2022.01.01",
+  "to": "2025.11.01",
+  "deposit": 10000,
+  "leverage": 1000,
+  "model": 1,
+  "visual": 1,
+  "timeout": 36000
+ },
+ "files": {
+  "ea_sha256": "1fb28fd505081d2a0fbd5048ecc91c5da3cbd67f9c6e299c307e2cd61ba2efc9",
+  "set_sha256": "056426b9bdf47d788e5c0ec3edc38bfd773b61f52e524492d7b0a91f8704b665"
+ }
+}
