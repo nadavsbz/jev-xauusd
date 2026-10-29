@@ -34,15 +34,30 @@ CFG2 = {
     "ctx50_alot24k": {"G_Context": "true", "G_ContextEma": "50", "Autolotsize_": "24000"},
 }
 
+# round 3: v10 code (research/bd1/make_v10.py). Trend thresholds calibrated on XAUUSD D1 2019-2025 before any run: flagged days
+# per year 5d x1.5 ~25-35%, 5d x2 ~16-23%, 10d x3 ~12-21%, 20d x4 ~12-32%
+T5 = {"TrendDays": "5", "TrendK": "2.0"}
+CFG3 = {
+    "sanity": {},
+    "fp3": {"FloorPauseDays": "3"}, "fp7": {"FloorPauseDays": "7"}, "fp14": {"FloorPauseDays": "14"},
+    "tr5k15": {"TrendDays": "5", "TrendK": "1.5"}, "tr5k2": T5,
+    "tr10k3": {"TrendDays": "10", "TrendK": "3.0"}, "tr20k4": {"TrendDays": "20", "TrendK": "4.0"},
+    "tr5k2_adds": {**T5, "TrendBlockAdds": "true"}, "tr5k2m2": {**T5, "TrendMode": "2"},
+    "fp7_tr5k2_adds": {"FloorPauseDays": "7", **T5, "TrendBlockAdds": "true"},
+}
+
 def job(y, f, t, ff, tag, extra, r="1"):
     o = {"Autolot_": "true", "Autolotsize_": "6000", "G_FloorPct": "15", "G_FloorDays": "14", "P_At": "0", "G_FloorFrom": ff,
          "DayOffMask": "24", "NewsFile": "news_top_rf.txt", **extra}
-    return {"name": "Black Dragon 3", "symbol": "XAUUSD", "period": "M15", "deposit": 120000, "leverage": 1000,
+    j = {"name": "Black Dragon 3", "symbol": "XAUUSD", "period": "M15", "deposit": 120000, "leverage": 1000,
             "base_set": "dcv7_2d.set", "from": f, "to": t, "expert": r"Jev\DragonClone_v7.ex5",
             "report": f"ev{r}_rf{y}_{tag}", "overrides": o}
+    if r == "3": j.update(expert=r"Jev\DragonClone_v10.ex5", base_set="dcv10_2d.set")
+    return j
 
 if __name__ == "__main__":
     r = sys.argv[1] if len(sys.argv) > 1 else "1"
-    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2}[r].items() for yr in YEARS]
+    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2, "3": CFG3}[r].items() for yr in YEARS
+         if not (tag == "sanity" and yr[0] != 2020)]   # sanity: all v10 flags off must equal v7_rf2020_d24ntop exactly
     json.dump(q, open(f"research/bd1/q_every{r}.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(len(q), "jobs", [(j["report"], j["from"], j["to"]) for j in q[:7]])
