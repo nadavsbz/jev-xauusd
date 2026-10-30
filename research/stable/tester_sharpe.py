@@ -1,9 +1,13 @@
 """Mark-to-market daily equity of a CryptoTrend_C1 tester run, for an honest Sharpe (Codex PR 44 round 3 P2: Sharpe from realized
-P&L smooths open positions). Rebuilds the net lots per symbol from the report's deals, marks them at each day's last RoboForex H1
-close (data/derived/intraday), adds realized P&L, swap and commission as they happen. Contract size: BTC 1, ETH 10 (rf symbols list).
-Prints annualized Sharpe (365 days), CAGR and max drawdown of the daily equity, and MT5's own 'Sharpe ratio' field for reference.
+P&L smooths open positions; round 4 2xP1: missing pivot cells and a residual spread over time). Equity at each day's end =
+balance (realized profit + swap + commission of every deal up to that day, from the report) + floating P&L of the net position
+per symbol, marked at that day's last RoboForex H1 close (data/derived/intraday) against its average entry price.
+Average entry: replaying the deals in order - adding to the net position re-averages, reducing keeps it, crossing zero restarts at
+the deal price (ASSUMED equal to the EA's netting; the EA keeps one direction per symbol, so open tickets share the net side).
+Contract size: BTC 1, ETH 10, XRP 100000, SOL 1000 (rf symbols list). Prints annualized Sharpe (365 days), CAGR, max drawdown of
+the daily equity, and the gap between the last equity and the report's final balance (0 when the run ends flat).
 Usage: python research/stable/tester_sharpe.py REPORT [REPORT ...]   (report name without .htm, under C:/MT5_JEV_TEST)"""
-import re, sys
+import sys
 import numpy as np, pandas as pd
 sys.path.insert(0, "research/btc"); from guardian_sim import deals
 
@@ -14,28 +18,26 @@ for s in CS:
     PX[s] = d.close.resample("1D").last().ffill()
 
 for rep in sys.argv[1:]:
-    f = f"C:/MT5_JEV_TEST/{rep}.htm"
-    x = deals(f); x = x[x.symbol.isin(CS.keys())].copy()
-    x["ts"] = pd.to_datetime(x.t, unit="s"); x["day"] = x.ts.dt.normalize()
-    sgn = np.where(x.type == "buy", 1.0, -1.0)
-    x["dlots"] = sgn * x.volume                      # a buy adds, a sell subtracts (in and out deals alike)
-    x["cash"] = x.profit + x.swap + x.commission       # realized money on that deal
+    x = deals(f"C:/MT5_JEV_TEST/{rep}.htm")
+    x = x[x.symbol.isin(CS.keys())].sort_values(["t", "deal"]).copy()
+    x["day"] = pd.to_datetime(x.t, unit="s").dt.normalize()
     days = pd.date_range(x.day.min(), x.day.max())
-    lots = x.pivot_table(index="day", columns="symbol", values="dlots", aggfunc="sum").reindex(days, fill_value=0).cumsum()
-    # open position value relative to its entry: track the average entry by replaying deals is heavy; instead mark-to-market
-    # daily P&L = lots held over the day x price change x contract size, plus realized cash only for the part not already marked
-    pnl = pd.Series(0.0, index=days)
-    for s in lots.columns:
-        p = PX[s].reindex(days).ffill()
-        pnl += (lots[s].shift(1).fillna(0) * p.diff().fillna(0) * CS[s])
-    # trade-day correction: deals happen intraday at prices different from the daily close; the residual is the realized cash
-    # minus what the marking already counted, so the series ends exactly at the report's final balance
-    fees = (x.swap + x.commission).groupby(x.day).sum().reindex(days, fill_value=0)
-    pnl += fees
-    total = x.cash.sum(); drift = (total - pnl.sum()) / len(days)   # spread / intraday fill residual, spread evenly
-    pnl += drift
-    eq = 120000 + pnl.cumsum(); r = eq.pct_change().dropna()
+    pos = {s: 0.0 for s in CS}; avg = {s: 0.0 for s in CS}
+    bal = 120000.0; eq = []; it = iter(x.itertuples()); row = next(it, None)
+    for day in days:
+        while row is not None and row.day == day:
+            s, q = row.symbol, (row.volume if row.type == "buy" else -row.volume)
+            bal += row.profit + row.swap + row.commission
+            p0 = pos[s]; p1 = p0 + q
+            if abs(p1) < 1e-9: avg[s] = 0.0
+            elif p0 == 0 or (p0 > 0) != (p1 > 0): avg[s] = row.price          # opened, or crossed zero
+            elif abs(p1) > abs(p0): avg[s] = (avg[s] * abs(p0) + row.price * abs(q)) / abs(p1)   # added
+            pos[s] = 0.0 if abs(p1) < 1e-9 else p1
+            row = next(it, None)
+        fl = sum(pos[s] * (PX[s].asof(day + pd.Timedelta("23h")) - avg[s]) * CS[s] for s in CS if pos[s] != 0)
+        eq.append(bal + fl)
+    eq = pd.Series(eq, index=days); r = eq.pct_change().dropna()
     yrs = (days[-1] - days[0]).days / 365.25
-    txt = re.sub("<[^>]*>", "|", open(f, encoding="utf-16").read()); m = re.search(r"יחס סטיית תקן:\|+\s*([^|]+)", txt)
     print(f"{rep}: MTM Sharpe {r.mean() / r.std() * np.sqrt(365):.2f}  CAGR {((eq.iloc[-1] / 120000) ** (1 / yrs) - 1) * 100:.1f}%  "
-          f"MDD {(eq / eq.cummax() - 1).min() * 100:.1f}%  residual/day ${drift:.1f}  MT5 field {m.group(1).strip() if m else '?'}")
+          f"MDD {(eq / eq.cummax() - 1).min() * 100:.1f}%  open at end {sum(abs(v) > 0 for v in pos.values())} symbols, "
+          f"last equity - balance ${eq.iloc[-1] - bal:,.0f}")
