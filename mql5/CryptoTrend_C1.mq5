@@ -84,9 +84,10 @@ bool Targets(double &tgt[])
       // stays flat until it has MinBars (it does not block the others, as in the research where it is NaN -> 0)
       double c[]; ArraySetAsSeries(c, false);
       // Codex PR 44 P2: history still loading is not a short history - retry instead of flattening the symbol
-      if(!SeriesInfoInteger(sy[s], PERIOD_H6, SERIES_SYNCHRONIZED)) return false;
+      // (live only: in the tester SERIES_SYNCHRONIZED stays false for a symbol that is not the chart's, which blocked all trading)
+      if(!MQLInfoInteger(MQL_TESTER) && !SeriesInfoInteger(sy[s], PERIOD_H6, SERIES_SYNCHRONIZED)) return false;
       int m = CopyClose(sy[s], PERIOD_H6, 1, n, c);
-      if(m < 0 || (m < n && Bars(sy[s], PERIOD_H6) - 1 > m)) return false;
+      if(m < 0 || m < MathMin(n, Bars(sy[s], PERIOD_H6) - 1)) return false;
       if(m < MinBars) { off[s] = n; continue; }
       off[s] = n - m; ok++;
       for(int i = 0; i < m; i++) C[s * n + off[s] + i] = c[i];
