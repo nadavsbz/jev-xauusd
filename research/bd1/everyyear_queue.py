@@ -46,6 +46,14 @@ CFG3 = {
     "fp7_tr5k2_adds": {"FloorPauseDays": "7", **T5, "TrendBlockAdds": "true"},
 }
 
+# round 4: v11 code (research/bd1/make_v11.py) - C1 ideas inside BD (user 30.10.2026)
+CFG4 = {
+    "sanity": {},
+    "dn1": {"DonchMode": "1"}, "dn2": {"DonchMode": "2"},
+    "dd75": {"DDScalePct": "7.5"},
+    "dn2_dd75": {"DonchMode": "2", "DDScalePct": "7.5"},
+}
+
 def job(y, f, t, ff, tag, extra, r="1"):
     o = {"Autolot_": "true", "Autolotsize_": "6000", "G_FloorPct": "15", "G_FloorDays": "14", "P_At": "0", "G_FloorFrom": ff,
          "DayOffMask": "24", "NewsFile": "news_top_rf.txt", **extra}
@@ -53,11 +61,12 @@ def job(y, f, t, ff, tag, extra, r="1"):
             "base_set": "dcv7_2d.set", "from": f, "to": t, "expert": r"Jev\DragonClone_v7.ex5",
             "report": f"ev{r}_rf{y}_{tag}", "overrides": o}
     if r == "3": j.update(expert=r"Jev\DragonClone_v10.ex5", base_set="dcv10_2d.set")
+    if r == "4": j.update(expert=r"Jev\DragonClone_v11.ex5", base_set="dcv11_2d.set")
     return j
 
 if __name__ == "__main__":
     r = sys.argv[1] if len(sys.argv) > 1 else "1"
-    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2, "3": CFG3}[r].items() for yr in YEARS
-         if not (tag == "sanity" and yr[0] != 2020)]   # sanity: all v10 flags off must equal v7_rf2020_d24ntop exactly
+    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2, "3": CFG3, "4": CFG4}[r].items() for yr in YEARS
+         if not (tag == "sanity" and yr[0] != 2020)]   # sanity: all new flags off must equal v7_rf2020_d24ntop exactly
     json.dump(q, open(f"research/bd1/q_every{r}.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(len(q), "jobs", [(j["report"], j["from"], j["to"]) for j in q[:7]])
