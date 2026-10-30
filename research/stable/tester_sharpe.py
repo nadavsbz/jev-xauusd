@@ -7,7 +7,7 @@ realized profit (round 5 P1); crossing zero restarts at the deal price (the EA k
 Contract size: BTC 1, ETH 10, XRP 100000, SOL 1000 (rf symbols list). Prints annualized Sharpe (365 days), CAGR, max drawdown of
 the daily equity, and the gap between the last equity and the report's final balance (0 when the run ends flat).
 Usage: python research/stable/tester_sharpe.py REPORT [REPORT ...]   (report name without .htm, under C:/MT5_JEV_TEST)"""
-import sys
+import os, sys
 import numpy as np, pandas as pd
 sys.path.insert(0, "research/btc"); from guardian_sim import deals
 
@@ -42,6 +42,7 @@ for rep in sys.argv[1:]:
         fl = sum(pos[s] * (PX[s].asof(day + pd.Timedelta("23h")) - avg[s]) * CS[s] for s in CS if pos[s] != 0)
         eq.append(bal + fl)
     eq = pd.Series(eq, index=days); r = eq.pct_change().dropna()
+    if os.environ.get("SAVE"): eq.rename("equity").to_csv(f"{os.environ['SAVE']}/{rep}_equity.csv")   # for c1_timemachine.py
     yrs = (days[-1] - days[0]).days / 365.25
     print(f"{rep}: MTM Sharpe {r.mean() / r.std() * np.sqrt(365):.2f}  CAGR {((eq.iloc[-1] / 120000) ** (1 / yrs) - 1) * 100:.1f}%  "
           f"MDD {(eq / eq.cummax() - 1).min() * 100:.1f}%  open at end {sum(abs(v) > 0 for v in pos.values())} symbols, "
