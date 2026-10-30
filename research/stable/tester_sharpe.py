@@ -2,8 +2,8 @@
 P&L smooths open positions; round 4 2xP1: missing pivot cells and a residual spread over time). Equity at each day's end =
 balance (realized profit + swap + commission of every deal up to that day, from the report) + floating P&L of the net position
 per symbol, marked at that day's last RoboForex H1 close (data/derived/intraday) against its average entry price.
-Average entry: replaying the deals in order - adding to the net position re-averages, reducing keeps it, crossing zero restarts at
-the deal price (ASSUMED equal to the EA's netting; the EA keeps one direction per symbol, so open tickets share the net side).
+Average entry: replaying the deals in order - adding re-averages; reducing removes the closed tickets' entry, inferred from the
+realized profit (round 5 P1); crossing zero restarts at the deal price (the EA keeps one direction per symbol).
 Contract size: BTC 1, ETH 10, XRP 100000, SOL 1000 (rf symbols list). Prints annualized Sharpe (365 days), CAGR, max drawdown of
 the daily equity, and the gap between the last equity and the report's final balance (0 when the run ends flat).
 Usage: python research/stable/tester_sharpe.py REPORT [REPORT ...]   (report name without .htm, under C:/MT5_JEV_TEST)"""
@@ -32,6 +32,11 @@ for rep in sys.argv[1:]:
             if abs(p1) < 1e-9: avg[s] = 0.0
             elif p0 == 0 or (p0 > 0) != (p1 > 0): avg[s] = row.price          # opened, or crossed zero
             elif abs(p1) > abs(p0): avg[s] = (avg[s] * abs(p0) + row.price * abs(q)) / abs(p1)   # added
+            else:   # reduced (Codex PR 44 round 5 P1): the hedging EA closed particular tickets; their entry price follows from
+                    # the realized profit, profit = (exit - entry) x lots x CS x side -> the rest keeps the remaining cost basis
+                side = 1.0 if p0 > 0 else -1.0
+                e_closed = row.price - row.profit / (abs(q) * CS[s] * side)
+                avg[s] = (avg[s] * abs(p0) - e_closed * abs(q)) / abs(p1)
             pos[s] = 0.0 if abs(p1) < 1e-9 else p1
             row = next(it, None)
         fl = sum(pos[s] * (PX[s].asof(day + pd.Timedelta("23h")) - avg[s]) * CS[s] for s in CS if pos[s] != 0)
