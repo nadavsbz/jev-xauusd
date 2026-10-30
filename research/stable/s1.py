@@ -15,8 +15,8 @@ SPAN = {"dev": ("2010-01-01", "2018-12-31"), "test": ("2019-01-01", "2025-10-24"
 MAJ = {"EURUSD", "GBPUSD", "USDJPY", "AUDUSD", "USDCAD", "USDCHF", "NZDUSD"}
 IDX = {"US500", "SP500", "US30", "NAS100", "USTEC", "GER40", "DE40", "UK100", "JP225"}
 NRG = {"XTIUSD", "XBRUSD", "WTI", "BRENT", "XNGUSD"}
-CRY = {"BTCUSD", "ETHUSD", "LTCUSD", "XRPUSD"}
-MET = {"XAUUSD", "XAGUSD", "XPTUSD", "XPDUSD"}
+CRY = {"BTCUSD", "ETHUSD", "LTCUSD", "XRPUSD", "ADAUSD", "SOLUSD", "DOGEUSD"}
+MET = {"XAUUSD", "XAGUSD", "XAUEUR", "XPTUSD", "XPDUSD"}
 
 def cls(s):
     if s in MAJ: return 0.00010, 0.02
@@ -72,6 +72,32 @@ if ix:
     # E: indices long above SMA200 (Faber)
     WE = pd.DataFrame({s: (C[s] > C[s].rolling(200).mean()).astype(float) * (0.10 / vol[s]).clip(upper=3) / len(ix) for s in ix})
     comp["E_idx200"] = scale(run(WE.fillna(0)))
+# F / G: Donchian ensemble (Zarattini, Pagani & Barbon 2025 for crypto, long only; long-short on FX and metals)
+def donch(c, long_only):
+    st = []
+    for n in (10, 20, 30, 60, 90, 150, 250):
+        hi, lo = c.rolling(n).max(), c.rolling(n).min(); xl, xh = c.rolling(n // 2).min(), c.rolling(n // 2).max()
+        p = np.zeros(len(c)); cv, hv, lv, xlv, xhv = c.values, hi.values, lo.values, xl.values, xh.values
+        for i in range(1, len(c)):
+            q = p[i - 1]
+            if q == 0:
+                q = 1 if cv[i] >= hv[i] else (-1 if (not long_only and cv[i] <= lv[i]) else 0)
+            elif q > 0 and cv[i] <= xlv[i]: q = 0
+            elif q < 0 and cv[i] >= xhv[i]: q = 0
+            p[i] = q
+        st.append(p)
+    return pd.Series(np.mean(st, axis=0), index=c.index)
+cr = [s for s in C.columns if s in CRY]
+if cr:
+    WF = pd.DataFrame({s: donch(C[s].dropna(), True).reindex(C.index) * (0.10 / vol[s]).clip(upper=3) / len(cr) for s in cr})
+    comp["F_cryDon"] = scale(run(WF.fillna(0)))
+fx = [s for s in C.columns if s not in CRY | IDX | NRG]
+WG = pd.DataFrame({s: donch(C[s].dropna(), False).reindex(C.index) * (0.10 / vol[s]).clip(upper=3) / np.sqrt(len(fx)) for s in fx})
+comp["G_fxDon"] = scale(run(WG.fillna(0)))
+# H: the same ensemble, long only, on metals (added 30.10 after the first dev look: FX long-short failed, crypto long-only passed)
+mt = [s for s in C.columns if s in MET]
+WH = pd.DataFrame({s: donch(C[s].dropna(), True).reindex(C.index) * (0.10 / vol[s]).clip(upper=3) / len(mt) for s in mt})
+comp["H_metDon"] = scale(run(WH.fillna(0)))
 # C: gold above SMA200
 g = C["XAUUSD"]; WC = pd.DataFrame({"XAUUSD": (g > g.rolling(200).mean()).astype(float) * (0.10 / vol["XAUUSD"]).clip(upper=3)})
 comp["C_gold200"] = scale(run(WC.fillna(0)))
