@@ -1,0 +1,30 @@
+[
+ {
+  "name": "Black Dragon 3",
+  "symbol": "BTCUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "c1.set",
+  "from": "2020.01.01",
+  "to": "2025.10.24",
+  "expert": "Jev\\CryptoTrend_C1.ex5",
+  "report": "c1b_rf_2020_2025",
+  "model": 1,
+  "overrides": {}
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "BTCUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "c1.set",
+  "from": "2025.10.25",
+  "to": "2026.10.30",
+  "expert": "Jev\\CryptoTrend_C1.ex5",
+  "report": "c1b_rf_holdout",
+  "model": 1,
+  "overrides": {}
+ }
+]
