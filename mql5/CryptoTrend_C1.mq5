@@ -23,6 +23,7 @@ input double MaxGross   = 3.0;    // hard cap: total notional / equity
 input double RebalPct   = 0.15;   // trade only when |target - current| > this x |target| (and >= one lot step)
 input int    History    = 1600;   // H6 bars replayed each rebalance (>= 250 + 365 + 60)
 input int    MinBars    = 320;    // a symbol trades only with at least this many closed H6 bars (250 lookback + 60 vol + margin)
+input int    DelayBars  = 0;      // 0: trade at the first tick after the signal bar closes; 1: one H6 bar later (research LAG=2)
 input long   Magic      = 61001;
 
 CTrade trade;
@@ -82,7 +83,10 @@ bool Targets(double &tgt[])
       // closed bars only, oldest first; a symbol with a shorter history (a new coin) is aligned at the newest bar and
       // stays flat until it has MinBars (it does not block the others, as in the research where it is NaN -> 0)
       double c[]; ArraySetAsSeries(c, false);
+      // Codex PR 44 P2: history still loading is not a short history - retry instead of flattening the symbol
+      if(!SeriesInfoInteger(sy[s], PERIOD_H6, SERIES_SYNCHRONIZED)) return false;
       int m = CopyClose(sy[s], PERIOD_H6, 1, n, c);
+      if(m < 0 || (m < n && Bars(sy[s], PERIOD_H6) - 1 > m)) return false;
       if(m < MinBars) { off[s] = n; continue; }
       off[s] = n - m; ok++;
       for(int i = 0; i < m; i++) C[s * n + off[s] + i] = c[i];
@@ -101,14 +105,16 @@ bool Targets(double &tgt[])
          double v = StdLast(r, i, 60) * MathSqrt(PER_YEAR);
          double sz = v > 0 ? MathMin(3.0, AssetVol / v) / ns : 0;
          wL[s * n + o + i] = stL[i] * sz; wS[s * n + o + i] = stS[i] * sz;
-         rL[o + i] += wL[s * n + o + i - 1] * r[i]; rS[o + i] += wS[s * n + o + i - 1] * r[i];   // weight decided at i-1, held over i
+         int h = i - 1 - DelayBars;   // Codex PR 44 P1: the weight decided at close h is held over bar i
+         if(h >= 0) { rL[o + i] += wL[s * n + o + h] * r[i]; rS[o + i] += wS[s * n + o + h] * r[i]; }
         }
      }
    int q = (int)(PER_YEAR / 4);
-   double vL = StdLast(rL, n - 1, q) * MathSqrt(PER_YEAR), vS = StdLast(rS, n - 1, q) * MathSqrt(PER_YEAR);
+   int t = n - 1 - DelayBars;   // the weight executed now was decided at close t (with the vol known at t)
+   double vL = StdLast(rL, t, q) * MathSqrt(PER_YEAR), vS = StdLast(rS, t, q) * MathSqrt(PER_YEAR);
    double kL = vL > 0 ? MathMin(3.0, TargetVol / vL) : 0, kS = vS > 0 ? MathMin(3.0, TargetVol / vS) : 0;
    double gross = 0;
-   for(int s = 0; s < ns; s++) { tgt[s] = 0.5 * kL * wL[s * n + n - 1] + 0.5 * kS * wS[s * n + n - 1]; gross += MathAbs(tgt[s]); }
+   for(int s = 0; s < ns; s++) { tgt[s] = 0.5 * kL * wL[s * n + t] + 0.5 * kS * wS[s * n + t]; gross += MathAbs(tgt[s]); }
    if(gross > MaxGross) for(int s = 0; s < ns; s++) tgt[s] *= MaxGross / gross;
    return true;
   }
@@ -125,10 +131,14 @@ double NetLots(string s)
    return v;
   }
 
-// move the net position of s by d lots: close opposite positions first (hedging accounts), then open the rest
-void Move(string s, double d)
+// bring the net position of s to want lots: close opposite positions first (hedging accounts), then open the rest.
+// Codex PR 44 P1: every close is checked by its retcode and the rest is recomputed from the positions actually open;
+// returns false when a request failed, so OnTick retries on the next tick instead of waiting six hours
+bool ok_(void) { uint rc = trade.ResultRetcode(); return rc == TRADE_RETCODE_DONE || rc == TRADE_RETCODE_DONE_PARTIAL || rc == TRADE_RETCODE_PLACED; }
+bool Move(string s, double want)
   {
    double step = SymbolInfoDouble(s, SYMBOL_VOLUME_STEP), vmin = SymbolInfoDouble(s, SYMBOL_VOLUME_MIN);
+   double d = want - NetLots(s);
    for(int i = PositionsTotal() - 1; i >= 0 && MathAbs(d) >= step; i--)
      {
       ulong t = PositionGetTicket(i);
@@ -136,11 +146,16 @@ void Move(string s, double d)
       bool buy = PositionGetInteger(POSITION_TYPE) == POSITION_TYPE_BUY;
       if((d > 0) == buy) continue;
       double v = PositionGetDouble(POSITION_VOLUME), c = MathMin(v, MathAbs(d));
-      c = MathFloor(c / step) * step; if(c < step) continue;
-      if(c >= v - step / 2 ? trade.PositionClose(t) : trade.PositionClosePartial(t, c)) d += buy ? c : -c;
+      c = MathFloor(c / step + 1e-9) * step; if(c < step) continue;
+      bool sent = c >= v - step / 2 ? trade.PositionClose(t) : trade.PositionClosePartial(t, c);
+      if(!sent || !ok_()) return false;
+      d = want - NetLots(s);
      }
-   double o = MathFloor(MathAbs(d) / step) * step;
-   if(o >= vmin) { if(d > 0) trade.Buy(o, s); else trade.Sell(o, s); }
+   d = want - NetLots(s);
+   double o = MathFloor(MathAbs(d) / step + 1e-9) * step;
+   if(o < vmin) return true;
+   bool sent = d > 0 ? trade.Buy(o, s) : trade.Sell(o, s);
+   return sent && ok_();
   }
 
 void OnTick()
@@ -148,8 +163,7 @@ void OnTick()
    datetime b = iTime(sy[0], PERIOD_H6, 0);
    if(b == 0 || b == lastBar) return;
    double tgt[]; if(!Targets(tgt)) return;   // history not ready: retry on the next tick
-   lastBar = b;
-   double eq = AccountInfoDouble(ACCOUNT_EQUITY);
+   double eq = AccountInfoDouble(ACCOUNT_EQUITY); bool all = true;
    for(int s = 0; s < ns; s++)
      {
       double px = SymbolInfoDouble(sy[s], SYMBOL_BID), cs = SymbolInfoDouble(sy[s], SYMBOL_TRADE_CONTRACT_SIZE);
@@ -157,7 +171,8 @@ void OnTick()
       double want = tgt[s] * eq / (px * cs), have = NetLots(sy[s]), step = SymbolInfoDouble(sy[s], SYMBOL_VOLUME_STEP);
       if(MathAbs(want - have) < step) continue;
       if(want != 0 && MathAbs(want - have) < RebalPct * MathAbs(want) && (want > 0) == (have > 0) && have != 0) continue;
-      Move(sy[s], want - have);
+      if(!Move(sy[s], want)) all = false;
      }
+   if(all) lastBar = b;   // a failed request is retried on the next tick
   }
 //+------------------------------------------------------------------+

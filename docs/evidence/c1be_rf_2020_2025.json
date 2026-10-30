@@ -1,0 +1,87 @@
+{
+ "report_file": "c1be_rf_2020_2025.htm",
+ "report_sha256": "5a40e38a6014994ac8f575a371954a558d7e376a3d3fae9a411b1d5fe2e0380e",
+ "settings": {
+  "יועץ אוטומטי (רובוט)": "CryptoTrend_C1",
+  "צמד": "BTCUSD",
+  "תקופה": "H1 (2020.01.01 - 2025.10.24)",
+  "חברה": "RoboForex Ltd",
+  "מטבע": "USD",
+  "פיקדון התחלתי": "120,000.00",
+  "מינוף": "1:100",
+  "איכות היסטוריה": "0%"
+ },
+ "inputs": [
+  "Symbols=BTCUSD,ETHUSD",
+  "TargetVol=0.2",
+  "AssetVol=0.1",
+  "MaxGross=3.0",
+  "RebalPct=0.15",
+  "History=1600",
+  "MinBars=320",
+  "Magic=61001"
+ ],
+ "summary_from_report": {
+  "סך רווח נקי": "215,013.35",
+  "רווח ברוטו": "771,114.85",
+  "מאזן הפסד מקסימלי": "56,166.71 (20.30%)",
+  "שווי הפסד מקסימלי": "75,335.25 (25.62%)",
+  "הפסד ברוטו": "-556,101.50",
+  "מקדם רווח": "1.39",
+  "סך עסקאות": "3977"
+ },
+ "recomputed": {
+  "deposit": 120000.0,
+  "entries": 2204,
+  "trading_profit_before_costs": 233133.45,
+  "commission": 0.0,
+  "swap": -18120.1,
+  "net": 215013.35,
+  "lots_opened": 1420.81,
+  "exit_deals": 3977,
+  "exit_win_rate_pct": 34.57,
+  "exit_avg_win": 560.81,
+  "exit_avg_loss": -213.72,
+  "daily_realised_pct_of_deposit_per_weekday": {
+   "count": 1517.0,
+   "mean": 0.103,
+   "std": 1.237,
+   "min": -4.139,
+   "25%": -0.224,
+   "50%": 0.0,
+   "75%": 0.0,
+   "max": 15.514
+  },
+  "worst_days_pct": {
+   "2022-12-16": -4.14,
+   "2022-10-14": -3.88,
+   "2025-06-13": -3.64,
+   "2024-01-04": -3.28,
+   "2025-01-08": -3.19
+  },
+  "active_days": 1009,
+  "end_of_test_closes": 4,
+  "end_of_test_net": -124.34,
+  "end_of_test_date": "2025-10-23"
+ },
+ "job": {
+  "name": "Black Dragon 3",
+  "symbol": "BTCUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "c1.set",
+  "from": "2020.01.01",
+  "to": "2025.10.24",
+  "expert": "Jev\\CryptoTrend_C1.ex5",
+  "report": "c1be_rf_2020_2025",
+  "model": 1,
+  "overrides": {
+   "Symbols": "BTCUSD,ETHUSD"
+  }
+ },
+ "files": {
+  "ea_sha256": "578dbef83a21254a9bbb11f111075d5aa3458176e1052bdd6c0ad0a53f35fe79",
+  "set_sha256": "23247cf1b585f0302b2153a940f78711d22fde64674463f300849fb39a2cc03e"
+ }
+}
