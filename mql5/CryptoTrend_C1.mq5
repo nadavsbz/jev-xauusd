@@ -85,8 +85,9 @@ bool Targets(double &tgt[])
       double c[]; ArraySetAsSeries(c, false);
       // Codex PR 44 P2: history still loading is not a short history - retry instead of flattening the symbol
       // (live only: in the tester SERIES_SYNCHRONIZED stays false for a symbol that is not the chart's, which blocked all trading)
-      if(!MQLInfoInteger(MQL_TESTER) && !SeriesInfoInteger(sy[s], PERIOD_H6, SERIES_SYNCHRONIZED)) return false;
+      // Codex PR 44 round 3 P1: CopyClose first - it is the call that starts the download / builds the series - then wait
       int m = CopyClose(sy[s], PERIOD_H6, 1, n, c);
+      if(!MQLInfoInteger(MQL_TESTER) && !SeriesInfoInteger(sy[s], PERIOD_H6, SERIES_SYNCHRONIZED)) return false;
       if(m < 0 || m < MathMin(n, Bars(sy[s], PERIOD_H6) - 1)) return false;
       if(m < MinBars) { off[s] = n; continue; }
       off[s] = n - m; ok++;
