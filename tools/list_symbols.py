@@ -1,6 +1,6 @@
 """Read-only list of the server's symbols through an investor login (docs/STABLE_SYSTEM_PLAN.md: which asset classes exist).
 Same safety as collect_daily.py: clean terminal, investor only (refuses an account that allows trading), no credentials printed,
-calls only initialize, account_info, symbols_get and shutdown. Prints name, path and digits for every symbol.
+calls only initialize, account_info, symbols_get and shutdown. Prints name, path, digits, swap mode, long and short swap, contract size, current spread and point for every symbol.
 Usage (from tools/): python list_symbols.py --accounts ../accounts.json --name NAME --terminal PATH"""
 import argparse, os, sys, time
 import MetaTrader5 as mt5
@@ -25,7 +25,7 @@ def main():
         if info is None or info.login != login: sys.exit("connected to the wrong account - aborting")
         if info.trade_allowed: sys.exit("account allows trading (master password?) - refusing, investor only")
         for s in mt5.symbols_get() or []:
-            print(s.name, s.path, s.digits, sep="\t")
+            print(s.name, s.path, s.digits, s.swap_mode, s.swap_long, s.swap_short, s.trade_contract_size, s.spread, s.point, sep="\t")
     finally:
         mt5.shutdown(); _kill_by_path(a.terminal)
 
