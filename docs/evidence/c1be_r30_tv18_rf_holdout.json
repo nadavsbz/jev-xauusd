@@ -1,0 +1,89 @@
+{
+ "report_file": "c1be_r30_tv18_rf_holdout.htm",
+ "report_sha256": "e958de0126336e49c0a9779935803d5dd5729e63ca091d8c4898b4fbeb7d12a2",
+ "settings": {
+  "יועץ אוטומטי (רובוט)": "CryptoTrend_C1",
+  "צמד": "BTCUSD",
+  "תקופה": "H1 (2025.10.25 - 2026.10.30)",
+  "חברה": "RoboForex Ltd",
+  "מטבע": "USD",
+  "פיקדון התחלתי": "120,000.00",
+  "מינוף": "1:100",
+  "איכות היסטוריה": "72%"
+ },
+ "inputs": [
+  "Symbols=BTCUSD,ETHUSD",
+  "TargetVol=0.18",
+  "AssetVol=0.1",
+  "MaxGross=3.0",
+  "RebalPct=0.30",
+  "History=1600",
+  "MinBars=320",
+  "Magic=61001"
+ ],
+ "summary_from_report": {
+  "סך רווח נקי": "19,349.44",
+  "רווח ברוטו": "55,889.84",
+  "מאזן הפסד מקסימלי": "7,557.38 (5.99%)",
+  "שווי הפסד מקסימלי": "13,357.47 (10.10%)",
+  "הפסד ברוטו": "-36,540.40",
+  "מקדם רווח": "1.53",
+  "סך עסקאות": "496"
+ },
+ "recomputed": {
+  "deposit": 120000.0,
+  "entries": 302,
+  "trading_profit_before_costs": 20866.97,
+  "commission": 0.0,
+  "swap": -1517.53,
+  "net": 19349.44,
+  "lots_opened": 66.38,
+  "exit_deals": 496,
+  "exit_win_rate_pct": 36.49,
+  "exit_avg_win": 308.78,
+  "exit_avg_loss": -116.0,
+  "daily_realised_pct_of_deposit_per_weekday": {
+   "count": 264.0,
+   "mean": 0.022,
+   "std": 0.47,
+   "min": -1.049,
+   "25%": -0.073,
+   "50%": 0.0,
+   "75%": 0.0,
+   "max": 4.38
+  },
+  "worst_days_pct": {
+   "2026-10-07": -1.05,
+   "2025-12-03": -0.97,
+   "2026-09-15": -0.95,
+   "2026-09-16": -0.76,
+   "2026-10-23": -0.62
+  },
+  "active_days": 145,
+  "end_of_test_closes": 4,
+  "end_of_test_net": 398.45,
+  "end_of_test_date": "2026-10-29"
+ },
+ "job": {
+  "name": "Black Dragon 3",
+  "symbol": "BTCUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "c1.set",
+  "from": "2025.10.25",
+  "to": "2026.10.30",
+  "expert": "Jev\\CryptoTrend_C1.ex5",
+  "report": "c1be_r30_tv18_rf_holdout",
+  "model": 1,
+  "overrides": {
+   "Symbols": "BTCUSD,ETHUSD",
+   "RebalPct": "0.30",
+   "TargetVol": "0.18"
+  }
+ },
+ "files": {
+  "ea_sha256": "578dbef83a21254a9bbb11f111075d5aa3458176e1052bdd6c0ad0a53f35fe79",
+  "set_sha256": "23247cf1b585f0302b2153a940f78711d22fde64674463f300849fb39a2cc03e"
+ }
+}
