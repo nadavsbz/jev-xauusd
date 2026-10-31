@@ -61,6 +61,12 @@ CFG5 = {
     "dd5q": {"DDScalePct": "5", "DDScaleMult": "0.25"},
 }
 
+CFG6 = {   # round 6 (31.10.2026): earlier / deeper lot cuts, and a longer pause after a floor cut, around dd5q
+    "dd3q": {"DDScalePct": "3", "DDScaleMult": "0.25"},
+    "dd5t": {"DDScalePct": "5", "DDScaleMult": "0.1"},
+    "dd5q_fd30": {"DDScalePct": "5", "DDScaleMult": "0.25", "G_FloorDays": "30"},
+}
+
 def job(y, f, t, ff, tag, extra, r="1"):
     o = {"Autolot_": "true", "Autolotsize_": "6000", "G_FloorPct": "15", "G_FloorDays": "14", "P_At": "0", "G_FloorFrom": ff,
          "DayOffMask": "24", "NewsFile": "news_top_rf.txt", **extra}
@@ -68,12 +74,12 @@ def job(y, f, t, ff, tag, extra, r="1"):
             "base_set": "dcv7_2d.set", "from": f, "to": t, "expert": r"Jev\DragonClone_v7.ex5",
             "report": f"ev{r}_rf{y}_{tag}", "overrides": o}
     if r == "3": j.update(expert=r"Jev\DragonClone_v10.ex5", base_set="dcv10_2d.set")
-    if r in ("4", "5"): j.update(expert=r"Jev\DragonClone_v11.ex5", base_set="dcv11_2d.set")
+    if r in ("4", "5", "6"): j.update(expert=r"Jev\DragonClone_v11.ex5", base_set="dcv11_2d.set")
     return j
 
 if __name__ == "__main__":
     r = sys.argv[1] if len(sys.argv) > 1 else "1"
-    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2, "3": CFG3, "4": CFG4, "5": CFG5}[r].items() for yr in YEARS
+    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2, "3": CFG3, "4": CFG4, "5": CFG5, "6": CFG6}[r].items() for yr in YEARS
          if not (tag == "sanity" and yr[0] != 2020)]   # sanity: all new flags off must equal v7_rf2020_d24ntop exactly
     json.dump(q, open(f"research/bd1/q_every{r}.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(len(q), "jobs", [(j["report"], j["from"], j["to"]) for j in q[:7]])
