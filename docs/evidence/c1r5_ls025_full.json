@@ -1,0 +1,93 @@
+{
+ "report_file": "c1r5_ls025_full.htm",
+ "report_sha256": "13de34eb0faad3982da0ee3c1a142ac7286a920359a0e698c3b575a409f7e667",
+ "settings": {
+  "יועץ אוטומטי (רובוט)": "CryptoTrend_C1",
+  "צמד": "BTCUSD",
+  "תקופה": "H1 (2020.01.01 - 2026.10.30)",
+  "חברה": "RoboForex Ltd",
+  "מטבע": "USD",
+  "פיקדון התחלתי": "120,000.00",
+  "מינוף": "1:100",
+  "איכות היסטוריה": "10%"
+ },
+ "inputs": [
+  "Symbols=BTCUSD,ETHUSD",
+  "TargetVol=0.2",
+  "AssetVol=0.10",
+  "MaxGross=3.0",
+  "RebalPct=0.30",
+  "History=1600",
+  "MinBars=320",
+  "DelayBars=0",
+  "LongShare=0.25",
+  "Magic=61001"
+ ],
+ "summary_from_report": {
+  "סך רווח נקי": "253,384.48",
+  "רווח ברוטו": "937,150.45",
+  "מאזן הפסד מקסימלי": "58,396.55 (21.54%)",
+  "שווי הפסד מקסימלי": "70,265.73 (25.02%)",
+  "הפסד ברוטו": "-683,765.97",
+  "מקדם רווח": "1.37",
+  "סך עסקאות": "3591"
+ },
+ "recomputed": {
+  "deposit": 120000.0,
+  "entries": 2135,
+  "trading_profit_before_costs": 276470.41,
+  "commission": 0.0,
+  "swap": -23085.93,
+  "net": 253384.48,
+  "lots_opened": 1610.43,
+  "exit_deals": 3591,
+  "exit_win_rate_pct": 34.92,
+  "exit_avg_win": 747.33,
+  "exit_avg_loss": -292.58,
+  "daily_realised_pct_of_deposit_per_weekday": {
+   "count": 1782.0,
+   "mean": 0.091,
+   "std": 1.333,
+   "min": -5.724,
+   "25%": -0.198,
+   "50%": 0.0,
+   "75%": 0.0,
+   "max": 18.097
+  },
+  "worst_days_pct": {
+   "2022-10-14": -5.72,
+   "2026-10-07": -4.34,
+   "2022-12-16": -4.29,
+   "2023-03-03": -3.95,
+   "2024-01-04": -3.7
+  },
+  "active_days": 1022,
+  "end_of_test_closes": 5,
+  "end_of_test_net": 2698.42,
+  "end_of_test_date": "2026-10-29"
+ },
+ "job": {
+  "name": "Black Dragon 3",
+  "symbol": "BTCUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "c1.set",
+  "from": "2020.01.01",
+  "to": "2026.10.30",
+  "expert": "Jev\\CryptoTrend_C1.ex5",
+  "report": "c1r5_ls025_full",
+  "model": 1,
+  "overrides": {
+   "Symbols": "BTCUSD,ETHUSD",
+   "RebalPct": "0.30",
+   "AssetVol": "0.10",
+   "DelayBars": "0",
+   "LongShare": "0.25"
+  }
+ },
+ "files": {
+  "ea_sha256": "1069ea65827beae42ab20300ef6bcf05f97c0ada9aab72016e97ee1caa4cb9ff",
+  "set_sha256": "35c8b9a0d78a6cae90ef8ed490f51cd2db48c519dc01600a0a415325f0d41650"
+ }
+}
