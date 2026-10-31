@@ -24,6 +24,7 @@ input double RebalPct   = 0.15;   // trade only when |target - current| > this x
 input int    History    = 1600;   // H6 bars replayed each rebalance (>= 250 + 365 + 60)
 input int    MinBars    = 320;    // a symbol trades only with at least this many closed H6 bars (250 lookback + 60 vol + margin)
 input int    DelayBars  = 0;      // 0: trade at the first tick after the signal bar closes; 1: one H6 bar later (research LAG=2)
+input double LongShare  = 0.5;    // share of the long-only component (the rest is long-short); 0.5 = the frozen C1
 input long   Magic      = 61001;
 
 CTrade trade;
@@ -116,7 +117,7 @@ bool Targets(double &tgt[])
    double vL = StdLast(rL, t, q) * MathSqrt(PER_YEAR), vS = StdLast(rS, t, q) * MathSqrt(PER_YEAR);
    double kL = vL > 0 ? MathMin(3.0, TargetVol / vL) : 0, kS = vS > 0 ? MathMin(3.0, TargetVol / vS) : 0;
    double gross = 0;
-   for(int s = 0; s < ns; s++) { tgt[s] = 0.5 * kL * wL[s * n + t] + 0.5 * kS * wS[s * n + t]; gross += MathAbs(tgt[s]); }
+   for(int s = 0; s < ns; s++) { tgt[s] = LongShare * kL * wL[s * n + t] + (1 - LongShare) * kS * wS[s * n + t]; gross += MathAbs(tgt[s]); }
    if(gross > MaxGross) for(int s = 0; s < ns; s++) tgt[s] *= MaxGross / gross;
    return true;
   }
