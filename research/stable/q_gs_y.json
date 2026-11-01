@@ -1,0 +1,242 @@
+[
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "goldsession.set",
+  "from": "2020.01.01",
+  "to": "2020.12.31",
+  "expert": "Jev\\GoldSession.ex5",
+  "report": "gs_asia_2020_d0",
+  "model": 4,
+  "overrides": {
+   "StartHour": "1",
+   "EndHour": "10",
+   "DelayMin": "0",
+   "Side": "1",
+   "Lots": "1.0"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "goldsession.set",
+  "from": "2020.01.01",
+  "to": "2020.12.31",
+  "expert": "Jev\\GoldSession.ex5",
+  "report": "gs_asia_2020_d5",
+  "model": 4,
+  "overrides": {
+   "StartHour": "1",
+   "EndHour": "10",
+   "DelayMin": "5",
+   "Side": "1",
+   "Lots": "1.0"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "goldsession.set",
+  "from": "2021.01.01",
+  "to": "2021.12.31",
+  "expert": "Jev\\GoldSession.ex5",
+  "report": "gs_asia_2021_d0",
+  "model": 4,
+  "overrides": {
+   "StartHour": "1",
+   "EndHour": "10",
+   "DelayMin": "0",
+   "Side": "1",
+   "Lots": "1.0"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "goldsession.set",
+  "from": "2021.01.01",
+  "to": "2021.12.31",
+  "expert": "Jev\\GoldSession.ex5",
+  "report": "gs_asia_2021_d5",
+  "model": 4,
+  "overrides": {
+   "StartHour": "1",
+   "EndHour": "10",
+   "DelayMin": "5",
+   "Side": "1",
+   "Lots": "1.0"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "goldsession.set",
+  "from": "2022.01.01",
+  "to": "2022.12.31",
+  "expert": "Jev\\GoldSession.ex5",
+  "report": "gs_asia_2022_d0",
+  "model": 4,
+  "overrides": {
+   "StartHour": "1",
+   "EndHour": "10",
+   "DelayMin": "0",
+   "Side": "1",
+   "Lots": "1.0"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "goldsession.set",
+  "from": "2022.01.01",
+  "to": "2022.12.31",
+  "expert": "Jev\\GoldSession.ex5",
+  "report": "gs_asia_2022_d5",
+  "model": 4,
+  "overrides": {
+   "StartHour": "1",
+   "EndHour": "10",
+   "DelayMin": "5",
+   "Side": "1",
+   "Lots": "1.0"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "goldsession.set",
+  "from": "2023.01.01",
+  "to": "2023.12.31",
+  "expert": "Jev\\GoldSession.ex5",
+  "report": "gs_asia_2023_d0",
+  "model": 4,
+  "overrides": {
+   "StartHour": "1",
+   "EndHour": "10",
+   "DelayMin": "0",
+   "Side": "1",
+   "Lots": "1.0"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "goldsession.set",
+  "from": "2023.01.01",
+  "to": "2023.12.31",
+  "expert": "Jev\\GoldSession.ex5",
+  "report": "gs_asia_2023_d5",
+  "model": 4,
+  "overrides": {
+   "StartHour": "1",
+   "EndHour": "10",
+   "DelayMin": "5",
+   "Side": "1",
+   "Lots": "1.0"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "goldsession.set",
+  "from": "2024.01.01",
+  "to": "2024.12.31",
+  "expert": "Jev\\GoldSession.ex5",
+  "report": "gs_asia_2024_d0",
+  "model": 4,
+  "overrides": {
+   "StartHour": "1",
+   "EndHour": "10",
+   "DelayMin": "0",
+   "Side": "1",
+   "Lots": "1.0"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "goldsession.set",
+  "from": "2024.01.01",
+  "to": "2024.12.31",
+  "expert": "Jev\\GoldSession.ex5",
+  "report": "gs_asia_2024_d5",
+  "model": 4,
+  "overrides": {
+   "StartHour": "1",
+   "EndHour": "10",
+   "DelayMin": "5",
+   "Side": "1",
+   "Lots": "1.0"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "goldsession.set",
+  "from": "2025.01.01",
+  "to": "2025.10.24",
+  "expert": "Jev\\GoldSession.ex5",
+  "report": "gs_asia_2025_d0",
+  "model": 4,
+  "overrides": {
+   "StartHour": "1",
+   "EndHour": "10",
+   "DelayMin": "0",
+   "Side": "1",
+   "Lots": "1.0"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "goldsession.set",
+  "from": "2025.01.01",
+  "to": "2025.10.24",
+  "expert": "Jev\\GoldSession.ex5",
+  "report": "gs_asia_2025_d5",
+  "model": 4,
+  "overrides": {
+   "StartHour": "1",
+   "EndHour": "10",
+   "DelayMin": "5",
+   "Side": "1",
+   "Lots": "1.0"
+  }
+ }
+]
