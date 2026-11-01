@@ -13,8 +13,10 @@ x = x[x.symbol == ".USTECHCash"]; x["day"] = pd.to_datetime(x.t, unit="s").dt.no
 pnl = (x.profit + x.swap + x.commission).groupby(x.day).sum()
 h = pd.read_csv("data/derived/intraday/.USTECHCash_H1.csv"); h.index = pd.to_datetime(h.time, unit="s")
 O = h.open[h.index.hour == 16]; O.index = O.index.normalize()
-r = (pnl / O.reindex(pnl.index)).dropna().reindex(c.index).fillna(0)
-v = r.rolling(90, min_periods=60).std().shift(1) * np.sqrt(260); i2 = r * (0.10 / v).clip(upper=5).fillna(0)
+# the vol multiplier is computed on trading days (as second4.scale_s and the EA), then aligned to C1's calendar days
+# (Codex PR 44, 1.11, P2: weekend zeros had lowered the vol estimate and raised the exposure by ~18%)
+r = (pnl / O.reindex(pnl.index)).dropna(); r = r.reindex(O.loc[r.index[0]:r.index[-1]].index).fillna(0)
+v = r.rolling(90, min_periods=60).std().shift(1) * np.sqrt(260); i2 = (r * (0.10 / v).clip(upper=5).fillna(0)).reindex(c.index).fillna(0)
 
 def rep(x, nm, a="2020", b="2026-10-30"):
     x = x.loc[a:b]; eq = (1 + x).cumprod(); yrs = (x.index[-1] - x.index[0]).days / 365.25

@@ -114,28 +114,70 @@ int Pos()
    return 0;
 }
 
-void Go(int q)
+// close every position of this EA on this symbol, by ticket (the account may hold other EAs' positions);
+// true only when none is left (Codex PR 44, 1.11: check the close before opening the other side)
+bool Flat()
+{
+   for(int i = PositionsTotal() - 1; i >= 0; i--)
+   {
+      ulong t = PositionGetTicket(i);
+      if(t > 0 && PositionGetInteger(POSITION_MAGIC) == Magic && PositionGetString(POSITION_SYMBOL) == _Symbol)
+         tr.PositionClose(t);
+   }
+   return Pos() == 0;
+}
+
+// move to position q; false when an order failed, so the same bar is tried again on the next tick
+bool Go(int q)
 {
    int p = Pos();
-   if(p == q) return;
-   if(p != 0) tr.PositionClose(_Symbol);
-   if(q == 0 || dayLots < SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MIN)) return;
-   if(q > 0) tr.Buy(dayLots, _Symbol); else tr.Sell(dayLots, _Symbol);
+   if(p == q) return true;
+   if(p != 0 && !Flat()) return false;
+   if(q == 0 || dayLots < SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MIN)) return true;
+   bool ok = q > 0 ? tr.Buy(dayLots, _Symbol) : tr.Sell(dayLots, _Symbol);
+   return ok && (tr.ResultRetcode() == TRADE_RETCODE_DONE || tr.ResultRetcode() == TRADE_RETCODE_PLACED);
+}
+
+// minutes left in the trade session that contains now (weekly schedule of the symbol); -1 when none is found.
+// Holiday early closes are not in the weekly schedule unless the server updates it (known limit, docs).
+int SessionLeft()
+{
+   MqlDateTime t; datetime now = TimeCurrent(); TimeToStruct(now, t);
+   int sec = t.hour * 3600 + t.min * 60 + t.sec; datetime from, to;
+   for(uint i = 0; SymbolInfoSessionTrade(_Symbol, (ENUM_DAY_OF_WEEK)t.day_of_week, i, from, to); i++)
+   {
+      int a = (int)(from % 86400), b = (int)(to % 86400); if(b == 0) b = 86400;
+      if(sec >= a && sec < b) return (b - sec) / 60;
+   }
+   return -1;
 }
 
 int OnInit() { tr.SetExpertMagicNumber(Magic); return INIT_SUCCEEDED; }
 
 void OnTick()
 {
+   // time guard on every tick (Codex PR 44, 1.11): flat after the exit bar or before the open bar even when a bar is
+   // missing, and before an early end of the trade session
+   MqlDateTime now; TimeToStruct(TimeCurrent(), now);
+   int left = SessionLeft();
+   if(Pos() != 0 && (now.hour > ExitHour || now.hour < OpenHour || (left >= 0 && left <= 10))) { Flat(); return; }
    datetime b = iTime(_Symbol, PERIOD_H1, 0);
    if(b == lastBar) return;
-   lastBar = b;
    N = CopyRates(_Symbol, PERIOD_H1, 1, 24 * 220, R);   // R[N-1] = the bar that just closed
    if(N < 24 * 30) return;
    MqlDateTime t; TimeToStruct(R[N - 1].time, t); int k = t.hour;
    datetime d = Day(R[N - 1].time);
-   if(k == ExitHour || d != Day(b)) { Go(0); return; }      // the day's exit (or a new day began)
-   if(k < OpenHour || k > LastCheck) return;
-   if(sizedDay != d) { dayLots = SizeFor(d); sizedDay = d; }
-   Go(Want(d, k));
+   bool done = true;
+   if(k == ExitHour || d != Day(b)) done = Flat();                          // the day's exit (or a new day began)
+   else if(k >= OpenHour && k <= LastCheck)
+   {
+      if(R[N - 1].time != b - 3600) done = Pos() == 0 || Flat();           // a gap: the check bar is stale, do not enter
+      else if(left >= 0 && left <= 70) done = Flat();                       // the session ends before the next check
+      else
+      {
+         if(sizedDay != d) { dayLots = SizeFor(d); sizedDay = d; }
+         done = Go(Want(d, k));
+      }
+   }
+   if(done) lastBar = b;                                                    // otherwise the same bar is retried next tick
 }
