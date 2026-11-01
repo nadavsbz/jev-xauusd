@@ -12,7 +12,8 @@ import second as S2
 E = pd.read_csv("data/derived/ecn_costs_20261030.csv").set_index("symbol")
 CHK = list(range(16, 22)); EXIT = 22
 
-def strat(s):
+def strat(s, lb=14, chk=None):
+    chk = chk or CHK
     h = pd.read_csv(f"data/derived/intraday/{s}_H1.csv"); h.index = pd.to_datetime(h.time, unit="s"); h = h[~h.index.duplicated()]
     tc = max(float(E.loc[s, "med_spread_2026"]), 0.0001) + 0.00005
     day = h.index.normalize()
@@ -21,13 +22,13 @@ def strat(s):
     Cl = Cl.to_frame("c").assign(d=day[(h.index.hour >= 16) & (h.index.hour <= EXIT)], k=Cl.index.hour).pivot_table(index="d", columns="k", values="c")
     Cl = Cl.dropna(); Cl = Cl[Cl.index.isin(O.index)]; o = O.reindex(Cl.index)
     prev = Cl[EXIT].shift(1)
-    mv = Cl[CHK].div(o, axis=0).sub(1).abs(); sig = mv.rolling(14).mean().shift(1)
+    mv = Cl[chk].div(o, axis=0).sub(1).abs(); sig = mv.rolling(lb).mean().shift(1)
     up = pd.concat([o, prev], axis=1).max(1); lo = pd.concat([o, prev], axis=1).min(1)
     out = pd.Series(0.0, index=Cl.index)
     for d in Cl.index[16:]:
         if np.isnan(prev[d]) or sig.loc[d].isna().any(): continue
         q = 0; r = 0.0; last = None
-        for k in CHK + [EXIT]:
+        for k in chk + [EXIT]:
             c = Cl.at[d, k]
             if last is not None and q != 0: r += q * (c / last - 1)
             last = c
