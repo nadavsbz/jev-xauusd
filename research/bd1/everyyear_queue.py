@@ -67,6 +67,11 @@ CFG6 = {   # round 6 (31.10.2026): earlier / deeper lot cuts, and a longer pause
     "dd5q_fd30": {"DDScalePct": "5", "DDScaleMult": "0.25", "G_FloorDays": "30"},
 }
 
+CFG7 = {   # round 7 (2.11.2026): sell baskets only - by side, BUY baskets lost in 6/7 (d24ntop) and 5/7 (dd5q) RF years
+    "so": {"Flag_Trade_Buy_": "false"},
+    "so_dd5q": {"Flag_Trade_Buy_": "false", "DDScalePct": "5", "DDScaleMult": "0.25"},
+}
+
 def job(y, f, t, ff, tag, extra, r="1"):
     o = {"Autolot_": "true", "Autolotsize_": "6000", "G_FloorPct": "15", "G_FloorDays": "14", "P_At": "0", "G_FloorFrom": ff,
          "DayOffMask": "24", "NewsFile": "news_top_rf.txt", **extra}
@@ -74,12 +79,12 @@ def job(y, f, t, ff, tag, extra, r="1"):
             "base_set": "dcv7_2d.set", "from": f, "to": t, "expert": r"Jev\DragonClone_v7.ex5",
             "report": f"ev{r}_rf{y}_{tag}", "overrides": o}
     if r == "3": j.update(expert=r"Jev\DragonClone_v10.ex5", base_set="dcv10_2d.set")
-    if r in ("4", "5", "6"): j.update(expert=r"Jev\DragonClone_v11.ex5", base_set="dcv11_2d.set")
+    if r in ("4", "5", "6", "7"): j.update(expert=r"Jev\DragonClone_v11.ex5", base_set="dcv11_2d.set")
     return j
 
 if __name__ == "__main__":
     r = sys.argv[1] if len(sys.argv) > 1 else "1"
-    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2, "3": CFG3, "4": CFG4, "5": CFG5, "6": CFG6}[r].items() for yr in YEARS
+    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2, "3": CFG3, "4": CFG4, "5": CFG5, "6": CFG6, "7": CFG7}[r].items() for yr in YEARS
          if not (tag == "sanity" and yr[0] != 2020)]   # sanity: all new flags off must equal v7_rf2020_d24ntop exactly
     json.dump(q, open(f"research/bd1/q_every{r}.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(len(q), "jobs", [(j["report"], j["from"], j["to"]) for j in q[:7]])
