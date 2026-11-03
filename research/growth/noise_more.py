@@ -32,7 +32,7 @@ def bands(s, anchor, last, ex, lb=14):
     up = pd.concat([o, prev], axis=1).max(1); lo = pd.concat([o, prev], axis=1).min(1)
     return Cl, chk, up, lo, sig, prev
 
-def strat(s, anchor, last, ex):
+def strat(s, anchor, last, ex, sgn=1):
     Cl, chk, up, lo, sig, prev = bands(s, anchor, last, ex); tc = cost(s)
     out = pd.Series(0.0, index=Cl.index)
     for d in Cl.index[16:]:
@@ -45,7 +45,7 @@ def strat(s, anchor, last, ex):
             if k == ex: nq = 0
             else:
                 U = up[d] * (1 + sig.at[d, k]); L = lo[d] * (1 - sig.at[d, k])
-                nq = 1 if c > U else (-1 if c < L else 0)
+                nq = sgn * (1 if c > U else (-1 if c < L else 0))
             r -= abs(nq - q) * tc; q = nq
         out[d] = r
     return out
