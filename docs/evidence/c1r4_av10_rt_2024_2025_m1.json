@@ -1,0 +1,91 @@
+{
+ "report_file": "c1r4_av10_rt_2024_2025_m1.htm",
+ "report_sha256": "3e7b060e0d5b7ceda401d40689786e1d7f1c49442c87e23029fae199372598d6",
+ "settings": {
+  "יועץ אוטומטי (רובוט)": "CryptoTrend_C1",
+  "צמד": "BTCUSD",
+  "תקופה": "H1 (2024.01.01 - 2025.10.24)",
+  "חברה": "RoboForex Ltd",
+  "מטבע": "USD",
+  "פיקדון התחלתי": "120,000.00",
+  "מינוף": "1:100",
+  "איכות היסטוריה": "0%"
+ },
+ "inputs": [
+  "Symbols=BTCUSD,ETHUSD",
+  "TargetVol=0.2",
+  "AssetVol=0.10",
+  "MaxGross=3.0",
+  "RebalPct=0.30",
+  "History=1600",
+  "MinBars=320",
+  "DelayBars=0",
+  "Magic=61001"
+ ],
+ "summary_from_report": {
+  "סך רווח נקי": "35,544.15",
+  "רווח ברוטו": "119,256.88",
+  "מאזן הפסד מקסימלי": "21,023.59 (13.92%)",
+  "שווי הפסד מקסימלי": "24,955.45 (15.93%)",
+  "הפסד ברוטו": "-83,712.73",
+  "מקדם רווח": "1.42",
+  "סך עסקאות": "829"
+ },
+ "recomputed": {
+  "deposit": 120000.0,
+  "entries": 505,
+  "trading_profit_before_costs": 38850.9,
+  "commission": 0.0,
+  "swap": -3306.75,
+  "net": 35544.15,
+  "lots_opened": 92.87,
+  "exit_deals": 829,
+  "exit_win_rate_pct": 35.1,
+  "exit_avg_win": 409.82,
+  "exit_avg_loss": -155.6,
+  "daily_realised_pct_of_deposit_per_weekday": {
+   "count": 474.0,
+   "mean": 0.055,
+   "std": 0.647,
+   "min": -1.193,
+   "25%": -0.095,
+   "50%": 0.0,
+   "75%": 0.0,
+   "max": 7.071
+  },
+  "worst_days_pct": {
+   "2025-06-24": -1.19,
+   "2024-12-19": -1.16,
+   "2025-01-08": -1.1,
+   "2024-01-04": -1.06,
+   "2025-02-24": -1.01
+  },
+  "active_days": 270,
+  "end_of_test_closes": 3,
+  "end_of_test_net": -45.95,
+  "end_of_test_date": "2025-10-23"
+ },
+ "job": {
+  "name": "Black Dragon 3",
+  "symbol": "BTCUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "c1.set",
+  "from": "2024.01.01",
+  "to": "2025.10.24",
+  "expert": "Jev\\CryptoTrend_C1.ex5",
+  "report": "c1r4_av10_rt_2024_2025_m1",
+  "model": 1,
+  "overrides": {
+   "Symbols": "BTCUSD,ETHUSD",
+   "RebalPct": "0.30",
+   "AssetVol": "0.10",
+   "DelayBars": "0"
+  }
+ },
+ "files": {
+  "ea_sha256": "674ea9f6e482f5e40a53ff8cf7bfa2f732e4934908f01467bac88a197dca034a",
+  "set_sha256": "e8f589a0ac520bc85f397ed0a1e07622c572384c6d7081f2fe4761b258151cd7"
+ }
+}

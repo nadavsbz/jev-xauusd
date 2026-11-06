@@ -1,0 +1,91 @@
+{
+ "report_file": "c1r3_av10_d1_rf_holdout.htm",
+ "report_sha256": "2ce906cb5deb824477f506aff07c0cb8a7823b259e522cc5dae8228c3b3d9f0b",
+ "settings": {
+  "יועץ אוטומטי (רובוט)": "CryptoTrend_C1",
+  "צמד": "BTCUSD",
+  "תקופה": "H1 (2025.10.25 - 2026.10.30)",
+  "חברה": "RoboForex Ltd",
+  "מטבע": "USD",
+  "פיקדון התחלתי": "120,000.00",
+  "מינוף": "1:100",
+  "איכות היסטוריה": "72%"
+ },
+ "inputs": [
+  "Symbols=BTCUSD,ETHUSD",
+  "TargetVol=0.2",
+  "AssetVol=0.10",
+  "MaxGross=3.0",
+  "RebalPct=0.30",
+  "History=1600",
+  "MinBars=320",
+  "DelayBars=1",
+  "Magic=61001"
+ ],
+ "summary_from_report": {
+  "סך רווח נקי": "18,487.81",
+  "רווח ברוטו": "59,051.49",
+  "מאזן הפסד מקסימלי": "8,987.26 (7.14%)",
+  "שווי הפסד מקסימלי": "14,588.45 (11.07%)",
+  "הפסד ברוטו": "-40,563.68",
+  "מקדם רווח": "1.46",
+  "סך עסקאות": "481"
+ },
+ "recomputed": {
+  "deposit": 120000.0,
+  "entries": 298,
+  "trading_profit_before_costs": 20078.43,
+  "commission": 0.0,
+  "swap": -1590.62,
+  "net": 18487.81,
+  "lots_opened": 66.47,
+  "exit_deals": 481,
+  "exit_win_rate_pct": 39.92,
+  "exit_avg_win": 307.56,
+  "exit_avg_loss": -140.36,
+  "daily_realised_pct_of_deposit_per_weekday": {
+   "count": 264.0,
+   "mean": 0.024,
+   "std": 0.512,
+   "min": -1.871,
+   "25%": -0.047,
+   "50%": 0.0,
+   "75%": 0.0,
+   "max": 4.249
+  },
+  "worst_days_pct": {
+   "2026-10-07": -1.87,
+   "2026-09-16": -1.71,
+   "2025-12-03": -1.31,
+   "2026-01-21": -1.17,
+   "2026-04-20": -0.81
+  },
+  "active_days": 137,
+  "end_of_test_closes": 5,
+  "end_of_test_net": 837.8,
+  "end_of_test_date": "2026-10-29"
+ },
+ "job": {
+  "name": "Black Dragon 3",
+  "symbol": "BTCUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "c1.set",
+  "from": "2025.10.25",
+  "to": "2026.10.30",
+  "expert": "Jev\\CryptoTrend_C1.ex5",
+  "report": "c1r3_av10_d1_rf_holdout",
+  "model": 1,
+  "overrides": {
+   "Symbols": "BTCUSD,ETHUSD",
+   "RebalPct": "0.30",
+   "AssetVol": "0.10",
+   "DelayBars": "1"
+  }
+ },
+ "files": {
+  "ea_sha256": "ab61f094b0691b981451a3f1e8aac2f84bd752afcbf101afec014c40598d2a26",
+  "set_sha256": "e8f589a0ac520bc85f397ed0a1e07622c572384c6d7081f2fe4761b258151cd7"
+ }
+}

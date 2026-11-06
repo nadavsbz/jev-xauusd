@@ -1,0 +1,90 @@
+[
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 10000,
+  "leverage": 500,
+  "base_set": "happyclone.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "Jev\\HappyClone.ex5",
+  "report": "hc_news_2024_d30",
+  "overrides": {
+   "Mode": "1",
+   "Distance": "30",
+   "MaxHoldMin": "5"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 10000,
+  "leverage": 500,
+  "base_set": "happyclone.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "Jev\\HappyClone.ex5",
+  "report": "hc_news_2024_d100",
+  "overrides": {
+   "Mode": "1",
+   "Distance": "100",
+   "MaxHoldMin": "5"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 10000,
+  "leverage": 500,
+  "base_set": "happyclone.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "Jev\\HappyClone.ex5",
+  "report": "hc_news_2024_d100_t200",
+  "overrides": {
+   "Mode": "1",
+   "Distance": "100",
+   "TrailStart": "200",
+   "TrailDist": "100",
+   "MaxHoldMin": "5"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 10000,
+  "leverage": 500,
+  "base_set": "happyclone.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "Jev\\HappyClone.ex5",
+  "report": "hc_news_2024_d100_hold0",
+  "overrides": {
+   "Mode": "1",
+   "Distance": "100",
+   "MaxHoldMin": "0"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 10000,
+  "leverage": 500,
+  "base_set": "happyclone.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "Jev\\HappyClone.ex5",
+  "report": "hc_news_2024_d100_delay500",
+  "overrides": {
+   "Mode": "1",
+   "Distance": "100",
+   "MaxHoldMin": "5"
+  },
+  "delay": 500
+ }
+]

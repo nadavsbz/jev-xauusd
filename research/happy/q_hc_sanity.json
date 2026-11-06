@@ -1,0 +1,15 @@
+[
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 10000,
+  "leverage": 500,
+  "base_set": "happyclone.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "Jev\\HappyClone.ex5",
+  "report": "hc_sanity_2024",
+  "overrides": {}
+ }
+]

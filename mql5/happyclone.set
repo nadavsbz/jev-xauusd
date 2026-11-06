@@ -1,0 +1,21 @@
+; HappyClone base set (docs/HAPPY_CLONE_PLAN.md)
+ZZPct=0.3||0.3||0||0.3||N
+ZZBars=500||500||0||500||N
+Distance=50||50||0||50||N
+SL=240||240||0||240||N
+TP=600||600||0||600||N
+BEStart=0||0||0||0||N
+BEPoint=10||10||0||10||N
+TrailStart=100||100||0||100||N
+TrailDist=50||50||0||50||N
+StartHour=1||1||0||1||N
+EndHour=23||23||0||23||N
+MaxSpread=60||60||0||60||N
+Risk=1.0||1.0||0||1.0||N
+FixLot=0.01||0.01||0||0.01||N
+Magic=8801||8801||0||8801||N
+Mode=0||0||0||0||N
+NewsFile=news_high_rf.txt
+NewsBefore=2||2||0||2||N
+NewsAfter=5||5||0||5||N
+MaxHoldMin=0||0||0||0||N

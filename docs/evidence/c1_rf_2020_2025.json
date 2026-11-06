@@ -1,0 +1,84 @@
+{
+ "report_file": "c1_rf_2020_2025.htm",
+ "report_sha256": "676cd0c3238beed3afe4293476186f74409420de9509988fde3e88d560cab0c6",
+ "settings": {
+  "יועץ אוטומטי (רובוט)": "CryptoTrend_C1",
+  "צמד": "BTCUSD",
+  "תקופה": "H1 (2020.01.01 - 2025.10.24)",
+  "חברה": "RoboForex Ltd",
+  "מטבע": "USD",
+  "פיקדון התחלתי": "120,000.00",
+  "מינוף": "1:100",
+  "איכות היסטוריה": "0%"
+ },
+ "inputs": [
+  "Symbols=BTCUSD,ETHUSD,XRPUSD,SOLUSD",
+  "TargetVol=0.2",
+  "AssetVol=0.1",
+  "MaxGross=3.0",
+  "RebalPct=0.15",
+  "History=1600",
+  "Magic=61001"
+ ],
+ "summary_from_report": {
+  "סך רווח נקי": "18,745.13",
+  "רווח ברוטו": "194,972.11",
+  "מאזן הפסד מקסימלי": "29,638.65 (24.14%)",
+  "שווי הפסד מקסימלי": "31,005.94 (24.82%)",
+  "הפסד ברוטו": "-176,226.98",
+  "מקדם רווח": "1.11",
+  "סך עסקאות": "4628"
+ },
+ "recomputed": {
+  "deposit": 120000.0,
+  "entries": 2963,
+  "trading_profit_before_costs": 23520.24,
+  "commission": 0.0,
+  "swap": -4775.11,
+  "net": 18745.13,
+  "lots_opened": 210.21,
+  "exit_deals": 4628,
+  "exit_win_rate_pct": 31.35,
+  "exit_avg_win": 134.37,
+  "exit_avg_loss": -55.49,
+  "daily_realised_pct_of_deposit_per_weekday": {
+   "count": 1517.0,
+   "mean": 0.007,
+   "std": 0.303,
+   "min": -1.598,
+   "25%": -0.059,
+   "50%": 0.0,
+   "75%": 0.0,
+   "max": 2.664
+  },
+  "worst_days_pct": {
+   "2022-12-16": -1.6,
+   "2022-11-08": -1.37,
+   "2025-01-08": -1.27,
+   "2025-06-13": -1.09,
+   "2023-06-06": -1.08
+  },
+  "active_days": 873,
+  "end_of_test_closes": 7,
+  "end_of_test_net": -123.59,
+  "end_of_test_date": "2025-10-23"
+ },
+ "job": {
+  "name": "Black Dragon 3",
+  "symbol": "BTCUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "c1.set",
+  "from": "2020.01.01",
+  "to": "2025.10.24",
+  "expert": "Jev\\CryptoTrend_C1.ex5",
+  "report": "c1_rf_2020_2025",
+  "model": 1,
+  "overrides": {}
+ },
+ "files": {
+  "ea_sha256": "846d2bb2e83ca0463b28b3188c52c5ba776f37a3931c98d7624712ae83f895f7",
+  "set_sha256": "7046326649780315941643e08850cc0d3916e3f9b131587c004c00f704822777"
+ }
+}

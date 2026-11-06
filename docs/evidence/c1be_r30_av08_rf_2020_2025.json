@@ -1,0 +1,89 @@
+{
+ "report_file": "c1be_r30_av08_rf_2020_2025.htm",
+ "report_sha256": "dccca0ffdce79fd4eb8996c2fe33ad81d0e672dd4b92cc1f588ad5386caca7a4",
+ "settings": {
+  "יועץ אוטומטי (רובוט)": "CryptoTrend_C1",
+  "צמד": "BTCUSD",
+  "תקופה": "H1 (2020.01.01 - 2025.10.24)",
+  "חברה": "RoboForex Ltd",
+  "מטבע": "USD",
+  "פיקדון התחלתי": "120,000.00",
+  "מינוף": "1:100",
+  "איכות היסטוריה": "0%"
+ },
+ "inputs": [
+  "Symbols=BTCUSD,ETHUSD",
+  "TargetVol=0.2",
+  "AssetVol=0.08",
+  "MaxGross=3.0",
+  "RebalPct=0.30",
+  "History=1600",
+  "MinBars=320",
+  "Magic=61001"
+ ],
+ "summary_from_report": {
+  "סך רווח נקי": "176,393.77",
+  "רווח ברוטו": "525,462.44",
+  "מאזן הפסד מקסימלי": "36,531.69 (15.42%)",
+  "שווי הפסד מקסימלי": "47,716.60 (19.36%)",
+  "הפסד ברוטו": "-349,068.67",
+  "מקדם רווח": "1.51",
+  "סך עסקאות": "2734"
+ },
+ "recomputed": {
+  "deposit": 120000.0,
+  "entries": 1577,
+  "trading_profit_before_costs": 189035.37,
+  "commission": 0.0,
+  "swap": -12641.6,
+  "net": 176393.77,
+  "lots_opened": 882.38,
+  "exit_deals": 2734,
+  "exit_win_rate_pct": 35.0,
+  "exit_avg_win": 549.07,
+  "exit_avg_loss": -196.44,
+  "daily_realised_pct_of_deposit_per_weekday": {
+   "count": 1517.0,
+   "mean": 0.085,
+   "std": 0.903,
+   "min": -3.228,
+   "25%": -0.124,
+   "50%": 0.0,
+   "75%": 0.0,
+   "max": 10.669
+  },
+  "worst_days_pct": {
+   "2022-12-16": -3.23,
+   "2022-10-14": -2.89,
+   "2023-03-03": -2.45,
+   "2024-01-04": -2.36,
+   "2022-11-30": -1.82
+  },
+  "active_days": 829,
+  "end_of_test_closes": 3,
+  "end_of_test_net": -77.2,
+  "end_of_test_date": "2025-10-23"
+ },
+ "job": {
+  "name": "Black Dragon 3",
+  "symbol": "BTCUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "c1.set",
+  "from": "2020.01.01",
+  "to": "2025.10.24",
+  "expert": "Jev\\CryptoTrend_C1.ex5",
+  "report": "c1be_r30_av08_rf_2020_2025",
+  "model": 1,
+  "overrides": {
+   "Symbols": "BTCUSD,ETHUSD",
+   "RebalPct": "0.30",
+   "AssetVol": "0.08"
+  }
+ },
+ "files": {
+  "ea_sha256": "578dbef83a21254a9bbb11f111075d5aa3458176e1052bdd6c0ad0a53f35fe79",
+  "set_sha256": "e8f589a0ac520bc85f397ed0a1e07622c572384c6d7081f2fe4761b258151cd7"
+ }
+}
