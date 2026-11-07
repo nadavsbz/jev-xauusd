@@ -157,7 +157,7 @@
   "period": "M15",
   "deposit": 120000,
   "leverage": 1000,
-  "base_set": "dcv11_2d.set",
+  "base_set": "dcv12_2d.set",
   "from": "2020.01.02",
   "to": "2021.01.01",
   "expert": "Jev\\DragonClone_v12.ex5",
@@ -175,6 +175,6 @@
  },
  "files": {
   "ea_sha256": "b6292a3211f2a2122c0d6b6b1c2d09f097ec3d27c836028732fcc57ae989e36f",
-  "set_sha256": "c7c5a68524cc8b10cc4e47ee86d1e7af96bbe73f3fc7352e8f0557d981410f98"
+  "set_sha256": "49ec7379b4b86a71e5eeb53d94f4ed7df49b4ca99a2b028239b0f3c5351f1a00"
  }
 }
