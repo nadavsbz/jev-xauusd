@@ -1,4 +1,4 @@
-"""Anatomy of the level-stop runs (round 8, docs/CRASH_LINK_PLAN.md): per tester report, the baskets by number of levels,
+r"""Anatomy of the level-stop runs (round 8, docs/CRASH_LINK_PLAN.md): per tester report, the baskets by number of levels,
 their count and net, so the stopped baskets (k levels, closed at a loss) are separated from the rest.
 Usage: python research/bd1/ls_anatomy.py REPORT [REPORT ...]   (report names in C:\MT5_JEV_TEST)"""
 import os, sys

@@ -83,6 +83,8 @@ CFG10 = {   # round 10 (7.11.2026, docs/CRASH_LINK_PLAN.md): fresh dd5q (tester 
     "dd5q": {"DDScalePct": "5", "DDScaleMult": "0.25"},
     "ms20": {"MaxSpred": "20"},
     "ms20_dd5q": {"MaxSpred": "20", "DDScalePct": "5", "DDScaleMult": "0.25"},
+    "h1218": {"Start_Hour": "12", "End_Hour": "18"},   # the 12-18 window that beat its base every year (4.11.2026, d6h_rf*_h12_18)
+    "h1218_dd5q": {"Start_Hour": "12", "End_Hour": "18", "DDScalePct": "5", "DDScaleMult": "0.25"},
 }
 
 def job(y, f, t, ff, tag, extra, r="1"):
