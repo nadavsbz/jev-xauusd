@@ -87,7 +87,7 @@ def job(y, f, t, ff, tag, extra, r="1"):
             "report": f"ev{r}_rf{y}_{tag}", "overrides": o}
     if r == "3": j.update(expert=r"Jev\DragonClone_v10.ex5", base_set="dcv10_2d.set")
     if r in ("4", "5", "6", "7"): j.update(expert=r"Jev\DragonClone_v11.ex5", base_set="dcv11_2d.set")
-    if r == "8": j.update(expert=r"Jev\DragonClone_v12.ex5", base_set="dcv11_2d.set")
+    if r == "8": j.update(expert=r"Jev\DragonClone_v12.ex5", base_set="dcv12_2d.set")   # dcv12_2d.set = dcv11_2d.set + LevelStopK=0
     return j
 
 if __name__ == "__main__":
