@@ -103,6 +103,12 @@ CFG12 = {   # round 12 (8.11.2026, docs/CRASH_LINK_PLAN.md): ms20 and h1218 each
     "ms20_h1317": {"MaxSpred": "20", "Start_Hour": "13", "End_Hour": "17"},
 }
 
+CFG13 = {   # round 13 (8.11.2026): noise band - the same configuration with 3% of weekdays randomly off (seeds 1, 2): how much does a year move by chance?
+    **{f"base_rd{k}": {"RandDayPct": "3", "RandSeed": str(k)} for k in (1, 2)},
+    **{f"ms20_rd{k}": {"MaxSpred": "20", "RandDayPct": "3", "RandSeed": str(k)} for k in (1, 2)},
+    **{f"h1218_rd{k}": {"Start_Hour": "12", "End_Hour": "18", "RandDayPct": "3", "RandSeed": str(k)} for k in (1, 2)},
+}
+
 def job(y, f, t, ff, tag, extra, r="1"):
     o = {"Autolot_": "true", "Autolotsize_": "6000", "G_FloorPct": "15", "G_FloorDays": "14", "P_At": "0", "G_FloorFrom": ff,
          "DayOffMask": "24", "NewsFile": "news_top_rf.txt", **extra}
@@ -111,13 +117,13 @@ def job(y, f, t, ff, tag, extra, r="1"):
             "report": f"ev{r}_rf{y}_{tag}", "overrides": o}
     if r == "3": j.update(expert=r"Jev\DragonClone_v10.ex5", base_set="dcv10_2d.set")
     if r in ("4", "5", "6", "7"): j.update(expert=r"Jev\DragonClone_v11.ex5", base_set="dcv11_2d.set")
-    if r in ("8", "10", "12"): j.update(expert=r"Jev\DragonClone_v12.ex5", base_set="dcv12_2d.set")   # dcv12_2d.set = dcv11_2d.set + LevelStopK=0
+    if r in ("8", "10", "12", "13"): j.update(expert=r"Jev\DragonClone_v12.ex5", base_set="dcv12_2d.set")   # dcv12_2d.set = dcv11_2d.set + LevelStopK=0
     if r == "11": j.update(expert=r"Jev\DragonClone_v13.ex5", base_set="dcv13_2d.set")   # dcv13_2d.set = dcv12_2d.set + StochRule=1, StochBar=1
     return j
 
 if __name__ == "__main__":
     r = sys.argv[1] if len(sys.argv) > 1 else "1"
-    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2, "3": CFG3, "4": CFG4, "5": CFG5, "6": CFG6, "7": CFG7, "8": CFG8, "10": CFG10, "11": CFG11, "12": CFG12}[r].items() for yr in YEARS
+    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2, "3": CFG3, "4": CFG4, "5": CFG5, "6": CFG6, "7": CFG7, "8": CFG8, "10": CFG10, "11": CFG11, "12": CFG12, "13": CFG13}[r].items() for yr in YEARS
          if not (tag == "sanity" and yr[0] != 2020)]   # sanity: all new flags off must equal v7_rf2020_d24ntop exactly
     json.dump(q, open(f"research/bd1/q_every{r}.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(len(q), "jobs", [(j["report"], j["from"], j["to"]) for j in q[:7]])
