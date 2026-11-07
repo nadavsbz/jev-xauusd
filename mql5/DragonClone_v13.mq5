@@ -136,7 +136,8 @@ int OnInit()
    hEma = iMA(_Symbol, PERIOD_M15, EmaPeriod, 0, MODE_EMA, PRICE_CLOSE);
    hEmaD = iMA(_Symbol, PERIOD_D1, G_ContextEma, 0, MODE_EMA, PRICE_CLOSE);
    if(hEma == INVALID_HANDLE || hEmaD == INVALID_HANDLE) return INIT_FAILED;
-   if(Use_Stoh) { hSto = iStochastic(_Symbol, (ENUM_TIMEFRAMES)TF_Stoh, KPeriod, DPeriod, Slowing, MODE_SMA, STO_LOWHIGH); if(hSto == INVALID_HANDLE) return INIT_FAILED; }
+   // v13: Close/Close, measured 8.11.2026 (research/bd1/stoch_infer.py): 96.5% of the original EA's 2022 baskets sit at the edge with it, Low/High fits worse
+   if(Use_Stoh) { hSto = iStochastic(_Symbol, (ENUM_TIMEFRAMES)TF_Stoh, KPeriod, DPeriod, Slowing, MODE_SMA, STO_CLOSECLOSE); if(hSto == INVALID_HANDLE) return INIT_FAILED; }
    if(AccountInfoInteger(ACCOUNT_MARGIN_MODE) != ACCOUNT_MARGIN_MODE_RETAIL_HEDGING) { Print("DragonClone needs a hedging account"); return INIT_FAILED; }
    trade.SetExpertMagicNumber(Magic);
    trailOn[0] = trailOn[1] = false; hiWater[0] = hiWater[1] = 0;

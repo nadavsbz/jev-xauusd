@@ -87,6 +87,13 @@ CFG10 = {   # round 10 (7.11.2026, docs/CRASH_LINK_PLAN.md): fresh dd5q (tester 
     "h1218_dd5q": {"Start_Hour": "12", "End_Hour": "18", "DDScalePct": "5", "DDScaleMult": "0.25"},
 }
 
+ST = {"Use_Stoh": "true", "TF_Stoh": "0", "Up_Level": "80", "Down_Level": "20", "KPeriod": "7"}   # Lars set + Ramil's Stochastic
+CFG11 = {   # round 11 (8.11.2026, docs/CRASH_LINK_PLAN.md): v13 Stochastic filter in the clone with the floor guard; runs only if v13 passed validation
+    "st": dict(ST),
+    "st_dd5q": {**ST, "DDScalePct": "5", "DDScaleMult": "0.25"},
+    "st_ms20": {**ST, "MaxSpred": "20"},
+}
+
 def job(y, f, t, ff, tag, extra, r="1"):
     o = {"Autolot_": "true", "Autolotsize_": "6000", "G_FloorPct": "15", "G_FloorDays": "14", "P_At": "0", "G_FloorFrom": ff,
          "DayOffMask": "24", "NewsFile": "news_top_rf.txt", **extra}
@@ -96,11 +103,12 @@ def job(y, f, t, ff, tag, extra, r="1"):
     if r == "3": j.update(expert=r"Jev\DragonClone_v10.ex5", base_set="dcv10_2d.set")
     if r in ("4", "5", "6", "7"): j.update(expert=r"Jev\DragonClone_v11.ex5", base_set="dcv11_2d.set")
     if r in ("8", "10"): j.update(expert=r"Jev\DragonClone_v12.ex5", base_set="dcv12_2d.set")   # dcv12_2d.set = dcv11_2d.set + LevelStopK=0
+    if r == "11": j.update(expert=r"Jev\DragonClone_v13.ex5", base_set="dcv13_2d.set")   # dcv13_2d.set = dcv12_2d.set + StochRule=1, StochBar=1
     return j
 
 if __name__ == "__main__":
     r = sys.argv[1] if len(sys.argv) > 1 else "1"
-    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2, "3": CFG3, "4": CFG4, "5": CFG5, "6": CFG6, "7": CFG7, "8": CFG8, "10": CFG10}[r].items() for yr in YEARS
+    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2, "3": CFG3, "4": CFG4, "5": CFG5, "6": CFG6, "7": CFG7, "8": CFG8, "10": CFG10, "11": CFG11}[r].items() for yr in YEARS
          if not (tag == "sanity" and yr[0] != 2020)]   # sanity: all new flags off must equal v7_rf2020_d24ntop exactly
     json.dump(q, open(f"research/bd1/q_every{r}.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(len(q), "jobs", [(j["report"], j["from"], j["to"]) for j in q[:7]])
