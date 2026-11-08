@@ -122,6 +122,21 @@ CFG17 = {   # round 17 (8.11.2026): the candidate ms20_h1119 - Stochastic on top
     "ms25_h1119": {**H1119, "MaxSpred": "25"},
 }
 
+M20 = {"MaxSpred": "20"}
+CFG20 = {   # round 20 (8.11.2026, user list): on the corrected base ms20, 10 RF years 2016-2025 (v14)
+    "sanity": dict(M20),                                                            # must equal ev10/ev18 ms20 (v12) exactly
+    **{f"ls{k}": {**M20, "LevelStopK": str(k)} for k in (6, 7, 8, 9)},              # close the basket at level k
+    **{f"lao{k}": {**M20, "LotAfterOverlap": str(k)} for k in (1, 3, 4)},           # recovery mode (30.7): lots after an Overlap
+    **{f"ml{k}": {**M20, "MaxLotMult": str(k)} for k in (6, 10, 15)},               # max lot = level-1 lot x k
+    "fd250": {**M20, "Fix_Distance": "250"}, "fd400": {**M20, "Fix_Distance": "400"},  # grid step levels 2-5 (now 3$)
+    "dds300": {**M20, "Dynamic_distance_start": "300"}, "dds400": {**M20, "Dynamic_distance_start": "400"},  # deep levels (now 2$ x1.2^)
+    "dm15": {**M20, "Distance_multiplier": "1.5"},
+    "m13": {**M20, "Martin_": "1.3"}, "m14": {**M20, "Martin_": "1.4"},
+    "m2d12": {**M20, "Martin2_": "1.2"}, "m2d10": {**M20, "Martin2_": "1.0"}, "m2u18": {**M20, "Martin2_": "1.8"},  # from level 7
+}
+YEARS10 = [(2016, "2016.01.04", "2017.01.01", "20160101"), (2017, "2017.01.02", "2018.01.01", "20170101"),
+           (2018, "2018.01.02", "2019.01.01", "20180101")] + YEARS
+
 def job(y, f, t, ff, tag, extra, r="1"):
     o = {"Autolot_": "true", "Autolotsize_": "6000", "G_FloorPct": "15", "G_FloorDays": "14", "P_At": "0", "G_FloorFrom": ff,
          "DayOffMask": "24", "NewsFile": "news_top_rf.txt", **extra}
@@ -132,11 +147,12 @@ def job(y, f, t, ff, tag, extra, r="1"):
     if r in ("4", "5", "6", "7"): j.update(expert=r"Jev\DragonClone_v11.ex5", base_set="dcv11_2d.set")
     if r in ("8", "10", "12", "13", "15"): j.update(expert=r"Jev\DragonClone_v12.ex5", base_set="dcv12_2d.set")   # dcv12_2d.set = dcv11_2d.set + LevelStopK=0
     if r in ("11", "17"): j.update(expert=r"Jev\DragonClone_v13.ex5", base_set="dcv13_2d.set")   # dcv13_2d.set = dcv12_2d.set + StochRule=1, StochBar=1
+    if r == "20": j.update(expert=r"Jev\DragonClone_v14.ex5", base_set="dcv14_2d.set")   # dcv14_2d.set = dcv13_2d.set + Martin2_=0, Martin2From=6
     return j
 
 if __name__ == "__main__":
     r = sys.argv[1] if len(sys.argv) > 1 else "1"
-    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2, "3": CFG3, "4": CFG4, "5": CFG5, "6": CFG6, "7": CFG7, "8": CFG8, "10": CFG10, "11": CFG11, "12": CFG12, "13": CFG13, "15": CFG15, "17": CFG17}[r].items() for yr in YEARS
+    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2, "3": CFG3, "4": CFG4, "5": CFG5, "6": CFG6, "7": CFG7, "8": CFG8, "10": CFG10, "11": CFG11, "12": CFG12, "13": CFG13, "15": CFG15, "17": CFG17, "20": CFG20}[r].items() for yr in (YEARS10 if r == "20" else YEARS)
          if not (tag == "sanity" and yr[0] != 2020)]   # sanity: all new flags off must equal v7_rf2020_d24ntop exactly
     json.dump(q, open(f"research/bd1/q_every{r}.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(len(q), "jobs", [(j["report"], j["from"], j["to"]) for j in q[:7]])
