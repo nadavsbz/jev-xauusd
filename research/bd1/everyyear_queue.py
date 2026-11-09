@@ -134,6 +134,16 @@ CFG20 = {   # round 20 (8.11.2026, user list): on the corrected base ms20, 10 RF
     "m13": {**M20, "Martin_": "1.3"}, "m14": {**M20, "Martin_": "1.4"},
     "m2d12": {**M20, "Martin2_": "1.2"}, "m2d10": {**M20, "Martin2_": "1.0"}, "m2u18": {**M20, "Martin2_": "1.8"},  # from level 7
 }
+CFG21 = {   # round 21 (9.11.2026, user: breakeven close, earlier Overlap, Ramil's WAT): on ms20, 10 RF years 2016-2025 (v15)
+    "sanity": dict(M20),                                                            # must equal ev20_rf2020_sanity (v14) exactly
+    **{f"be{k}": {**M20, "BeFromLevel": str(k), "BeMinPts": "10"} for k in (5, 6, 7)},   # deep basket closes at breakeven + $0.10
+    **{f"ovn{k}": {**M20, "OverlapOrderNumber": str(k)} for k in (4, 5, 6)},          # Overlap from fewer orders (now 7)
+    "ovn5p1": {**M20, "OverlapOrderNumber": "5", "OverlapPercent": "1"}, "ovn5p5": {**M20, "OverlapOrderNumber": "5", "OverlapPercent": "5"},
+    **{f"wentry{tf}": {**M20, "WatTF": str(tf), "WatEntry": "true"} for tf in (15, 60)},   # Ramil: buy only while WAT is green
+    **{f"wcut{k}_{tf}": {**M20, "WatTF": str(tf), "WatCutLevel": str(k)} for tf in (15, 60) for k in (3, 5)},   # cut when WAT turns
+    "wboth3_15": {**M20, "WatTF": "15", "WatEntry": "true", "WatCutLevel": "3"},
+}
+
 YEARS10 = [(2016, "2016.01.04", "2017.01.01", "20160101"), (2017, "2017.01.02", "2018.01.01", "20170101"),
            (2018, "2018.01.02", "2019.01.01", "20180101")] + YEARS
 
@@ -148,11 +158,14 @@ def job(y, f, t, ff, tag, extra, r="1"):
     if r in ("8", "10", "12", "13", "15"): j.update(expert=r"Jev\DragonClone_v12.ex5", base_set="dcv12_2d.set")   # dcv12_2d.set = dcv11_2d.set + LevelStopK=0
     if r in ("11", "17"): j.update(expert=r"Jev\DragonClone_v13.ex5", base_set="dcv13_2d.set")   # dcv13_2d.set = dcv12_2d.set + StochRule=1, StochBar=1
     if r == "20": j.update(expert=r"Jev\DragonClone_v14.ex5", base_set="dcv14_2d.set")   # dcv14_2d.set = dcv13_2d.set + Martin2_=0, Martin2From=6
+    if r == "21": j.update(expert=r"Jev\DragonClone_v15.ex5", base_set="dcv15_2d.set")   # dcv15_2d.set = dcv14_2d.set + BeFromLevel=0 ... WatLog=false
     return j
 
 if __name__ == "__main__":
     r = sys.argv[1] if len(sys.argv) > 1 else "1"
-    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2, "3": CFG3, "4": CFG4, "5": CFG5, "6": CFG6, "7": CFG7, "8": CFG8, "10": CFG10, "11": CFG11, "12": CFG12, "13": CFG13, "15": CFG15, "17": CFG17, "20": CFG20}[r].items() for yr in (YEARS10 if r == "20" else YEARS)
+    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2, "3": CFG3, "4": CFG4, "5": CFG5, "6": CFG6, "7": CFG7, "8": CFG8, "10": CFG10, "11": CFG11, "12": CFG12, "13": CFG13, "15": CFG15, "17": CFG17, "20": CFG20, "21": CFG21}[r].items() for yr in (YEARS10 if r in ("20", "21") else YEARS)
          if not (tag == "sanity" and yr[0] != 2020)]   # sanity: all new flags off must equal v7_rf2020_d24ntop exactly
+    if r == "21":   # WAT colour check first: 2 months of 2020, H1 colour log, no trading change
+        c = job(2020, "2020.01.02", "2020.03.01", "20200101", "watcheck", {**M20, "WatTF": "60", "WatLog": "true"}, r); q.insert(0, c)
     json.dump(q, open(f"research/bd1/q_every{r}.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(len(q), "jobs", [(j["report"], j["from"], j["to"]) for j in q[:7]])
