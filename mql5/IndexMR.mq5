@@ -76,9 +76,10 @@ void OnTick()
    if(in && close > Sma(c, n, SmaExit)) { CloseAll(); return; }
    if(!in && r < RsiLevel && close > Sma(c, n, SmaLong))
      {
-      double cs = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_CONTRACT_SIZE), st = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_STEP);
-      double ask = SymbolInfoDouble(_Symbol, SYMBOL_ASK);
-      double lot = MathFloor(AccountInfoDouble(ACCOUNT_EQUITY) * Notional / (ask * cs) / st) * st;
+      // notional of 1 lot in the account currency (via tick value, so JPY/EUR-quoted indices are converted)
+      double st = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_STEP), ask = SymbolInfoDouble(_Symbol, SYMBOL_ASK);
+      double tv = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_VALUE), ts = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_SIZE);
+      double lot = MathFloor(AccountInfoDouble(ACCOUNT_EQUITY) * Notional / (ask / ts * tv) / st) * st;
       lot = MathMin(MathMax(lot, SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MIN)), SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MAX));
       trade.Buy(lot, _Symbol, 0, 0, 0, "IndexMR");
      }
