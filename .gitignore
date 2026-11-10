@@ -17,3 +17,4 @@ data/
 # Third-party EA binaries and settings - never commit (public repo)
 bots/
 .pylib/
+.claude/settings.local.json
