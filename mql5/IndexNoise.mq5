@@ -19,6 +19,8 @@ input double Lots      = 1.0;    // used when TargetVol = 0
 input double TargetVol = 0.0;    // annual vol target of the rule (0.10 = the sim); 0 = fixed Lots
 input double CostPct   = 0.015;  // per position change, % of notional, in the sizing returns (as the sim: 0.01% + 0.005%)
 input long   Magic     = 7302;
+input bool   DstFix    = true;   // US/EU DST-mismatch weeks: the window moves one server hour earlier (same NY time).
+                                 // Grok review 10.11 + docs/SCAN_PLAN.md round 2 (P1): tick volume peak moves 16 -> 15
 
 CTrade tr;
 datetime lastBar = 0, sizedDay = 0;
@@ -26,6 +28,20 @@ double dayLots = 0;
 MqlRates R[]; int N = 0;
 
 datetime Day(datetime t) { return t - t % 86400; }
+
+datetime MkDate(int y, int m, int d) { MqlDateTime s = {}; s.year = y; s.mon = m; s.day = d; return StructToTime(s); }
+int      Dow(datetime t) { MqlDateTime s; TimeToStruct(t, s); return s.day_of_week; }          // 0 = Sunday
+datetime FirstSun(int y, int m, int d0) { datetime t = MkDate(y, m, d0); return t + ((7 - Dow(t)) % 7) * 86400; }
+datetime LastSun(int y, int m) { datetime t = MkDate(y, m + 1, 1) - 86400; return t - Dow(t) * 86400; }
+// -1 in the weeks when the US is on summer time and Europe is not (March) or Europe left it before the US (Oct/Nov)
+int Sh(datetime d)
+{
+   if(!DstFix) return 0;
+   MqlDateTime s; TimeToStruct(d, s); int y = s.year;
+   if((d >= FirstSun(y, 3, 8) && d < LastSun(y, 3)) || (d >= LastSun(y, 10) && d < FirstSun(y, 11, 1))) return -1;
+   return 0;
+}
+int OH(datetime d) { return OpenHour + Sh(d); }   // the day's open bar; check j is bar OH(d)+j, exit bar OH(d)+ExitHour-OpenHour
 
 // index of the bar of day d and hour k in R, or -1 (R is sorted by time)
 int Bar(datetime d, int k)
@@ -39,30 +55,30 @@ int Bar(datetime d, int k)
 // a complete trading day: the open bar, every check bar and the exit bar exist
 bool Full(datetime d)
 {
-   for(int k = OpenHour; k <= ExitHour; k++) if(Bar(d, k) < 0) return false;
+   for(int j = 0; j <= ExitHour - OpenHour; j++) if(Bar(d, OH(d) + j) < 0) return false;
    return true;
 }
 
-// noise sigma for hour k and the previous day's exit close, from the Lookback full days before d
-bool Noise(datetime d, int k, double &sig, double &prev)
+// noise sigma for check j (j hours after the open bar) and the previous day's exit close, from the Lookback full days before d
+bool Noise(datetime d, int j, double &sig, double &prev)
 {
    double sum = 0; int m = 0; prev = 0;
    for(datetime e = d - 86400; e > d - 86400 * (Lookback * 2 + 14) && m < Lookback; e -= 86400)
    {
       if(!Full(e)) continue;
-      if(prev == 0) prev = R[Bar(e, ExitHour)].close;
-      sum += MathAbs(R[Bar(e, k)].close / R[Bar(e, OpenHour)].open - 1); m++;
+      if(prev == 0) prev = R[Bar(e, OH(e) + ExitHour - OpenHour)].close;
+      sum += MathAbs(R[Bar(e, OH(e) + j)].close / R[Bar(e, OH(e))].open - 1); m++;
    }
    sig = m == Lookback ? sum / m : 0;
    return m == Lookback && prev > 0;
 }
 
-// the position the rule wants at the close of check bar k on day d (0 when the data is missing)
-int Want(datetime d, int k)
+// the position the rule wants at the close of check j on day d (0 when the data is missing)
+int Want(datetime d, int j)
 {
-   int io = Bar(d, OpenHour), ik = Bar(d, k);
+   int io = Bar(d, OH(d)), ik = Bar(d, OH(d) + j);
    if(io < 0 || ik < 0) return 0;
-   double s, prev; if(!Noise(d, k, s, prev)) return 0;
+   double s, prev; if(!Noise(d, j, s, prev)) return 0;
    double o = R[io].open, c = R[ik].close;
    if(c > MathMax(o, prev) * (1 + s)) return 1;
    if(c < MathMin(o, prev) * (1 - s)) return -1;
@@ -73,14 +89,14 @@ int Want(datetime d, int k)
 double DayRet(datetime d)
 {
    if(!Full(d)) return 0;
-   double s, prev; if(!Noise(d, OpenHour, s, prev)) return 0;
+   double s, prev; if(!Noise(d, 0, s, prev)) return 0;
    int q = 0; double r = 0, last = 0;
-   for(int k = OpenHour; k <= ExitHour; k++)
+   for(int j = 0; j <= ExitHour - OpenHour; j++)
    {
-      double c = R[Bar(d, k)].close;
+      double c = R[Bar(d, OH(d) + j)].close;
       if(last > 0 && q != 0) r += q * (c / last - 1);
       last = c;
-      int nq = k == ExitHour ? 0 : Want(d, k);
+      int nq = j == ExitHour - OpenHour ? 0 : Want(d, j);
       r -= MathAbs(nq - q) * CostPct / 100; q = nq;
    }
    return r;
@@ -100,7 +116,7 @@ double SizeFor(datetime d)
    for(int i = 0; i < m; i++) v += (x[i] - mu) * (x[i] - mu);
    double vol = MathSqrt(v / (m - 1)) * MathSqrt(260); if(vol <= 0) return 0;
    double lev = MathMin(5.0, TargetVol / vol);
-   int io = Bar(d, OpenHour); if(io < 0) return 0;
+   int io = Bar(d, OH(d)); if(io < 0) return 0;
    double cs = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_CONTRACT_SIZE), st = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_STEP);
    double lots = MathFloor(lev * AccountInfoDouble(ACCOUNT_EQUITY) / (R[io].open * cs) / st) * st;
    return MathMin(lots, SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MAX));
@@ -160,23 +176,25 @@ void OnTick()
    // missing, and before an early end of the trade session
    MqlDateTime now; TimeToStruct(TimeCurrent(), now);
    int left = SessionLeft();
-   if(Pos() != 0 && (now.hour > ExitHour || now.hour < OpenHour || (left >= 0 && left <= 10))) { Flat(); return; }
+   int sn = Sh(Day(TimeCurrent()));
+   if(Pos() != 0 && (now.hour > ExitHour + sn || now.hour < OpenHour + sn || (left >= 0 && left <= 10))) { Flat(); return; }
    datetime b = iTime(_Symbol, PERIOD_H1, 0);
    if(b == lastBar) return;
    N = CopyRates(_Symbol, PERIOD_H1, 1, 24 * 220, R);   // R[N-1] = the bar that just closed
    if(N < 24 * 30) return;
-   MqlDateTime t; TimeToStruct(R[N - 1].time, t); int k = t.hour;
+   MqlDateTime t; TimeToStruct(R[N - 1].time, t);
    datetime d = Day(R[N - 1].time);
+   int j = t.hour - OH(d);                                                   // checks are counted from the day's open bar
    bool done = true;
-   if(k == ExitHour || d != Day(b)) done = Flat();                          // the day's exit (or a new day began)
-   else if(k >= OpenHour && k <= LastCheck)
+   if(j == ExitHour - OpenHour || d != Day(b)) done = Flat();               // the day's exit (or a new day began)
+   else if(j >= 0 && j <= LastCheck - OpenHour)
    {
       if(R[N - 1].time != b - 3600) done = Pos() == 0 || Flat();           // a gap: the check bar is stale, do not enter
       else if(left >= 0 && left <= 70) done = Flat();                       // the session ends before the next check
       else
       {
          if(sizedDay != d) { dayLots = SizeFor(d); sizedDay = d; }
-         done = Go(Want(d, k));
+         done = Go(Want(d, j));
       }
    }
    if(done) lastBar = b;                                                    // otherwise the same bar is retried next tick
