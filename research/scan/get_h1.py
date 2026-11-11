@@ -9,7 +9,7 @@ TERM = r"C:\MT5_JEV_TEST\terminal64.exe"
 OUT = "data/derived/scan/h1"
 SKIP_FX = 31   # the first 31 rows of ecn_costs are FX and metals
 
-syms = pd.read_csv("data/derived/ecn_costs_20261030.csv").symbol.tolist()[SKIP_FX:]
+syms = sys.argv[1:] or pd.read_csv("data/derived/ecn_costs_20261030.csv").symbol.tolist()[SKIP_FX:]   # optional: symbols on the command line
 sys.path.insert(0, "tools")
 from collect_history import load_account
 acc = load_account("accounts.json", "Bots ECN demo")       # demo account; credentials are never printed
