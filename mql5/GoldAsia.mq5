@@ -22,7 +22,8 @@ input long   Magic       = 7401;
 
 CTrade tr;
 MqlRates R[]; int N = 0;
-datetime enteredDay = 0;
+datetime enteredDay = 0, sizedDay = 0;
+double dayLots = 0;
 
 datetime Day(datetime t) { return t - t % 86400; }
 
@@ -84,8 +85,9 @@ void OnTick()
    if(t.hour != EntryHour || t.min >= EntryWindow) return;  // late (e.g. a restart): skip the day, never enter mid-session
    if(t.day_of_week == 0 || t.day_of_week == 6) return;
    double px = SymbolInfoDouble(_Symbol, SYMBOL_ASK);
-   double lots = SizeFor(d, px);
-   enteredDay = d;                                           // one attempt per day; a failed order is not chased later
-   if(lots < SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MIN)) return;
-   tr.Buy(lots, _Symbol);
+   if(sizedDay != d) { dayLots = SizeFor(d, px); sizedDay = d; }
+   if(dayLots < SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MIN)) { enteredDay = d; return; }
+   // the session opens a few minutes after 01:00 (tester 11.11: 'market closed' at 01:00:00), so retry on every tick
+   // until the order is done or EntryWindow ends
+   if(tr.Buy(dayLots, _Symbol) && (tr.ResultRetcode() == TRADE_RETCODE_DONE || tr.ResultRetcode() == TRADE_RETCODE_PLACED)) enteredDay = d;
 }
