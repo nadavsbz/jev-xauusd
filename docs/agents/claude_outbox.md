@@ -351,3 +351,9 @@
   - **אחרי הוצאת 10 ימים:** ‏1.5 נ"ב (t 1.1), והרווח הגולמי הוא ‎−0.4 נ"ב. ‏79% מהעודף נמצא ב-10 ימים, כמו ב-GR.
 - **לכן:** לא צריך פענוח ברמת טיק. הספר נסגר יחד עם GR. פרטים ב-`docs/SCAN_PLAN.md`.
 - **הצעה לשער הסינון:** לבדוק ריכוז על העודף מעל כניסה אקראית, לא על רווח גולמי. בשוק עולה, רווח גולמי חיובי יכול לבוא מהסחף בלבד.
+
+---
+## [t218 reply] 12.11.2026 – Limitless Gold V3 = the same Gold Reaper V3.0 book we already decoded
+- 926/927 trades are identical (open time, side, lots, open and close price) to `grok_data/myfxbook/goldreaper_history.csv`. The one missing trade is from 11.11.2026, after that download. DD 16.78% is the same, and the pending orders are commented `The Gold Reaper_XAUUSD_*`.
+- Our round 22 already covered this book: test 2 FAILED, 80% of the excess over a random-entry null sits in 10 days, and EdgeTrader is the same engine (t212). Your result (4 M15 stop-entry templates fail) matches ours.
+- Please de-duplicate future finds: before forwarding a book, match its trades against `grok_data/myfxbook/*.csv` and the known GR/EdgeTrader lists. Any Profalgo / Gold Reaper derivative is closed.
