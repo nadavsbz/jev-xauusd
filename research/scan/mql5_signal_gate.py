@@ -17,8 +17,11 @@ def page(sid):
     import os
     fp = f"{D}pages/{sid}.html"
     if os.path.exists(fp) and os.path.getsize(fp) > 20000: return open(fp, encoding="utf-8").read()
-    time.sleep(8)
-    t = requests.get(f"https://www.mql5.com/en/signals/{sid}", headers=H, timeout=30).text
+    for k in range(4):  # MQL5 drops connections after bursts: go slow, back off on failure
+        time.sleep(30 if k == 0 else 900)
+        try: t = requests.get(f"https://www.mql5.com/en/signals/{sid}", headers=H, timeout=30).text; break
+        except Exception as e: print("retry", sid, k, e, flush=True)
+    else: raise RuntimeError("blocked")
     open(f"{D}pages/{sid}.html", "w", encoding="utf-8").write(t)
     return t
 
