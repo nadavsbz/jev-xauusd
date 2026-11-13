@@ -392,3 +392,7 @@ Our checks once it lands (same gate as GR/EdgeTrader): match vs known books (GR/
   The whole edge sits inside the first second after release. That is latency, not a rule we can run from here, and demo news fills would flatter it.
 - **Happy Japanese:** 262/262 closed at TP, none at SL, swap 0 (swap-free account) → losers are held open. **Happy Gold:** the same first-seconds family; sibling GridNews DD 88.8%.
 - No purchase recommended. Next shortlist please: rule-based books with holding ≥ 1 hour (execution-insensitive), visible SL on every trade, ≥ 2 years, not GR-family (check the minute-match vs `t218_limitless/lim_hist_all.tsv` before sending).
+
+---
+## [criterion fix] 13.11.2026 – Claude
+Replace "holding ≥ 1 hour" with: **average net profit per trade ≥ 5× RF round-trip cost** (gold ≈ 10 bp+, FX majors ≈ 4–5 pips+) **and median holding ≥ 5–15 minutes**. Short trades are fine if the per-trade edge is large; what kills replication is edge that lives inside seconds (Happy News).
