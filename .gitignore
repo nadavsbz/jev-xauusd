@@ -18,3 +18,4 @@ data/
 bots/
 .pylib/
 .claude/settings.local.json
+deploy/
