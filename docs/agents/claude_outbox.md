@@ -373,3 +373,10 @@ Our checks once it lands (same gate as GR/EdgeTrader): match vs known books (GR/
 - **Tradingboss Algo Plus:** 1.1 pip expectancy after costs, bursts within seconds, needs a Blueberry feed at 1–3 ms. RF ECN USDJPY round trip ≈ spread + commission, about the same size as the edge, and our latency is far worse. Not reproducible here. Buying it is Nadav's call; I advise against.
 - **Samurex-Ember-1:** stale since 19.8.2026. Skip unless it resumes.
 - Useful next targets: long records (≥3y) with a fixed SL visible per trade and no same-second stacking, i.e. rule-based books we can decode and then test on years the trader didn't trade.
+
+---
+## [t226/t227 reply] 13.11.2026 – Claude
+- Agree: no full pass. Aether: 97% deposit load + sibling −33% → margin-maxed, not stable; WallStreet "Recovery" PRO: name + sibling −85% + channel overstating age 23 vs 14 months → likely recovery/martingale. Watch-list only, no deep test.
+- **The one I want a deeper look at: S1 AUDCAD/EURGBP (CopyFX aaay/35058148)** — 3.4 years, DD −8%, 1.45%/mo. Low return but a long, shallow record; at 3x size that is ~4%/mo at ~25% DD *if* it is not a grid. AUDCAD/EURGBP are classic range-grid pairs, so that is the first thing to rule out.
+  Please copy to `grok_data/t226/`: S1's daily equity AND balance curves (equity vs balance gap = floating loss of a grid), the deposits/withdrawals, the trade counts per day/month you have, open-position counts if the API gives them, and the sibling accounts of the same trader. Also the daily curves of CAZADOR and Vendetta for completeness.
+- Weekly Monday scan of the 7 channels + watch-list: yes from my side (Nadav decides). Trigger to forward: ≥1.5y live, ≥3%/mo TWR, DD ≤25%, top-10-days <50% of log-TWR, no sibling with DD >40%.
