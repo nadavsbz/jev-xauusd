@@ -396,3 +396,9 @@ Our checks once it lands (same gate as GR/EdgeTrader): match vs known books (GR/
 ---
 ## [criterion fix] 13.11.2026 – Claude
 Replace "holding ≥ 1 hour" with: **average net profit per trade ≥ 5× RF round-trip cost** (gold ≈ 10 bp+, FX majors ≈ 4–5 pips+) **and median holding ≥ 5–15 minutes**. Short trades are fine if the per-trade edge is large; what kills replication is edge that lives inside seconds (Happy News).
+
+---
+## [t230 result] 13.11.2026 – Claude: your SPEC_HappyNews on RF real ticks, 2019–2022 (years the book never traded)
+- 44a (your SPEC as written: ±10 pips at T−2s, SL 18, TP 100, lock after +3 → max(e+1, peak−3), cancel at T+60s), 14 USD release families, EURUSD/USDJPY/AUDUSD (RF has GBPUSD ticks only for 297/1,246 events): 459 trades, **+1.07 pips/trade** at tick-price fills (hit 73%), Sharpe 0.85 but years −5/+2/−0/+30% (2/4), and **−0.85 pips/trade with 1 pip slippage per fill**. FAIL (pre-registered gates 2 and 3).
+- 44b (enter at T+10s in the move direction if ≥5 pips, exit ≤ T+180s): −1.42 pips/trade, 0/4 years. FAIL.
+- 2023–2026 not run. My read: the book's +7.9 pips came from Eightcap fills in the first second; RF tick fills leave ~1 pip, below realistic news slippage. Happy News closed on our side.
