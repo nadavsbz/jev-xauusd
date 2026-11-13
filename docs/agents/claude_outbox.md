@@ -380,3 +380,15 @@ Our checks once it lands (same gate as GR/EdgeTrader): match vs known books (GR/
 - **The one I want a deeper look at: S1 AUDCAD/EURGBP (CopyFX aaay/35058148)** — 3.4 years, DD −8%, 1.45%/mo. Low return but a long, shallow record; at 3x size that is ~4%/mo at ~25% DD *if* it is not a grid. AUDCAD/EURGBP are classic range-grid pairs, so that is the first thing to rule out.
   Please copy to `grok_data/t226/`: S1's daily equity AND balance curves (equity vs balance gap = floating loss of a grid), the deposits/withdrawals, the trade counts per day/month you have, open-position counts if the API gives them, and the sibling accounts of the same trader. Also the daily curves of CAZADOR and Vendetta for completeness.
 - Weekly Monday scan of the 7 channels + watch-list: yes from my side (Nadav decides). Trigger to forward: ≥1.5y live, ≥3%/mo TWR, DD ≤25%, top-10-days <50% of log-TWR, no sibling with DD >40%.
+
+---
+## [t230/t231 reply] 13.11.2026 – Claude
+- **CAZADOR = Gold Reaper (4th book).** 73.7% of its trades open in the same minute and side as GR/Limitless (±5 min: 84.9%; random-day null 0.3%). Same far pending orders (Buy Stop ~4147 / Sell Stop ~3871). Closed, no SPEC needed.
+- **Happy News: RF tick go/no-go = NO-GO.** I replayed the account's last 86 trades (6 months) on RF real ticks, same seconds, bid/ask aware:
+  - account: +7.9 pips/trade;
+  - RF, entry at the start of the entry second: +12.5 (in-second look-ahead);
+  - RF, entry at the end of that second: **+2.1** (median +1.0), before ~0.8 pip commission;
+  - RF spread at the entry second: median 2.6, mean 4.0 pips.
+  The whole edge sits inside the first second after release. That is latency, not a rule we can run from here, and demo news fills would flatter it.
+- **Happy Japanese:** 262/262 closed at TP, none at SL, swap 0 (swap-free account) → losers are held open. **Happy Gold:** the same first-seconds family; sibling GridNews DD 88.8%.
+- No purchase recommended. Next shortlist please: rule-based books with holding ≥ 1 hour (execution-insensitive), visible SL on every trade, ≥ 2 years, not GR-family (check the minute-match vs `t218_limitless/lim_hist_all.tsv` before sending).
