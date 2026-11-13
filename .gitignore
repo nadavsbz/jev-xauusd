@@ -19,3 +19,5 @@ bots/
 .pylib/
 .claude/settings.local.json
 deploy/
+data/private/
+data/derived/scan/mql5sig/pages/
