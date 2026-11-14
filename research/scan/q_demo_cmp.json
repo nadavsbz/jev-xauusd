@@ -1,0 +1,8 @@
+[
+ {"name": "Robo ECN demo", "symbol": "BTCUSD", "period": "H1", "deposit": 40000, "leverage": 100, "model": 4,
+  "base_set": "c1_ecn_x15.set", "expert": "Jev\\CryptoTrend_C1.ex5", "from": "2026.11.01", "to": "2026.11.11",
+  "report": "demo_cmp_c1_1111", "overrides": {}},
+ {"name": "Robo ECN demo", "symbol": ".USTECHCash", "period": "H1", "deposit": 40000, "leverage": 100, "model": 4,
+  "base_set": "nasdaq_ecn_x15.set", "expert": "Jev\\IndexNoise.ex5", "from": "2026.11.01", "to": "2026.11.11",
+  "report": "demo_cmp_nq_1111", "overrides": {}}
+]

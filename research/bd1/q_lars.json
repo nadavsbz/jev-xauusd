@@ -1,0 +1,744 @@
+[
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2019.01.02",
+  "to": "2020.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_base_2019",
+  "overrides": {}
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2020.01.02",
+  "to": "2021.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_base_2020",
+  "overrides": {}
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2021.01.04",
+  "to": "2022.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_base_2021",
+  "overrides": {}
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2022.01.03",
+  "to": "2023.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_base_2022",
+  "overrides": {}
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2023.01.02",
+  "to": "2024.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_base_2023",
+  "overrides": {}
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_base_2024",
+  "overrides": {}
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2025.01.02",
+  "to": "2025.10.24",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_base_2025",
+  "overrides": {}
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2019.01.02",
+  "to": "2020.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_m135_2019",
+  "overrides": {
+   "Martin_": "1.35"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2020.01.02",
+  "to": "2021.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_m135_2020",
+  "overrides": {
+   "Martin_": "1.35"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2021.01.04",
+  "to": "2022.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_m135_2021",
+  "overrides": {
+   "Martin_": "1.35"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2022.01.03",
+  "to": "2023.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_m135_2022",
+  "overrides": {
+   "Martin_": "1.35"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2023.01.02",
+  "to": "2024.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_m135_2023",
+  "overrides": {
+   "Martin_": "1.35"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_m135_2024",
+  "overrides": {
+   "Martin_": "1.35"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2025.01.02",
+  "to": "2025.10.24",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_m135_2025",
+  "overrides": {
+   "Martin_": "1.35"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2019.01.02",
+  "to": "2020.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_nc0_2019",
+  "overrides": {
+   "NewCycle_": "false"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2020.01.02",
+  "to": "2021.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_nc0_2020",
+  "overrides": {
+   "NewCycle_": "false"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2021.01.04",
+  "to": "2022.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_nc0_2021",
+  "overrides": {
+   "NewCycle_": "false"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2022.01.03",
+  "to": "2023.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_nc0_2022",
+  "overrides": {
+   "NewCycle_": "false"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2023.01.02",
+  "to": "2024.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_nc0_2023",
+  "overrides": {
+   "NewCycle_": "false"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_nc0_2024",
+  "overrides": {
+   "NewCycle_": "false"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2025.01.02",
+  "to": "2025.10.24",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_nc0_2025",
+  "overrides": {
+   "NewCycle_": "false"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2019.01.02",
+  "to": "2020.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_mo8_2019",
+  "overrides": {
+   "MaxOrdersBuy": "8",
+   "MaxOrdersSell": "8"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2020.01.02",
+  "to": "2021.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_mo8_2020",
+  "overrides": {
+   "MaxOrdersBuy": "8",
+   "MaxOrdersSell": "8"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2021.01.04",
+  "to": "2022.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_mo8_2021",
+  "overrides": {
+   "MaxOrdersBuy": "8",
+   "MaxOrdersSell": "8"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2022.01.03",
+  "to": "2023.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_mo8_2022",
+  "overrides": {
+   "MaxOrdersBuy": "8",
+   "MaxOrdersSell": "8"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2023.01.02",
+  "to": "2024.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_mo8_2023",
+  "overrides": {
+   "MaxOrdersBuy": "8",
+   "MaxOrdersSell": "8"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_mo8_2024",
+  "overrides": {
+   "MaxOrdersBuy": "8",
+   "MaxOrdersSell": "8"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2025.01.02",
+  "to": "2025.10.24",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_mo8_2025",
+  "overrides": {
+   "MaxOrdersBuy": "8",
+   "MaxOrdersSell": "8"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2019.01.02",
+  "to": "2020.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_a12k_2019",
+  "overrides": {
+   "Autolotsize_": "12000"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2020.01.02",
+  "to": "2021.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_a12k_2020",
+  "overrides": {
+   "Autolotsize_": "12000"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2021.01.04",
+  "to": "2022.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_a12k_2021",
+  "overrides": {
+   "Autolotsize_": "12000"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2022.01.03",
+  "to": "2023.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_a12k_2022",
+  "overrides": {
+   "Autolotsize_": "12000"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2023.01.02",
+  "to": "2024.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_a12k_2023",
+  "overrides": {
+   "Autolotsize_": "12000"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_a12k_2024",
+  "overrides": {
+   "Autolotsize_": "12000"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2025.01.02",
+  "to": "2025.10.24",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_a12k_2025",
+  "overrides": {
+   "Autolotsize_": "12000"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2019.01.02",
+  "to": "2020.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_stoh_2019",
+  "overrides": {
+   "Use_Stoh": "true",
+   "TF_Stoh": "0",
+   "Up_Level": "80",
+   "Down_Level": "20",
+   "KPeriod": "7"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2020.01.02",
+  "to": "2021.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_stoh_2020",
+  "overrides": {
+   "Use_Stoh": "true",
+   "TF_Stoh": "0",
+   "Up_Level": "80",
+   "Down_Level": "20",
+   "KPeriod": "7"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2021.01.04",
+  "to": "2022.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_stoh_2021",
+  "overrides": {
+   "Use_Stoh": "true",
+   "TF_Stoh": "0",
+   "Up_Level": "80",
+   "Down_Level": "20",
+   "KPeriod": "7"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2022.01.03",
+  "to": "2023.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_stoh_2022",
+  "overrides": {
+   "Use_Stoh": "true",
+   "TF_Stoh": "0",
+   "Up_Level": "80",
+   "Down_Level": "20",
+   "KPeriod": "7"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2023.01.02",
+  "to": "2024.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_stoh_2023",
+  "overrides": {
+   "Use_Stoh": "true",
+   "TF_Stoh": "0",
+   "Up_Level": "80",
+   "Down_Level": "20",
+   "KPeriod": "7"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_stoh_2024",
+  "overrides": {
+   "Use_Stoh": "true",
+   "TF_Stoh": "0",
+   "Up_Level": "80",
+   "Down_Level": "20",
+   "KPeriod": "7"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "lars_2d.set",
+  "from": "2025.01.02",
+  "to": "2025.10.24",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_stoh_2025",
+  "overrides": {
+   "Use_Stoh": "true",
+   "TF_Stoh": "0",
+   "Up_Level": "80",
+   "Down_Level": "20",
+   "KPeriod": "7"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "ramil_stoch_m30.set",
+  "from": "2019.01.02",
+  "to": "2020.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_ramilm30_2019",
+  "overrides": {}
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "ramil_stoch_m30.set",
+  "from": "2020.01.02",
+  "to": "2021.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_ramilm30_2020",
+  "overrides": {}
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "ramil_stoch_m30.set",
+  "from": "2021.01.04",
+  "to": "2022.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_ramilm30_2021",
+  "overrides": {}
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "ramil_stoch_m30.set",
+  "from": "2022.01.03",
+  "to": "2023.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_ramilm30_2022",
+  "overrides": {}
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "ramil_stoch_m30.set",
+  "from": "2023.01.02",
+  "to": "2024.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_ramilm30_2023",
+  "overrides": {}
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "ramil_stoch_m30.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_ramilm30_2024",
+  "overrides": {}
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 50000,
+  "leverage": 1000,
+  "base_set": "ramil_stoch_m30.set",
+  "from": "2025.01.02",
+  "to": "2025.10.24",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "report": "lars_ramilm30_2025",
+  "overrides": {}
+ }
+]

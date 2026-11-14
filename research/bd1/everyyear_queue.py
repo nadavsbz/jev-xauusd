@@ -1,0 +1,171 @@
+"""'Profitable every year' round 1 (docs/BD_EVERYYEAR_PLAN.md, pre-registered 29.10.2026). Diagnosis (research/bd1/oos_diag.py):
+on RoboForex 2019-2025 the frozen d24ntop is positive only in 2024 and 2025; its normal closes earn +46%..+200% of the deposit a
+year, and 5-16 floor cuts of ~15% a year take it all back. Round 1: settings that should make the grid reach the floor less often
+(less money per point, fewer or wider levels, a softer martingale) and the floor level itself, one at a time, on all 7 RF years.
+EGlobal 12/2025-10/2026 is NOT run in this round (holdout, with the demo).
+Round 2: logic flags already in the code (D1 EMA context, basket stop, crash pause, one side at a time).
+Usage: python research/bd1/everyyear_queue.py [ROUND=1] -> research/bd1/q_every<ROUND>.json"""
+import sys
+import json
+
+YEARS = [(y, f"{y}.01.0{2 if y != 2021 else 4}", f"{y + 1}.01.01" if y < 2025 else "2025.10.24", f"{y}0101") for y in range(2019, 2026)]
+YEARS = [(y, "2022.01.03" if y == 2022 else f, t, ff) for y, f, t, ff in YEARS]
+CFG = {
+    "alot12k": {"Autolotsize_": "12000"},
+    "alot24k": {"Autolotsize_": "24000"},
+    "maxo7": {"MaxOrdersBuy": "7", "MaxOrdersSell": "7"},
+    "mart13": {"Martin_": "1.3"},
+    "dist15": {"Fix_Distance": "450", "Dynamic_distance_start": "300"},
+    "dist2": {"Fix_Distance": "600", "Dynamic_distance_start": "400"},
+    "wideall": {"iTS": "90", "Fix_Distance": "350", "Dynamic_distance_start": "150", "Distance_multiplier": "1.0"},
+    "floor8": {"G_FloorPct": "8"},
+    "floor25": {"G_FloorPct": "25"},
+    "alot12k_maxo7": {"Autolotsize_": "12000", "MaxOrdersBuy": "7", "MaxOrdersSell": "7"},
+}
+
+CFG2 = {
+    "ctx20": {"G_Context": "true", "G_ContextEma": "20"},
+    "ctx50": {"G_Context": "true", "G_ContextEma": "50"},
+    "ctx200": {"G_Context": "true", "G_ContextEma": "200"},
+    "bstop5": {"G_BasketStopPct": "5"},
+    "bstop8": {"G_BasketStopPct": "8"},
+    "crash": {"G_Crash": "true"},
+    "nohedge": {"Flag_Use_hedge": "false"},
+    "ctx50_alot24k": {"G_Context": "true", "G_ContextEma": "50", "Autolotsize_": "24000"},
+}
+
+# round 3: v10 code (research/bd1/make_v10.py). Trend thresholds calibrated on XAUUSD D1 2019-2025 before any run: flagged days
+# per year 5d x1.5 ~25-35%, 5d x2 ~16-23%, 10d x3 ~12-21%, 20d x4 ~12-32%
+T5 = {"TrendDays": "5", "TrendK": "2.0"}
+CFG3 = {
+    "sanity": {},
+    "fp3": {"FloorPauseDays": "3"}, "fp7": {"FloorPauseDays": "7"}, "fp14": {"FloorPauseDays": "14"},
+    "tr5k15": {"TrendDays": "5", "TrendK": "1.5"}, "tr5k2": T5,
+    "tr10k3": {"TrendDays": "10", "TrendK": "3.0"}, "tr20k4": {"TrendDays": "20", "TrendK": "4.0"},
+    "tr5k2_adds": {**T5, "TrendBlockAdds": "true"}, "tr5k2m2": {**T5, "TrendMode": "2"},
+    "fp7_tr5k2_adds": {"FloorPauseDays": "7", **T5, "TrendBlockAdds": "true"},
+}
+
+# round 4: v11 code (research/bd1/make_v11.py) - C1 ideas inside BD (user 30.10.2026)
+CFG4 = {
+    "sanity": {},
+    "dn1": {"DonchMode": "1"}, "dn2": {"DonchMode": "2"},
+    "dd75": {"DDScalePct": "7.5"},
+    "dn2_dd75": {"DonchMode": "2", "DDScalePct": "7.5"},
+}
+
+# round 5: the 'half-drop' lot scaling was the only v11 idea that helped (round 4): earlier and deeper scaling
+CFG5 = {
+    "dd5": {"DDScalePct": "5"},
+    "dd75q": {"DDScalePct": "7.5", "DDScaleMult": "0.25"},
+    "dd5q": {"DDScalePct": "5", "DDScaleMult": "0.25"},
+}
+
+CFG6 = {   # round 6 (31.10.2026): earlier / deeper lot cuts, and a longer pause after a floor cut, around dd5q
+    "dd3q": {"DDScalePct": "3", "DDScaleMult": "0.25"},
+    "dd5t": {"DDScalePct": "5", "DDScaleMult": "0.1"},
+    "dd5q_fd30": {"DDScalePct": "5", "DDScaleMult": "0.25", "G_FloorDays": "30"},
+}
+
+CFG7 = {   # round 7 (2.11.2026): sell baskets only - by side, BUY baskets lost in 6/7 (d24ntop) and 5/7 (dd5q) RF years
+    "so": {"Flag_Trade_Buy_": "false"},
+    "so_dd5q": {"Flag_Trade_Buy_": "false", "DDScalePct": "5", "DDScaleMult": "0.25"},
+}
+
+CFG8 = {   # round 8 (7.11.2026, docs/CRASH_LINK_PLAN.md): v12 LevelStopK - close the basket where level k+1 would open (user idea)
+    "sanity": {},
+    "ls3": {"LevelStopK": "3"},
+    "ls4": {"LevelStopK": "4"},
+    "ls5": {"LevelStopK": "5"},
+}
+
+CFG10 = {   # round 10 (7.11.2026, docs/CRASH_LINK_PLAN.md): fresh dd5q (tester data changed since 30.10) and the live MaxSpred
+    "dd5q": {"DDScalePct": "5", "DDScaleMult": "0.25"},
+    "ms20": {"MaxSpred": "20"},
+    "ms20_dd5q": {"MaxSpred": "20", "DDScalePct": "5", "DDScaleMult": "0.25"},
+    "h1218": {"Start_Hour": "12", "End_Hour": "18"},   # the 12-18 window that beat its base every year (4.11.2026, d6h_rf*_h12_18)
+    "h1218_dd5q": {"Start_Hour": "12", "End_Hour": "18", "DDScalePct": "5", "DDScaleMult": "0.25"},
+}
+
+ST = {"Use_Stoh": "true", "TF_Stoh": "0", "Up_Level": "80", "Down_Level": "20", "KPeriod": "7"}   # Lars set + Ramil's Stochastic
+CFG11 = {   # round 11 (8.11.2026, docs/CRASH_LINK_PLAN.md): v13 Stochastic filter in the clone with the floor guard; runs only if v13 passed validation
+    "st": dict(ST),
+    "st_dd5q": {**ST, "DDScalePct": "5", "DDScaleMult": "0.25"},
+    "st_ms20": {**ST, "MaxSpred": "20"},
+}
+
+CFG12 = {   # round 12 (8.11.2026, docs/CRASH_LINK_PLAN.md): ms20 and h1218 each gave 5/7 in round 10 - together, and how robust each one is
+    "ms20_h1218": {"MaxSpred": "20", "Start_Hour": "12", "End_Hour": "18"},
+    "ms20_h1218_dd5q": {"MaxSpred": "20", "Start_Hour": "12", "End_Hour": "18", "DDScalePct": "5", "DDScaleMult": "0.25"},
+    "ms15": {"MaxSpred": "15"},
+    "ms30": {"MaxSpred": "30"},
+    "ms20_h1119": {"MaxSpred": "20", "Start_Hour": "11", "End_Hour": "19"},
+    "ms20_h1317": {"MaxSpred": "20", "Start_Hour": "13", "End_Hour": "17"},
+}
+
+CFG13 = {   # round 13 (8.11.2026): noise band - the same configuration with 3% of weekdays randomly off (seeds 1, 2): how much does a year move by chance?
+    **{f"base_rd{k}": {"RandDayPct": "3", "RandSeed": str(k)} for k in (1, 2)},
+    **{f"ms20_rd{k}": {"MaxSpred": "20", "RandDayPct": "3", "RandSeed": str(k)} for k in (1, 2)},
+    **{f"h1218_rd{k}": {"Start_Hour": "12", "End_Hour": "18", "RandDayPct": "3", "RandSeed": str(k)} for k in (1, 2)},
+}
+
+CFG15 = {   # round 15 (8.11.2026): noise band of the round-12 combinations, same design as round 13
+    **{f"ms20_h1119_rd{k}": {"MaxSpred": "20", "Start_Hour": "11", "End_Hour": "19", "RandDayPct": "3", "RandSeed": str(k)} for k in (1, 2)},
+    **{f"ms20_h1317_rd{k}": {"MaxSpred": "20", "Start_Hour": "13", "End_Hour": "17", "RandDayPct": "3", "RandSeed": str(k)} for k in (1, 2)},
+}
+
+H1119 = {"MaxSpred": "20", "Start_Hour": "11", "End_Hour": "19"}
+CFG17 = {   # round 17 (8.11.2026): the candidate ms20_h1119 - Stochastic on top (v13, exploratory: its gate failed), smaller lot, spread neighbours
+    "st_ms20_h1119": {**ST, **H1119},
+    "ms20_h1119_a8k": {**H1119, "Autolotsize_": "8000"},
+    "ms15_h1119": {**H1119, "MaxSpred": "15"},
+    "ms25_h1119": {**H1119, "MaxSpred": "25"},
+}
+
+M20 = {"MaxSpred": "20"}
+CFG20 = {   # round 20 (8.11.2026, user list): on the corrected base ms20, 10 RF years 2016-2025 (v14)
+    "sanity": dict(M20),                                                            # must equal ev10/ev18 ms20 (v12) exactly
+    **{f"ls{k}": {**M20, "LevelStopK": str(k)} for k in (6, 7, 8, 9)},              # close the basket at level k
+    **{f"lao{k}": {**M20, "LotAfterOverlap": str(k)} for k in (1, 3, 4)},           # recovery mode (30.7): lots after an Overlap
+    **{f"ml{k}": {**M20, "MaxLotMult": str(k)} for k in (6, 10, 15)},               # max lot = level-1 lot x k
+    "fd250": {**M20, "Fix_Distance": "250"}, "fd400": {**M20, "Fix_Distance": "400"},  # grid step levels 2-5 (now 3$)
+    "dds300": {**M20, "Dynamic_distance_start": "300"}, "dds400": {**M20, "Dynamic_distance_start": "400"},  # deep levels (now 2$ x1.2^)
+    "dm15": {**M20, "Distance_multiplier": "1.5"},
+    "m13": {**M20, "Martin_": "1.3"}, "m14": {**M20, "Martin_": "1.4"},
+    "m2d12": {**M20, "Martin2_": "1.2"}, "m2d10": {**M20, "Martin2_": "1.0"}, "m2u18": {**M20, "Martin2_": "1.8"},  # from level 7
+}
+CFG21 = {   # round 21 (9.11.2026, user: breakeven close, earlier Overlap, Ramil's WAT): on ms20, 10 RF years 2016-2025 (v15)
+    "sanity": dict(M20),                                                            # must equal ev20_rf2020_sanity (v14) exactly
+    **{f"be{k}": {**M20, "BeFromLevel": str(k), "BeMinPts": "10"} for k in (5, 6, 7)},   # deep basket closes at breakeven + $0.10
+    **{f"ovn{k}": {**M20, "OverlapOrderNumber": str(k)} for k in (4, 5, 6)},          # Overlap from fewer orders (now 7)
+    "ovn5p1": {**M20, "OverlapOrderNumber": "5", "OverlapPercent": "1"}, "ovn5p5": {**M20, "OverlapOrderNumber": "5", "OverlapPercent": "5"},
+    **{f"wentry{tf}": {**M20, "WatTF": str(tf), "WatEntry": "true"} for tf in (15, 60)},   # Ramil: buy only while WAT is green
+    **{f"wcut{k}_{tf}": {**M20, "WatTF": str(tf), "WatCutLevel": str(k)} for tf in (15, 60) for k in (3, 5)},   # cut when WAT turns
+    "wboth3_15": {**M20, "WatTF": "15", "WatEntry": "true", "WatCutLevel": "3"},
+}
+
+YEARS10 = [(2016, "2016.01.04", "2017.01.01", "20160101"), (2017, "2017.01.02", "2018.01.01", "20170101"),
+           (2018, "2018.01.02", "2019.01.01", "20180101")] + YEARS
+
+def job(y, f, t, ff, tag, extra, r="1"):
+    o = {"Autolot_": "true", "Autolotsize_": "6000", "G_FloorPct": "15", "G_FloorDays": "14", "P_At": "0", "G_FloorFrom": ff,
+         "DayOffMask": "24", "NewsFile": "news_top_rf.txt", **extra}
+    j = {"name": "Black Dragon 3", "symbol": "XAUUSD", "period": "M15", "deposit": 120000, "leverage": 1000,
+            "base_set": "dcv7_2d.set", "from": f, "to": t, "expert": r"Jev\DragonClone_v7.ex5",
+            "report": f"ev{r}_rf{y}_{tag}", "overrides": o}
+    if r == "3": j.update(expert=r"Jev\DragonClone_v10.ex5", base_set="dcv10_2d.set")
+    if r in ("4", "5", "6", "7"): j.update(expert=r"Jev\DragonClone_v11.ex5", base_set="dcv11_2d.set")
+    if r in ("8", "10", "12", "13", "15"): j.update(expert=r"Jev\DragonClone_v12.ex5", base_set="dcv12_2d.set")   # dcv12_2d.set = dcv11_2d.set + LevelStopK=0
+    if r in ("11", "17"): j.update(expert=r"Jev\DragonClone_v13.ex5", base_set="dcv13_2d.set")   # dcv13_2d.set = dcv12_2d.set + StochRule=1, StochBar=1
+    if r == "20": j.update(expert=r"Jev\DragonClone_v14.ex5", base_set="dcv14_2d.set")   # dcv14_2d.set = dcv13_2d.set + Martin2_=0, Martin2From=6
+    if r == "21": j.update(expert=r"Jev\DragonClone_v15.ex5", base_set="dcv15_2d.set")   # dcv15_2d.set = dcv14_2d.set + BeFromLevel=0 ... WatLog=false
+    return j
+
+if __name__ == "__main__":
+    r = sys.argv[1] if len(sys.argv) > 1 else "1"
+    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2, "3": CFG3, "4": CFG4, "5": CFG5, "6": CFG6, "7": CFG7, "8": CFG8, "10": CFG10, "11": CFG11, "12": CFG12, "13": CFG13, "15": CFG15, "17": CFG17, "20": CFG20, "21": CFG21}[r].items() for yr in (YEARS10 if r in ("20", "21") else YEARS)
+         if not (tag == "sanity" and yr[0] != 2020)]   # sanity: all new flags off must equal v7_rf2020_d24ntop exactly
+    if r == "21":   # WAT colour check first: 2 months of 2020, H1 colour log, no trading change
+        c = job(2020, "2020.01.02", "2020.03.01", "20200101", "watcheck", {**M20, "WatTF": "60", "WatLog": "true"}, r); q.insert(0, c)
+    json.dump(q, open(f"research/bd1/q_every{r}.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(len(q), "jobs", [(j["report"], j["from"], j["to"]) for j in q[:7]])

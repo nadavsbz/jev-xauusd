@@ -1,0 +1,22 @@
+[
+ {
+  "name": "Robo ECN demo",
+  "symbol": "BTCUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "c1.set",
+  "from": "2020.01.01",
+  "to": "2026.10.30",
+  "expert": "Jev\\CryptoTrend_C1.ex5",
+  "report": "c1_ecn_av075_full",
+  "model": 1,
+  "overrides": {
+   "Symbols": "BTCUSD,ETHUSD",
+   "RebalPct": "0.30",
+   "AssetVol": "0.075",
+   "DelayBars": "0",
+   "LongShare": "0.5"
+  }
+ }
+]
