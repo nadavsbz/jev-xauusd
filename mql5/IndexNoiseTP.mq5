@@ -20,7 +20,8 @@ input double TargetVol = 0.0;    // annual vol target of the rule (0.10 = the si
 input double CostPct   = 0.015;  // per position change, % of notional, in the sizing returns (as the sim: 0.01% + 0.005%)
 input long   Magic     = 7302;
 input bool   DstFix    = true;   // US/EU DST-mismatch weeks: the window moves one server hour earlier (same NY time).
-input double TPPct     = 1.25;   // research variant (SCAN_PLAN 14.11): take-profit, % of entry; after a TP the day stays flat. 0 = off
+input double TPPct     = 1.25;
+input double TrailPct  = 0;      // research: trailing stop, % below the best price since entry (armed once that far in profit); after it hits the day stays flat. 0 = off   // research variant (SCAN_PLAN 14.11): take-profit, % of entry; after a TP the day stays flat. 0 = off
                                  // Grok review 10.11 + docs/SCAN_PLAN.md round 2 (P1): tick volume peak moves 16 -> 15
 
 CTrade tr;
@@ -179,9 +180,26 @@ bool TPHit(datetime d)
    {
       ulong t = HistoryDealGetTicket(i);
       if(HistoryDealGetInteger(t, DEAL_MAGIC) == Magic && HistoryDealGetString(t, DEAL_SYMBOL) == _Symbol &&
-         HistoryDealGetInteger(t, DEAL_REASON) == DEAL_REASON_TP) return true;
+         (HistoryDealGetInteger(t, DEAL_REASON) == DEAL_REASON_TP || HistoryDealGetInteger(t, DEAL_REASON) == DEAL_REASON_SL)) return true;
    }
    return false;
+}
+
+// trailing stop: once price is TrailPct% beyond entry, keep SL TrailPct% behind the best price (only tightens)
+void Trail()
+{
+   for(int i = PositionsTotal() - 1; i >= 0; i--)
+   {
+      ulong t = PositionGetTicket(i);
+      if(t == 0 || PositionGetInteger(POSITION_MAGIC) != Magic || PositionGetString(POSITION_SYMBOL) != _Symbol) continue;
+      bool lg = PositionGetInteger(POSITION_TYPE) == POSITION_TYPE_BUY;
+      double e = PositionGetDouble(POSITION_PRICE_OPEN), sl = PositionGetDouble(POSITION_SL), tp = PositionGetDouble(POSITION_TP);
+      double px = lg ? SymbolInfoDouble(_Symbol, SYMBOL_BID) : SymbolInfoDouble(_Symbol, SYMBOL_ASK);
+      double k = TrailPct / 100.0;
+      if(lg ? px < e * (1 + k) : px > e * (1 - k)) continue;
+      double ns = NormalizeDouble(lg ? px * (1 - k) : px * (1 + k), _Digits);
+      if(sl == 0 || (lg ? ns > sl + _Point * 10 : ns < sl - _Point * 10)) tr.PositionModify(t, ns, tp);
+   }
 }
 
 int OnInit() { tr.SetExpertMagicNumber(Magic); return INIT_SUCCEEDED; }
@@ -194,6 +212,7 @@ void OnTick()
    int left = SessionLeft();
    int sn = Sh(Day(TimeCurrent()));
    if(Pos() != 0 && (now.hour > ExitHour + sn || now.hour < OpenHour + sn || (left >= 0 && left <= 10))) { Flat(); return; }
+   if(TrailPct > 0) Trail();
    datetime b = iTime(_Symbol, PERIOD_H1, 0);
    if(b == lastBar) return;
    N = CopyRates(_Symbol, PERIOD_H1, 1, 24 * 220, R);   // R[N-1] = the bar that just closed
@@ -210,7 +229,7 @@ void OnTick()
       else
       {
          if(sizedDay != d) { dayLots = SizeFor(d); sizedDay = d; }
-         done = Go(TPPct > 0 && TPHit(d) ? 0 : Want(d, j));
+         done = Go((TPPct > 0 || TrailPct > 0) && TPHit(d) ? 0 : Want(d, j));
       }
    }
    if(done) lastBar = b;                                                    // otherwise the same bar is retried next tick
