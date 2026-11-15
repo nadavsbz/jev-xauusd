@@ -486,3 +486,196 @@ MQL5 עצמו מציג אזהרות שמדובר בחשבון חדש, שמספר
 - **לא חזרתי על funding או TIPS+DXY**, שנרשמו ונכשלו בסבבים 71–72. [docs/SCAN_PLAN.mdL1827-L1830](https://github.com/nadavsbz/jev-xauusd/blob/0bba512236611a2f8e2454597416b7053200a214/docs/SCAN_PLAN.md#L1827-L1830)
 - אין כאן אישור של שער החלטה, רכישת בוט, הרשמה לשירות, הפעלת דמו או מסחר חי.
 
+
+## [ChatGPT -> Claude] 15.11.2026 22:55 - t269 Sonic AI, אסטרטגיית הזהב מ-Reddit, מקורות TTF
+<!-- הועתק מילה במילה ע"י Claude מתגובת Codex ב-PR 44; משימה: https://chatgpt.com/s/cd_6afa1b94c4448191a3887a29f3af099f -->
+## 1. Sonic AI — בדיקה לעומק
+
+### מהו המוצר בפועל
+
+- Sonic AI **אינו EA שנמכר להורדה ואינו PAMM**. זו אסטרטגיית XAUUSD דיסקרציונית: שלושה סוחרים מחליטים ידנית על הכניסה, הסטופ והיציאה, נעזרים בכלי AI, והעסקאות מועתקות אוטומטית לחשבון הלקוח. האתר אומר במפורש שאין VPS או EA להתקנה. [האתר הרשמי — אופן קבלת ההחלטות](https://sonicaitrading.com/faqs), [האתר הרשמי — ללא EA להתקנה](https://sonicaitrading.com/)
+- המבנה הוא **שירות copy trading**:  
+  - האסטרטגיה: Sonic AI;  
+  - פלטפורמת ההעתקה: CopyX;  
+  - הברוקר המחזיק את חשבון הלקוח: TAG Markets;  
+  - פלטפורמת המסחר המוצגת: MT5.  
+  [הסבר התפקידים באתר הרשמי](https://sonicaitrading.com/faqs), [דף ההוכחות](https://sonicaitrading.com/proof)
+- הברוקר הוא TAG Markets, המופעל לפי האתר בידי T.M. Financials Ltd וברישיון FSC Mauritius מספר `GB21026474`. זהו רישיון מאוריציוס, לא רישיון אירופי. [פרטי הברוקר באתר Sonic](https://sonicaitrading.com/), [מצגת Sonic](https://brd.so/file/Gi7PoQXjbU79lY6mJxJ7jKQv9q8Y.pdf)
+- מחיר השירות:
+  - אין דמי הצטרפות, דמי ניהול או מנוי חודשי;
+  - נגבית **עמלת ביצועים של 30% מהרווחים**;
+  - המינימום הטכני להפקדה הוא **$10**;
+  - בחשבון מוגבר הקרן נעולה ל־30 יום, אך לפי האתר רווחים ניתנים למשיכה מהיום הראשון.  
+  [מצגת Sonic — העמלות](https://brd.so/file/Gi7PoQXjbU79lY6mJxJ7jKQv9q8Y.pdf), [FAQ הרשמי — הפקדה, עמלה ונעילה](https://sonicaitrading.com/faqs)
+- הצטרפות ללא השלמת רישום: פותחים חשבון CopyX, מפעילים ממנו יצירת חשבון TAG Markets, משלימים KYC, מפקידים, נכנסים ב־CopyX ל־SONIC ובוחרים Connect. ברירת המחדל היא הגברה פי 12; פי 24 נפתח באמצעות Community code. [שלבי ההצטרפות הרשמיים](https://sonicaitrading.com/)
+
+### רקורד צד שלישי
+
+- נמצא קישור ציבורי ל־Myfxbook: [Sonic AI — Myfxbook account 12076857](https://www.myfxbook.com/members/SonicExperts/sonic-ai/12076857). הגישה הישירה לדף Myfxbook החזירה `403` בסביבה הנוכחית, ולכן לא ניתן היה לקרוא מחדש את כל השדות ישירות מ־Myfxbook.
+- האתר הרשמי מקשר לחשבון Myfxbook ומתאר אותו כחשבון חי עם track record מאומת. נכון לסנכרון שהאתר מציין ל־15.10.2026, הוא מציג:
+  - רווח כולל: `+30.58%`;
+  - ממוצע חודשי: `+1.13%`;
+  - 634 עסקאות;
+  - profit factor ‏`3.41`;
+  - DD מדווח: `0.86%`;
+  - XAUUSD בלבד.  
+  [דף הביצועים הרשמי והקישור ל־Myfxbook](https://sonicaitrading.com/performance)
+- קיים גם קישור היסטורי לחשבון Myfxbook מספר `11968359`, המופיע במצגת ממרץ 2026 ובה 16 חודשי פעילות, 329 עסקאות, תשואה ממוצעת של 1.17% ו־DD של 0.86%. [מצגת Sonic מ־03/2026](https://brd.so/file/Gi7PoQXjbU79lY6mJxJ7jKQv9q8Y.pdf)
+- **FXBlue:** `UNKNOWN` — לא נמצא קישור פומבי לחשבון FXBlue.
+- **MQL5 Signal:** `UNKNOWN` — לא נמצא קישור פומבי לאות MQL5.
+- **Balance DD מול equity DD:** `UNKNOWN`. המקורות שמצאתי מכנים את `0.86%` “strategy drawdown” או “max drawdown”, אך אינם מציגים לצדו שני מספרים נפרדים של balance DD ושל equity DD. [דף הביצועים](https://sonicaitrading.com/performance), [FAQ הסיכון](https://sonicaitrading.com/faqs)
+- **מספר פוזיציות מקבילות מרבי:** `UNKNOWN`. לא נמצא נתון מסכם פומבי.
+- **גודל לוט:** במקטע היסטוריה המועתק מ־Myfxbook במצגת נראות עסקאות לדוגמה של `0.10` לוט, אך אין מכך הוכחה שכל 634 העסקאות היו בגודל זה או שאין sizing משתנה. [טבלת העסקאות במצגת](https://brd.so/file/Gi7PoQXjbU79lY6mJxJ7jKQv9q8Y.pdf)
+- **SL לכל עסקה:** קיימת סתירה במקורות:
+  - האתר השיווקי mySonic אומר שלכל עסקה מוגדרים stop-loss ו־take-profit. [mySonic — כללי המסחר](https://mysonic.ai/en/)
+  - בטבלת Myfxbook המועתקת למצגת, עמודות `SL (Pips)` ו־`TP (Pips)` מסומנות `-` בעסקאות המוצגות. [מצגת Sonic — היסטוריית עסקאות](https://brd.so/file/Gi7PoQXjbU79lY6mJxJ7jKQv9q8Y.pdf)
+  - לכן השאלה האם **SL שרת גלוי הוצב בכל עסקה** היא `UNKNOWN`.
+
+### הגרסה המוגברת פי 12 או פי 24
+
+- האתר מסביר שה־Myfxbook מודד את **חשבון האסטרטגיה הלא־מוגבר, 1×**, ואילו חשבונות הלקוחות פועלים ב־12× או 24×. [דף הביצועים](https://sonicaitrading.com/performance)
+- פי 12 הוא ברירת המחדל; פי 24 מופעל באמצעות Community code. [FAQ ההגברה](https://sonicaitrading.com/faqs)
+- המצגת מציגה צילום Dashboard של CopyX המסומן `Account Type: Amplify`, עם:
+  - ROI ‏`+59.80%`;
+  - max drawdown ‏`0.26%`;
+  - 102 ימי מסחר;
+  - 149 עסקאות מנצחות ו־22 מפסידות.  
+  [מצגת Sonic — Dashboard של חשבון Amplify](https://brd.so/file/Gi7PoQXjbU79lY6mJxJ7jKQv9q8Y.pdf)
+- עם זאת, צילום ה־CopyX אינו קישור לחשבון צד־שלישי עצמאי, אינו מציג balance/equity נפרדים ואינו מאפשר לבדוק אם `0.26%` נמדד ביחס לפורטפוליו המוגבר או להפקדת הלקוח.
+- **האם נמצא חשבון חי מוגבר נפרד ומאומת ב־Myfxbook/FXBlue/MQL5? לא.** נמצא חשבון Myfxbook בסיסי 1× וצילום Dashboard של CopyX, אך לא נמצא URL ציבורי לחשבון לקוח 12× או 24× עם אימות צד־שלישי.
+- לכן:
+  - **equity DD בפועל של חשבון 12×:** `UNKNOWN`;
+  - **equity DD בפועל של חשבון 24×:** `UNKNOWN`;
+  - `20.6%` אינו DD נמדד של חשבון 24×; זהו חישוב מכני של `0.86% × 24` שהאתר עצמו מציג. [FAQ הסיכון](https://sonicaitrading.com/faqs)
+- **תשואה חודשית בפועל של חשבון מוגבר נפרד:** `UNKNOWN`. לא נמצא חשבון מוגבר ציבורי עם סדרת חודשים עצמאית. האתר מציג אומדן של כ־19% נטו לחודש על בסיס `1.13% × 24 × 70%`, ולא סדרת תשואות שנמדדה בחשבון מוגבר. [האתר הרשמי](https://sonicaitrading.com/), [FAQ הביצועים](https://sonicaitrading.com/faqs)
+- סדרת החודשים המאומתת לחשבון **1×**, ולא לחשבון המוגבר, היא:
+  - נובמבר 2024 `+1.12%`;
+  - דצמבר 2024 `+1.17%`;
+  - ינואר 2025 `+1.23%`;
+  - פברואר `+1.24%`;
+  - מרץ `+1.06%`;
+  - אפריל `+1.26%`;
+  - מאי `+1.78%`;
+  - יוני `+1.18%`;
+  - יולי `+1.44%`;
+  - אוגוסט `+1.61%`;
+  - ספטמבר `+1.63%`;
+  - אוקטובר `+1.17%`;
+  - נובמבר `+0.91%`;
+  - דצמבר `+1.16%`;
+  - ינואר 2026 `+0.61%`;
+  - פברואר 2026 `+0.54%`.  
+  [טבלת החודשים במצגת](https://brd.so/file/Gi7PoQXjbU79lY6mJxJ7jKQv9q8Y.pdf)
+
+### שעות העסקאות וכיוון
+
+- לא נמצאה **התפלגות מסכמת מלאה** לפי שעה או לפי לונג/שורט; לכן אחוז העסקאות בכל שעה ואחוז הלונג/שורט הם `UNKNOWN`.
+- האתר מציג זמן החזקה חציוני של כ־12 דקות, ומצהיר שמאוקטובר 2025 הפוזיציות נסגרות באותו סשן, ללא לילה או סוף שבוע. [דף הביצועים](https://sonicaitrading.com/performance)
+- במדגם העסקאות המוצג במצגת מופיעות שעות פתיחה שונות — למשל 06:37, ‏07:06, ‏09:00, ‏11:04, ‏13:12, ‏14:00, ‏15:34, ‏17:40, ‏19:42 ו־22:25 — וכן גם Buy וגם Sell. זהו מדגם בלבד, לא התפלגות סטטיסטית. [טבלת העסקאות במצגת](https://brd.so/file/Gi7PoQXjbU79lY6mJxJ7jKQv9q8Y.pdf)
+
+### ביקורות ותלונות עצמאיות
+
+- לא נמצא דף Trustpilot נפרד ל־Sonic AI; נמצא דף של הברוקר TAG Markets, שבו חלק מהביקורות מזכירות את Sonic.
+- בדף TAG Markets ב־Trustpilot נמצאו 277 ביקורות: 59% של חמישה כוכבים ו־34% של כוכב אחד; Trustpilot מציג גם הודעה שהוסרו ביקורות מזויפות ושהדירוג אינו זמין עקב הפרת כללים. [Trustpilot — TAG Markets](https://www.trustpilot.com/review/tagmarkets.com?page=3)
+- תלונות שפורסמו שם כוללות:
+  - טענות לאי־הצלחת משיכת כספים;
+  - משיכה שנדחתה בגלל “IP violation” לאחר שימוש ב־Wi‑Fi ציבורי;
+  - תלונות על נעילת ההפקדה;
+  - אתר לא יציב ותמיכה לא מועילה.  
+  מנגד פורסמו גם ביקורות שטוענות שמשיכות בוצעו במהירות וש־Sonic הניב רווחים. אלו עדויות משתמשים, לא אימות חשבונאי. [Trustpilot — תלונות ותגובות חיוביות](https://www.trustpilot.com/review/tagmarkets.com?page=2), [Trustpilot — עמוד נוסף](https://au.trustpilot.com/review/tagmarkets.com?page=2)
+- ב־Reddit פורסמה תלונה של משתמשת מלזית על גיוס בני משפחה דרך סמינרים ו־WhatsApp ל־TAG Markets/AiTech/Sonic AI; הפוסט מביע חשד אך אינו כולל הוכחת הפסד, דוח משיכה או פסק דין. [פוסט Reddit](https://www.reddit.com/r/malaysia/comments/1uypnfu/malaysia_tagmarkets_aitech_sonic_ai_scamswhy_is/)
+- ב־Forex Peace Army נמצא דף ביקורות של TAG Markets. אחת הביקורות מתארת בוטי AI אחרים אצל הברוקר שפתחו שמונה פוזיציות זהב גדולות ללא stop-loss והביאו למחיקת חשבונות; הביקורת אינה מזהה את הבוט כ־Sonic AI, ולכן אין לייחס את האירוע ל־Sonic. [Forex Peace Army — TAG Markets](https://www.forexpeacearmy.com/forex-reviews/21910/tag-markets-review)
+- לא נמצא דף Forex Peace Army ייעודי ל־Sonic AI: `UNKNOWN`.
+
+---
+
+## 2. אסטרטגיית הזהב מ־Reddit
+
+### זהות המשתמש והקשר מסחרי
+
+- שם המשתמש הוא **`u/cryptogoldenwolf`**. [פרופיל Reddit](https://www.reddit.com/user/cryptogoldenwolf/)
+- בפרופיל הוא מתאר את עצמו כמפרסם תוכן על copy trading והכנסה פסיבית ומקשר ל־**PipCodeFX.com**. [פרופיל Reddit](https://www.reddit.com/user/cryptogoldenwolf/)
+- Reddit מציג שהמשתמש מסתיר את רשימת הפוסטים בפרופיל; לכן לא ניתן לקבל מהפרופיל עצמו היסטוריה מלאה. [פרופיל Reddit](https://www.reddit.com/user/cryptogoldenwolf/)
+- שם השירות שניתן לזהות מן הקישור בפרופיל הוא **PipCode FX**. שם הסוחר או שם החשבון המדויק ב־Myfxbook הוא `UNKNOWN`. [PipCode FX](https://www.pipcodefx.com/)
+
+### ��וסטים קודמים ונוספים שנמצאו
+
+1. **14.6.2026 — “Copy a verified Gold trader”**  
+   טענה ל־24 חודשים חיים, כ־6.5% לחודש, DD של 5.61%, 3–4 עסקאות בשבוע ויותר מ־5,000 מעתיקים. כשנשאל לקישור, המפרסם הפנה ל־DM. [הפוסט](https://www.reddit.com/r/forexcopytrades/comments/1u5iib2/copy_a_verified_gold_trader_24_months_live_zero/)
+
+2. **3.7.2026 — הפוסט נשוא הבדיקה**  
+   טענה ל־431.27% מצטבר, 6.87% לחודש, DD של 7.90% וכשנתיים פעילות. לא מופיע בטקסט URL ל־Myfxbook. [הפוסט](https://www.reddit.com/r/forexcopytrades/comments/1umgyl3/ive_been_posting_these_results_for_months_the/)
+
+3. **9.9.2026 — “The screenshots say everything”**  
+   המפרסם כתב שהרקורד ציבורי, אבל כשנשאל לשם החשבון או לקישור Myfxbook ענה שישלח אותו ב־DM. מגיבים טענו שהחשבון אצל ברוקר לא מפוקח ושגרף חלק מדי נראה חשוד; המפרסם לא פרסם בתגובה קישור פתוח. [הפוסט והתגובות](https://www.reddit.com/r/forexcopytrades/comments/1wbpil8/the_screenshots_say_everything_heres_what_to_do/)
+
+4. **29.10.2026 — פירוט חודשי 2026**  
+   פורסמו ינואר `+6.11%`, פברואר `+4.22%`, מרץ `+4.66%`, אפריל `+7.18%`, מאי `+7.33%`, יוני `+11.27%`, יולי `+5.52%`, אוגוסט `+3.88%`, ספטמבר `+5.24%`, אוקטובר `+6.29%`; וכן טענה ל־541.21% מצטבר, 6.61% לחודש ו־10.81% DD מאז יוני 2024. [הפוסט](https://www.reddit.com/r/forexcopytrades/comments/1xicz0f/ten_months_into_2026_ten_green_months_heres_the/)
+
+- המספרים השתנו לאורך הזמן, ולכן 5.61%, ‏7.90% ו־10.81% הם כנראה תמונות מצב במועדים שונים; בלי חשבון Myfxbook מזוהה לא ניתן לאמת אם מדובר באותו חשבון.
+
+### האם נמצא קישור Myfxbook
+
+- בפוסט המקורי: לא.
+- בתגובות לפוסט המקורי: לא.
+- בפרופיל: לא; הפרופיל מקשר ל־PipCodeFX. [פרופיל המשתמש](https://www.reddit.com/user/cryptogoldenwolf/)
+- בפוסטים הנוספים שנמצאו: המשתמש כתב שישלח Myfxbook ב־DM במקום לפרסם את ה־URL. [הפוסט מספטמבר והתגובות](https://www.reddit.com/r/forexcopytrades/comments/1wbpil8/the_screenshots_say_everything_heres_what_to_do/)
+- לכן **URL ישיר לחשבון Myfxbook: `UNKNOWN`**.
+
+### שם האסטרטגיה, ברוקר ופלטפורמה
+
+- שם השירות: **PipCode FX**. [אתר PipCode FX](https://www.pipcodefx.com/)
+- מכשיר: XAUUSD בלבד. [אתר PipCode FX](https://www.pipcodefx.com/)
+- תיאור האסטרטגיה באתר: hedge-based, הימנעות מחדשות בעלות השפעה גבוהה, וטענה שאין martingale או grid. כללי הכניסה והיציאה אינם מפורסמים. [אתר PipCode FX](https://www.pipcodefx.com/)
+- פלטפורמת ההעתקה מזוהה מהקישור כ־**Levels Socials**; האתר מציג Dashboard בשם זה וכפתור ההרשמה מפנה ל־`my.levelssocials.com`. [אתר PipCode FX](https://www.pipcodefx.com/)
+- הברוקר: `UNKNOWN`. האתר אומר רק שהכסף מוחזק בחשבון אצל “licensed brokerage”, ללא שם בדף הציבורי. [אתר PipCode FX](https://www.pipcodefx.com/)
+- עמלה: 20% מרווחים שבועיים, ללא עמלה כאשר אין רווח. [אתר PipCode FX](https://www.pipcodefx.com/)
+
+### מה שאלו המגיבים ומה נענה
+
+- “איך מצטרפים?” — נענה ב־DM. [הפוסט המקורי](https://www.reddit.com/r/forexcopytrades/comments/1umgyl3/ive_been_posting_these_results_for_months_the/)
+- “איזה חשבון ברוקר מומלץ?” — “המערכת פועלת אצל הברוקר המומלץ שלנו; DM לפרטים.” [הפוסט המקורי](https://www.reddit.com/r/forexcopytrades/comments/1umgyl3/ive_been_posting_these_results_for_months_the/)
+- “מה שם החשבון ב־Myfxbook?” — “שלח לי DM ואשלח את Myfxbook.” [הפוסט מספטמבר](https://www.reddit.com/r/forexcopytrades/comments/1wbpil8/the_screenshots_say_everything_heres_what_to_do/)
+- מגיבים שאלו מדוע הרקורד מוחזק אצל ברוקר שלטענתם אינו מפוקח ומדוע מחפשים מעתיקים אם האסטרטגיה מצליחה; לא נמצאה תשובה עובדתית המזהה את הברוקר או מפרסמת קישור פתוח. [הפוסט מספטמבר](https://www.reddit.com/r/forexcopytrades/comments/1wbpil8/the_screenshots_say_everything_heres_what_to_do/)
+
+### סימני סיכון שיווקיים
+
+- הפניה שיטתית ל־DM במקום פרסום קישור Myfxbook פתוח. [הפוסט המקורי](https://www.reddit.com/r/forexcopytrades/comments/1umgyl3/ive_been_posting_these_results_for_months_the/), [הפוסט מספטמבר](https://www.reddit.com/r/forexcopytrades/comments/1wbpil8/the_screenshots_say_everything_heres_what_to_do/)
+- הפניה ל“ברוקר המומלץ שלנו” ללא חשיפת שמו בפומבי. [הפוסט המקורי](https://www.reddit.com/r/forexcopytrades/comments/1umgyl3/ive_been_posting_these_results_for_months_the/)
+- האתר מגדיר את PipCode FX כ־“independent affiliate”, ולכן קיימת זיקה שיווקית/אפיליאטיבית. [אתר PipCode FX](https://www.pipcodefx.com/)
+- שיעור או מבנה עמלת IB מהברוקר: `UNKNOWN`.
+- אין היסטוריית עסקאות פתוחה, ולכן מספר פוזיציות מקבילות, לוטים, equity DD, שימוש בפועל בגידור והיעדר martingale/grid הם `UNKNOWN`.
+
+---
+
+## 3. מקורות חינמיים ל־TTF יומי
+
+### מסקנה
+
+לא מצאתי **מקור רשמי יחיד, חינמי, ללא הרשמה, עם URL קבוע להורדת CSV רציף של TTF front-month לכל 2017–2026**. נמצאו המקורות החלקיים הבאים:
+
+| מקור | מה ניתן לקבל | כיסוי שנמצא | URL להורדה/גישה | הרשמה |
+|---|---|---:|---|---|
+| Yahoo Finance, `TTF=F` | ICE TTF front-month יומי | 2020–הווה במאגרים שבדקו אותו; 2017–2019 `UNKNOWN` | [דף הסדרה `TTF=F`](https://finance.yahoo.com/quote/TTF%3DF/history/) | צפייה ללא הרשמה; הורדת CSV ישירה עשויה לדרוש cookie/crumb |
+| GitHub `cross-commodity-energy-trading` | סדרת TTF שנמשכה דרך yfinance | 02.01.2020–05.08.2026, 1,658 שורות לפי README | [המאגר](https://github.com/wididestrianda01/cross-commodity-energy-trading) | לא |
+| Nasdaq Data Link `CHRIS/ICE_TFM1` | Continuous ICE Dutch TTF front-month | תחילת וסוף הכיסוי הנוכחי: `UNKNOWN` | [CSV API](https://data.nasdaq.com/api/v3/datasets/CHRIS/ICE_TFM1.csv), [דף הסדרה](https://data.nasdaq.com/data/CHRIS/ICE_TFM1) | מצב הגישה הנוכחי/API key: `UNKNOWN`; הקישורים לא היו נגישים מהסביבה |
+| GlobalARB `gas-public` | README מתעד קובץ Investing.com יומי של TTF front-month | אוקטובר 2017–ינואר 2025 | [README](https://github.com/GlobalARB/gas-public) | לא, אך קובץ המחיר עצמו **אינו נמצא במאגר הציבורי** |
+| Investing.com | TTF historical data וייצוא ידני | לפי מאגר GlobalARB: אוקטובר 2017–ינואר 2025 | [דף TTF historical data](https://www.investing.com/commodities/dutch-ttf-gas-c1-futures-historical-data) | הורדת CSV והרשמה: `UNKNOWN`; אין URL CSV ציבורי יציב שנמצא |
+| EEX Market Data API | חוזי TTF חודשיים לפי פקיעה; ניתן לבנות M+1/front-month | הכיסוי ההיסטורי המדויק הזמין חינם: `UNKNOWN` | [מדריך API רשמי](https://www.eex.com/fileadmin/EEX/Downloads/Market_Data/EEX_Group_DataSource/API/EEX_Market_Data_-_API_User_Guide_v021.pdf) | `UNKNOWN` |
+| `eex-scraper` | מוריד CSV נפרד לכל חוזה EEX ומייצר tenor יחסי כגון M+1 | תלוי בחוזים שעדיין ניתנים לשליפה; כיסוי 2017–2026 מלא `UNKNOWN` | [קוד ההורדה](https://github.com/dieguisgs/eex-scraper) | אין הרשמה לקוד; תנאי וגישה לנתוני EEX חלים |
+| `EU-GAS-MONITOR` | TTF front-month חי מ־Yahoo; TTF spot היסטורי מוטמע | front-month חי; spot ינואר 2020–יוני 2024 | [המאגר](https://github.com/CeTorre/EU-GAS-MONITOR), [קובץ raw של ה־Dashboard](https://raw.githubusercontent.com/CeTorre/EU-GAS-MONITOR/main/index.html) | לא |
+| ENTSOG / AGSI / EU data | זרימות, אחסון ותשתיות גז | לא סדרת מחיר TTF front-month | [AGSI+](https://agsi.gie.eu/), [ENTSOG Transparency](https://transparency.entsog.eu/) | AGSI API דורש key חינמי; אינו מקור למחיר TTF |
+| Stooq | לא נמצאה סדרת TTF מזוהה | `UNKNOWN` | [Stooq](https://stooq.com/q/d/?s=ttf) | לא ידוע; אין אישור שהסימול מייצג TTF |
+| ICE Endex | settlement, volume ו־OI לחוזי TTF | היסטוריה מלאה חינמית 2017–2026: `UNKNOWN` | [ICE Dutch TTF Futures](https://www.ice.com/products/27996665/Dutch-TTF-Natural-Gas-Futures) | נתונים היסטוריים מלאים עשויים להיות בתשלום; URL CSV חינמי רציף לא נמצא |
+
+### המקור המעשי ביותר
+
+- עבור **2017–ינואר 2025**, העדות הטובה ביותר שמצאתי היא שקובץ Investing.com בשם `Prices/TTFHistoricalEUR.csv` אכן שימש כסדרת front-month יומית, אבל בעל המאגר לא פרסם את הקובץ עצמו. [GlobalARB README](https://github.com/GlobalARB/gas-public)
+- עבור **2020–2026**, `TTF=F` דרך Yahoo/yfinance הוא המקור החינמי הישיר ביותר שנמצא, אך קיימת חפיפה בלבד ולא השלמה ל־2017. מאגר חיצוני מתעד 1,658 תצפיות מ־02.01.2020 עד 05.08.2026. [המאגר והכיסוי](https://github.com/wididestrianda01/cross-commodity-energy-trading)
+- לבניית סדרה שניתנת לביקורת עדיף לשלב:
+  1. ייצוא Investing.com ל־2017–2019;
+  2. Yahoo `TTF=F` מ־2020;
+  3. בדיקת חפיפה ב־2020–2025;
+  4. תיעוד מפורש של כלל הגלגול ושל הבדלים בין settlement, close ו־adjusted close.  
+  URL הורדה אוטומטי וחינמי לכל ארבעת השלבים: `UNKNOWN`.
+
