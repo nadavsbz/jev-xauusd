@@ -37,6 +37,14 @@ def pnl(pos, r, tc, sl, ss, days):
     p = pos.shift(1).fillna(0)
     return p * r - (p - p.shift(1).fillna(0)).abs() * tc + np.where(p > 0, p * sl, -p * ss) * days / 365
 
+def pnl_scaled(pos, r, tc, sl, ss, days, target=0.10):
+    """Codex P1 15.11: scale the POSITION first (multiplier from the gross strategy vol up to t-1), then charge turnover and
+    financing on the scaled exposure, so leverage changes pay costs."""
+    p = pos.shift(1).fillna(0); g = p * r
+    k = (target / (g.rolling(90, min_periods=60).std().shift(1) * np.sqrt(252))).clip(upper=5).fillna(0)
+    w = p * k
+    return w * r - (w - w.shift(1).fillna(0)).abs() * tc + np.where(w > 0, w * sl, -w * ss) * days / 365
+
 def hold_state(enter_long, enter_short, exit_long, exit_short):
     el, es, xl, xs = (np.asarray(a, bool) for a in (enter_long, enter_short, exit_long, exit_short)); out = np.zeros(len(el)); q = 0
     for i in range(len(el)):
@@ -117,14 +125,14 @@ def build():
         c = h.close.resample("1D").last().dropna(); r = c.pct_change().fillna(0)
         days = c.index.to_series().diff().dt.days.fillna(1).values
         sl, ss = swaps(s, float(c.iloc[-1])); CL[s] = c; RET[s] = r; TC[s] = tc; SW[s] = (sl, ss)
-        for k, p in rules(c, r).items(): S[(s, k)] = scale(pnl(p, r, tc, sl, ss, days))
+        for k, p in rules(c, r).items(): S[(s, k)] = pnl_scaled(p, r, tc, sl, ss, days)
         S[(s, "hour")] = scale(hour_season(h, tc, sl, ss))
     rl = sorted({k for _, k in S})
     for g in sorted({cls(s) for s in CL}):
         mem = [s for s in CL if cls(s) == g]
         for k in rl:
             parts = [S[(s, k)] for s in mem if (s, k) in S]
-            if len(parts) >= 2: S[(f"BASKET_{g}", k)] = scale(pd.concat(parts, axis=1).fillna(0).mean(1))
+            if len(parts) >= 2: S[(f"BASKET_{g}", k)] = pd.concat(parts, axis=1).fillna(0).mean(1)   # no second time-varying rescale
     def xs(mem, look, skip, every, n, rev):
         C = pd.concat({s: CL[s] for s in mem}, axis=1).ffill(); Rt = pd.concat({s: RET[s] for s in mem}, axis=1).fillna(0)
         sc = (C.shift(skip) / C.shift(look) - 1) * (-1 if rev else 1)
@@ -136,9 +144,11 @@ def build():
                 cur[rk > m - n] = 1 / n; cur[rk <= n] = -1 / n
             W.iloc[i] = cur
         Wp = W.shift(1).fillna(0); days = pd.Series(C.index, C.index).diff().dt.days.fillna(1)
+        g = (Wp * Rt).sum(1); kx = (0.10 / (g.rolling(90, min_periods=60).std().shift(1) * np.sqrt(252))).clip(upper=5).fillna(0)
+        Wp = Wp.mul(kx, axis=0)                                                     # scale exposure before costs (Codex P1)
         sw = sum(np.where(Wp[s] > 0, Wp[s] * SW[s][0], -Wp[s] * SW[s][1]) for s in mem) * days / 365
         cost = sum((Wp[s] - Wp[s].shift(1).fillna(0)).abs() * TC[s] for s in mem)
-        return scale((Wp * Rt).sum(1) - cost + sw)
+        return (Wp * Rt).sum(1) - cost + sw
     fx = [s for s in CL if cls(s) == "fx"]; st = [s for s in CL if cls(s) == "stock"]
     S[("XS_fx", "mom60")] = xs(fx, 60, 0, 5, 5, False); S[("XS_fx", "rev5")] = xs(fx, 5, 0, 5, 5, True)
     S[("XS_stock", "mom12_1")] = xs(st, 250, 20, "M", 10, False); S[("XS_stock", "rev5")] = xs(st, 5, 0, 5, 10, True)
@@ -157,12 +167,12 @@ if __name__ == "__main__":
             j = pd.concat([x[:DEV_END], C1, I2], axis=1).dropna(); j = j[j.iloc[:, 0] != 0]
             cc = j.corr().iloc[0, 1:].abs().max() if len(j) > 100 else np.nan
             rows.append(dict(sym=s, rule=k, cls=cls(s) if not s.startswith(("BASKET", "XS")) else s, **st, cc=cc))
-        D = pd.DataFrame(rows); D.to_csv(f"{OUT}/r64_dev.csv", index=False)
+        D = pd.DataFrame(rows); D.to_csv(f"{OUT}/r64_dev_v2.csv", index=False)
         ok = D[(D.t >= 2.5) & (D.pos >= 0.6) & (D.ny >= 3) & ~(D.cc > 0.3)]
         print(f"trials {len(D)}  t>=2.5: {(D.t >= 2.5).sum()}  t<=-2.5: {(D.t <= -2.5).sum()}  survivors {len(ok)}  (null expectation ~{0.0062 * len(D):.0f} per tail)")
         print(D.groupby("rule").t.median().round(2).sort_values().to_string())
         print(ok.sort_values("t", ascending=False).round(2).to_string(index=False))
-        ok.to_csv(f"{OUT}/r64_survivors.csv", index=False)
+        ok.to_csv(f"{OUT}/r64_survivors_v2.csv", index=False)
     else:
         ok = pd.read_csv(f"{OUT}/r64_survivors.csv"); res = []
         for _, o in ok.iterrows():

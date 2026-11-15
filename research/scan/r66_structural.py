@@ -11,12 +11,14 @@ SPAN = ("2000-01-01", "2022-12-31") if PER == "dev" else ("2023-01-01", "2026-12
 TD = pd.Timedelta
 def et2srv(d, hh, mm=0): return d + TD(hours=hh + (6 if mismatch(d) else 7), minutes=mm)
 
-def report(T, name):
-    """T: DataFrame indexed by date with net, cost (per trade, summed over sides)."""
+def report(T, name, daily=None):
+    """T: DataFrame indexed by date with net, cost (per trade, summed over sides). daily: optional marked-to-market daily
+    series (Codex P1, 15.11) used for Sharpe and correlations instead of booking each trade on its exit day."""
     T = T.sort_index()[SPAN[0]:SPAN[1]]
     if len(T) < 10: print(f"[{name}] n={len(T)} too few"); return
     full = pd.Series(0.0, index=pd.bdate_range(T.index[0], T.index[-1])); g = T.net.groupby(level=0).sum()
     full.loc[full.index.intersection(g.index)] = g.reindex(full.index.intersection(g.index)).values
+    if daily is not None: full = daily[SPAN[0]:SPAN[1]].reindex(pd.bdate_range(T.index[0], T.index[-1])).fillna(0)
     t = T.net.mean() / T.net.std() * np.sqrt(len(T)); sh = full.mean() / full.std() * np.sqrt(252)
     y = T.net.groupby(T.index.year).sum(); ratio = T.net.mean() / T.cost.mean()
     print(f"[{name}] n {len(T)}  net {T.net.mean()*1e4:.2f} bp  gross {(T.net+T.cost).mean()*1e4:.2f}  cost {T.cost.mean()*1e4:.2f}  net/cost {ratio:.2f}  t {t:.2f}  Sh {sh:.2f}  pos {int((y>0).sum())}/{len(y)}")
@@ -65,7 +67,7 @@ def C():
     spy, tlt = y("SPY"), y("TLT"); spx = pd.read_csv("data/raw/yahoo/SPX.csv", parse_dates=["date"]).set_index("date").close
     spx = spx[~spx.index.duplicated()]; idx = spx.index.intersection(spy.index).intersection(tlt.index)
     tc = 2.56e-5 + 0.00005; swl, sws = -0.086, -0.018; rows = []
-    per = pd.Series(idx.to_period("M"), idx)
+    per = pd.Series(idx.to_period("M"), idx); rd = spx.reindex(idx).pct_change().fillna(0); daily = pd.Series(0.0, index=idx)
     for mo, dd in per.groupby(per):
         dd = dd.index
         if len(dd) < 12: continue
@@ -77,7 +79,12 @@ def C():
         sgn = -np.sign(gap); nights = (ex - dec).days
         sw = (swl if sgn > 0 else sws) * nights / 365
         rows.append((ex, sgn * (spx[ex] / spx[dec] - 1) - 2 * tc + sw, 2 * tc - min(sw, 0)))
-    report(pd.DataFrame(rows, columns=["d", "net", "cost"]).set_index("d"), "C pension rebalance")
+        hold = idx[(idx > dec) & (idx <= ex)]; prevd = idx[(idx >= dec) & (idx < ex)]
+        daily.loc[hold] += sgn * rd.loc[hold].values + (swl if sgn > 0 else sws) * (hold - prevd).days.values / 365
+        daily.loc[hold[0]] -= tc; daily.loc[hold[-1]] -= tc
+    T = pd.DataFrame(rows, columns=["d", "net", "cost"]).set_index("d")
+    if PER == "dev": T = T["2003":]; daily = daily["2003":]                    # prereg dev span 2003-2022 (Codex P2)
+    report(T, "C pension rebalance (daily MTM)", daily=daily)
 
 def D():
     u = loadh(".US500Cash"); a = loadh("AUDJPY"); tc = tcost("AUDJPY", a); pt = E.loc["AUDJPY", "point"]

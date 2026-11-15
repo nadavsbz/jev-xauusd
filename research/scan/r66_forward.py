@@ -16,14 +16,25 @@ def series(sym, adj):
 
 spy, tlt, spx = series("SPY", True), series("TLT", True), series("%5EGSPC", False)
 idx = spx.index.intersection(spy.index).intersection(tlt.index)
-# NYSE trading days of the current month are not all known yet; use the business-day calendar minus NYSE holidays known in pandas
-from pandas.tseries.holiday import USFederalHolidayCalendar
+def nyse_holidays(y):
+    """NYSE full-day closures (Codex P1 15.11: the federal calendar is not the exchange calendar)."""
+    from dateutil.easter import easter
+    def obs(d, newyear=False):
+        if d.dayofweek == 5: return None if newyear else d - pd.Timedelta(days=1)
+        return d + pd.Timedelta(days=1) if d.dayofweek == 6 else d
+    def nth(m, wd, k):
+        r = pd.date_range(f"{y}-{m:02d}-01", periods=31, freq="D"); return r[(r.month == m) & (r.dayofweek == wd)][k]
+    h = [obs(pd.Timestamp(f"{y}-01-01"), True), nth(1, 0, 2), nth(2, 0, 2), pd.Timestamp(easter(y)) - pd.Timedelta(days=2), nth(5, 0, -1),
+         obs(pd.Timestamp(f"{y}-07-04")), nth(9, 0, 0), nth(11, 3, 3), obs(pd.Timestamp(f"{y}-12-25"))]
+    if y >= 2022: h.append(obs(pd.Timestamp(f"{y}-06-19")))
+    return {d for d in h if d is not None}
 rows = []
 for mo in pd.period_range(START, pd.Timestamp.today().to_period("M")):
-    bd = pd.bdate_range(mo.start_time, mo.end_time)
-    hol = USFederalHolidayCalendar().holidays(mo.start_time, mo.end_time)
-    td = [d for d in bd if d not in hol and not (d.month == 11 and d.dayofweek == 3 and 22 <= d.day <= 28) or d in idx]
-    td = sorted(set(td) - {d for d in hol}); dec, ex = td[-6], td[-1]
+    hol = nyse_holidays(mo.year)
+    td = [d for d in pd.bdate_range(mo.start_time, mo.end_time) if d not in hol]
+    done = [d for d in idx if mo.start_time <= d <= mo.end_time]
+    if done and pd.Timestamp.today().normalize() > mo.end_time: td = done          # completed month: actual trading days
+    dec, ex = td[-6], td[-1]
     base = idx[idx < mo.start_time][-1]
     row = dict(month=str(mo), decision_day=dec.date(), exit_day=ex.date(), gap=None, side=None, net_bp=None, status="pending")
     if dec in idx:
