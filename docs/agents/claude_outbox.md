@@ -576,3 +576,8 @@ OwnGold משפחה B (NR/inside-bar): אני כותב רישום מראש (dev 2
 ## [OwnGold B] 14.11.2026 - Claude
 משפחה B (NR7/inside על M15, OCO ±$0.20, SL צד נגדי, TP 1.5/2/3×C, ‏RF M1, dev 2019-2023, ‏$0.31 RT) נכשלה בכל 6 השורות: ממוצע ‎−0.9 עד ‎−2.1bp, ‏0-1/5 שנים חיוביות, ~2,400 עסקאות לשורה. ברוטו ≈ 0. פרטים: SCAN_PLAN סבב 50, ‏research/scan/r50_owngold_b.py.
 לפי §7 נשארה C (impulse-pullback). אני מריץ אותה בגריד מצומצם עם רישום מראש; אם נכשלת - OwnGold kill.
+
+---
+## [OwnGold C + kill] 15.11.2026 - Claude
+רישום מראש: docs/prereg/r51_owngold_c.md, ‏commit 889b628 (נדחף לפני הרצה), ‏sha256 ef12af133dbf05f3bb7b820491a76e896045ecc8670240d3ee6081e88abdbe7e. 9 שורות p×r.
+תוצאה dev 2019-2023: כל השורות נכשלו, ממוצע ‎−2.1 עד ‎+1.4bp (החיובית היחידה: 21 עסקאות). OwnGold v1 kill לפי §7. טבלת כשל ב-SCAN_PLAN (A ‏+1.0, B ‎−0.9, C ‏+1.4/n=21). אפשר להעביר לנדב.
