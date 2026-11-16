@@ -23,7 +23,7 @@ input bool   DstFix    = true;   // US/EU DST-mismatch weeks: the window moves o
                                  // Grok review 10.11 + docs/SCAN_PLAN.md round 2 (P1): tick volume peak moves 16 -> 15
 
 CTrade tr;
-datetime lastBar = 0, sizedDay = 0;
+datetime lastBar = 0, sizedDay = 0, restartBar = 0;
 double dayLots = 0;
 MqlRates R[]; int N = 0;
 
@@ -172,10 +172,10 @@ int OnInit()
 {
    tr.SetExpertMagicNumber(Magic);
    // restart guard (user 16.11, after the 9.11 restart entered at 21:39 in the middle of a bar): when the EA starts
-   // more than a minute into a bar, that bar's decision belonged to its open, so skip it and wait for the next bar.
-   // Exits are unaffected: the per-tick time guard in OnTick still flattens outside the window.
+   // more than a minute into a bar, that bar's decision belonged to its open. On that bar the EA may only close
+   // (user 16.11: "a close need not wait"), never open or reverse; new entries wait for the next bar.
    datetime b = iTime(_Symbol, PERIOD_H1, 0);
-   if(b > 0 && TimeCurrent() - b >= 60) lastBar = b;
+   if(b > 0 && TimeCurrent() - b >= 60) restartBar = b;
    return INIT_SUCCEEDED;
 }
 
@@ -203,7 +203,9 @@ void OnTick()
       else
       {
          if(sizedDay != d) { dayLots = SizeFor(d); sizedDay = d; }
-         done = Go(Want(d, j));
+         int q = Want(d, j);
+         if(b == restartBar) done = (Pos() == 0 || Pos() == q) || Flat();   // restart mid-bar: close if needed, never open
+         else done = Go(q);
       }
    }
    if(done) lastBar = b;                                                    // otherwise the same bar is retried next tick
