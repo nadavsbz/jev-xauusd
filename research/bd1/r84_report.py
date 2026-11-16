@@ -14,12 +14,13 @@ years = ["hold"] if HOLD else range(2016,2026)
 for y in years:
     row={"y":y}
     for k,f in (("base", "ev14_rf_hold_ms20_h1119" if HOLD else f"{'ev18' if y<=2018 else 'ev12'}_rf{y}_ms20_h1119"),
-                ("dd5q", f"ev84_rf{y}_ms20_h1119_dd5q"),("dd75", "ev85_rf_hold_ms20_h1119_dd75" if HOLD else f"ev84_rf{y}_ms20_h1119_dd75")):
+                ("dd5q", f"ev84_rf{y}_ms20_h1119_dd5q"),("user", "ev86_rf_hold_user" if HOLD else f"ev87_rf{y}_user"),("dd75", "ev85_rf_hold_ms20_h1119_dd75" if HOLD else f"ev84_rf{y}_ms20_h1119_dd75")):
         if not os.path.exists(f"C:/MT5_JEV_TEST/{f}.htm"): continue
         ret,nc,cc,win,mdd=yr(f); row[k]=f"{ret:+.0f}% c{nc}({cc:.0f}) w{win:.0f} dd{mdd:.0f}"; row[k+"_r"]=ret
     rows.append(row)
 D=pd.DataFrame(rows).set_index("y"); print(D[[c for c in D if not c.endswith("_r")]].to_string())
 if not HOLD:
     F=D.loc[2017:2025]
-    for k in ("base","dd5q","dd75"):
-        r=F[k+"_r"]/100; print(f"{k}: positive {int((r>0).sum())}/9  worst {r.min()*100:+.0f}  mult x{(1+r).prod():.2f}")
+    for k in ("base","dd5q","dd75","user"):
+        if k+"_r" not in F: continue
+        r=F[k+"_r"].dropna()/100; print(f"{k}: positive {int((r>0).sum())}/9  worst {r.min()*100:+.0f}  mult x{(1+r).prod():.2f}")
