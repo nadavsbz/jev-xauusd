@@ -21,9 +21,10 @@ input double CostPct   = 0.015;  // per position change, % of notional, in the s
 input long   Magic     = 7302;
 input bool   DstFix    = true;   // US/EU DST-mismatch weeks: the window moves one server hour earlier (same NY time).
                                  // Grok review 10.11 + docs/SCAN_PLAN.md round 2 (P1): tick volume peak moves 16 -> 15
+input int    LateSec   = 60;     // a bar first seen more than LateSec after its open is close-only (restart, reconnect, freeze)
 
 CTrade tr;
-datetime lastBar = 0, sizedDay = 0, restartBar = 0;
+datetime lastBar = 0, sizedDay = 0, seenBar = 0, lateBar = 0;
 double dayLots = 0;
 MqlRates R[]; int N = 0;
 
@@ -171,13 +172,13 @@ int SessionLeft()
 int OnInit()
 {
    tr.SetExpertMagicNumber(Magic);
-   // restart guard (user 16.11, after the 9.11 restart entered at 21:39 in the middle of a bar): when the EA starts
-   // more than a minute into a bar, that bar's decision belonged to its open. On that bar the EA may only close
-   // (user 16.11: "a close need not wait"), never open or reverse; new entries wait for the next bar.
-   datetime b = iTime(_Symbol, PERIOD_H1, 0);
-   if(b > 0 && TimeCurrent() - b >= 60) restartBar = b;
+   sizedDay = 0;                    // an input change may keep globals: size again (Grok review 17.11, P2)
+   PrintFormat("I2 init: now %s, H1 bar %s, synchronized %d", TimeToString(TimeCurrent()),
+               TimeToString(iTime(_Symbol, PERIOD_H1, 0)), (int)SeriesInfoInteger(_Symbol, PERIOD_H1, SERIES_SYNCHRONIZED));
    return INIT_SUCCEEDED;
 }
+
+void OnDeinit(const int reason) { PrintFormat("I2 deinit, reason %d", reason); }
 
 void OnTick()
 {
@@ -189,6 +190,18 @@ void OnTick()
    if(Pos() != 0 && (now.hour > ExitHour + sn || now.hour < OpenHour + sn || (left >= 0 && left <= 10))) { Flat(); return; }
    datetime b = iTime(_Symbol, PERIOD_H1, 0);
    if(b == lastBar) return;
+   // late-bar guard (user 16.11 after the 9.11 restart; Grok review 17.11 P0/P1): decide on ticks, not in OnInit.
+   // A bar first seen more than LateSec after its open (restart, reconnect, freeze) may only close, never open.
+   if(b <= 0) return;                                                       // no bar yet: fail closed, retry next tick
+   if(!MQLInfoInteger(MQL_TESTER) &&
+      (!TerminalInfoInteger(TERMINAL_CONNECTED) || !SeriesInfoInteger(_Symbol, PERIOD_H1, SERIES_SYNCHRONIZED)))
+      return;                                                               // history not synced yet (the time guard above still closes)
+   MqlTick tk; if(!SymbolInfoTick(_Symbol, tk) || tk.time < b) return;    // the tick must belong to bar b
+   if(b != seenBar)
+   {
+      seenBar = b; lateBar = (tk.time - b >= LateSec) ? b : 0;
+      if(lateBar == b) PrintFormat("I2 late bar %s first seen %s: close-only", TimeToString(b), TimeToString(tk.time));
+   }
    N = CopyRates(_Symbol, PERIOD_H1, 1, 24 * 220, R);   // R[N-1] = the bar that just closed
    if(N < 24 * 30) return;
    MqlDateTime t; TimeToStruct(R[N - 1].time, t);
@@ -204,7 +217,7 @@ void OnTick()
       {
          if(sizedDay != d) { dayLots = SizeFor(d); sizedDay = d; }
          int q = Want(d, j);
-         if(b == restartBar) done = (Pos() == 0 || Pos() == q) || Flat();   // restart mid-bar: close if needed, never open
+         if(b == lateBar) done = (Pos() == 0 || Pos() == q) || Flat();      // late bar: close if needed, never open
          else done = Go(q);
       }
    }
