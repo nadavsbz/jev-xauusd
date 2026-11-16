@@ -14,7 +14,7 @@ years = ["hold"] if HOLD else range(2016,2026)
 for y in years:
     row={"y":y}
     for k,f in (("base", "ev14_rf_hold_ms20_h1119" if HOLD else f"{'ev18' if y<=2018 else 'ev12'}_rf{y}_ms20_h1119"),
-                ("dd5q", f"ev84_rf{y}_ms20_h1119_dd5q"),("dd75", f"ev84_rf{y}_ms20_h1119_dd75")):
+                ("dd5q", f"ev84_rf{y}_ms20_h1119_dd5q"),("dd75", "ev85_rf_hold_ms20_h1119_dd75" if HOLD else f"ev84_rf{y}_ms20_h1119_dd75")):
         if not os.path.exists(f"C:/MT5_JEV_TEST/{f}.htm"): continue
         ret,nc,cc,win,mdd=yr(f); row[k]=f"{ret:+.0f}% c{nc}({cc:.0f}) w{win:.0f} dd{mdd:.0f}"; row[k+"_r"]=ret
     rows.append(row)
