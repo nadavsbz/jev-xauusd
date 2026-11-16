@@ -168,7 +168,16 @@ int SessionLeft()
    return -1;
 }
 
-int OnInit() { tr.SetExpertMagicNumber(Magic); return INIT_SUCCEEDED; }
+int OnInit()
+{
+   tr.SetExpertMagicNumber(Magic);
+   // restart guard (user 16.11, after the 9.11 restart entered at 21:39 in the middle of a bar): when the EA starts
+   // more than a minute into a bar, that bar's decision belonged to its open, so skip it and wait for the next bar.
+   // Exits are unaffected: the per-tick time guard in OnTick still flattens outside the window.
+   datetime b = iTime(_Symbol, PERIOD_H1, 0);
+   if(b > 0 && TimeCurrent() - b >= 60) lastBar = b;
+   return INIT_SUCCEEDED;
+}
 
 void OnTick()
 {
