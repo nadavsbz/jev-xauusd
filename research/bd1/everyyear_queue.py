@@ -144,6 +144,8 @@ CFG21 = {   # round 21 (9.11.2026, user: breakeven close, earlier Overlap, Ramil
     "wboth3_15": {**M20, "WatTF": "15", "WatEntry": "true", "WatCutLevel": "3"},
 }
 
+CFG22 = {"base16": {**M20}, "thr3": {**M20, "ThrottleAdds": "3", "ThrottleWinMin": "60", "ThrottleCoolMin": "180"}}   # round 22 (GPT t284 rule 1), v16
+
 YEARS10 = [(2016, "2016.01.04", "2017.01.01", "20160101"), (2017, "2017.01.02", "2018.01.01", "20170101"),
            (2018, "2018.01.02", "2019.01.01", "20180101")] + YEARS
 
@@ -158,12 +160,13 @@ def job(y, f, t, ff, tag, extra, r="1"):
     if r in ("8", "10", "12", "13", "15"): j.update(expert=r"Jev\DragonClone_v12.ex5", base_set="dcv12_2d.set")   # dcv12_2d.set = dcv11_2d.set + LevelStopK=0
     if r in ("11", "17"): j.update(expert=r"Jev\DragonClone_v13.ex5", base_set="dcv13_2d.set")   # dcv13_2d.set = dcv12_2d.set + StochRule=1, StochBar=1
     if r == "20": j.update(expert=r"Jev\DragonClone_v14.ex5", base_set="dcv14_2d.set")   # dcv14_2d.set = dcv13_2d.set + Martin2_=0, Martin2From=6
-    if r == "21": j.update(expert=r"Jev\DragonClone_v15.ex5", base_set="dcv15_2d.set")   # dcv15_2d.set = dcv14_2d.set + BeFromLevel=0 ... WatLog=false
+    if r == "21": j.update(expert=r"Jev\DragonClone_v15.ex5", base_set="dcv15_2d.set")
+    if r == "22": j.update(expert=r"Jev\DragonClone_v16.ex5", base_set="dcv16_2d.set")   # dcv16_2d.set = dcv15_2d.set + ThrottleAdds=0 ...   # dcv15_2d.set = dcv14_2d.set + BeFromLevel=0 ... WatLog=false
     return j
 
 if __name__ == "__main__":
     r = sys.argv[1] if len(sys.argv) > 1 else "1"
-    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2, "3": CFG3, "4": CFG4, "5": CFG5, "6": CFG6, "7": CFG7, "8": CFG8, "10": CFG10, "11": CFG11, "12": CFG12, "13": CFG13, "15": CFG15, "17": CFG17, "20": CFG20, "21": CFG21}[r].items() for yr in (YEARS10 if r in ("20", "21") else YEARS)
+    q = [job(*yr, tag, o, r) for tag, o in {"1": CFG, "2": CFG2, "3": CFG3, "4": CFG4, "5": CFG5, "6": CFG6, "7": CFG7, "8": CFG8, "10": CFG10, "11": CFG11, "12": CFG12, "13": CFG13, "15": CFG15, "17": CFG17, "20": CFG20, "21": CFG21, "22": CFG22}[r].items() for yr in (YEARS10 if r in ("20", "21", "22") else YEARS)
          if not (tag == "sanity" and yr[0] != 2020)]   # sanity: all new flags off must equal v7_rf2020_d24ntop exactly
     if r == "21":   # WAT colour check first: 2 months of 2020, H1 colour log, no trading change
         c = job(2020, "2020.01.02", "2020.03.01", "20200101", "watcheck", {**M20, "WatTF": "60", "WatLog": "true"}, r); q.insert(0, c)
