@@ -65,25 +65,32 @@ elif stage == "daily":
         df.to_csv(f, index=False) if len(df) else pd.DataFrame({"s": []}).to_csv(f, index=False)
         print(f"daily batch {i // B + 1}/{(len(syms) + B - 1) // B}: {len(df)} bars", flush=True)
 
-def daily_all():
-    D = pd.concat([pd.read_csv(f) for f in sorted(__import__("glob").glob(f"{RAW}/daily/*.csv.gz"))], ignore_index=True)
-    D = D.dropna(subset=["t"]); D["d"] = pd.to_datetime(D.t).dt.tz_convert("America/New_York").dt.tz_localize(None).dt.normalize()
+def daily_one(f):
+    D = pd.read_csv(f, usecols=["s", "t", "o", "h", "l", "c", "v"], dtype={"o": "float32", "h": "float32", "l": "float32", "c": "float32", "v": "float64"})
+    D = D.dropna(subset=["t"]); D["d"] = pd.to_datetime(D.t.str[:10]); D = D.drop(columns="t")   # daily bars are stamped at 04:00/05:00Z = the ET date
     return D.sort_values(["s", "d"])
 
 def candidates(D):
     """paper filters, all known before the open of day d except the open price itself (open > $5)."""
-    g = D.groupby("s")
+    g = D.groupby("s", sort=False)
     pc = g.c.shift(1)
     tr = pd.concat([D.h - D.l, (D.h - pc).abs(), (D.l - pc).abs()], axis=1).max(axis=1)
-    D = D.assign(atr=tr.groupby(D.s).transform(lambda x: x.rolling(14).mean().shift(1)),
+    D = D.assign(atr=tr.groupby(D.s, sort=False).transform(lambda x: x.rolling(14).mean().shift(1)),
                  av=g.v.transform(lambda x: x.rolling(14).mean().shift(1)))
     return D[(D.o > 5) & (D.av >= 1_000_000) & (D.atr > 0.5)][["s", "d", "o", "atr"]]
+
+def candidates_all():                                   # one batch file at a time (each file holds whole symbol histories) - low memory
+    import glob
+    f = f"{RAW}/candidates.csv.gz"
+    if os.path.exists(f): return pd.read_csv(f, parse_dates=["d"])
+    C = pd.concat([candidates(daily_one(x)) for x in sorted(glob.glob(f"{RAW}/daily/*.csv.gz"))], ignore_index=True)
+    C.to_csv(f, index=False); return C
 
 def et(d, hh, mm):
     return pd.Timestamp(d).replace(hour=hh, minute=mm).tz_localize("America/New_York").tz_convert("UTC").strftime("%Y-%m-%dT%H:%M:%SZ")
 
 if stage in ("or5", "m1", "cand"):
-    C = candidates(daily_all()); C.to_csv(f"{RAW}/candidates.csv.gz", index=False)
+    C = candidates_all()
     days = sorted(C.d.unique()); print(len(C), "candidate rows over", len(days), "days", flush=True)
 
 if stage == "or5":
