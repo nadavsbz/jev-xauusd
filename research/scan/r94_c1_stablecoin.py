@@ -1,4 +1,4 @@
-"""Round 94 (prereg docs/prereg/r94_c1_stablecoin.md): stablecoin supply as a long/short weight filter on C1.
+﻿"""Round 94 (prereg docs/prereg/r94_c1_stablecoin.md): stablecoin supply as a long/short weight filter on C1.
 Usage: py -3.12 research/scan/r94_c1_stablecoin.py fetch|dev|hold"""
 import sys, os, json, glob, datetime as dt
 import numpy as np, pandas as pd
@@ -15,11 +15,13 @@ if PART == "fetch":
 
 from scan import tcost, scale
 from r64_mass import loadh, swaps
-from r77_c1_breadth import st
+import contextlib, io
+with contextlib.redirect_stdout(io.StringIO()): from r77_c1_breadth import st   # silence its module-level report
 data = json.load(open(sorted(glob.glob(f"{RAW}/all_*.json"))[-1]))
 S = pd.Series({pd.Timestamp(int(x["date"]), unit="s").normalize(): x["totalCirculatingUSD"]["peggedUSD"] for x in data}).sort_index()
 chg = S.pct_change(14)
-z = (chg - chg.expanding(365).mean()) / chg.expanding(365).std()
+ROLL = len(sys.argv) > 2 and sys.argv[2] == "roll"                     # r94b: rolling 365d (min 180)
+z = ((chg - chg.rolling(365, min_periods=180).mean()) / chg.rolling(365, min_periods=180).std()) if ROLL else (chg - chg.expanding(365).mean()) / chg.expanding(365).std()
 zprev = z.shift(1)                                                    # day d uses the value of d-1
 
 def comps(c, long_only):
