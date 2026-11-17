@@ -21,3 +21,4 @@ bots/
 deploy/
 data/private/
 data/derived/scan/mql5sig/pages/
+alpaca_key.json
