@@ -9,7 +9,7 @@
 - **הקבצים מתאימים ל-4.7:** הדוח מציג 97 פרמטרים, כולל CoherenceBurst, ‏PhantomChain ו-CrashDetection.
 
 **ההרצה הזו, בתנאים שלו:**
-- **חשבון:** ‏RoboForex ECN, לא סנטים. ‏‎.USTECHCash, ‏M30, טיקים אמיתיים.
+- **חשבון:** ‏RoboForex ECN, לא סנטים. ‏‎.USTECHCash, ‏M5 (לפי עופר; קודם M30), טיקים אמיתיים.
 - **פיקדון ומינוף:** ‏$10,000, מינוף 1:33.
 - **שלושת הקבצים שלו:** ‏testbull4, ‏bull_new_profit, ‏bull100.
 - **ההמלצות שלו:** ‏`InpLotSize=0.01`, ‏`InpMaxPositions=10`, ‏`InpUseRiskLimit=false`, ‏`InpAiLookbackTF=5`.
