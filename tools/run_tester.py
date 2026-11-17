@@ -103,6 +103,18 @@ def preflight(terminal, acc, login_check=True):
         time.sleep(5)
 
 
+def trim_logs(root, limit_mb=50):
+    """User request (17.11.2026): never let tester logs pile up. Our own runs' journal files (Tester/logs and
+    Tester/Agent-*/logs, *.log only) larger than limit_mb are deleted after each run; tick caches are kept."""
+    import glob
+    for f in glob.glob(os.path.join(root, "Tester", "logs", "*.log")) + glob.glob(os.path.join(root, "Tester", "Agent-*", "logs", "*.log")):
+        try:
+            if os.path.getsize(f) > limit_mb * 1024 * 1024:
+                os.remove(f); print("removed large tester log:", os.path.relpath(f, root))
+        except OSError:
+            pass
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--accounts", required=True)
@@ -170,6 +182,7 @@ def main():
         rc = proc.returncode
     finally:
         os.remove(ini); os.rmdir(tmp)
+        trim_logs(root)
     if a.detach:
         return
     found = [f for f in os.listdir(root) if f.startswith(os.path.basename(a.report))]
