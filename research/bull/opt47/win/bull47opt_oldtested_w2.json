@@ -1,0 +1,25 @@
+{
+ "report": "bull47opt_oldtested_w2",
+ "base_set": "dev_bull_oldtested.set",
+ "fixed": {
+  "InpLotSize": "0.01",
+  "InpMaxPositions": "5",
+  "InpUseRiskLimit": "false",
+  "InpAiLookbackTF": "5"
+ },
+ "ranges": {
+  "InpMagicNumber": [
+   110,
+   1,
+   111
+  ]
+ },
+ "name": "Robo ECN demo",
+ "expert": "Market\\EA Bull Scalper.ex5",
+ "symbol": ".USTECHCash",
+ "period": "M5",
+ "deposit": 10000,
+ "leverage": 33,
+ "from": "2022.04.01",
+ "to": "2022.05.31"
+}
