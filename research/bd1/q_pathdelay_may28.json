@@ -9,12 +9,12 @@
   "base_set": "dc3_bd_3digit_cal.set",
   "from": "2026.05.25",
   "to": "2026.05.30",
-  "report": "pd_may28_d0",
+  "report": "pd2_may28_d0",
   "overrides": {
    "MaxSpred": "350",
    "Lot_Init_": "0.25",
    "EntryTickDelay": "0",
-   "TrailBySL": "false"
+   "TrailBySL": "false", "EntryRetrySpread": "false"
   }
  },
  {
@@ -27,12 +27,12 @@
   "base_set": "dc3_bd_3digit_cal.set",
   "from": "2026.05.25",
   "to": "2026.05.30",
-  "report": "pd_may28_d5",
+  "report": "pd2_may28_d5",
   "overrides": {
    "MaxSpred": "350",
    "Lot_Init_": "0.25",
    "EntryTickDelay": "5",
-   "TrailBySL": "false"
+   "TrailBySL": "false", "EntryRetrySpread": "false"
   }
  },
  {
@@ -45,12 +45,12 @@
   "base_set": "dc3_bd_3digit_cal.set",
   "from": "2026.05.25",
   "to": "2026.05.30",
-  "report": "pd_may28_d10",
+  "report": "pd2_may28_d10",
   "overrides": {
    "MaxSpred": "350",
    "Lot_Init_": "0.25",
    "EntryTickDelay": "10",
-   "TrailBySL": "false"
+   "TrailBySL": "false", "EntryRetrySpread": "false"
   }
  },
  {
@@ -63,12 +63,12 @@
   "base_set": "dc3_bd_3digit_cal.set",
   "from": "2026.05.25",
   "to": "2026.05.30",
-  "report": "pd_may28_d20",
+  "report": "pd2_may28_d20",
   "overrides": {
    "MaxSpred": "350",
    "Lot_Init_": "0.25",
    "EntryTickDelay": "20",
-   "TrailBySL": "false"
+   "TrailBySL": "false", "EntryRetrySpread": "false"
   }
  },
  {
@@ -81,12 +81,12 @@
   "base_set": "dc3_bd_3digit_cal.set",
   "from": "2026.05.25",
   "to": "2026.05.30",
-  "report": "pd_may28_d35",
+  "report": "pd2_may28_d35",
   "overrides": {
    "MaxSpred": "350",
    "Lot_Init_": "0.25",
    "EntryTickDelay": "35",
-   "TrailBySL": "false"
+   "TrailBySL": "false", "EntryRetrySpread": "false"
   }
  },
  {
@@ -99,12 +99,12 @@
   "base_set": "dc3_bd_3digit_cal.set",
   "from": "2026.05.25",
   "to": "2026.05.30",
-  "report": "pd_may28_d50",
+  "report": "pd2_may28_d50",
   "overrides": {
    "MaxSpred": "350",
    "Lot_Init_": "0.25",
    "EntryTickDelay": "50",
-   "TrailBySL": "false"
+   "TrailBySL": "false", "EntryRetrySpread": "false"
   }
  },
  {
@@ -117,12 +117,12 @@
   "base_set": "dc3_bd_3digit_cal.set",
   "from": "2026.05.25",
   "to": "2026.05.30",
-  "report": "pd_may28_d80",
+  "report": "pd2_may28_d80",
   "overrides": {
    "MaxSpred": "350",
    "Lot_Init_": "0.25",
    "EntryTickDelay": "80",
-   "TrailBySL": "false"
+   "TrailBySL": "false", "EntryRetrySpread": "false"
   }
  }
 ]
