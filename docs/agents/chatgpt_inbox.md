@@ -2300,3 +2300,24 @@ BD מרוויח משום שהוא:
 * ✅ `git status --short --branch` — עץ העבודה נקי לאחר ה־commit.
 
  [View task →](https://chatgpt.com/s/cd_6aff35fabc788191a2b5ade5d9da8160)
+
+## [ChatGPT -> Claude] 19.11.2026 21:35 (שעון ישראל) - t303: מפת דרך ל-1,000$ ליום ופרוטוקול BD (תגובת @codex ב-PR 44; commit 70a0443 בענן Codex)
+### Summary
+
+* הוספתי מסמך מספרי מלא ל־t303: יעד שנתי של 252,000$, דרישת הון של כ־951 אלף דולר לפי תוצאת הטסטר, תרחישי ביטחון של כ־1.19–1.36 מיליון דולר, תרחיש שמרני של כ־1.90 מיליון דולר, ותרגום ה־MDD לדולרים. [docs/agents/chatgpt_inbox.mdL2305-L2336](https://github.com/nadavsbz/jev-xauusd/blob/80d991295d910e4364a661846312b7d756478009/docs/agents/chatgpt_inbox.md#L2305-L2336)
+* הפרדתי את BD מתוכנית הבסיס: תוצאת escrow ‏B20 מוצגת לשקיפות, אך אינה מקבלת קרדיט תשואה משום שכל השיפור תלוי בתקופת 2026 שנבחרה לאחר מעשה. [docs/agents/chatgpt_inbox.mdL2338-L2347](https://github.com/nadavsbz/jev-xauusd/blob/80d991295d910e4364a661846312b7d756478009/docs/agents/chatgpt_inbox.md#L2338-L2347)
+* הגדרתי מסלול הדרגתי עם שער תפעולי, 63 ימי מסחר בין מדרגות, בדיקות בנקודות קבועות, הגדלה מוצעת של עד 25% בכל מדרגה וכרית מזומן נפרדת לפני משיכת הכנסה. כל השערים מסומנים כהצעה בלבד וההחלטה נשארת של נדב. [docs/agents/chatgpt_inbox.mdL2349-L2392](https://github.com/nadavsbz/jev-xauusd/blob/80d991295d910e4364a661846312b7d756478009/docs/agents/chatgpt_inbox.md#L2349-L2392)
+* דירגתי בכנות את הדרכים לקיצור המסלול: הון חיצוני ראשון, מנוע נוסף שכבר אומת שני, ומינוף אחרון. המסמך מדגים שמינוף של תיק קטן עלול להביא את MDD ‏p95 לכ־37%, מעל תקציב הסיכון. [docs/agents/chatgpt_inbox.mdL2394-L2408](https://github.com/nadavsbz/jev-xauusd/blob/80d991295d910e4364a661846312b7d756478009/docs/agents/chatgpt_inbox.md#L2394-L2408)
+* הוספתי פרוטוקול מזווג להשוואת שכבת BD הבסיסית לשכבת Ramil, כולל הגדרה מראש של מחיקה, Wilson confidence interval, ‏McNemar exact, חציון הפרשים ו־CVaR10. [docs/agents/chatgpt_inbox.mdL2410-L2451](https://github.com/nadavsbz/jev-xauusd/blob/80d991295d910e4364a661846312b7d756478009/docs/agents/chatgpt_inbox.md#L2410-L2451)
+* קבעתי ש־30 המסלולים הנוכחיים הם pilot בלבד, שההשוואה הראשית תכלול לפחות 200 זוגות seeds, ושהרחבה ל־500 תתבצע רק לפי כלל כוח סטטיסטי ואי־ודאות שהוקפא מראש. [docs/agents/chatgpt_inbox.mdL2453-L2475](https://github.com/nadavsbz/jev-xauusd/blob/80d991295d910e4364a661846312b7d756478009/docs/agents/chatgpt_inbox.md#L2453-L2475)
+* הפרדתי בין DEV ‏2019–2023, ‏holdout יחיד ב־2024–2025, ו־2026 כבדיקת כיול ונאמנות בלבד, כדי שלא לבחור שכבת ניהול לפי השנה החריגה. [docs/agents/chatgpt_inbox.mdL2490-L2500](https://github.com/nadavsbz/jev-xauusd/blob/80d991295d910e4364a661846312b7d756478009/docs/agents/chatgpt_inbox.md#L2490-L2500)
+* השינויים נשמרו ב־commit `70a0443`, ונוצרה רשומת PR בשם **“t303: מפת דרך ל־1,000$ ליום ופרוטוקול BD”**.
+
+**Testing**
+
+* ✅ `python - <<'PY' ... PY` — אומתו דרישות ההון עבור תשואת הבסיס ותרחישי haircut של 20%, 30% ו־50%.
+* ✅ `git diff --check HEAD^`
+* ✅ `git show --check --stat --oneline HEAD`
+* ✅ `git status --short --branch` — עץ העבודה נקי לאחר ה־commit.
+
+ [View task →](https://chatgpt.com/s/cd_6aff4ed80bdc8191bfb2fb15e741f732)
