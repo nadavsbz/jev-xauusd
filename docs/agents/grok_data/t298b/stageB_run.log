@@ -1,0 +1,65 @@
+== full {'A': '5%', 'B': '20%'} {'A': '20%', 'B': '20%'}
+    cfg   CAGR  dCAGR  MDD_close  MDD_worst  ES5_m  BD_share  P_MDD_gt25  MDD_p95                          fails summary_pass
+0    0%  26.51   0.00      10.22      10.22  -4.56      0.00        0.55    19.51                           PASS         None
+1    A5  29.39   2.89       9.74       9.74  -4.77     21.37        0.10    17.70                           PASS         True
+2   A10  30.39   3.88       9.71       9.71  -4.75     29.45        0.15    17.94  4:depends on refill (H fails)         True
+3   A15  30.80   4.29      10.26      10.26  -4.84     32.76        0.15    18.02  4:depends on refill (H fails)         True
+4   A20  31.41   4.90      10.26      10.26  -4.83     34.65        0.15    18.09  4:depends on refill (H fails)         True
+5    B5  26.72   0.21      10.02      10.02  -4.56      3.81        0.45    18.64                           PASS         True
+6   B10  26.92   0.41       9.82       9.82  -4.56      7.52        0.20    18.24                           PASS         True
+7   B15  27.13   0.62       9.61       9.61  -4.56     11.13        0.15    17.94                           PASS         True
+8   B20  27.33   0.82       9.40       9.40  -4.55     14.65        0.20    17.92                           PASS         True
+9    H5  27.95   1.44       9.92       9.92  -4.77     13.70        4.20    24.15                           PASS         True
+10  H10  29.31   2.80       9.61       9.61  -4.93     25.10       13.05    32.01                1:P(MDD>25%)>5%        False
+11  H15  30.58   4.07       9.53       9.53  -5.06     34.74       22.75    37.49                1:P(MDD>25%)>5%        False
+12  H20  31.79   5.28      11.43      11.43  -5.22     42.99       32.30    41.56                1:P(MDD>25%)>5%        False
+== live_only {'A': '20%', 'B': '20%'} {'A': '20%', 'B': '20%'}
+    cfg    CAGR   dCAGR  MDD_close  MDD_worst  ES5_m  BD_share  P_MDD_gt25  MDD_p95 fails summary_pass
+0    0%   24.52    0.00       5.62       5.62  -4.26      0.00        0.00    13.64  PASS         None
+1    A5   60.66   36.14       6.22       6.22  -5.37     55.59        0.00    12.09  PASS         True
+2   A10   73.95   49.43       6.22       6.22  -5.37     61.45        0.00    12.49  PASS         True
+3   A15   78.78   54.26       6.22       6.22  -5.37     63.03        0.00    12.57  PASS         True
+4   A20   78.07   53.55       6.22       6.22  -5.37     62.99        0.00    12.58  PASS         True
+5    B5   39.72   15.20       5.65       5.65  -4.55     34.53        0.00    11.86  PASS         True
+6   B10   54.93   30.41       5.72       5.72  -4.79     49.95        0.00    11.86  PASS         True
+7   B15   70.13   45.61       5.88       5.88  -4.98     58.68        0.00    12.29  PASS         True
+8   B20   85.34   60.81       6.02       6.02  -5.13     64.30        0.00    12.60  PASS         True
+9    H5   61.67   37.15       7.91       7.91  -6.63     62.22        0.00    13.38  PASS         True
+10  H10   98.83   74.31      13.07      13.07  -7.98     77.66        0.10    16.02  PASS         True
+11  H15  135.99  111.47      17.51      17.51  -8.84     84.67        0.65    18.48  PASS         True
+12  H20  173.15  148.63      20.62      20.62 -11.42     88.67        1.60    20.36  PASS         True
+== ex_live {'A': '0%', 'B': '0%'} {'A': '0%', 'B': '0%'}
+    cfg   CAGR  dCAGR  MDD_close  MDD_worst  ES5_m  BD_share  P_MDD_gt25  MDD_p95                             fails summary_pass
+0    0%  26.85   0.00      10.22      10.22  -4.64      0.00        0.35    18.41                              PASS         None
+1    A5  25.92  -0.94       9.74       9.74  -4.62      1.22        0.10    17.64  2:dES5 worse -0.02 > dCAGR -0.94        False
+2   A10  24.97  -1.88       9.71       9.71  -4.59      2.55        0.10    17.79  2:dES5 worse -0.05 > dCAGR -1.88        False
+3   A15  24.65  -2.20      10.26      10.26  -4.70      4.07        0.15    18.09   2:dES5 worse 0.06 > dCAGR -2.20        False
+4   A20  24.79  -2.06      10.26      10.26  -4.70      4.86        0.15    18.21   2:dES5 worse 0.06 > dCAGR -2.06        False
+5    B5  26.46  -0.39      10.02      10.02  -4.62      0.78        0.25    18.01  2:dES5 worse -0.02 > dCAGR -0.39        False
+6   B10  26.06  -0.79       9.82       9.82  -4.59      1.59        0.20    17.64  2:dES5 worse -0.04 > dCAGR -0.79        False
+7   B15  25.66  -1.20       9.61       9.61  -4.57      2.44        0.15    17.59  2:dES5 worse -0.07 > dCAGR -1.20        False
+8   B20  25.25  -1.61       9.40       9.40  -4.55      3.35        0.15    17.92  2:dES5 worse -0.09 > dCAGR -1.61        False
+9    H5  26.16  -0.69       9.92       9.92  -4.62      0.87        0.20    17.84  2:dES5 worse -0.02 > dCAGR -0.69        False
+10  H10  25.46  -1.40       9.61       9.61  -4.60      1.82        0.25    18.02  2:dES5 worse -0.04 > dCAGR -1.40        False
+11  H15  24.73  -2.12       9.53       9.53  -4.57      2.87        0.60    19.07  2:dES5 worse -0.07 > dCAGR -2.12        False
+12  H20  23.98  -2.87      10.06      10.06  -4.61      4.01        1.30    20.99  2:dES5 worse -0.03 > dCAGR -2.87        False
+one_year_flag {'A': {5: True}, 'B': {5: True, 10: True, 15: True, 20: True}}
+{
+ "G_year": 7.668144603777375,
+ "bad_years": {
+  "2016": -0.310533499999999,
+  "2017": -0.4518345833333429,
+  "2018": -0.17348458333333272,
+  "2019": -0.28892408333332265
+ },
+ "H_breakeven_bad_per_good": 5.741746419576387,
+ "H_bad_first_max_bad_years_covered_by_1_good": 3,
+ "H_good_first_max_bad_years_covered_by_1_good": 3,
+ "A_bad_first_max_bad_years_covered_by_1_good": 3,
+ "A_good_first_max_bad_years_covered_by_1_good": 40,
+ "B_bad_first_max_bad_years_covered_by_1_good": 3,
+ "B_good_first_max_bad_years_covered_by_1_good": 40,
+ "H_good_years_needed_after_2016_2019": 1,
+ "A_good_years_needed_after_2016_2019": 1,
+ "B_good_years_needed_after_2016_2019": 1
+}

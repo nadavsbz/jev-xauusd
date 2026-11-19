@@ -2279,3 +2279,24 @@ BD מרוויח משום שהוא:
 
  [View task →](https://chatgpt.com/s/cd_6afedb436c048191985879ef90af9f22)
 
+
+## [ChatGPT -> Claude] 19.11.2026 19:49 (שעון ישראל) - t300: פרוטוקול נאמנות (מתוך תגובת @codex ב-PR 44; ה-commit c0b68bb נשאר בענן של Codex ולא נדחף)
+### סיכום
+
+* הוספתי פרוטוקול נאמנות שמפריד בין שלוש שכבות ראיה: ביצוע ה־EA, הגנה מכנית ושחזור פורנזי של התערבות ידנית. מאי מוגדר כחודש נקי, יוני מצונזר מרגע ההתערבות, ומנגנון הסגירה ב־1.7 נשאר `UNKNOWN` עד שיוכח. [docs/prereg/bd_live_set_t298.mdL104-L112](https://github.com/nadavsbz/jev-xauusd/blob/8f74ea1a6a231a598edd156f65eae6fa0b02e009/docs/prereg/bd_live_set_t298.md#L104-L112)
+* קבעתי שהגנת 85% תיבדק דרך שרשרת הריצות, עם ריצת בקרה ללא הגנה ותיעוד מלא של כל פגיעה. בסיס ההגנה חייב להיקבע בידי נדב לפני ההרצה ולא להיבחר לפי ההתאמה ל־1.7. [docs/prereg/bd_live_set_t298.mdL114-L119](https://github.com/nadavsbz/jev-xauusd/blob/8f74ea1a6a231a598edd156f65eae6fa0b02e009/docs/prereg/bd_live_set_t298.md#L114-L119)
+* הגדרתי תחילה בדיקת רגישות של `EntryTickDelay=0..15`, תוך הבחנה חשובה שהפרמטר נמדד בטיקים ולא בשניות. הטווח חייב לכסות בפועל את עיכוב שמונה השניות שנצפה במאי לפני בחינת התוצאות הכספיות. [docs/prereg/bd_live_set_t298.mdL121-L126](https://github.com/nadavsbz/jev-xauusd/blob/8f74ea1a6a231a598edd156f65eae6fa0b02e009/docs/prereg/bd_live_set_t298.md#L121-L126)
+* קבעתי Monte Carlo ראשי של 200 מסלולים, עם הרחבה ל־500 רק למדידת שגיאת סימולציה במקרה גבולי. בכל התחלה טבעית של מקטע שרשרת נבחר עיכוב חדש באמצעות seed שמור; צוין במפורש כי `chain.py` חייב להיות מורחב להעברת `EntryTickDelay`, אחרת אין שונות אמיתית בין המסלולים. [docs/prereg/bd_live_set_t298.mdL128-L133](https://github.com/nadavsbz/jev-xauusd/blob/8f74ea1a6a231a598edd156f65eae6fa0b02e009/docs/prereg/bd_live_set_t298.md#L128-L133)
+* הגדרתי שהתערבויות יוני ישוחזרו רק כ־replay פורנזי. הן לא יהפכו לכלל עתידי אלא אם נדב ינסח מראש אלגוריתם מלא המבוסס אך ורק על מידע שהיה זמין בזמן אמת. [docs/prereg/bd_live_set_t298.mdL135-L139](https://github.com/nadavsbz/jev-xauusd/blob/8f74ea1a6a231a598edd156f65eae6fa0b02e009/docs/prereg/bd_live_set_t298.md#L135-L139)
+* קבעתי שער נאמנות מחמיר הכולל כיסוי ביצוע, כיסוי של לפחות 80% מהחודשים הנקיים ברווחי הניבוי, בדיקה רב־ממדית, כיסוי אירועי סיכון ובדיקות השמטה למאי ולחודש החי הרווחי ביותר. [docs/prereg/bd_live_set_t298.mdL141-L150](https://github.com/nadavsbz/jev-xauusd/blob/8f74ea1a6a231a598edd156f65eae6fa0b02e009/docs/prereg/bd_live_set_t298.md#L141-L150)
+* הגבלתי את משמעות המעבר: גם אם כל התנאים יעברו, הטסטר ייחשב רק למודל התפלגותי ולא למסלול יחיד שמייצג את החשבון. ללא equity חי תוך־חודשי, נאמנות ה־DD נשארת `MODEL-ONLY/UNKNOWN`. אין בפרוטוקול אישור מסחר; ההחלטה נשארת של נדב. [docs/prereg/bd_live_set_t298.mdL152-L155](https://github.com/nadavsbz/jev-xauusd/blob/8f74ea1a6a231a598edd156f65eae6fa0b02e009/docs/prereg/bd_live_set_t298.md#L152-L155)
+* השינוי נרשם ב־commit `c0b68bb`, ונוצרה רשומת PR בשם **“t300: פרוטוקול נאמנות בין BD בטסטר לחשבון החי”**.
+
+**Testing**
+
+* ✅ `git diff --check`
+* ✅ `git diff -- docs/prereg/bd_live_set_t298.md`
+* ✅ `nl -ba docs/prereg/bd_live_set_t298.md | sed -n '103,180p'`
+* ✅ `git status --short --branch` — עץ העבודה נקי לאחר ה־commit.
+
+ [View task →](https://chatgpt.com/s/cd_6aff35fabc788191a2b5ade5d9da8160)
