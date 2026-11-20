@@ -1,6 +1,6 @@
 [
  {
-  "name": "Bots ECN demo",
+  "name": "Robo ECN demo",
   "expert": "Jev\\BarExport.ex5",
   "symbol": "EURUSD",
   "period": "H1",
@@ -16,7 +16,7 @@
   }
  },
  {
-  "name": "Bots ECN demo",
+  "name": "Robo ECN demo",
   "expert": "Jev\\BarExport.ex5",
   "symbol": "GBPUSD",
   "period": "H1",
@@ -32,7 +32,7 @@
   }
  },
  {
-  "name": "Bots ECN demo",
+  "name": "Robo ECN demo",
   "expert": "Jev\\BarExport.ex5",
   "symbol": "USDJPY",
   "period": "H1",
@@ -48,7 +48,7 @@
   }
  },
  {
-  "name": "Bots ECN demo",
+  "name": "Robo ECN demo",
   "expert": "Jev\\BarExport.ex5",
   "symbol": "AUDUSD",
   "period": "H1",
@@ -64,7 +64,7 @@
   }
  },
  {
-  "name": "Bots ECN demo",
+  "name": "Robo ECN demo",
   "expert": "Jev\\BarExport.ex5",
   "symbol": "XAUUSD",
   "period": "H1",
@@ -80,7 +80,7 @@
   }
  },
  {
-  "name": "Bots ECN demo",
+  "name": "Robo ECN demo",
   "expert": "Jev\\BarExport.ex5",
   "symbol": ".US500Cash",
   "period": "H1",
@@ -96,7 +96,7 @@
   }
  },
  {
-  "name": "Bots ECN demo",
+  "name": "Robo ECN demo",
   "expert": "Jev\\BarExport.ex5",
   "symbol": ".DE40Cash",
   "period": "H1",
@@ -112,7 +112,7 @@
   }
  },
  {
-  "name": "Bots ECN demo",
+  "name": "Robo ECN demo",
   "expert": "Jev\\BarExport.ex5",
   "symbol": ".JP225Cash",
   "period": "H1",
@@ -128,7 +128,7 @@
   }
  },
  {
-  "name": "Bots ECN demo",
+  "name": "Robo ECN demo",
   "expert": "Jev\\BarExport.ex5",
   "symbol": "WTI",
   "period": "H1",
@@ -144,7 +144,7 @@
   }
  },
  {
-  "name": "Bots ECN demo",
+  "name": "Robo ECN demo",
   "expert": "Jev\\BarExport.ex5",
   "symbol": "XAGUSD",
   "period": "H1",
