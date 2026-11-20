@@ -48,9 +48,13 @@ def main(path):
         lvl = "RED" if s >= h or dd >= MDD_RED["I2"] else ("YELLOW" if any(a >= b for a, b in sides.values()) else "GREEN")
         rep.append(f"I2: {lvl}  days {len(r)}  cum {r.sum() * 100:+.2f}% (tester units)  CUSUM {s:.2f}/{h}  DD {dd * 100:.1f}%/"
                    f"{MDD_RED['I2'] * 100:.1f}%  " + "  ".join(f"{k} {a:.2f}/{b}" for k, (a, b) in sides.items()))
-    snap = "data/derived/demo_c1i2/c1_snapshots.csv"
+    snap = "data/derived/demo_c1i2/c1_snapshots_raw.csv"   # demo_export.py appends "server time,C1 realised+floating"
     if os.path.exists(snap):
-        c = pd.read_csv(snap, parse_dates=["date"]).set_index("date").c1_mtm_pnl
+        c = pd.read_csv(snap, names=["ts", "v"], parse_dates=["ts"])
+        c = c[c.ts.dt.hour < 2]                                   # day-start snapshots only (server date = C1 day cut)
+        c = c.groupby(c.ts.dt.normalize()).v.first(); c.index.name = "date"
+        c = c.reindex(pd.date_range(c.index.min(), c.index.max())) if len(c) else c   # missing days stay NaN, not 0
+        c = c.dropna()   # a gap merges two days into one step (documented, conservative for CUSUM count)
         c = c[c.index >= T0]; r = c.diff().dropna() / (DEPOSIT + c.shift(1).dropna()) / RISK
         s, h, _ = cusum(r, "C1"); eq = (1 + r).cumprod(); dd = -(eq / eq.cummax() - 1).min() if len(r) else 0.0
         lvl = "RED" if s >= h or dd >= MDD_RED["C1"] else "GREEN"

@@ -17,6 +17,13 @@ try:
     out = f"data/derived/demo_c1i2/deals_{sys.argv[1]}.csv"; D[keep].to_csv(out, index=False)
     pos = mt5.positions_get() or ()
     print(f"deals {len(D)} -> {out}; balance {acc.balance:.2f} equity {acc.equity:.2f}; open positions {len(pos)}")
+    # C1 mark-to-market snapshot for research/stable/alert_monitor.py (PROTOCOL v1): realised C1 P&L + open C1 floating
+    c1 = D[D.magic == 61001]; real = float((c1.profit + c1.swap + c1.commission + c1.fee).sum())
+    flt = float(sum(p.profit + p.swap for p in pos if p.magic == 61001))
+    srv = pd.Timestamp(mt5.symbol_info_tick("BTCUSD").time, unit="s")
+    with open("data/derived/demo_c1i2/c1_snapshots_raw.csv", "a") as f:
+        f.write(f"{srv:%Y-%m-%d %H:%M:%S},{real + flt:.2f}\n")
+    print(f"C1 mtm pnl {real + flt:+.2f} at server {srv}")
     for p in pos: print(f"   open {p.symbol} {'buy' if p.type == 0 else 'sell'} {p.volume} profit {p.profit:.2f} magic {p.magic}")
 finally:
     mt5.shutdown()
