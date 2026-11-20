@@ -1,0 +1,34 @@
+{
+ "expert": "Jev\\DragonClone.ex5",
+ "period": "M15",
+ "model": 4,
+ "divisor": 600000,
+ "protect": 0.85,
+ "sweep": 0.0,
+ "base_set": "dc3r_bd_3digit_cal.set",
+ "name": "Black Dragon 1",
+ "symbol": "XAUUSDc",
+ "from": "2025-11-11",
+ "to": "2026-10-15",
+ "deposit": 25559,
+ "bars": "data/raw/black_dragon_1/rates_XAUUSDc_M1_20261019T211852Z/bars.csv",
+ "overrides": {
+  "MaxSpred": "350",
+  "TrailBySL": "false",
+  "EntryRetrySpread": "false"
+ },
+ "delay_choices": [
+  0,
+  2,
+  5,
+  10,
+  15,
+  20,
+  30,
+  40,
+  60,
+  80
+ ],
+ "tag": "t300_p02",
+ "seed": 2
+}
