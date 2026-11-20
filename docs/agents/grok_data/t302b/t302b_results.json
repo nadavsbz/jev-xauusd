@@ -1,0 +1,5335 @@
+{
+  "prereg_sha": "0a98af8f4a71112b299ab7725420e57ae4d4eb41926020df5a0134b75b5244b7",
+  "asof": "2026-11-20 00:00:00",
+  "age_cutoff": "2025-05-21",
+  "broker_utc_hours": 2,
+  "mid": {
+    "joined_from": "2022-01-02 23:00:00+00:00",
+    "joined_to": "2026-10-26 18:48:00+00:00",
+    "n": 4185566,
+    "start": "2015-01-01 23:00:00+00:00",
+    "end": "2026-10-26 18:48:00+00:00"
+  },
+  "seeds": {
+    "direction": 302302,
+    "timing": 302301,
+    "n": 2000
+  },
+  "van_pm": {
+    "meta": {
+      "signal": "2391620",
+      "name": "Van PM",
+      "currency": "USD",
+      "official_start": "2024-10-23",
+      "alt_start": "2026-09-16",
+      "months_official": 24.903490759753595,
+      "closed_list": false,
+      "sibling_note": "sibling 2391627 DD 6% (t302, under 40%)",
+      "layout": "B"
+    },
+    "reconcile": {
+      "n_closed": 2093,
+      "page_trades": 2093,
+      "trade_count_gap": 0,
+      "vendor_pnl": 67896.18,
+      "raw_profit": 68164.42,
+      "commission": -43.5,
+      "swap": -224.74,
+      "page_profit": 67896.18,
+      "vendor_vs_page": 0.0,
+      "cash_net": 14506.96,
+      "cash_pos": 50438.81,
+      "cash_neg": -35931.850000000006,
+      "page_net_cash": 14506.96,
+      "cash_vs_page_net": 0.0,
+      "final_capital": 82403.13999999998,
+      "page_balance": 82403.14,
+      "final_vs_page": -1.4551915228366852e-11,
+      "currency": "USD",
+      "contract": {
+        "n": 2083,
+        "median_value_per_price_per_lot": 29270.072992701702,
+        "p25": 99.99999999999471,
+        "p75": 99999.99999989998,
+        "vs_100000": 0.292700729927017,
+        "vs_1000": 29.270072992701703,
+        "vs_100": 292.700729927017,
+        "likely": "converted_or_other",
+        "commission_units": 100000,
+        "lot_scale": 1.0,
+        "implied_quote_fx": 0.7218855218854071
+      },
+      "lot_scale": 1.0,
+      "cash_detail": {
+        "n": 107,
+        "pos_n": 27,
+        "pos_sum": 50438.81,
+        "neg_n": 53,
+        "neg_sum": -35931.850000000006,
+        "by_type": [
+          {
+            "type": "Balance",
+            "comment": "<empty>",
+            "sign": -1,
+            "n": 53,
+            "sum": -35931.85
+          },
+          {
+            "type": "Balance",
+            "comment": "<empty>",
+            "sign": 0,
+            "n": 26,
+            "sum": 0.0
+          },
+          {
+            "type": "Balance",
+            "comment": "<empty>",
+            "sign": 1,
+            "n": 27,
+            "sum": 50438.81
+          },
+          {
+            "type": "Credit",
+            "comment": "<empty>",
+            "sign": 0,
+            "n": 1,
+            "sum": 0.0
+          }
+        ],
+        "top_cash_days": [
+          {
+            "date": "2024-10-21",
+            "n": 1,
+            "sum": 50037.0
+          },
+          {
+            "date": "2026-07-01",
+            "n": 1,
+            "sum": -5514.0
+          },
+          {
+            "date": "2026-05-29",
+            "n": 1,
+            "sum": -5418.0
+          },
+          {
+            "date": "2026-09-01",
+            "n": 1,
+            "sum": -4592.0
+          },
+          {
+            "date": "2026-05-01",
+            "n": 1,
+            "sum": -4492.0
+          },
+          {
+            "date": "2026-04-01",
+            "n": 1,
+            "sum": -3531.0
+          },
+          {
+            "date": "2026-03-02",
+            "n": 1,
+            "sum": -2521.0
+          },
+          {
+            "date": "2026-02-02",
+            "n": 1,
+            "sum": -2460.0
+          }
+        ]
+      },
+      "n_pending": 0,
+      "pending_to_fill": 0.0,
+      "file_has_commission": true,
+      "commission_rule": "file commission + spread half of RT",
+      "layout": "B",
+      "deal_meta": {
+        "layout": "B",
+        "unmatched_outs": {
+          "n": 0,
+          "sample": []
+        },
+        "open_inventory": {
+          "n": 15,
+          "sample": [
+            {
+              "symbol": "AUDCAD.std",
+              "type": "Buy",
+              "lots": 0.15,
+              "open_s": "2026.11.04 04:15:04",
+              "open_px": 0.97312,
+              "in_comm": 0.0,
+              "in_swap": 0.0
+            },
+            {
+              "symbol": "AUDCAD.std",
+              "type": "Buy",
+              "lots": 0.3,
+              "open_s": "2026.11.05 16:50:01",
+              "open_px": 0.9768,
+              "in_comm": 0.0,
+              "in_swap": 0.0
+            },
+            {
+              "symbol": "AUDCAD.std",
+              "type": "Buy",
+              "lots": 0.3,
+              "open_s": "2026.11.05 17:40:04",
+              "open_px": 0.97439,
+              "in_comm": 0.0,
+              "in_swap": 0.0
+            },
+            {
+              "symbol": "AUDCAD.std",
+              "type": "Buy",
+              "lots": 0.3,
+              "open_s": "2026.11.05 20:05:10",
+              "open_px": 0.97168,
+              "in_comm": 0.0,
+              "in_swap": 0.0
+            },
+            {
+              "symbol": "AUDCAD.std",
+              "type": "Buy",
+              "lots": 0.15,
+              "open_s": "2026.11.06 01:19:20",
+              "open_px": 0.97058,
+              "in_comm": 0.0,
+              "in_swap": 0.0
+            }
+          ]
+        },
+        "n_deals": 4200,
+        "n_cash": 107,
+        "n_closed_pairs": 2093
+      },
+      "page_equity": 80009.98
+    },
+    "twr": {
+      "twr_pct": 173.75371447448137,
+      "monthly": 4.126722183016396,
+      "months": 24.903490759753595,
+      "mdd_pct": -10.373659430635552,
+      "mdd_peak": "2026-06-30 17:40:32",
+      "mdd_trough": "2026-07-08 12:14:01",
+      "final_capital": 82403.13999999988,
+      "first_cap": "2024-10-21 07:37:17",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 2200,
+      "peak": 2.869844515653644,
+      "n_daily": 415
+    },
+    "twr_alt_start": {
+      "twr_pct": 173.75371447448137,
+      "monthly": 60.25155059845433,
+      "months": 2.135523613963039,
+      "mdd_pct": -10.373659430635552,
+      "mdd_peak": "2026-06-30 17:40:32",
+      "mdd_trough": "2026-07-08 12:14:01",
+      "final_capital": 82403.13999999988,
+      "first_cap": "2024-10-21 07:37:17",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 2200,
+      "peak": 2.869844515653644,
+      "n_daily": 415
+    },
+    "twr_rf": {
+      "twr_pct": 83.45470351427508,
+      "monthly": 2.4665241698119456,
+      "months": 24.903490759753595,
+      "mdd_pct": -17.07095207067769,
+      "mdd_peak": "2026-06-30 17:40:32",
+      "mdd_trough": "2026-07-08 12:14:01",
+      "final_capital": 44843.88195421772,
+      "first_cap": "2024-10-21 07:37:17",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 2200,
+      "peak": 2.1345529391368263,
+      "n_daily": 415
+    },
+    "twr_stress": {
+      "twr_pct": -34.24912743711482,
+      "monthly": -1.6695938148860723,
+      "months": 24.903490759753595,
+      "mdd_pct": -56.85384126986746,
+      "mdd_peak": "2026-09-04 16:59:01",
+      "mdd_trough": "2026-11-03 17:41:56",
+      "final_capital": 8839.08032196245,
+      "first_cap": "2024-10-21 07:37:17",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 2200,
+      "peak": 1.489374491236769,
+      "n_daily": 415
+    },
+    "money_weighted": {
+      "capital_in": 50438.81,
+      "simple_pnl_over_capital_in_pct": 134.61098705540437,
+      "simple_monthly": 3.516589979163931,
+      "page_growth": 173.75,
+      "page_growth_monthly_on_official_clock": 4.1659200535372864,
+      "cashflow_twr_pct": 173.75371447448137
+    },
+    "last12m": {
+      "twr_pct": 117.88123901971584,
+      "monthly": 6.709796366038989,
+      "months": 11.991786447638603,
+      "mdd_pct": -10.373659430635495,
+      "n_trades": 1445,
+      "start_capital": 56508.599999999984
+    },
+    "top10": {
+      "top10": [
+        {
+          "date": "2026-05-28",
+          "pnl": 4899.12
+        },
+        {
+          "date": "2026-06-24",
+          "pnl": 4111.2
+        },
+        {
+          "date": "2026-02-02",
+          "pnl": 3921.92
+        },
+        {
+          "date": "2026-08-05",
+          "pnl": 2791.35
+        },
+        {
+          "date": "2026-04-29",
+          "pnl": 2316.19
+        },
+        {
+          "date": "2026-01-30",
+          "pnl": 2180.6
+        },
+        {
+          "date": "2026-04-20",
+          "pnl": 2171.87
+        },
+        {
+          "date": "2026-06-03",
+          "pnl": 2148.42
+        },
+        {
+          "date": "2026-09-14",
+          "pnl": 2116.15
+        },
+        {
+          "date": "2026-04-02",
+          "pnl": 2022.54
+        }
+      ],
+      "top10_log_share": 38.327080173300146,
+      "twr_without": 86.0941388242571,
+      "monthly_without": 2.525316801141231,
+      "n_close_days": 404
+    },
+    "stacking": {
+      "n": 2093,
+      "same_side_open_within_1min": 157,
+      "same_side_open_within_5min": 310,
+      "averaging_down": 64,
+      "opposite_hedges": 50,
+      "max_concurrent_tickets": 19,
+      "max_concurrent_lots": 7.499999999999998,
+      "max_concurrent_same_symbol": 9,
+      "n_pending": 0,
+      "pending_to_fill": 0.0,
+      "lot_escalation": {
+        "n_sequences": 471,
+        "n_escalated": 70,
+        "frac": 0.14861995753715498,
+        "fail": false
+      },
+      "grid_rule": {
+        "fail": true,
+        "by_concurrent_and_averaging": true,
+        "by_lot_escalation": false,
+        "max_concurrent_same_symbol": 9,
+        "averaging_down": 64
+      }
+    },
+    "lots_vs_balance": {
+      "median_lots": 0.3,
+      "median_lots_per_bal": 5.482973175102041e-06,
+      "p90_lots_per_bal": 1.2525423181305034e-05,
+      "corr_lots_balance": 0.21456547636296444
+    },
+    "lots_vs_balance_by_year": {
+      "2024": {
+        "n": 77,
+        "median_lots": 0.3,
+        "median_lots_per_bal": 5.945098207077284e-06,
+        "p90_lots_per_bal": 1.1808820638127442e-05
+      },
+      "2025": {
+        "n": 623,
+        "median_lots": 0.3,
+        "median_lots_per_bal": 5.552287931287847e-06,
+        "p90_lots_per_bal": 1.0923179321711618e-05
+      },
+      "2026": {
+        "n": 1393,
+        "median_lots": 0.35,
+        "median_lots_per_bal": 4.688554924858093e-06,
+        "p90_lots_per_bal": 1.3455560826939428e-05
+      }
+    },
+    "recost": {
+      "gold_bp": {
+        "n": 594,
+        "avg_net": 4.425817003343056,
+        "median_net": 4.120773426246927,
+        "avg_stress": 3.9611071342511845,
+        "unit": "bp"
+      },
+      "fx_pips": {
+        "n": 1499,
+        "avg_net": 6.233965894358289,
+        "median_net": 6.199999999999599,
+        "avg_stress": 4.233965894358289,
+        "unit": "pips"
+      },
+      "median_hold_min": 149.0,
+      "median_hold_gold": 33.0,
+      "median_hold_fx": 325.03333333333336,
+      "sl_visible_pct": 0.0,
+      "tp_visible_pct": 0.0,
+      "n": 2093,
+      "n_gold": 594,
+      "n_fx": 1499,
+      "comment_sl": 0,
+      "comment_tp": 0,
+      "comment_empty": 2093,
+      "by_symbol": {
+        "AUDCAD": {
+          "n": 886,
+          "avg_net": 10.45264577783297,
+          "median_net": 6.747402005468734,
+          "avg_stress": 8.45264577783297,
+          "median_hold_min": 683.575,
+          "unit": "pips",
+          "wr": 73.47629796839729,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "AUDJPY": {
+          "n": 6,
+          "avg_net": 62.28132339640774,
+          "median_net": 70.47175874015598,
+          "avg_stress": 60.28132339640774,
+          "median_hold_min": 4013.25,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "AUDNZD": {
+          "n": 3,
+          "avg_net": 34.874690676995215,
+          "median_net": 46.89844286695661,
+          "avg_stress": 32.874690676995215,
+          "median_hold_min": 2484.383333333333,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "AUDUSD": {
+          "n": 10,
+          "avg_net": 12.94960843798116,
+          "median_net": -16.894202898550972,
+          "avg_stress": 10.94960843798116,
+          "median_hold_min": 2637.6583333333333,
+          "unit": "pips",
+          "wr": 50.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "CADCHF": {
+          "n": 5,
+          "avg_net": 51.16129978345132,
+          "median_net": 35.70122950819672,
+          "avg_stress": 49.16129978345132,
+          "median_hold_min": 18366.1,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "CADJPY": {
+          "n": 1,
+          "avg_net": 46.97166178317335,
+          "median_net": 46.97166178317335,
+          "avg_stress": 44.97166178317335,
+          "median_hold_min": 9903.6,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "CHFJPY": {
+          "n": 5,
+          "avg_net": -63.257670322545934,
+          "median_net": -83.39255429162374,
+          "avg_stress": -65.25767032254593,
+          "median_hold_min": 961.9,
+          "unit": "pips",
+          "wr": 20.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "EURAUD": {
+          "n": 1,
+          "avg_net": 57.8623893805313,
+          "median_net": 57.8623893805313,
+          "avg_stress": 55.8623893805313,
+          "median_hold_min": 450.03333333333336,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "EURCAD": {
+          "n": 5,
+          "avg_net": 0.6469536379138774,
+          "median_net": -15.077528089885352,
+          "avg_stress": -1.3530463620861233,
+          "median_hold_min": 8571.416666666666,
+          "unit": "pips",
+          "wr": 40.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "EURJPY": {
+          "n": 7,
+          "avg_net": 45.6819947394098,
+          "median_net": 41.99678675754676,
+          "avg_stress": 43.6819947394098,
+          "median_hold_min": 2822.2833333333333,
+          "unit": "pips",
+          "wr": 85.71428571428571,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "EURNZD": {
+          "n": 6,
+          "avg_net": 42.50646045906563,
+          "median_net": 43.45029824869308,
+          "avg_stress": 40.506460459065636,
+          "median_hold_min": 3931.6000000000004,
+          "unit": "pips",
+          "wr": 66.66666666666666,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "EURUSD": {
+          "n": 447,
+          "avg_net": -3.07190361859339,
+          "median_net": -2.399999999992718,
+          "avg_stress": -5.071903618593389,
+          "median_hold_min": 37.15,
+          "unit": "pips",
+          "wr": 49.44071588366891,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "GBPAUD": {
+          "n": 3,
+          "avg_net": 126.71702902187258,
+          "median_net": 143.11700483091684,
+          "avg_stress": 124.71702902187258,
+          "median_hold_min": 5542.816666666667,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "GBPCAD": {
+          "n": 1,
+          "avg_net": 59.26651982378852,
+          "median_net": 59.26651982378852,
+          "avg_stress": 57.26651982378852,
+          "median_hold_min": 1843.7166666666667,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "GBPNZD": {
+          "n": 4,
+          "avg_net": 55.88700764667204,
+          "median_net": 53.49793668070171,
+          "avg_stress": 53.88700764667204,
+          "median_hold_min": 4131.158333333333,
+          "unit": "pips",
+          "wr": 50.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "GBPUSD": {
+          "n": 17,
+          "avg_net": -15.689314969276506,
+          "median_net": -25.899999999998432,
+          "avg_stress": -17.689314969276506,
+          "median_hold_min": 7328.0,
+          "unit": "pips",
+          "wr": 29.411764705882355,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "NZDCAD": {
+          "n": 46,
+          "avg_net": 18.120179608564634,
+          "median_net": 12.938023340849515,
+          "avg_stress": 16.120179608564634,
+          "median_hold_min": 3399.5583333333334,
+          "unit": "pips",
+          "wr": 89.13043478260869,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "NZDUSD": {
+          "n": 7,
+          "avg_net": 25.4626917209676,
+          "median_net": 27.799999999999347,
+          "avg_stress": 23.4626917209676,
+          "median_hold_min": 13821.966666666667,
+          "unit": "pips",
+          "wr": 85.71428571428571,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "USDCAD": {
+          "n": 37,
+          "avg_net": -18.921702880630374,
+          "median_net": -10.156704645047764,
+          "avg_stress": -20.921702880630374,
+          "median_hold_min": 9352.4,
+          "unit": "pips",
+          "wr": 48.64864864864865,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "USDJPY": {
+          "n": 2,
+          "avg_net": -240.65376791940716,
+          "median_net": -240.65376791940716,
+          "avg_stress": -242.65376791940716,
+          "median_hold_min": 346.26666666666665,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "XAUUSD": {
+          "n": 594,
+          "avg_net": 4.425817003343056,
+          "median_net": 4.120773426246927,
+          "avg_stress": 3.9611071342511845,
+          "median_hold_min": 33.0,
+          "unit": "bp",
+          "wr": 66.83501683501683,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        }
+      },
+      "hold_buckets": {
+        "lt_1min": 76,
+        "1_to_15min": 293,
+        "15min_to_4h": 830,
+        "4h_to_1d": 458,
+        "gt_1d": 436,
+        "median_min": 149.0,
+        "mean_min": 1616.7161331422199,
+        "p10_min": 5.836666666666667,
+        "p90_min": 4652.586666666666
+      },
+      "hold_bucket_pnl": {
+        "lt_1min": {
+          "n": 76,
+          "vendor_pnl": 1312.8100000000002,
+          "avg_rf_pips": 2.950602804036125,
+          "median_hold_min": 0.26666666666666666,
+          "wr": 27.631578947368425,
+          "top_symbols": {
+            "EURUSD": 44,
+            "XAUUSD": 30,
+            "EURNZD": 1,
+            "USDCAD": 1
+          }
+        },
+        "1_to_15min": {
+          "n": 293,
+          "vendor_pnl": 34669.83,
+          "avg_rf_pips": 23.42180652860072,
+          "median_hold_min": 6.566666666666666,
+          "wr": 72.01365187713311,
+          "top_symbols": {
+            "XAUUSD": 174,
+            "EURUSD": 92,
+            "AUDCAD": 25,
+            "GBPUSD": 1,
+            "EURCAD": 1
+          }
+        },
+        "15min_to_4h": {
+          "n": 830,
+          "vendor_pnl": 22369.420000000002,
+          "avg_rf_pips": 7.722718760360577,
+          "median_hold_min": 66.375,
+          "wr": 67.95180722891565,
+          "top_symbols": {
+            "XAUUSD": 323,
+            "EURUSD": 258,
+            "AUDCAD": 234,
+            "NZDCAD": 7,
+            "AUDUSD": 4
+          }
+        },
+        "4h_to_1d": {
+          "n": 458,
+          "vendor_pnl": -10593.969999999998,
+          "avg_rf_pips": 8.733832942853397,
+          "median_hold_min": 544.8,
+          "wr": 65.72052401746726,
+          "top_symbols": {
+            "AUDCAD": 345,
+            "XAUUSD": 50,
+            "EURUSD": 34,
+            "NZDCAD": 10,
+            "CHFJPY": 5
+          }
+        },
+        "gt_1d": {
+          "n": 436,
+          "vendor_pnl": 20138.09,
+          "avg_rf_pips": 8.904445377773786,
+          "median_hold_min": 4411.025,
+          "wr": 65.13761467889908,
+          "top_symbols": {
+            "AUDCAD": 282,
+            "USDCAD": 32,
+            "NZDCAD": 29,
+            "EURUSD": 19,
+            "XAUUSD": 17
+          }
+        }
+      },
+      "hard_sl": {
+        "n": 2093,
+        "n_visible": 0,
+        "pct": 0.0,
+        "n_sl_col": 0,
+        "n_sl_comment": 0
+      },
+      "winner_loser": {
+        "n_win": 1381,
+        "n_loss": 707,
+        "median_hold_win": 143.93333333333334,
+        "median_hold_loss": 172.0,
+        "mean_hold_win": 1580.9569876900794,
+        "mean_hold_loss": 1697.2305280528053,
+        "avg_win": 145.7210789283128,
+        "avg_loss": -188.60626591230553
+      },
+      "swap_year": {
+        "swap_total": -224.74,
+        "swap_per_year": -108.29325197889183,
+        "avg_capital": 68371.31253181813,
+        "swap_pct_of_equity_yr": -0.15838989770526218
+      }
+    },
+    "hard_sl": {
+      "n": 2093,
+      "n_visible": 0,
+      "pct": 0.0,
+      "n_sl_col": 0,
+      "n_sl_comment": 0
+    },
+    "grid": {
+      "fail": true,
+      "by_concurrent_and_averaging": true,
+      "by_lot_escalation": false,
+      "max_concurrent_same_symbol": 9,
+      "averaging_down": 64
+    },
+    "gr": {
+      "offset_h": 0,
+      "n_events": 564,
+      "n_event_hits": 0,
+      "uniq_rate": 0.0,
+      "ticket_hits": 0,
+      "n_tickets": 594,
+      "ticket_rate": 0.0
+    },
+    "crash": {
+      "mean_daily_twr_pct": 0.10752714969897502,
+      "nonloss_rate": 0.6923076923076923,
+      "pass_bar": true,
+      "offset_h_broker": 2,
+      "days": [
+        {
+          "date": "2026-04-21",
+          "n_trades": 7,
+          "pnl": -27.0,
+          "daily_twr_pct": 0.2898607018465782
+        },
+        {
+          "date": "2026-04-23",
+          "n_trades": 5,
+          "pnl": -838.8000000000002,
+          "daily_twr_pct": -1.018109922326238
+        },
+        {
+          "date": "2026-04-30",
+          "n_trades": 4,
+          "pnl": -714.0,
+          "daily_twr_pct": -1.2804279658250262
+        },
+        {
+          "date": "2026-05-01",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.721240123125999
+        },
+        {
+          "date": "2026-05-04",
+          "n_trades": 3,
+          "pnl": -664.7999999999998,
+          "daily_twr_pct": -0.71721767172096
+        },
+        {
+          "date": "2026-05-14",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-05-25",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-05-27",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.028707628116619865
+        },
+        {
+          "date": "2026-05-29",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-06-02",
+          "n_trades": 5,
+          "pnl": -45.00000000000006,
+          "daily_twr_pct": 0.12490448114179653
+        },
+        {
+          "date": "2026-06-05",
+          "n_trades": 5,
+          "pnl": 1414.8,
+          "daily_twr_pct": 1.1715051643971908
+        },
+        {
+          "date": "2026-06-18",
+          "n_trades": 1,
+          "pnl": -843.0,
+          "daily_twr_pct": -0.8182828328581526
+        },
+        {
+          "date": "2026-06-24",
+          "n_trades": 4,
+          "pnl": 4540.8,
+          "daily_twr_pct": 5.116720519677198
+        },
+        {
+          "date": "2026-06-30",
+          "n_trades": 1,
+          "pnl": 1127.4,
+          "daily_twr_pct": 1.322800427440507
+        },
+        {
+          "date": "2026-07-01",
+          "n_trades": 2,
+          "pnl": -6342.6,
+          "daily_twr_pct": -7.624564837587899
+        },
+        {
+          "date": "2026-07-30",
+          "n_trades": 4,
+          "pnl": 1002.6000000000001,
+          "daily_twr_pct": -1.015136757703361
+        },
+        {
+          "date": "2026-08-05",
+          "n_trades": 6,
+          "pnl": 2856.15,
+          "daily_twr_pct": 3.5606660914528243
+        },
+        {
+          "date": "2026-08-06",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.07319050878491495
+        },
+        {
+          "date": "2026-08-10",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-11",
+          "n_trades": 3,
+          "pnl": -979.2,
+          "daily_twr_pct": -0.8495192754917391
+        },
+        {
+          "date": "2026-08-21",
+          "n_trades": 1,
+          "pnl": 1137.0,
+          "daily_twr_pct": 1.287801672324651
+        },
+        {
+          "date": "2026-08-27",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-09-14",
+          "n_trades": 5,
+          "pnl": 2378.1,
+          "daily_twr_pct": 2.6052374857744587
+        },
+        {
+          "date": "2026-09-16",
+          "n_trades": 4,
+          "pnl": -54.95999999999998,
+          "daily_twr_pct": -0.3733705748239724
+        },
+        {
+          "date": "2026-09-22",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.13099405515986096
+        },
+        {
+          "date": "2026-10-12",
+          "n_trades": 1,
+          "pnl": 29.25,
+          "daily_twr_pct": 0.05870687126809937
+        }
+      ]
+    },
+    "direction_perm": {
+      "n": 2000,
+      "real_mean": 14.4944682055508,
+      "null_mean": -17.72242194733979,
+      "null_p05": -31.925164857038784,
+      "null_p95": -4.015455349155368,
+      "p_right": 0.0,
+      "percentile": 100.0
+    },
+    "timing_perm": {
+      "n": 2000,
+      "window_h": 4,
+      "real_mean_bp": 4.425817003343056,
+      "null_mean": -0.724707106947155,
+      "null_p05": -3.2222318448541007,
+      "null_p95": 1.9924878708622973,
+      "p_right": 0.0005,
+      "percentile": 99.95,
+      "mid_from": "2015-01-01 23:00:00+00:00",
+      "mid_to": "2026-10-26 18:48:00+00:00"
+    },
+    "floating_gold": {
+      "derivable": true,
+      "n_points": 1037,
+      "n_mid_nan": 258,
+      "equity_mdd_pct": -22.932080795578113,
+      "equity_peak": "2026-06-30 01:06:01+00:00",
+      "equity_trough": "2026-07-09 06:52:11+00:00",
+      "twr_mdd_pct": -16.012652998625253,
+      "twr_peak": "2026-06-30 01:06:01+00:00",
+      "twr_trough": "2026-07-09 06:52:11+00:00",
+      "note": "Gold-only mark-to-market at trade event times using Dukascopy mid; FX floating is not included.",
+      "official": false,
+      "reason": "gold-slice MTM on a mixed book is descriptive only (FX ticks not used)"
+    },
+    "happy_news_overlap": {
+      "offset_h": -1,
+      "window0": "2024-10-23 08:55:18",
+      "window1": "2026-11-06 07:17:15",
+      "n_a_window": 2093,
+      "n_b_window": 626,
+      "n_events_a": 1983,
+      "n_events_b": 613,
+      "n_hits": 1,
+      "uniq_rate_a": 0.0005042864346949068,
+      "uniq_rate_b": 0.0016313213703099511,
+      "ticket_hits": 1,
+      "ticket_rate_a": 0.00047778308647873863
+    },
+    "happy_gold_overlap": {
+      "offset_h": -2,
+      "window0": "2025-09-08 11:01:00",
+      "window1": "2026-11-05 08:36:15",
+      "n_a_window": 594,
+      "n_b_window": 204,
+      "n_events_a": 564,
+      "n_events_b": 204,
+      "n_hits": 1,
+      "uniq_rate_a": 0.0017730496453900709,
+      "uniq_rate_b": 0.004901960784313725,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "happy_jp_overlap": {
+      "offset_h": 0,
+      "window0": "2024-10-23 09:55:18",
+      "window1": "2026-11-04 00:05:01",
+      "n_a_window": 2078,
+      "n_b_window": 234,
+      "n_events_a": 1968,
+      "n_events_b": 234,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "solnce_overlap": {
+      "offset_h": 0,
+      "window0": "2025-09-08 13:01:00",
+      "window1": "2026-11-05 10:36:15",
+      "n_a_window": 594,
+      "n_b_window": 526,
+      "n_events_a": 564,
+      "n_events_b": 226,
+      "n_hits": 1,
+      "uniq_rate_a": 0.0017730496453900709,
+      "uniq_rate_b": 0.004424778761061947,
+      "ticket_hits": 1,
+      "ticket_rate_a": 0.0016835016835016834
+    },
+    "quantumstar_overlap": {
+      "offset_h": 0,
+      "window0": "2025-09-08 13:01:00",
+      "window1": "2026-11-05 10:36:15",
+      "n_a_window": 594,
+      "n_b_window": 504,
+      "n_events_a": 564,
+      "n_events_b": 206,
+      "n_hits": 1,
+      "uniq_rate_a": 0.0017730496453900709,
+      "uniq_rate_b": 0.0048543689320388345,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "verdict": {
+      "verdict": "NO-GO",
+      "go": false,
+      "age_ok": true,
+      "monthly_ok_30": true,
+      "monthly_ok_35": true,
+      "dd_ok": true,
+      "top10_ok": true,
+      "gr_ok": true,
+      "gold_ok": false,
+      "fx_ok": true,
+      "fx_4pip_sensitivity": true,
+      "gold_stress_ok": false,
+      "fx_stress_ok": false,
+      "hold_ok_15": true,
+      "hold_ok_5_sensitivity": true,
+      "hard_sl_ok": false,
+      "grid_ok": false,
+      "sibling_fail": false,
+      "family_match_fail": false,
+      "reasons": [
+        "gold avg net 4.425817003343056 bp < 10 bp",
+        "gold +1pip/side stress 3.9611071342511845 bp < 10 bp",
+        "FX +1pip/side stress 4.233965894358289 pips < 5 pips",
+        "hard SL coverage 0.0% < 80%",
+        "grid/averaging rule failed (max same-symbol 9, averaging_down 64, lot-escalation False)"
+      ],
+      "fail_reasons": [
+        "gold avg net 4.425817003343056 bp < 10 bp",
+        "gold +1pip/side stress 3.9611071342511845 bp < 10 bp",
+        "FX +1pip/side stress 4.233965894358289 pips < 5 pips",
+        "hard SL coverage 0.0% < 80%",
+        "grid/averaging rule failed (max same-symbol 9, averaging_down 64, lot-escalation False)"
+      ],
+      "sibling_note": "sibling 2391627 DD 6% (t302, under 40%)"
+    }
+  },
+  "eu_zone": {
+    "meta": {
+      "signal": "2385553",
+      "name": "EU Zone Arsenal",
+      "currency": "EUR",
+      "official_start": "2024-12-02",
+      "alt_start": "2026-08-07",
+      "months_official": 23.589322381930184,
+      "closed_list": false,
+      "sibling_note": "Australian Arsenal 2385551 DD 10% (t302, under 40%)",
+      "layout": "A"
+    },
+    "reconcile": {
+      "n_closed": 947,
+      "page_trades": 947,
+      "trade_count_gap": 0,
+      "vendor_pnl": 16066.74,
+      "raw_profit": 19470.699999999997,
+      "commission": -1594.88,
+      "swap": -1809.08,
+      "page_profit": 16066.74,
+      "vendor_vs_page": 0.0,
+      "cash_net": 13000.0,
+      "cash_pos": 13000.0,
+      "cash_neg": 0.0,
+      "page_net_cash": 13000.0,
+      "cash_vs_page_net": 0.0,
+      "final_capital": 29066.739999999998,
+      "page_balance": 29066.74,
+      "final_vs_page": -3.637978807091713e-12,
+      "currency": "EUR",
+      "contract": {
+        "n": 940,
+        "median_value_per_price_per_lot": 85620.05277044945,
+        "p25": 578.5714285717127,
+        "p75": 87882.59911238699,
+        "vs_100000": 0.8562005277044945,
+        "vs_1000": 85.62005277044945,
+        "vs_100": 856.2005277044944,
+        "likely": "standard_100k",
+        "commission_units": 100000,
+        "lot_scale": 1.0,
+        "implied_quote_fx": 0.8562005277044945
+      },
+      "lot_scale": 1.0,
+      "cash_detail": {
+        "n": 1,
+        "pos_n": 1,
+        "pos_sum": 13000.0,
+        "neg_n": 0,
+        "neg_sum": 0.0,
+        "by_type": [
+          {
+            "type": "Balance",
+            "comment": "Deposit",
+            "sign": 1,
+            "n": 1,
+            "sum": 13000.0
+          }
+        ],
+        "top_cash_days": [
+          {
+            "date": "2024-11-28",
+            "n": 1,
+            "sum": 13000.0
+          }
+        ]
+      },
+      "n_pending": 200,
+      "pending_to_fill": 0.21119324181626187,
+      "file_has_commission": true,
+      "commission_rule": "file commission + spread half of RT",
+      "layout": "A",
+      "deal_meta": {
+        "layout": "A"
+      },
+      "page_equity": 26723.91
+    },
+    "twr": {
+      "twr_pct": 123.59030769230839,
+      "monthly": 3.4699005991651433,
+      "months": 23.589322381930184,
+      "mdd_pct": -6.0102471355191085,
+      "mdd_peak": "2026-01-30 19:07:37",
+      "mdd_trough": "2026-01-30 19:07:37",
+      "final_capital": 29066.740000000034,
+      "first_cap": "2024-11-28 10:05:10",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 948,
+      "peak": 2.241507692307699,
+      "n_daily": 277
+    },
+    "twr_alt_start": {
+      "twr_pct": 123.59030769230839,
+      "monthly": 26.269877982773583,
+      "months": 3.4496919917864477,
+      "mdd_pct": -6.0102471355191085,
+      "mdd_peak": "2026-01-30 19:07:37",
+      "mdd_trough": "2026-01-30 19:07:37",
+      "final_capital": 29066.740000000034,
+      "first_cap": "2024-11-28 10:05:10",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 948,
+      "peak": 2.241507692307699,
+      "n_daily": 277
+    },
+    "twr_rf": {
+      "twr_pct": 84.24232690920019,
+      "monthly": 2.6243463892643204,
+      "months": 23.589322381930184,
+      "mdd_pct": -14.190213360503524,
+      "mdd_peak": "2025-12-19 09:52:03",
+      "mdd_trough": "2026-01-19 00:04:03",
+      "final_capital": 23951.50249819608,
+      "first_cap": "2024-11-28 10:05:10",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 948,
+      "peak": 1.8493444965086314,
+      "n_daily": 277
+    },
+    "twr_stress": {
+      "twr_pct": 38.7022968900665,
+      "monthly": 1.396559448724588,
+      "months": 23.589322381930184,
+      "mdd_pct": -20.825689619598354,
+      "mdd_peak": "2025-12-19 09:52:03",
+      "mdd_trough": "2026-02-05 13:56:04",
+      "final_capital": 18031.29859570865,
+      "first_cap": "2024-11-28 10:05:10",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 948,
+      "peak": 1.3962862969214485,
+      "n_daily": 277
+    },
+    "money_weighted": {
+      "capital_in": 13000.0,
+      "simple_pnl_over_capital_in_pct": 123.5903076923077,
+      "simple_monthly": 3.5046545642754223,
+      "page_growth": 123.59,
+      "page_growth_monthly_on_official_clock": 3.5046484666153566,
+      "cashflow_twr_pct": 123.59030769230839
+    },
+    "last12m": {
+      "twr_pct": 37.14756742193619,
+      "monthly": 2.669198765598857,
+      "months": 11.991786447638603,
+      "mdd_pct": -6.01024713551912,
+      "n_trades": 403,
+      "start_capital": 21193.770000000008
+    },
+    "top10": {
+      "top10": [
+        {
+          "date": "2026-02-26",
+          "pnl": 1259.02
+        },
+        {
+          "date": "2026-09-03",
+          "pnl": 957.42
+        },
+        {
+          "date": "2026-02-09",
+          "pnl": 909.22
+        },
+        {
+          "date": "2026-04-21",
+          "pnl": 696.66
+        },
+        {
+          "date": "2026-01-20",
+          "pnl": 676.8
+        },
+        {
+          "date": "2025-07-16",
+          "pnl": 461.07000000000005
+        },
+        {
+          "date": "2025-10-06",
+          "pnl": 356.99
+        },
+        {
+          "date": "2026-05-07",
+          "pnl": 350.17
+        },
+        {
+          "date": "2026-01-13",
+          "pnl": 329.67
+        },
+        {
+          "date": "2024-12-30",
+          "pnl": 329.14
+        }
+      ],
+      "top10_log_share": 35.02076776035512,
+      "twr_without": 68.68321091135937,
+      "monthly_without": 2.241224963038535,
+      "n_close_days": 276
+    },
+    "stacking": {
+      "n": 947,
+      "same_side_open_within_1min": 122,
+      "same_side_open_within_5min": 176,
+      "averaging_down": 19,
+      "opposite_hedges": 1,
+      "max_concurrent_tickets": 30,
+      "max_concurrent_lots": 10.06,
+      "max_concurrent_same_symbol": 30,
+      "n_pending": 200,
+      "pending_to_fill": 0.21119324181626187,
+      "lot_escalation": {
+        "n_sequences": 149,
+        "n_escalated": 21,
+        "frac": 0.14093959731543623,
+        "fail": false
+      },
+      "grid_rule": {
+        "fail": false,
+        "by_concurrent_and_averaging": false,
+        "by_lot_escalation": false,
+        "max_concurrent_same_symbol": 30,
+        "averaging_down": 19
+      }
+    },
+    "lots_vs_balance": {
+      "median_lots": 0.35,
+      "median_lots_per_bal": 1.8414444699632272e-05,
+      "p90_lots_per_bal": 3.222875192584046e-05,
+      "corr_lots_balance": 0.27554783324913557
+    },
+    "lots_vs_balance_by_year": {
+      "2024": {
+        "n": 36,
+        "median_lots": 0.2,
+        "median_lots_per_bal": 1.4751382367370349e-05,
+        "p90_lots_per_bal": 3.688339483079006e-05
+      },
+      "2025": {
+        "n": 646,
+        "median_lots": 0.35,
+        "median_lots_per_bal": 1.873936040146766e-05,
+        "p90_lots_per_bal": 3.1270017984858866e-05
+      },
+      "2026": {
+        "n": 265,
+        "median_lots": 0.34,
+        "median_lots_per_bal": 1.5064202897911714e-05,
+        "p90_lots_per_bal": 5.9597058282555166e-05
+      }
+    },
+    "recost": {
+      "gold_bp": {},
+      "fx_pips": {
+        "n": 947,
+        "avg_net": -7.590368516641636,
+        "median_net": 2.7221782178211575,
+        "avg_stress": -9.590368516641634,
+        "unit": "pips"
+      },
+      "median_hold_min": 189.56666666666666,
+      "median_hold_gold": null,
+      "median_hold_fx": 189.56666666666666,
+      "sl_visible_pct": 18.162618796198522,
+      "tp_visible_pct": 52.16473072861668,
+      "n": 947,
+      "n_gold": 0,
+      "n_fx": 947,
+      "comment_sl": 3,
+      "comment_tp": 251,
+      "comment_empty": 658,
+      "by_symbol": {
+        "CHFJPY": {
+          "n": 15,
+          "avg_net": -69.7195996196849,
+          "median_net": 3.238124999996973,
+          "avg_stress": -71.71959961968491,
+          "median_hold_min": 3607.483333333333,
+          "unit": "pips",
+          "wr": 60.0,
+          "sl_visible_pct": 6.666666666666667,
+          "comment_sl": 1,
+          "comment_tp": 8
+        },
+        "EURAUD": {
+          "n": 36,
+          "avg_net": 1.0029504230960242,
+          "median_net": -0.783607703059333,
+          "avg_stress": -0.9970495769039763,
+          "median_hold_min": 68.21666666666667,
+          "unit": "pips",
+          "wr": 61.111111111111114,
+          "sl_visible_pct": 66.66666666666666,
+          "comment_sl": 0,
+          "comment_tp": 11
+        },
+        "EURCAD": {
+          "n": 9,
+          "avg_net": 8.910992185266158,
+          "median_net": 10.050814010852841,
+          "avg_stress": 6.910992185266157,
+          "median_hold_min": 1029.4166666666667,
+          "unit": "pips",
+          "wr": 55.55555555555556,
+          "sl_visible_pct": 11.11111111111111,
+          "comment_sl": 0,
+          "comment_tp": 6
+        },
+        "EURCHF": {
+          "n": 28,
+          "avg_net": 4.332581482246439,
+          "median_net": 11.404211667546317,
+          "avg_stress": 2.332581482246439,
+          "median_hold_min": 1041.8833333333334,
+          "unit": "pips",
+          "wr": 67.85714285714286,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 14
+        },
+        "EURGBP": {
+          "n": 34,
+          "avg_net": 4.17908561099779,
+          "median_net": 1.1500353073077534,
+          "avg_stress": 2.179085610997789,
+          "median_hold_min": 1315.725,
+          "unit": "pips",
+          "wr": 67.64705882352942,
+          "sl_visible_pct": 17.647058823529413,
+          "comment_sl": 0,
+          "comment_tp": 10
+        },
+        "EURJPY": {
+          "n": 268,
+          "avg_net": -35.37301024504972,
+          "median_net": 2.9544821439365494,
+          "avg_stress": -37.37301024504972,
+          "median_hold_min": 165.80833333333334,
+          "unit": "pips",
+          "wr": 69.40298507462687,
+          "sl_visible_pct": 20.149253731343283,
+          "comment_sl": 0,
+          "comment_tp": 94
+        },
+        "EURNZD": {
+          "n": 27,
+          "avg_net": 8.204548485737362,
+          "median_net": 0.7956756756775601,
+          "avg_stress": 6.204548485737361,
+          "median_hold_min": 512.6,
+          "unit": "pips",
+          "wr": 62.96296296296296,
+          "sl_visible_pct": 14.814814814814813,
+          "comment_sl": 0,
+          "comment_tp": 12
+        },
+        "EURUSD": {
+          "n": 213,
+          "avg_net": 2.049583640914564,
+          "median_net": 1.935390199635963,
+          "avg_stress": 0.04958364091456433,
+          "median_hold_min": 54.6,
+          "unit": "pips",
+          "wr": 86.85446009389672,
+          "sl_visible_pct": 36.15023474178404,
+          "comment_sl": 1,
+          "comment_tp": 20
+        },
+        "GBPCAD": {
+          "n": 3,
+          "avg_net": -6.9675580568102395,
+          "median_net": 0.5932203389845324,
+          "avg_stress": -8.967558056810239,
+          "median_hold_min": 8356.683333333332,
+          "unit": "pips",
+          "wr": 66.66666666666666,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 2
+        },
+        "GBPCHF": {
+          "n": 3,
+          "avg_net": 4.170494726636907,
+          "median_net": -8.927280625543034,
+          "avg_stress": 2.170494726636907,
+          "median_hold_min": 4839.816666666667,
+          "unit": "pips",
+          "wr": 33.33333333333333,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 2
+        },
+        "GBPJPY": {
+          "n": 2,
+          "avg_net": 59.89655121788776,
+          "median_net": 59.89655121788776,
+          "avg_stress": 57.89655121788776,
+          "median_hold_min": 1884.7333333333331,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 2
+        },
+        "GBPUSD": {
+          "n": 298,
+          "avg_net": 6.805042525786951,
+          "median_net": 13.206711238209706,
+          "avg_stress": 4.80504252578695,
+          "median_hold_min": 224.8,
+          "unit": "pips",
+          "wr": 77.85234899328859,
+          "sl_visible_pct": 1.6778523489932886,
+          "comment_sl": 1,
+          "comment_tp": 60
+        },
+        "NZDCAD": {
+          "n": 2,
+          "avg_net": 17.203742937998655,
+          "median_net": 17.203742937998655,
+          "avg_stress": 15.203742937998653,
+          "median_hold_min": 872.9083333333333,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 1
+        },
+        "NZDCHF": {
+          "n": 3,
+          "avg_net": 3.8958774330110653,
+          "median_net": -2.6840909090920935,
+          "avg_stress": 1.895877433011065,
+          "median_hold_min": 1859.3333333333333,
+          "unit": "pips",
+          "wr": 33.33333333333333,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 3
+        },
+        "NZDUSD": {
+          "n": 2,
+          "avg_net": -2.1224978338792297,
+          "median_net": -2.1224978338792297,
+          "avg_stress": -4.12249783387923,
+          "median_hold_min": 4443.441666666667,
+          "unit": "pips",
+          "wr": 50.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 2
+        },
+        "USDCHF": {
+          "n": 2,
+          "avg_net": 35.970364107562084,
+          "median_net": 35.970364107562084,
+          "avg_stress": 33.970364107562084,
+          "median_hold_min": 3046.083333333333,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 2
+        },
+        "USDJPY": {
+          "n": 2,
+          "avg_net": 23.39792852570949,
+          "median_net": 23.39792852570949,
+          "avg_stress": 21.39792852570949,
+          "median_hold_min": 1915.6166666666668,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 2
+        }
+      },
+      "hold_buckets": {
+        "lt_1min": 32,
+        "1_to_15min": 152,
+        "15min_to_4h": 322,
+        "4h_to_1d": 201,
+        "gt_1d": 240,
+        "median_min": 189.56666666666666,
+        "mean_min": 4013.593629003872,
+        "p10_min": 4.923333333333336,
+        "p90_min": 5992.576666666665
+      },
+      "hold_bucket_pnl": {
+        "lt_1min": {
+          "n": 32,
+          "vendor_pnl": 134.10000000000002,
+          "avg_rf_pips": 0.973023237609387,
+          "median_hold_min": 0.43333333333333335,
+          "wr": 81.25,
+          "top_symbols": {
+            "EURUSD": 15,
+            "EURJPY": 7,
+            "GBPUSD": 4,
+            "EURNZD": 3,
+            "EURCHF": 1
+          }
+        },
+        "1_to_15min": {
+          "n": 152,
+          "vendor_pnl": 1770.48,
+          "avg_rf_pips": 2.3115585269976733,
+          "median_hold_min": 6.341666666666667,
+          "wr": 90.78947368421053,
+          "top_symbols": {
+            "EURUSD": 67,
+            "EURJPY": 38,
+            "GBPUSD": 35,
+            "EURAUD": 7,
+            "EURGBP": 3
+          }
+        },
+        "15min_to_4h": {
+          "n": 322,
+          "vendor_pnl": 9554.87,
+          "avg_rf_pips": 8.048712752598117,
+          "median_hold_min": 71.24166666666666,
+          "wr": 85.71428571428571,
+          "top_symbols": {
+            "GBPUSD": 114,
+            "EURJPY": 101,
+            "EURUSD": 66,
+            "EURAUD": 16,
+            "EURCHF": 7
+          }
+        },
+        "4h_to_1d": {
+          "n": 201,
+          "vendor_pnl": 6754.610000000001,
+          "avg_rf_pips": 9.668297328679687,
+          "median_hold_min": 500.51666666666665,
+          "wr": 76.11940298507463,
+          "top_symbols": {
+            "GBPUSD": 87,
+            "EURJPY": 37,
+            "EURUSD": 34,
+            "EURNZD": 11,
+            "EURGBP": 8
+          }
+        },
+        "gt_1d": {
+          "n": 240,
+          "vendor_pnl": -2147.3200000000015,
+          "avg_rf_pips": -50.43994122653328,
+          "median_hold_min": 4797.633333333333,
+          "wr": 49.166666666666664,
+          "top_symbols": {
+            "EURJPY": 85,
+            "GBPUSD": 58,
+            "EURUSD": 31,
+            "EURGBP": 16,
+            "EURCHF": 13
+          }
+        }
+      },
+      "hard_sl": {
+        "n": 947,
+        "n_visible": 172,
+        "pct": 18.162618796198522,
+        "n_sl_col": 172,
+        "n_sl_comment": 3
+      },
+      "winner_loser": {
+        "n_win": 711,
+        "n_loss": 236,
+        "median_hold_win": 113.76666666666667,
+        "median_hold_loss": 1552.1333333333332,
+        "mean_hold_win": 1403.5568448195029,
+        "mean_hold_loss": 11876.882415254237,
+        "avg_win": 54.24649789029536,
+        "avg_loss": -95.34966101694916
+      },
+      "swap_year": {
+        "swap_total": -1809.08,
+        "swap_per_year": -920.2875626740947,
+        "avg_capital": 20606.569852320685,
+        "swap_pct_of_equity_yr": -4.4659910371762
+      }
+    },
+    "hard_sl": {
+      "n": 947,
+      "n_visible": 172,
+      "pct": 18.162618796198522,
+      "n_sl_col": 172,
+      "n_sl_comment": 3
+    },
+    "grid": {
+      "fail": false,
+      "by_concurrent_and_averaging": false,
+      "by_lot_escalation": false,
+      "max_concurrent_same_symbol": 30,
+      "averaging_down": 19
+    },
+    "gr": {},
+    "crash": {
+      "mean_daily_twr_pct": 0.13914823254178116,
+      "nonloss_rate": 0.8846153846153846,
+      "pass_bar": true,
+      "offset_h_broker": 2,
+      "days": [
+        {
+          "date": "2026-04-21",
+          "n_trades": 11,
+          "pnl": -3163.8800000000006,
+          "daily_twr_pct": 2.6416523807519354
+        },
+        {
+          "date": "2026-04-23",
+          "n_trades": 8,
+          "pnl": -2743.8100000000004,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-04-30",
+          "n_trades": 14,
+          "pnl": -1076.8100000000002,
+          "daily_twr_pct": -0.3225192637027252
+        },
+        {
+          "date": "2026-05-01",
+          "n_trades": 7,
+          "pnl": -992.9100000000002,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-05-04",
+          "n_trades": 7,
+          "pnl": -992.9100000000002,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-05-14",
+          "n_trades": 6,
+          "pnl": 132.53,
+          "daily_twr_pct": -0.21712905294027918
+        },
+        {
+          "date": "2026-05-25",
+          "n_trades": 4,
+          "pnl": 211.92000000000002,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-05-27",
+          "n_trades": 4,
+          "pnl": 211.92000000000002,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-05-29",
+          "n_trades": 4,
+          "pnl": 211.92000000000002,
+          "daily_twr_pct": 0.8024342626404835
+        },
+        {
+          "date": "2026-06-02",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-06-05",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-06-18",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-06-24",
+          "n_trades": 3,
+          "pnl": 75.16,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-06-30",
+          "n_trades": 3,
+          "pnl": -8.90999999999999,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-07-01",
+          "n_trades": 3,
+          "pnl": -8.90999999999999,
+          "daily_twr_pct": 0.11947736804402975
+        },
+        {
+          "date": "2026-07-30",
+          "n_trades": 3,
+          "pnl": 106.03000000000003,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-05",
+          "n_trades": 3,
+          "pnl": 698.26,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-06",
+          "n_trades": 3,
+          "pnl": 698.26,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-10",
+          "n_trades": 4,
+          "pnl": 739.31,
+          "daily_twr_pct": 0.1037788620078306
+        },
+        {
+          "date": "2026-08-11",
+          "n_trades": 3,
+          "pnl": 710.9799999999999,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-21",
+          "n_trades": 5,
+          "pnl": 704.0699999999999,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-27",
+          "n_trades": 5,
+          "pnl": 704.0699999999999,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-09-14",
+          "n_trades": 1,
+          "pnl": -167.42000000000002,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-09-16",
+          "n_trades": 1,
+          "pnl": -167.42000000000002,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-09-22",
+          "n_trades": 3,
+          "pnl": -155.82000000000002,
+          "daily_twr_pct": -0.013749741310964403
+        },
+        {
+          "date": "2026-10-12",
+          "n_trades": 4,
+          "pnl": 52.129999999999995,
+          "daily_twr_pct": 0.5039092305960002
+        }
+      ]
+    },
+    "direction_perm": {
+      "n": 2000,
+      "real_mean": 11.564416576764557,
+      "null_mean": -7.0165931170052405,
+      "null_p05": -14.437008977617701,
+      "null_p95": 0.7151187942935959,
+      "p_right": 0.0,
+      "percentile": 100.0
+    },
+    "timing_perm": {
+      "ran": false,
+      "reason": "no gold or no mid"
+    },
+    "floating_gold": {
+      "derivable": false,
+      "reason": "no gold trades"
+    },
+    "happy_news_overlap": {
+      "offset_h": 0,
+      "window0": "2024-12-02 16:25:56",
+      "window1": "2026-11-10 09:38:42",
+      "n_a_window": 947,
+      "n_b_window": 578,
+      "n_events_a": 869,
+      "n_events_b": 568,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "happy_gold_overlap": {},
+    "happy_jp_overlap": {
+      "offset_h": 0,
+      "window0": "2024-12-02 16:25:56",
+      "window1": "2026-11-04 00:05:01",
+      "n_a_window": 946,
+      "n_b_window": 216,
+      "n_events_a": 868,
+      "n_events_b": 216,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "solnce_overlap": {
+      "offset_h": 0,
+      "window0": "2024-12-06 12:33:08",
+      "window1": "2026-11-10 09:38:42",
+      "n_a_window": 940,
+      "n_b_window": 1155,
+      "n_events_a": 862,
+      "n_events_b": 488,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "quantumstar_overlap": {
+      "offset_h": 0,
+      "window0": "2025-05-08 17:01:29",
+      "window1": "2026-11-10 09:38:42",
+      "n_a_window": 813,
+      "n_b_window": 766,
+      "n_events_a": 737,
+      "n_events_b": 324,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "verdict": {
+      "verdict": "NO-GO",
+      "go": false,
+      "age_ok": true,
+      "monthly_ok_30": true,
+      "monthly_ok_35": false,
+      "dd_ok": true,
+      "top10_ok": true,
+      "gr_ok": true,
+      "gold_ok": true,
+      "fx_ok": false,
+      "fx_4pip_sensitivity": false,
+      "gold_stress_ok": true,
+      "fx_stress_ok": false,
+      "hold_ok_15": true,
+      "hold_ok_5_sensitivity": true,
+      "hard_sl_ok": false,
+      "grid_ok": true,
+      "sibling_fail": false,
+      "family_match_fail": false,
+      "reasons": [
+        "honest monthly 3.47 meets 3.0% official but is below the t241 3.5% sensitivity",
+        "FX avg net -7.590368516641636 pips < 5 pips",
+        "FX +1pip/side stress -9.590368516641634 pips < 5 pips",
+        "hard SL coverage 18.162618796198522% < 80%"
+      ],
+      "fail_reasons": [
+        "FX avg net -7.590368516641636 pips < 5 pips",
+        "FX +1pip/side stress -9.590368516641634 pips < 5 pips",
+        "hard SL coverage 18.162618796198522% < 80%"
+      ],
+      "sibling_note": "Australian Arsenal 2385551 DD 10% (t302, under 40%)"
+    }
+  },
+  "gold_ea": {
+    "meta": {
+      "signal": "2394167",
+      "name": "Gold EA Stop Loss No Martingale",
+      "currency": "USD",
+      "official_start": "2024-08-12",
+      "alt_start": "2026-10-04",
+      "months_official": 27.26899383983573,
+      "closed_list": false,
+      "sibling_note": "2394142 DD 22%, 2397478 DD 4% (t302, under 40%)",
+      "layout": "A"
+    },
+    "reconcile": {
+      "n_closed": 816,
+      "page_trades": 816,
+      "trade_count_gap": 0,
+      "vendor_pnl": 1524.18,
+      "raw_profit": 1714.7599999999998,
+      "commission": -184.31,
+      "swap": -6.27,
+      "page_profit": 1524.18,
+      "vendor_vs_page": 0.0,
+      "cash_net": -212.14999999999986,
+      "cash_pos": 3442.05,
+      "cash_neg": -3654.2,
+      "page_net_cash": -212.14999999999964,
+      "cash_vs_page_net": -2.2737367544323206e-13,
+      "final_capital": 1312.0300000000002,
+      "page_balance": 1312.03,
+      "final_vs_page": 2.2737367544323206e-13,
+      "currency": "USD",
+      "contract": {
+        "n": 815,
+        "median_value_per_price_per_lot": 100.0000000000012,
+        "p25": 99.99999999999687,
+        "p75": 100.00000000001913,
+        "vs_100000": 0.001000000000000012,
+        "vs_1000": 0.1000000000000012,
+        "vs_100": 1.000000000000012,
+        "likely": "micro_100",
+        "commission_units": 100000,
+        "lot_scale": 1.0,
+        "implied_quote_fx": 0.7113952333666528
+      },
+      "lot_scale": 1.0,
+      "cash_detail": {
+        "n": 24,
+        "pos_n": 10,
+        "pos_sum": 3442.05,
+        "neg_n": 14,
+        "neg_sum": -3654.2,
+        "by_type": [
+          {
+            "type": "Balance",
+            "comment": "<empty>",
+            "sign": -1,
+            "n": 14,
+            "sum": -3654.2
+          },
+          {
+            "type": "Balance",
+            "comment": "<empty>",
+            "sign": 1,
+            "n": 10,
+            "sum": 3442.05
+          }
+        ],
+        "top_cash_days": [
+          {
+            "date": "2024-08-10",
+            "n": 1,
+            "sum": 1088.64
+          },
+          {
+            "date": "2026-10-04",
+            "n": 1,
+            "sum": -866.2
+          },
+          {
+            "date": "2025-11-25",
+            "n": 1,
+            "sum": 623.0
+          },
+          {
+            "date": "2025-02-08",
+            "n": 1,
+            "sum": -600.0
+          },
+          {
+            "date": "2025-11-30",
+            "n": 2,
+            "sum": 586.95
+          },
+          {
+            "date": "2025-11-02",
+            "n": 1,
+            "sum": -400.0
+          },
+          {
+            "date": "2025-02-14",
+            "n": 1,
+            "sum": -280.0
+          },
+          {
+            "date": "2024-09-29",
+            "n": 2,
+            "sum": -277.0
+          }
+        ]
+      },
+      "n_pending": 376,
+      "pending_to_fill": 0.46078431372549017,
+      "file_has_commission": true,
+      "commission_rule": "file commission + spread half of RT",
+      "layout": "A",
+      "deal_meta": {
+        "layout": "A"
+      },
+      "page_equity": 1312.03
+    },
+    "twr": {
+      "twr_pct": 167.63814993968072,
+      "monthly": 3.676160902208059,
+      "months": 27.26899383983573,
+      "mdd_pct": -23.356278641940865,
+      "mdd_peak": "2026-09-29 11:20:49",
+      "mdd_trough": "2026-10-30 11:51:40",
+      "final_capital": 1312.0299999999963,
+      "first_cap": "2024-08-10 11:07:00",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 840,
+      "peak": 3.149095500385972,
+      "n_daily": 403
+    },
+    "twr_alt_start": {
+      "twr_pct": 167.63814993968072,
+      "monthly": 89.18331283040959,
+      "months": 1.5441478439425051,
+      "mdd_pct": -23.356278641940865,
+      "mdd_peak": "2026-09-29 11:20:49",
+      "mdd_trough": "2026-10-30 11:51:40",
+      "final_capital": 1312.0299999999963,
+      "first_cap": "2024-08-10 11:07:00",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 840,
+      "peak": 3.149095500385972,
+      "n_daily": 403
+    },
+    "twr_rf": {
+      "twr_pct": 34.3880904797554,
+      "monthly": 1.0897695325744472,
+      "months": 27.26899383983573,
+      "mdd_pct": -63.985920069281896,
+      "mdd_peak": "2025-06-16 16:54:02",
+      "mdd_trough": "2025-12-10 21:45:17",
+      "final_capital": 764.6268057059517,
+      "first_cap": "2024-08-10 11:07:00",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 840,
+      "peak": 1.7627231810619666,
+      "n_daily": 403
+    },
+    "twr_stress": {
+      "twr_pct": -4047.2951869562858,
+      "monthly": null,
+      "months": 27.26899383983573,
+      "mdd_pct": -810.2777575516604,
+      "mdd_peak": "2025-09-01 17:21:37",
+      "mdd_trough": "2026-09-29 11:20:49",
+      "final_capital": 269.92903398840554,
+      "first_cap": "2024-08-10 11:07:00",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 840,
+      "peak": 10.459072873392019,
+      "n_daily": 403
+    },
+    "money_weighted": {
+      "capital_in": 3442.05,
+      "simple_pnl_over_capital_in_pct": 44.28116965180634,
+      "simple_monthly": 1.3650282226147503,
+      "page_growth": 167.64,
+      "page_growth_monthly_on_official_clock": 3.708027576892947,
+      "cashflow_twr_pct": 167.63814993968072
+    },
+    "last12m": {
+      "twr_pct": 83.75099350725472,
+      "monthly": 5.204477295543342,
+      "months": 11.991786447638603,
+      "mdd_pct": -23.356278641940875,
+      "n_trades": 395,
+      "start_capital": 294.5999999999982
+    },
+    "top10": {
+      "top10": [
+        {
+          "date": "2026-05-15",
+          "pnl": 159.11
+        },
+        {
+          "date": "2026-01-12",
+          "pnl": 156.99
+        },
+        {
+          "date": "2026-08-05",
+          "pnl": 152.51000000000002
+        },
+        {
+          "date": "2026-01-20",
+          "pnl": 148.96
+        },
+        {
+          "date": "2026-09-28",
+          "pnl": 118.89000000000003
+        },
+        {
+          "date": "2025-12-18",
+          "pnl": 103.46
+        },
+        {
+          "date": "2024-10-25",
+          "pnl": 102.37
+        },
+        {
+          "date": "2026-04-08",
+          "pnl": 91.96000000000001
+        },
+        {
+          "date": "2026-08-20",
+          "pnl": 80.57
+        },
+        {
+          "date": "2026-09-29",
+          "pnl": 77.27000000000001
+        }
+      ],
+      "top10_log_share": 65.97657627762302,
+      "twr_without": 39.78690011491288,
+      "monthly_without": 1.235889003442181,
+      "n_close_days": 391
+    },
+    "stacking": {
+      "n": 816,
+      "same_side_open_within_1min": 542,
+      "same_side_open_within_5min": 630,
+      "averaging_down": 97,
+      "opposite_hedges": 0,
+      "max_concurrent_tickets": 9,
+      "max_concurrent_lots": 0.33,
+      "max_concurrent_same_symbol": 9,
+      "n_pending": 376,
+      "pending_to_fill": 0.46078431372549017,
+      "lot_escalation": {
+        "n_sequences": 169,
+        "n_escalated": 20,
+        "frac": 0.11834319526627218,
+        "fail": false
+      },
+      "grid_rule": {
+        "fail": true,
+        "by_concurrent_and_averaging": true,
+        "by_lot_escalation": false,
+        "max_concurrent_same_symbol": 9,
+        "averaging_down": 97
+      }
+    },
+    "lots_vs_balance": {
+      "median_lots": 0.01,
+      "median_lots_per_bal": 9.259572446820585e-06,
+      "p90_lots_per_bal": 8.55750845197355e-05,
+      "corr_lots_balance": -0.4266313258774017
+    },
+    "lots_vs_balance_by_year": {
+      "2024": {
+        "n": 212,
+        "median_lots": 0.06,
+        "median_lots_per_bal": 5.599576073003488e-05,
+        "p90_lots_per_bal": 9.983551761400681e-05
+      },
+      "2025": {
+        "n": 248,
+        "median_lots": 0.04,
+        "median_lots_per_bal": 6.71513651383165e-05,
+        "p90_lots_per_bal": 0.00010786465969949202
+      },
+      "2026": {
+        "n": 356,
+        "median_lots": 0.01,
+        "median_lots_per_bal": 4.841864698932859e-06,
+        "p90_lots_per_bal": 7.807559278893849e-06
+      }
+    },
+    "recost": {
+      "gold_bp": {
+        "n": 687,
+        "avg_net": 3.4877332400652064,
+        "median_net": 1.8377202628243432,
+        "avg_stress": 2.9465693959294956,
+        "unit": "bp"
+      },
+      "fx_pips": {
+        "n": 129,
+        "avg_net": -2.457474534667462,
+        "median_net": -1.60000000000382,
+        "avg_stress": -4.457474534667462,
+        "unit": "pips"
+      },
+      "median_hold_min": 8.2,
+      "median_hold_gold": 5.466666666666667,
+      "median_hold_fx": 54.9,
+      "sl_visible_pct": 99.87745098039215,
+      "tp_visible_pct": 93.13725490196079,
+      "n": 816,
+      "n_gold": 687,
+      "n_fx": 129,
+      "comment_sl": 546,
+      "comment_tp": 163,
+      "comment_empty": 105,
+      "by_symbol": {
+        "EURUSD": {
+          "n": 2,
+          "avg_net": -3.9000000000002846,
+          "median_net": -3.9000000000002846,
+          "avg_stress": -5.900000000000285,
+          "median_hold_min": 15.066666666666666,
+          "unit": "pips",
+          "wr": 0.0,
+          "sl_visible_pct": 100.0,
+          "comment_sl": 2,
+          "comment_tp": 0
+        },
+        "GBPCAD": {
+          "n": 58,
+          "avg_net": -1.7776419834566426,
+          "median_net": 1.314814814813518,
+          "avg_stress": -3.777641983456643,
+          "median_hold_min": 144.675,
+          "unit": "pips",
+          "wr": 55.172413793103445,
+          "sl_visible_pct": 100.0,
+          "comment_sl": 3,
+          "comment_tp": 1
+        },
+        "GBPJPY": {
+          "n": 2,
+          "avg_net": -8.119621212122102,
+          "median_net": -8.119621212122102,
+          "avg_stress": -10.119621212122102,
+          "median_hold_min": 40.175,
+          "unit": "pips",
+          "wr": 50.0,
+          "sl_visible_pct": 100.0,
+          "comment_sl": 1,
+          "comment_tp": 0
+        },
+        "GBPUSD": {
+          "n": 8,
+          "avg_net": -9.324999999999783,
+          "median_net": -1.7999999999998655,
+          "avg_stress": -11.324999999999783,
+          "median_hold_min": 25.941666666666666,
+          "unit": "pips",
+          "wr": 50.0,
+          "sl_visible_pct": 100.0,
+          "comment_sl": 6,
+          "comment_tp": 0
+        },
+        "NZDUSD": {
+          "n": 1,
+          "avg_net": -5.0999999999998415,
+          "median_net": -5.0999999999998415,
+          "avg_stress": -7.0999999999998415,
+          "median_hold_min": 8.216666666666667,
+          "unit": "pips",
+          "wr": 0.0,
+          "sl_visible_pct": 100.0,
+          "comment_sl": 1,
+          "comment_tp": 0
+        },
+        "USDCAD": {
+          "n": 1,
+          "avg_net": 10.040449438202238,
+          "median_net": 10.040449438202238,
+          "avg_stress": 8.040449438202238,
+          "median_hold_min": 158.65,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 100.0,
+          "comment_sl": 0,
+          "comment_tp": 1
+        },
+        "USDCHF": {
+          "n": 2,
+          "avg_net": -3.3699346405223283,
+          "median_net": -3.3699346405223283,
+          "avg_stress": -5.369934640522328,
+          "median_hold_min": 6.208333333333334,
+          "unit": "pips",
+          "wr": 0.0,
+          "sl_visible_pct": 100.0,
+          "comment_sl": 2,
+          "comment_tp": 0
+        },
+        "USDJPY": {
+          "n": 55,
+          "avg_net": -2.063133048446036,
+          "median_net": -3.0500000000000855,
+          "avg_stress": -4.063133048446036,
+          "median_hold_min": 26.333333333333332,
+          "unit": "pips",
+          "wr": 45.45454545454545,
+          "sl_visible_pct": 100.0,
+          "comment_sl": 36,
+          "comment_tp": 17
+        },
+        "XAUUSD": {
+          "n": 687,
+          "avg_net": 3.4877332400652064,
+          "median_net": 1.8377202628243432,
+          "avg_stress": 2.9465693959294956,
+          "median_hold_min": 5.466666666666667,
+          "unit": "bp",
+          "wr": 75.54585152838428,
+          "sl_visible_pct": 99.85443959243085,
+          "comment_sl": 495,
+          "comment_tp": 144
+        }
+      },
+      "hold_buckets": {
+        "lt_1min": 157,
+        "1_to_15min": 337,
+        "15min_to_4h": 253,
+        "4h_to_1d": 57,
+        "gt_1d": 12,
+        "median_min": 8.2,
+        "mean_min": 96.56209150326796,
+        "p10_min": 0.43333333333333335,
+        "p90_min": 185.55
+      },
+      "hold_bucket_pnl": {
+        "lt_1min": {
+          "n": 157,
+          "vendor_pnl": 500.01,
+          "avg_rf_pips": 9.454777070063324,
+          "median_hold_min": 0.4166666666666667,
+          "wr": 80.89171974522293,
+          "top_symbols": {
+            "XAUUSD": 156,
+            "GBPUSD": 1
+          }
+        },
+        "1_to_15min": {
+          "n": 337,
+          "vendor_pnl": 227.57,
+          "avg_rf_pips": 10.15277924926631,
+          "median_hold_min": 3.933333333333333,
+          "wr": 75.07418397626114,
+          "top_symbols": {
+            "XAUUSD": 313,
+            "USDJPY": 16,
+            "GBPCAD": 3,
+            "USDCHF": 2,
+            "GBPUSD": 1
+          }
+        },
+        "15min_to_4h": {
+          "n": 253,
+          "vendor_pnl": 696.75,
+          "avg_rf_pips": 20.82598483368264,
+          "median_hold_min": 47.71666666666667,
+          "wr": 66.40316205533597,
+          "top_symbols": {
+            "XAUUSD": 173,
+            "GBPCAD": 37,
+            "USDJPY": 34,
+            "GBPUSD": 5,
+            "GBPJPY": 2
+          }
+        },
+        "4h_to_1d": {
+          "n": 57,
+          "vendor_pnl": 7.390000000000003,
+          "avg_rf_pips": -0.883099781571569,
+          "median_hold_min": 347.5833333333333,
+          "wr": 43.859649122807014,
+          "top_symbols": {
+            "XAUUSD": 38,
+            "GBPCAD": 13,
+            "USDJPY": 5,
+            "GBPUSD": 1
+          }
+        },
+        "gt_1d": {
+          "n": 12,
+          "vendor_pnl": 92.46000000000004,
+          "avg_rf_pips": 67.93014188775591,
+          "median_hold_min": 3067.75,
+          "wr": 75.0,
+          "top_symbols": {
+            "XAUUSD": 7,
+            "GBPCAD": 5
+          }
+        }
+      },
+      "hard_sl": {
+        "n": 816,
+        "n_visible": 815,
+        "pct": 99.87745098039215,
+        "n_sl_col": 815,
+        "n_sl_comment": 546
+      },
+      "winner_loser": {
+        "n_win": 582,
+        "n_loss": 234,
+        "median_hold_win": 5.508333333333333,
+        "median_hold_loss": 16.46666666666667,
+        "mean_hold_win": 87.109421534937,
+        "mean_hold_loss": 120.07257834757834,
+        "avg_win": 8.647920962199313,
+        "avg_loss": -14.99534188034188
+      },
+      "swap_year": {
+        "swap_total": -6.27,
+        "swap_per_year": -2.759177710843373,
+        "avg_capital": 1352.1496785714264,
+        "swap_pct_of_equity_yr": -0.2040586005063064
+      }
+    },
+    "hard_sl": {
+      "n": 816,
+      "n_visible": 815,
+      "pct": 99.87745098039215,
+      "n_sl_col": 815,
+      "n_sl_comment": 546
+    },
+    "grid": {
+      "fail": true,
+      "by_concurrent_and_averaging": true,
+      "by_lot_escalation": false,
+      "max_concurrent_same_symbol": 9,
+      "averaging_down": 97
+    },
+    "gr": {
+      "offset_h": 0,
+      "n_events": 449,
+      "n_event_hits": 5,
+      "uniq_rate": 0.011135857461024499,
+      "ticket_hits": 7,
+      "n_tickets": 687,
+      "ticket_rate": 0.010189228529839884
+    },
+    "crash": {
+      "mean_daily_twr_pct": 0.3975342890708162,
+      "nonloss_rate": 0.8461538461538461,
+      "pass_bar": true,
+      "offset_h_broker": 2,
+      "days": [
+        {
+          "date": "2026-04-21",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-04-23",
+          "n_trades": 4,
+          "pnl": -147.84,
+          "daily_twr_pct": -6.827565186067774
+        },
+        {
+          "date": "2026-04-30",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-05-01",
+          "n_trades": 3,
+          "pnl": 11.14,
+          "daily_twr_pct": 0.539383727461118
+        },
+        {
+          "date": "2026-05-04",
+          "n_trades": 6,
+          "pnl": -87.32000000000001,
+          "daily_twr_pct": 0.408387351550199
+        },
+        {
+          "date": "2026-05-14",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-05-25",
+          "n_trades": 4,
+          "pnl": 2.63,
+          "daily_twr_pct": 0.12444579037274028
+        },
+        {
+          "date": "2026-05-27",
+          "n_trades": 6,
+          "pnl": 53.45,
+          "daily_twr_pct": 2.5642501787059846
+        },
+        {
+          "date": "2026-05-29",
+          "n_trades": 5,
+          "pnl": -0.8700000000000019,
+          "daily_twr_pct": -0.04069451980468486
+        },
+        {
+          "date": "2026-06-02",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-06-05",
+          "n_trades": 4,
+          "pnl": 19.240000000000002,
+          "daily_twr_pct": 0.8991326454314441
+        },
+        {
+          "date": "2026-06-18",
+          "n_trades": 1,
+          "pnl": 11.299999999999999,
+          "daily_twr_pct": 0.5217134361986009
+        },
+        {
+          "date": "2026-06-24",
+          "n_trades": 4,
+          "pnl": 43.199999999999996,
+          "daily_twr_pct": 1.978012921186223
+        },
+        {
+          "date": "2026-06-30",
+          "n_trades": 7,
+          "pnl": -13.230000000000002,
+          "daily_twr_pct": -0.5940167294507637
+        },
+        {
+          "date": "2026-07-01",
+          "n_trades": 4,
+          "pnl": 22.66,
+          "daily_twr_pct": 1.023496147209979
+        },
+        {
+          "date": "2026-07-30",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-05",
+          "n_trades": 6,
+          "pnl": 152.51,
+          "daily_twr_pct": 7.8941374990942
+        },
+        {
+          "date": "2026-08-06",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-10",
+          "n_trades": 3,
+          "pnl": 17.369999999999997,
+          "daily_twr_pct": 0.8264148250351155
+        },
+        {
+          "date": "2026-08-11",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-21",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-27",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-09-14",
+          "n_trades": 4,
+          "pnl": 24.92,
+          "daily_twr_pct": 1.125046274977226
+        },
+        {
+          "date": "2026-09-16",
+          "n_trades": 4,
+          "pnl": -2.3799999999999972,
+          "daily_twr_pct": -0.10625284605838559
+        },
+        {
+          "date": "2026-09-22",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-10-12",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        }
+      ]
+    },
+    "direction_perm": {
+      "n": 2000,
+      "real_mean": 1.1970303991494264,
+      "null_mean": -0.8984797724192011,
+      "null_p05": -1.9523237675172402,
+      "null_p95": 0.0871909383651125,
+      "p_right": 0.001,
+      "percentile": 99.9
+    },
+    "timing_perm": {
+      "n": 2000,
+      "window_h": 4,
+      "real_mean_bp": 3.4877332400652064,
+      "null_mean": 4.18451441578724,
+      "null_p05": 2.660405454465429,
+      "null_p95": 5.75494379960167,
+      "p_right": 0.766,
+      "percentile": 23.400000000000002,
+      "mid_from": "2015-01-01 23:00:00+00:00",
+      "mid_to": "2026-10-26 18:48:00+00:00"
+    },
+    "floating_gold": {
+      "derivable": true,
+      "n_points": 1323,
+      "n_mid_nan": 75,
+      "equity_mdd_pct": -84.2479277918682,
+      "equity_peak": "2025-01-15 14:34:37+00:00",
+      "equity_trough": "2025-02-14 15:15:01+00:00",
+      "twr_mdd_pct": -74.45278246205743,
+      "twr_peak": "2025-10-21 14:47:59+00:00",
+      "twr_trough": "2025-11-05 14:32:39+00:00",
+      "note": "Gold-only mark-to-market at trade event times using Dukascopy mid; FX floating is not included.",
+      "official": true
+    },
+    "happy_news_overlap": {
+      "offset_h": 0,
+      "window0": "2024-08-12 16:30:10",
+      "window1": "2026-11-10 15:30:02",
+      "n_a_window": 801,
+      "n_b_window": 735,
+      "n_events_a": 556,
+      "n_events_b": 718,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "happy_gold_overlap": {
+      "offset_h": 0,
+      "window0": "2024-08-12 16:30:10",
+      "window1": "2026-11-11 16:37:22",
+      "n_a_window": 676,
+      "n_b_window": 409,
+      "n_events_a": 446,
+      "n_events_b": 409,
+      "n_hits": 33,
+      "uniq_rate_a": 0.07399103139013453,
+      "uniq_rate_b": 0.08068459657701711,
+      "ticket_hits": 12,
+      "ticket_rate_a": 0.01775147928994083
+    },
+    "happy_jp_overlap": {
+      "offset_h": 0,
+      "window0": "2024-08-26 00:00:11",
+      "window1": "2026-11-04 00:05:01",
+      "n_a_window": 772,
+      "n_b_window": 262,
+      "n_events_a": 533,
+      "n_events_b": 262,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "solnce_overlap": {
+      "offset_h": 0,
+      "window0": "2024-12-06 12:33:08",
+      "window1": "2026-11-12 16:56:48",
+      "n_a_window": 595,
+      "n_b_window": 1162,
+      "n_events_a": 366,
+      "n_events_b": 490,
+      "n_hits": 119,
+      "uniq_rate_a": 0.3251366120218579,
+      "uniq_rate_b": 0.24285714285714285,
+      "ticket_hits": 106,
+      "ticket_rate_a": 0.1781512605042017
+    },
+    "quantumstar_overlap": {
+      "offset_h": 0,
+      "window0": "2025-05-08 17:01:29",
+      "window1": "2026-11-12 16:56:48",
+      "n_a_window": 504,
+      "n_b_window": 773,
+      "n_events_a": 275,
+      "n_events_b": 326,
+      "n_hits": 114,
+      "uniq_rate_a": 0.41454545454545455,
+      "uniq_rate_b": 0.3496932515337423,
+      "ticket_hits": 104,
+      "ticket_rate_a": 0.20634920634920634
+    },
+    "verdict": {
+      "verdict": "NO-GO",
+      "go": false,
+      "age_ok": true,
+      "monthly_ok_30": true,
+      "monthly_ok_35": true,
+      "dd_ok": false,
+      "top10_ok": false,
+      "gr_ok": true,
+      "gold_ok": false,
+      "fx_ok": false,
+      "fx_4pip_sensitivity": false,
+      "gold_stress_ok": false,
+      "fx_stress_ok": false,
+      "hold_ok_15": false,
+      "hold_ok_5_sensitivity": true,
+      "hard_sl_ok": true,
+      "grid_ok": false,
+      "sibling_fail": false,
+      "family_match_fail": true,
+      "reasons": [
+        "family unique-event match > 20%",
+        "floating/equity DD -84.2479277918682 exceeds 25%",
+        "TWR/floating DD -23.356278641940865 exceeds 25%",
+        "top-10 log-TWR share 65.97657627762302 >= 50%",
+        "gold avg net 3.4877332400652064 bp < 10 bp",
+        "FX avg net -2.457474534667462 pips < 5 pips",
+        "gold +1pip/side stress 2.9465693959294956 bp < 10 bp",
+        "FX +1pip/side stress -4.457474534667462 pips < 5 pips",
+        "median hold 8.2 < 15 min",
+        "grid/averaging rule failed (max same-symbol 9, averaging_down 97, lot-escalation False)",
+        "Solnce unique-event match 32.5% > 20%",
+        "QuantumStar unique-event match 41.5% > 20%"
+      ],
+      "fail_reasons": [
+        "family unique-event match > 20%",
+        "floating/equity DD -84.2479277918682 exceeds 25%",
+        "TWR/floating DD -23.356278641940865 exceeds 25%",
+        "top-10 log-TWR share 65.97657627762302 >= 50%",
+        "gold avg net 3.4877332400652064 bp < 10 bp",
+        "FX avg net -2.457474534667462 pips < 5 pips",
+        "gold +1pip/side stress 2.9465693959294956 bp < 10 bp",
+        "FX +1pip/side stress -4.457474534667462 pips < 5 pips",
+        "median hold 8.2 < 15 min",
+        "grid/averaging rule failed (max same-symbol 9, averaging_down 97, lot-escalation False)",
+        "Solnce unique-event match 32.5% > 20%",
+        "QuantumStar unique-event match 41.5% > 20%"
+      ],
+      "sibling_note": "2394142 DD 22%, 2397478 DD 4% (t302, under 40%)"
+    }
+  },
+  "stable_sky": {
+    "meta": {
+      "signal": "2373216",
+      "name": "Stable Sky",
+      "currency": "USD",
+      "official_start": "2024-04-19",
+      "alt_start": "2026-05-12",
+      "months_official": 31.04722792607803,
+      "closed_list": false,
+      "sibling_note": "no siblings listed in t302",
+      "layout": "A"
+    },
+    "reconcile": {
+      "n_closed": 513,
+      "page_trades": 513,
+      "trade_count_gap": 0,
+      "vendor_pnl": 19427.879999999997,
+      "raw_profit": 21497.21,
+      "commission": 0.0,
+      "swap": -2069.33,
+      "page_profit": 19427.88,
+      "vendor_vs_page": -3.637978807091713e-12,
+      "cash_net": 10000.0,
+      "cash_pos": 10000.0,
+      "cash_neg": 0.0,
+      "page_net_cash": 10000.0,
+      "cash_vs_page_net": 0.0,
+      "final_capital": 29427.879999999997,
+      "page_balance": 29427.88,
+      "final_vs_page": -3.637978807091713e-12,
+      "currency": "USD",
+      "contract": {
+        "n": 512,
+        "median_value_per_price_per_lot": 71854.30463576104,
+        "p25": 61375.78848516174,
+        "p75": 72932.11672763687,
+        "vs_100000": 0.7185430463576105,
+        "vs_1000": 71.85430463576104,
+        "vs_100": 718.5430463576105,
+        "likely": "converted_or_other",
+        "commission_units": 100000,
+        "lot_scale": 1.0,
+        "implied_quote_fx": 0.7185430463576105
+      },
+      "lot_scale": 1.0,
+      "cash_detail": {
+        "n": 1,
+        "pos_n": 1,
+        "pos_sum": 10000.0,
+        "neg_n": 0,
+        "neg_sum": 0.0,
+        "by_type": [
+          {
+            "type": "Balance",
+            "comment": "Deposit",
+            "sign": 1,
+            "n": 1,
+            "sum": 10000.0
+          }
+        ],
+        "top_cash_days": [
+          {
+            "date": "2024-04-19",
+            "n": 1,
+            "sum": 10000.0
+          }
+        ]
+      },
+      "n_pending": 1,
+      "pending_to_fill": 0.001949317738791423,
+      "file_has_commission": false,
+      "commission_rule": "imputed $14/lot RT + spread (scaled by inferred pip value)",
+      "layout": "A",
+      "deal_meta": {
+        "layout": "A"
+      },
+      "page_equity": 27770.28
+    },
+    "twr": {
+      "twr_pct": 194.27880000000027,
+      "monthly": 3.53763851858222,
+      "months": 31.04722792607803,
+      "mdd_pct": -3.6417368535575534,
+      "mdd_peak": "2024-05-20 11:11:32",
+      "mdd_trough": "2024-05-20 15:21:01",
+      "final_capital": 29427.88,
+      "first_cap": "2024-04-19 03:06:24",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 514,
+      "peak": 2.942897000000003,
+      "n_daily": 227
+    },
+    "twr_alt_start": {
+      "twr_pct": 194.27880000000027,
+      "monthly": 18.662016894767763,
+      "months": 6.308008213552362,
+      "mdd_pct": -3.6417368535575534,
+      "mdd_peak": "2024-05-20 11:11:32",
+      "mdd_trough": "2024-05-20 15:21:01",
+      "final_capital": 29427.88,
+      "first_cap": "2024-04-19 03:06:24",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 514,
+      "peak": 2.942897000000003,
+      "n_daily": 227
+    },
+    "twr_rf": {
+      "twr_pct": 146.59505573920507,
+      "monthly": 2.9497798684485987,
+      "months": 31.04722792607803,
+      "mdd_pct": -4.959241837741423,
+      "mdd_peak": "2024-05-08 10:42:56",
+      "mdd_trough": "2024-05-20 15:21:01",
+      "final_capital": 24659.50557392056,
+      "first_cap": "2024-04-19 03:06:24",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 514,
+      "peak": 2.4682365573920446,
+      "n_daily": 227
+    },
+    "twr_stress": {
+      "twr_pct": 119.78126339148001,
+      "monthly": 2.56877661981727,
+      "months": 31.04722792607803,
+      "mdd_pct": -6.414040466590065,
+      "mdd_peak": "2024-05-08 10:42:56",
+      "mdd_trough": "2024-05-20 15:21:01",
+      "final_capital": 21978.126339148006,
+      "first_cap": "2024-04-19 03:06:24",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 514,
+      "peak": 2.2024994800686315,
+      "n_daily": 227
+    },
+    "money_weighted": {
+      "capital_in": 10000.0,
+      "simple_pnl_over_capital_in_pct": 194.27879999999996,
+      "simple_monthly": 3.5645038530017326,
+      "page_growth": 194.28,
+      "page_growth_monthly_on_official_clock": 3.5645175567219134,
+      "cashflow_twr_pct": 194.27880000000027
+    },
+    "last12m": {
+      "twr_pct": 44.342688243929686,
+      "monthly": 3.1079131346478883,
+      "months": 11.991786447638603,
+      "mdd_pct": -0.5676090631348774,
+      "n_trades": 107,
+      "start_capital": 20387.510000000017
+    },
+    "top10": {
+      "top10": [
+        {
+          "date": "2026-09-02",
+          "pnl": 1603.29
+        },
+        {
+          "date": "2026-01-20",
+          "pnl": 1008.3
+        },
+        {
+          "date": "2026-07-23",
+          "pnl": 736.3000000000001
+        },
+        {
+          "date": "2026-06-01",
+          "pnl": 361.76
+        },
+        {
+          "date": "2026-06-08",
+          "pnl": 346.93
+        },
+        {
+          "date": "2026-07-07",
+          "pnl": 320.76
+        },
+        {
+          "date": "2025-07-17",
+          "pnl": 276.55
+        },
+        {
+          "date": "2026-06-18",
+          "pnl": 254.86
+        },
+        {
+          "date": "2024-08-14",
+          "pnl": 242.5
+        },
+        {
+          "date": "2025-11-28",
+          "pnl": 242.35999999999999
+        }
+      ],
+      "top10_log_share": 21.04605446855573,
+      "twr_without": 134.47886699498278,
+      "monthly_without": 2.7828529695715476,
+      "n_close_days": 226
+    },
+    "stacking": {
+      "n": 513,
+      "same_side_open_within_1min": 84,
+      "same_side_open_within_5min": 86,
+      "averaging_down": 33,
+      "opposite_hedges": 1,
+      "max_concurrent_tickets": 31,
+      "max_concurrent_lots": 12.400000000000006,
+      "max_concurrent_same_symbol": 21,
+      "n_pending": 1,
+      "pending_to_fill": 0.001949317738791423,
+      "lot_escalation": {
+        "n_sequences": 107,
+        "n_escalated": 31,
+        "frac": 0.2897196261682243,
+        "fail": true
+      },
+      "grid_rule": {
+        "fail": true,
+        "by_concurrent_and_averaging": true,
+        "by_lot_escalation": true,
+        "max_concurrent_same_symbol": 21,
+        "averaging_down": 33
+      }
+    },
+    "lots_vs_balance": {
+      "median_lots": 0.37,
+      "median_lots_per_bal": 1.8468318001952824e-05,
+      "p90_lots_per_bal": 4.009026731816482e-05,
+      "corr_lots_balance": 0.40182534377373214
+    },
+    "lots_vs_balance_by_year": {
+      "2024": {
+        "n": 230,
+        "median_lots": 0.38,
+        "median_lots_per_bal": 2.86391860767326e-05,
+        "p90_lots_per_bal": 4.1726007724385395e-05
+      },
+      "2025": {
+        "n": 191,
+        "median_lots": 0.31,
+        "median_lots_per_bal": 1.774423460244042e-05,
+        "p90_lots_per_bal": 3.625016051448194e-05
+      },
+      "2026": {
+        "n": 92,
+        "median_lots": 0.48,
+        "median_lots_per_bal": 1.9630729616963563e-05,
+        "p90_lots_per_bal": 3.883827180556317e-05
+      }
+    },
+    "recost": {
+      "gold_bp": {},
+      "fx_pips": {
+        "n": 513,
+        "avg_net": 8.024804567802347,
+        "median_net": 15.50174505213806,
+        "avg_stress": 6.024804567802348,
+        "unit": "pips"
+      },
+      "median_hold_min": 1327.1833333333334,
+      "median_hold_gold": null,
+      "median_hold_fx": 1327.1833333333334,
+      "sl_visible_pct": 67.2514619883041,
+      "tp_visible_pct": 86.15984405458089,
+      "n": 513,
+      "n_gold": 0,
+      "n_fx": 513,
+      "comment_sl": 0,
+      "comment_tp": 93,
+      "comment_empty": 420,
+      "by_symbol": {
+        "AUDCAD": {
+          "n": 131,
+          "avg_net": 10.882822379775748,
+          "median_net": 23.038237436271153,
+          "avg_stress": 8.882822379775748,
+          "median_hold_min": 1056.0,
+          "unit": "pips",
+          "wr": 79.38931297709924,
+          "sl_visible_pct": 65.64885496183206,
+          "comment_sl": 0,
+          "comment_tp": 13
+        },
+        "AUDNZD": {
+          "n": 133,
+          "avg_net": -0.28681534006869996,
+          "median_net": 6.355306262904532,
+          "avg_stress": -2.2868153400686997,
+          "median_hold_min": 1567.3166666666666,
+          "unit": "pips",
+          "wr": 63.90977443609023,
+          "sl_visible_pct": 80.45112781954887,
+          "comment_sl": 0,
+          "comment_tp": 21
+        },
+        "NZDCAD": {
+          "n": 249,
+          "avg_net": 10.960728721932202,
+          "median_net": 15.76911153119122,
+          "avg_stress": 8.960728721932202,
+          "median_hold_min": 1486.7,
+          "unit": "pips",
+          "wr": 79.91967871485943,
+          "sl_visible_pct": 61.044176706827315,
+          "comment_sl": 0,
+          "comment_tp": 59
+        }
+      },
+      "hold_buckets": {
+        "lt_1min": 4,
+        "1_to_15min": 14,
+        "15min_to_4h": 67,
+        "4h_to_1d": 182,
+        "gt_1d": 246,
+        "median_min": 1327.1833333333334,
+        "mean_min": 6299.204288499025,
+        "p10_min": 143.65333333333334,
+        "p90_min": 9352.663333333334
+      },
+      "hold_bucket_pnl": {
+        "lt_1min": {
+          "n": 4,
+          "vendor_pnl": -3.92,
+          "avg_rf_pips": -4.979479307614776,
+          "median_hold_min": 0.21666666666666667,
+          "wr": 0.0,
+          "top_symbols": {
+            "NZDCAD": 3,
+            "AUDNZD": 1
+          }
+        },
+        "1_to_15min": {
+          "n": 14,
+          "vendor_pnl": -34.51999999999999,
+          "avg_rf_pips": -4.379643212854464,
+          "median_hold_min": 8.333333333333332,
+          "wr": 35.714285714285715,
+          "top_symbols": {
+            "NZDCAD": 9,
+            "AUDNZD": 3,
+            "AUDCAD": 2
+          }
+        },
+        "15min_to_4h": {
+          "n": 67,
+          "vendor_pnl": 3223.5299999999997,
+          "avg_rf_pips": 13.558728125712417,
+          "median_hold_min": 143.25,
+          "wr": 92.53731343283582,
+          "top_symbols": {
+            "NZDCAD": 26,
+            "AUDNZD": 21,
+            "AUDCAD": 20
+          }
+        },
+        "4h_to_1d": {
+          "n": 182,
+          "vendor_pnl": 9013.990000000002,
+          "avg_rf_pips": 14.554214731756769,
+          "median_hold_min": 623.3583333333333,
+          "wr": 91.20879120879121,
+          "top_symbols": {
+            "NZDCAD": 85,
+            "AUDCAD": 56,
+            "AUDNZD": 41
+          }
+        },
+        "gt_1d": {
+          "n": 246,
+          "vendor_pnl": 7228.8,
+          "avg_rf_pips": 2.6042918694738293,
+          "median_hold_min": 4833.85,
+          "wr": 63.00813008130082,
+          "top_symbols": {
+            "NZDCAD": 126,
+            "AUDNZD": 67,
+            "AUDCAD": 53
+          }
+        }
+      },
+      "hard_sl": {
+        "n": 513,
+        "n_visible": 345,
+        "pct": 67.2514619883041,
+        "n_sl_col": 345,
+        "n_sl_comment": 0
+      },
+      "winner_loser": {
+        "n_win": 388,
+        "n_loss": 125,
+        "median_hold_win": 937.75,
+        "median_hold_loss": 4543.35,
+        "mean_hold_win": 4824.791323024056,
+        "mean_hold_loss": 10875.78213333333,
+        "avg_win": 65.04275773195877,
+        "avg_loss": -46.46968000000001
+      },
+      "swap_year": {
+        "swap_total": -2069.33,
+        "swap_per_year": -799.8124682539683,
+        "avg_capital": 16299.754708171207,
+        "swap_pct_of_equity_yr": -4.906898800464864
+      }
+    },
+    "hard_sl": {
+      "n": 513,
+      "n_visible": 345,
+      "pct": 67.2514619883041,
+      "n_sl_col": 345,
+      "n_sl_comment": 0
+    },
+    "grid": {
+      "fail": true,
+      "by_concurrent_and_averaging": true,
+      "by_lot_escalation": true,
+      "max_concurrent_same_symbol": 21,
+      "averaging_down": 33
+    },
+    "gr": {},
+    "crash": {
+      "mean_daily_twr_pct": 0.10261139823922738,
+      "nonloss_rate": 0.9615384615384616,
+      "pass_bar": true,
+      "offset_h_broker": 2,
+      "days": [
+        {
+          "date": "2026-04-21",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.21220777309844951
+        },
+        {
+          "date": "2026-04-23",
+          "n_trades": 1,
+          "pnl": -9.98,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-04-30",
+          "n_trades": 2,
+          "pnl": 132.99,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-05-01",
+          "n_trades": 2,
+          "pnl": 132.99,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-05-04",
+          "n_trades": 2,
+          "pnl": 132.99,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-05-14",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-05-25",
+          "n_trades": 2,
+          "pnl": 74.03,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-05-27",
+          "n_trades": 4,
+          "pnl": 185.44,
+          "daily_twr_pct": 0.6307614451614318
+        },
+        {
+          "date": "2026-05-29",
+          "n_trades": 5,
+          "pnl": 360.3299999999999,
+          "daily_twr_pct": -0.005847979523077029
+        },
+        {
+          "date": "2026-06-02",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-06-05",
+          "n_trades": 5,
+          "pnl": 377.3,
+          "daily_twr_pct": 0.4377931973981841
+        },
+        {
+          "date": "2026-06-18",
+          "n_trades": 5,
+          "pnl": 345.25,
+          "daily_twr_pct": 0.9897245112735265
+        },
+        {
+          "date": "2026-06-24",
+          "n_trades": 3,
+          "pnl": -0.19999999999999574,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-06-30",
+          "n_trades": 2,
+          "pnl": -55.04000000000002,
+          "daily_twr_pct": 0.403257406811397
+        },
+        {
+          "date": "2026-07-01",
+          "n_trades": 1,
+          "pnl": -161.04000000000002,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-07-30",
+          "n_trades": 3,
+          "pnl": 502.77,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-05",
+          "n_trades": 3,
+          "pnl": 502.77,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-06",
+          "n_trades": 4,
+          "pnl": 1603.29,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-10",
+          "n_trades": 4,
+          "pnl": 1603.29,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-11",
+          "n_trades": 4,
+          "pnl": 1603.29,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-21",
+          "n_trades": 4,
+          "pnl": 1603.29,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-27",
+          "n_trades": 4,
+          "pnl": 1603.29,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-09-14",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-09-16",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-09-22",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-10-12",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        }
+      ]
+    },
+    "direction_perm": {
+      "n": 2000,
+      "real_mean": 28.576034257155086,
+      "null_mean": -13.161304124911187,
+      "null_p05": -20.333546639531068,
+      "null_p95": -5.8313419611685005,
+      "p_right": 0.0,
+      "percentile": 100.0
+    },
+    "timing_perm": {
+      "ran": false,
+      "reason": "no gold or no mid"
+    },
+    "floating_gold": {
+      "derivable": false,
+      "reason": "no gold trades"
+    },
+    "happy_news_overlap": {
+      "offset_h": 0,
+      "window0": "2024-04-19 17:06:00",
+      "window1": "2026-09-09 01:35:26",
+      "n_a_window": 513,
+      "n_b_window": 873,
+      "n_events_a": 462,
+      "n_events_b": 850,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "happy_gold_overlap": {},
+    "happy_jp_overlap": {
+      "offset_h": 0,
+      "window0": "2024-08-26 00:00:11",
+      "window1": "2026-09-09 01:35:26",
+      "n_a_window": 352,
+      "n_b_window": 244,
+      "n_events_a": 324,
+      "n_events_b": 244,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "solnce_overlap": {
+      "offset_h": 0,
+      "window0": "2024-12-06 12:33:08",
+      "window1": "2026-09-09 01:35:26",
+      "n_a_window": 293,
+      "n_b_window": 1082,
+      "n_events_a": 270,
+      "n_events_b": 463,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "quantumstar_overlap": {
+      "offset_h": 0,
+      "window0": "2025-05-08 17:01:29",
+      "window1": "2026-09-09 01:35:26",
+      "n_a_window": 191,
+      "n_b_window": 692,
+      "n_events_a": 181,
+      "n_events_b": 299,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "verdict": {
+      "verdict": "NO-GO",
+      "go": false,
+      "age_ok": true,
+      "monthly_ok_30": true,
+      "monthly_ok_35": true,
+      "dd_ok": true,
+      "top10_ok": true,
+      "gr_ok": true,
+      "gold_ok": true,
+      "fx_ok": true,
+      "fx_4pip_sensitivity": true,
+      "gold_stress_ok": true,
+      "fx_stress_ok": true,
+      "hold_ok_15": true,
+      "hold_ok_5_sensitivity": true,
+      "hard_sl_ok": false,
+      "grid_ok": false,
+      "sibling_fail": false,
+      "family_match_fail": false,
+      "reasons": [
+        "hard SL coverage 67.2514619883041% < 80%",
+        "grid/averaging rule failed (max same-symbol 21, averaging_down 33, lot-escalation True)"
+      ],
+      "fail_reasons": [
+        "hard SL coverage 67.2514619883041% < 80%",
+        "grid/averaging rule failed (max same-symbol 21, averaging_down 33, lot-escalation True)"
+      ],
+      "sibling_note": "no siblings listed in t302"
+    }
+  },
+  "blue_agg": {
+    "meta": {
+      "signal": "2031876",
+      "name": "Blue Agressive CFDs Fiat FIC04",
+      "currency": "USD",
+      "official_start": "2022-11-30",
+      "alt_start": "2023-08-02",
+      "months_official": 47.671457905544145,
+      "closed_list": false,
+      "sibling_note": "FIC08Milion 2031922 DD 8% (t302, under 40%)",
+      "layout": "A"
+    },
+    "reconcile": {
+      "n_closed": 4304,
+      "page_trades": 4304,
+      "trade_count_gap": 0,
+      "vendor_pnl": 64216.369999999995,
+      "raw_profit": 65447.28,
+      "commission": 0.0,
+      "swap": -1230.91,
+      "page_profit": 64216.37,
+      "vendor_vs_page": -7.275957614183426e-12,
+      "cash_net": 20000.0,
+      "cash_pos": 20000.0,
+      "cash_neg": 0.0,
+      "page_net_cash": 20004.29,
+      "cash_vs_page_net": -4.290000000000873,
+      "final_capital": 84216.37,
+      "page_balance": 84220.66,
+      "final_vs_page": -4.290000000008149,
+      "currency": "USD",
+      "contract": {
+        "n": 4224,
+        "median_value_per_price_per_lot": 696.9696969697317,
+        "p25": 100.00000000003266,
+        "p75": 100000.00000000009,
+        "vs_100000": 0.006969696969697316,
+        "vs_1000": 0.6969696969697317,
+        "vs_100": 6.969696969697317,
+        "likely": "micro_1000",
+        "commission_units": 100000,
+        "lot_scale": 1.0,
+        "implied_quote_fx": 0.999999999999666
+      },
+      "lot_scale": 1.0,
+      "cash_detail": {
+        "n": 1,
+        "pos_n": 1,
+        "pos_sum": 20000.0,
+        "neg_n": 0,
+        "neg_sum": 0.0,
+        "by_type": [
+          {
+            "type": "Balance",
+            "comment": "<empty>",
+            "sign": 1,
+            "n": 1,
+            "sum": 20000.0
+          }
+        ],
+        "top_cash_days": [
+          {
+            "date": "2022-11-08",
+            "n": 1,
+            "sum": 20000.0
+          }
+        ]
+      },
+      "n_pending": 13904,
+      "pending_to_fill": 3.2304832713754648,
+      "file_has_commission": false,
+      "commission_rule": "imputed $14/lot RT + spread (scaled by inferred pip value)",
+      "layout": "A",
+      "deal_meta": {
+        "layout": "A"
+      },
+      "page_equity": 84326.35
+    },
+    "twr": {
+      "twr_pct": 321.08184999999867,
+      "monthly": 3.0616952610367676,
+      "months": 47.671457905544145,
+      "mdd_pct": -14.436436138407549,
+      "mdd_peak": "2024-08-26 10:38:00",
+      "mdd_trough": "2025-04-23 09:01:40",
+      "final_capital": 84216.36999999984,
+      "first_cap": "2022-11-08 16:27:53",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 4305,
+      "peak": 4.440250999999997,
+      "n_daily": 555
+    },
+    "twr_alt_start": {
+      "twr_pct": 321.08184999999867,
+      "monthly": 3.6950455362446455,
+      "months": 39.62217659137577,
+      "mdd_pct": -14.436436138407549,
+      "mdd_peak": "2024-08-26 10:38:00",
+      "mdd_trough": "2025-04-23 09:01:40",
+      "final_capital": 84216.36999999984,
+      "first_cap": "2022-11-08 16:27:53",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 4305,
+      "peak": 4.440250999999997,
+      "n_daily": 555
+    },
+    "twr_rf": {
+      "twr_pct": -99.44670040827924,
+      "monthly": -10.328532576053885,
+      "months": 47.671457905544145,
+      "mdd_pct": -100.02009606913767,
+      "mdd_peak": "2023-03-01 08:26:52",
+      "mdd_trough": "2023-07-10 17:04:19",
+      "final_capital": -169900.34176808625,
+      "first_cap": "2022-11-08 16:27:53",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 4305,
+      "peak": 1.0094736652607823,
+      "n_daily": 555
+    },
+    "twr_stress": {
+      "twr_pct": -100.53754124822886,
+      "monthly": null,
+      "months": 47.671457905544145,
+      "mdd_pct": -100.53387477068192,
+      "mdd_peak": "2023-01-24 18:39:01",
+      "mdd_trough": "2023-06-29 09:27:12",
+      "final_capital": -369533.82257996517,
+      "first_cap": "2022-11-08 16:27:53",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 4305,
+      "peak": 1.0068676733726896,
+      "n_daily": 555
+    },
+    "money_weighted": {
+      "capital_in": 20004.29,
+      "simple_pnl_over_capital_in_pct": 321.012992713063,
+      "simple_monthly": 3.076407979262741,
+      "page_growth": 321.01,
+      "page_growth_monthly_on_official_clock": 3.0763925348232135,
+      "cashflow_twr_pct": 321.08184999999867
+    },
+    "last12m": {
+      "twr_pct": 1.1967372438790536,
+      "monthly": 0.09925320545451921,
+      "months": 11.991786447638603,
+      "mdd_pct": -2.5247578148833605,
+      "n_trades": 548,
+      "start_capital": 83220.43999999987
+    },
+    "top10": {
+      "top10": [
+        {
+          "date": "2023-10-03",
+          "pnl": 14334.09
+        },
+        {
+          "date": "2024-05-03",
+          "pnl": 4217.04
+        },
+        {
+          "date": "2023-12-07",
+          "pnl": 3099.87
+        },
+        {
+          "date": "2025-01-07",
+          "pnl": 2718.3
+        },
+        {
+          "date": "2024-10-31",
+          "pnl": 2718.3
+        },
+        {
+          "date": "2023-09-14",
+          "pnl": 2654.98
+        },
+        {
+          "date": "2024-12-12",
+          "pnl": 2611.7
+        },
+        {
+          "date": "2024-07-11",
+          "pnl": 2506.7799999999997
+        },
+        {
+          "date": "2023-10-11",
+          "pnl": 2433.85
+        },
+        {
+          "date": "2023-10-10",
+          "pnl": 2394.9300000000003
+        }
+      ],
+      "top10_log_share": 52.51541004315351,
+      "twr_without": 97.91462278976262,
+      "monthly_without": 1.442324105062398,
+      "n_close_days": 554
+    },
+    "stacking": {
+      "n": 4304,
+      "same_side_open_within_1min": 6466,
+      "same_side_open_within_5min": 6664,
+      "averaging_down": 449,
+      "opposite_hedges": 8,
+      "max_concurrent_tickets": 27,
+      "max_concurrent_lots": 77.25000000000001,
+      "max_concurrent_same_symbol": 12,
+      "n_pending": 13904,
+      "pending_to_fill": 3.2304832713754648,
+      "lot_escalation": {
+        "n_sequences": 1418,
+        "n_escalated": 103,
+        "frac": 0.07263751763046544,
+        "fail": false
+      },
+      "grid_rule": {
+        "fail": true,
+        "by_concurrent_and_averaging": true,
+        "by_lot_escalation": false,
+        "max_concurrent_same_symbol": 12,
+        "averaging_down": 449
+      }
+    },
+    "lots_vs_balance": {
+      "median_lots": 0.56,
+      "median_lots_per_bal": 1.0219483538702329e-05,
+      "p90_lots_per_bal": 0.00019985511820573378,
+      "corr_lots_balance": -0.4618835619542883
+    },
+    "lots_vs_balance_by_year": {
+      "2022": {
+        "n": 2,
+        "median_lots": 0.01,
+        "median_lots_per_bal": 5e-07,
+        "p90_lots_per_bal": 5e-07
+      },
+      "2023": {
+        "n": 1969,
+        "median_lots": 5.2,
+        "median_lots_per_bal": 0.0001736135257406031,
+        "p90_lots_per_bal": 0.00023513587498282657
+      },
+      "2024": {
+        "n": 1297,
+        "median_lots": 0.51,
+        "median_lots_per_bal": 6.088568290562385e-06,
+        "p90_lots_per_bal": 1.0516483693194461e-05
+      },
+      "2025": {
+        "n": 608,
+        "median_lots": 0.1,
+        "median_lots_per_bal": 1.2284227543203658e-06,
+        "p90_lots_per_bal": 3.6785924850652495e-06
+      },
+      "2026": {
+        "n": 428,
+        "median_lots": 0.1,
+        "median_lots_per_bal": 1.1929720584470438e-06,
+        "p90_lots_per_bal": 1.1989277749123435e-06
+      }
+    },
+    "recost": {
+      "gold_bp": {
+        "n": 1323,
+        "avg_net": -0.5211322927387825,
+        "median_net": -0.3337031876996246,
+        "avg_stress": -1.408356857618185,
+        "unit": "bp"
+      },
+      "fx_pips": {
+        "n": 2981,
+        "avg_net": -0.4458148679368852,
+        "median_net": -1.7000000000018993,
+        "avg_stress": -2.445814867936885,
+        "unit": "pips"
+      },
+      "median_hold_min": 1.5333333333333334,
+      "median_hold_gold": 1.5,
+      "median_hold_fx": 1.55,
+      "sl_visible_pct": 78.67100371747212,
+      "tp_visible_pct": 80.85501858736059,
+      "n": 4304,
+      "n_gold": 1323,
+      "n_fx": 2981,
+      "comment_sl": 2422,
+      "comment_tp": 109,
+      "comment_empty": 1773,
+      "by_symbol": {
+        "AUDNZD": {
+          "n": 2,
+          "avg_net": 17.92316685497785,
+          "median_net": 17.92316685497785,
+          "avg_stress": 15.92316685497785,
+          "median_hold_min": 10789.275,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 50.0,
+          "comment_sl": 1,
+          "comment_tp": 1
+        },
+        "AUDUSD": {
+          "n": 43,
+          "avg_net": 2.8953121869554383,
+          "median_net": -2.2000000000012,
+          "avg_stress": 0.8953121869554386,
+          "median_hold_min": 20.233333333333334,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 100.0,
+          "comment_sl": 41,
+          "comment_tp": 1
+        },
+        "EURAUD": {
+          "n": 1,
+          "avg_net": 6.484293193716399,
+          "median_net": 6.484293193716399,
+          "avg_stress": 4.484293193716399,
+          "median_hold_min": 632.0833333333334,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 1
+        },
+        "EURCHF": {
+          "n": 1,
+          "avg_net": 7.500350723367004,
+          "median_net": 7.500350723367004,
+          "avg_stress": 5.500350723367004,
+          "median_hold_min": 2745.4666666666667,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 1
+        },
+        "EURGBP": {
+          "n": 416,
+          "avg_net": -1.3794604775608421,
+          "median_net": 2.1126890218163736,
+          "avg_stress": -3.3794604775608414,
+          "median_hold_min": 2295.7749999999996,
+          "unit": "pips",
+          "wr": 56.49038461538461,
+          "sl_visible_pct": 0.2403846153846154,
+          "comment_sl": 0,
+          "comment_tp": 2
+        },
+        "EURUSD": {
+          "n": 910,
+          "avg_net": -2.0460408424908,
+          "median_net": -2.0000000000078613,
+          "avg_stress": -4.0460408424908,
+          "median_hold_min": 0.55,
+          "unit": "pips",
+          "wr": 51.53846153846153,
+          "sl_visible_pct": 90.98901098901099,
+          "comment_sl": 364,
+          "comment_tp": 48
+        },
+        "GBPUSD": {
+          "n": 409,
+          "avg_net": 6.3636185819071125,
+          "median_net": 28.99000000000074,
+          "avg_stress": 4.3636185819071125,
+          "median_hold_min": 2308.2833333333333,
+          "unit": "pips",
+          "wr": 73.10513447432763,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 0
+        },
+        "NZDCHF": {
+          "n": 1,
+          "avg_net": 7.963312368972755,
+          "median_net": 7.963312368972755,
+          "avg_stress": 5.963312368972755,
+          "median_hold_min": 3085.7166666666667,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 1
+        },
+        "NZDJPY": {
+          "n": 3,
+          "avg_net": 6.78744012485934,
+          "median_net": 6.688235294118345,
+          "avg_stress": 4.78744012485934,
+          "median_hold_min": 9.9,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 3
+        },
+        "USDCHF": {
+          "n": 2,
+          "avg_net": -182.49248168308097,
+          "median_net": -182.49248168308097,
+          "avg_stress": -184.49248168308097,
+          "median_hold_min": 82695.225,
+          "unit": "pips",
+          "wr": 50.0,
+          "sl_visible_pct": 0.0,
+          "comment_sl": 0,
+          "comment_tp": 1
+        },
+        "USDJPY": {
+          "n": 1191,
+          "avg_net": -1.5874434335114467,
+          "median_net": -2.3961887477390187,
+          "avg_stress": -3.587443433511447,
+          "median_hold_min": 0.4,
+          "unit": "pips",
+          "wr": 52.812762384550794,
+          "sl_visible_pct": 99.8320738874895,
+          "comment_sl": 738,
+          "comment_tp": 26
+        },
+        "USDMXN": {
+          "n": 2,
+          "avg_net": 278.51683114034796,
+          "median_net": 278.51683114034796,
+          "avg_stress": 276.51683114034796,
+          "median_hold_min": 99.18333333333332,
+          "unit": "pips",
+          "wr": 100.0,
+          "sl_visible_pct": 100.0,
+          "comment_sl": 0,
+          "comment_tp": 2
+        },
+        "XAUUSD": {
+          "n": 1323,
+          "avg_net": -0.5211322927387825,
+          "median_net": -0.3337031876996246,
+          "avg_stress": -1.408356857618185,
+          "median_hold_min": 1.5,
+          "unit": "bp",
+          "wr": 70.21919879062736,
+          "sl_visible_pct": 99.9244142101285,
+          "comment_sl": 1278,
+          "comment_tp": 22
+        }
+      },
+      "hold_buckets": {
+        "lt_1min": 1902,
+        "1_to_15min": 1086,
+        "15min_to_4h": 434,
+        "4h_to_1d": 278,
+        "gt_1d": 604,
+        "median_min": 1.5333333333333334,
+        "mean_min": 1101.355676889715,
+        "p10_min": 0.1,
+        "p90_min": 2787.3283333333347
+      },
+      "hold_bucket_pnl": {
+        "lt_1min": {
+          "n": 1902,
+          "vendor_pnl": 50886.56,
+          "avg_rf_pips": -0.8985369367533851,
+          "median_hold_min": 0.23333333333333334,
+          "wr": 57.78128286014721,
+          "top_symbols": {
+            "USDJPY": 716,
+            "EURUSD": 605,
+            "XAUUSD": 568,
+            "AUDUSD": 9,
+            "EURGBP": 3
+          }
+        },
+        "1_to_15min": {
+          "n": 1086,
+          "vendor_pnl": 7317.999999999999,
+          "avg_rf_pips": -1.503165723086849,
+          "median_hold_min": 3.0833333333333335,
+          "wr": 62.15469613259669,
+          "top_symbols": {
+            "XAUUSD": 603,
+            "USDJPY": 243,
+            "EURUSD": 207,
+            "GBPUSD": 11,
+            "EURGBP": 11
+          }
+        },
+        "15min_to_4h": {
+          "n": 434,
+          "vendor_pnl": 2870.340000000001,
+          "avg_rf_pips": 0.5717093421786117,
+          "median_hold_min": 45.233333333333334,
+          "wr": 60.59907834101382,
+          "top_symbols": {
+            "USDJPY": 169,
+            "XAUUSD": 152,
+            "EURGBP": 34,
+            "GBPUSD": 33,
+            "EURUSD": 25
+          }
+        },
+        "4h_to_1d": {
+          "n": 278,
+          "vendor_pnl": 7981.700000000001,
+          "avg_rf_pips": 23.786208466270455,
+          "median_hold_min": 822.8416666666667,
+          "wr": 89.568345323741,
+          "top_symbols": {
+            "EURGBP": 103,
+            "GBPUSD": 102,
+            "USDJPY": 38,
+            "EURUSD": 29,
+            "AUDUSD": 4
+          }
+        },
+        "gt_1d": {
+          "n": 604,
+          "vendor_pnl": -4840.23,
+          "avg_rf_pips": -11.02567334515132,
+          "median_hold_min": 4659.200000000001,
+          "wr": 54.47019867549668,
+          "top_symbols": {
+            "EURGBP": 265,
+            "GBPUSD": 263,
+            "EURUSD": 44,
+            "USDJPY": 25,
+            "AUDUSD": 2
+          }
+        }
+      },
+      "hard_sl": {
+        "n": 4304,
+        "n_visible": 3386,
+        "pct": 78.67100371747212,
+        "n_sl_col": 3386,
+        "n_sl_comment": 2422
+      },
+      "winner_loser": {
+        "n_win": 2615,
+        "n_loss": 1610,
+        "median_hold_win": 2.05,
+        "median_hold_loss": 1.2166666666666666,
+        "mean_hold_win": 814.8264244741874,
+        "mean_hold_loss": 1620.4695859213252,
+        "avg_win": 81.02702103250478,
+        "avg_loss": -91.72005590062112
+      },
+      "swap_year": {
+        "swap_total": -1230.91,
+        "swap_per_year": -309.84829600275674,
+        "avg_capital": 61020.11846225309,
+        "swap_pct_of_equity_yr": -0.5077805546943147
+      }
+    },
+    "hard_sl": {
+      "n": 4304,
+      "n_visible": 3386,
+      "pct": 78.67100371747212,
+      "n_sl_col": 3386,
+      "n_sl_comment": 2422
+    },
+    "grid": {
+      "fail": true,
+      "by_concurrent_and_averaging": true,
+      "by_lot_escalation": false,
+      "max_concurrent_same_symbol": 12,
+      "averaging_down": 449
+    },
+    "gr": {
+      "offset_h": 0,
+      "n_events": 335,
+      "n_event_hits": 0,
+      "uniq_rate": 0.0,
+      "ticket_hits": 1,
+      "n_tickets": 1323,
+      "ticket_rate": 0.0007558578987150416
+    },
+    "crash": {
+      "mean_daily_twr_pct": 0.0025655086529873506,
+      "nonloss_rate": 0.7692307692307693,
+      "pass_bar": true,
+      "offset_h_broker": 2,
+      "days": [
+        {
+          "date": "2026-04-21",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": -0.0001674941275342512
+        },
+        {
+          "date": "2026-04-23",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.08515894262210999
+        },
+        {
+          "date": "2026-04-30",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": -0.2121663391749129
+        },
+        {
+          "date": "2026-05-01",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0727492097672533
+        },
+        {
+          "date": "2026-05-04",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.06653156059484022
+        },
+        {
+          "date": "2026-05-14",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.49174748229943166
+        },
+        {
+          "date": "2026-05-25",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": -0.5293699859085121
+        },
+        {
+          "date": "2026-05-27",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.17144857801631996
+        },
+        {
+          "date": "2026-05-29",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-06-02",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-06-05",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.11773424068659555
+        },
+        {
+          "date": "2026-06-18",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.14796912083565594
+        },
+        {
+          "date": "2026-06-24",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.13909320171723305
+        },
+        {
+          "date": "2026-06-30",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-07-01",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-07-30",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": -0.014982520193818072
+        },
+        {
+          "date": "2026-08-05",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-06",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-10",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-11",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0016483801976940882
+        },
+        {
+          "date": "2026-08-21",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-27",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-09-14",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-09-16",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": -0.3011847107272758
+        },
+        {
+          "date": "2026-09-22",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": -0.16950644162740947
+        },
+        {
+          "date": "2026-10-12",
+          "n_trades": 0,
+          "pnl": 0.0,
+          "daily_twr_pct": 0.0
+        }
+      ]
+    },
+    "direction_perm": {
+      "n": 2000,
+      "real_mean": -44.121826618979306,
+      "null_mean": -58.05848141317457,
+      "null_p05": -63.87971975935938,
+      "null_p95": -52.23378866774295,
+      "p_right": 0.0,
+      "percentile": 100.0
+    },
+    "timing_perm": {
+      "n": 2000,
+      "window_h": 4,
+      "real_mean_bp": -0.5211322927387825,
+      "null_mean": -0.9009069591638088,
+      "null_p05": -1.1213184323331344,
+      "null_p95": -0.6852111897337169,
+      "p_right": 0.0015,
+      "percentile": 99.85000000000001,
+      "mid_from": "2015-01-01 23:00:00+00:00",
+      "mid_to": "2026-10-26 18:48:00+00:00"
+    },
+    "floating_gold": {
+      "derivable": true,
+      "n_points": 2644,
+      "n_mid_nan": 3,
+      "equity_mdd_pct": -44.75374097274114,
+      "equity_peak": "2024-08-22 14:21:22+00:00",
+      "equity_trough": "2025-04-14 11:23:40+00:00",
+      "twr_mdd_pct": -44.753740972741184,
+      "twr_peak": "2024-08-22 14:21:22+00:00",
+      "twr_trough": "2025-04-14 11:23:40+00:00",
+      "note": "Gold-only mark-to-market at trade event times using Dukascopy mid; FX floating is not included.",
+      "official": false,
+      "reason": "gold-slice MTM on a mixed book is descriptive only (FX ticks not used)"
+    },
+    "happy_news_overlap": {
+      "offset_h": 0,
+      "window0": "2023-02-16 02:30:04",
+      "window1": "2026-11-10 15:30:02",
+      "n_a_window": 4281,
+      "n_b_window": 1697,
+      "n_events_a": 1750,
+      "n_events_b": 1642,
+      "n_hits": 33,
+      "uniq_rate_a": 0.018857142857142857,
+      "uniq_rate_b": 0.020097442143727162,
+      "ticket_hits": 37,
+      "ticket_rate_a": 0.008642840457836955
+    },
+    "happy_gold_overlap": {
+      "offset_h": 0,
+      "window0": "2024-01-08 11:19:44",
+      "window1": "2025-05-29 14:29:28",
+      "n_a_window": 1323,
+      "n_b_window": 282,
+      "n_events_a": 335,
+      "n_events_b": 282,
+      "n_hits": 198,
+      "uniq_rate_a": 0.591044776119403,
+      "uniq_rate_b": 0.7021276595744681,
+      "ticket_hits": 989,
+      "ticket_rate_a": 0.7475434618291761
+    },
+    "happy_jp_overlap": {
+      "offset_h": 0,
+      "window0": "2024-08-26 00:00:11",
+      "window1": "2026-11-04 00:05:01",
+      "n_a_window": 1258,
+      "n_b_window": 262,
+      "n_events_a": 734,
+      "n_events_b": 262,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "solnce_overlap": {
+      "offset_h": 0,
+      "window0": "2024-12-06 12:33:08",
+      "window1": "2025-05-29 14:29:28",
+      "n_a_window": 62,
+      "n_b_window": 484,
+      "n_events_a": 62,
+      "n_events_b": 188,
+      "n_hits": 2,
+      "uniq_rate_a": 0.03225806451612903,
+      "uniq_rate_b": 0.010638297872340425,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "quantumstar_overlap": {
+      "offset_h": 0,
+      "window0": "2025-05-08 17:01:29",
+      "window1": "2025-05-29 14:29:28",
+      "n_a_window": 2,
+      "n_b_window": 102,
+      "n_events_a": 2,
+      "n_events_b": 37,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "verdict": {
+      "verdict": "NO-GO",
+      "go": false,
+      "age_ok": true,
+      "monthly_ok_30": true,
+      "monthly_ok_35": false,
+      "dd_ok": true,
+      "top10_ok": false,
+      "gr_ok": true,
+      "gold_ok": false,
+      "fx_ok": false,
+      "fx_4pip_sensitivity": false,
+      "gold_stress_ok": false,
+      "fx_stress_ok": false,
+      "hold_ok_15": false,
+      "hold_ok_5_sensitivity": false,
+      "hard_sl_ok": false,
+      "grid_ok": false,
+      "sibling_fail": false,
+      "family_match_fail": true,
+      "reasons": [
+        "family unique-event match > 20%",
+        "honest monthly 3.062 meets 3.0% official but is below the t241 3.5% sensitivity",
+        "top-10 log-TWR share 52.51541004315351 >= 50%",
+        "gold avg net -0.5211322927387825 bp < 10 bp",
+        "FX avg net -0.4458148679368852 pips < 5 pips",
+        "gold +1pip/side stress -1.408356857618185 bp < 10 bp",
+        "FX +1pip/side stress -2.445814867936885 pips < 5 pips",
+        "median hold 1.5333333333333334 < 15 min",
+        "hard SL coverage 78.67100371747212% < 80%",
+        "grid/averaging rule failed (max same-symbol 12, averaging_down 449, lot-escalation False)",
+        "Happy Gold unique-event match 70.2% > 20%"
+      ],
+      "fail_reasons": [
+        "family unique-event match > 20%",
+        "top-10 log-TWR share 52.51541004315351 >= 50%",
+        "gold avg net -0.5211322927387825 bp < 10 bp",
+        "FX avg net -0.4458148679368852 pips < 5 pips",
+        "gold +1pip/side stress -1.408356857618185 bp < 10 bp",
+        "FX +1pip/side stress -2.445814867936885 pips < 5 pips",
+        "median hold 1.5333333333333334 < 15 min",
+        "hard SL coverage 78.67100371747212% < 80%",
+        "grid/averaging rule failed (max same-symbol 12, averaging_down 449, lot-escalation False)",
+        "Happy Gold unique-event match 70.2% > 20%"
+      ],
+      "sibling_note": "FIC08Milion 2031922 DD 8% (t302, under 40%)"
+    }
+  },
+  "soft_chili": {
+    "meta": {
+      "signal": "2389887",
+      "name": "Soft Chili",
+      "currency": "USD",
+      "official_start": "2024-11-05",
+      "alt_start": "2026-09-05",
+      "months_official": 24.476386036960985,
+      "closed_list": false,
+      "sibling_note": "no siblings listed in t302",
+      "layout": "B"
+    },
+    "reconcile": {
+      "n_closed": 241,
+      "page_trades": 242,
+      "trade_count_gap": -1,
+      "vendor_pnl": 20717.079999999998,
+      "raw_profit": 21699.0,
+      "commission": -38.6,
+      "swap": -943.32,
+      "page_profit": 19626.82,
+      "vendor_vs_page": 1090.2599999999984,
+      "cash_net": 10000.0,
+      "cash_pos": 10000.0,
+      "cash_neg": 0.0,
+      "page_net_cash": 10000.0,
+      "cash_vs_page_net": 0.0,
+      "final_capital": 30717.079999999998,
+      "page_balance": 29626.82,
+      "final_vs_page": 1090.2599999999984,
+      "currency": "USD",
+      "contract": {
+        "n": 241,
+        "median_value_per_price_per_lot": 99.99999999999996,
+        "p25": 99.99999999999937,
+        "p75": 100.00000000000043,
+        "vs_100000": 0.0009999999999999996,
+        "vs_1000": 0.09999999999999996,
+        "vs_100": 0.9999999999999996,
+        "likely": "micro_100",
+        "commission_units": 100,
+        "lot_scale": 0.001,
+        "implied_quote_fx": 0.9999999999999996
+      },
+      "lot_scale": 0.001,
+      "cash_detail": {
+        "n": 1,
+        "pos_n": 1,
+        "pos_sum": 10000.0,
+        "neg_n": 0,
+        "neg_sum": 0.0,
+        "by_type": [
+          {
+            "type": "Balance",
+            "comment": "Deposit",
+            "sign": 1,
+            "n": 1,
+            "sum": 10000.0
+          }
+        ],
+        "top_cash_days": [
+          {
+            "date": "2024-11-05",
+            "n": 1,
+            "sum": 10000.0
+          }
+        ]
+      },
+      "n_pending": 0,
+      "pending_to_fill": 0.0,
+      "file_has_commission": true,
+      "commission_rule": "file commission + spread half of RT",
+      "layout": "B",
+      "deal_meta": {
+        "layout": "B",
+        "unmatched_outs": {
+          "n": 0,
+          "sample": []
+        },
+        "open_inventory": {
+          "n": 1,
+          "sample": [
+            {
+              "symbol": "XAUUSD",
+              "type": "Buy",
+              "lots": 0.1,
+              "open_s": "2026.11.18 14:49:00",
+              "open_px": 3789.43,
+              "in_comm": -0.1,
+              "in_swap": 0.0
+            }
+          ]
+        },
+        "n_deals": 483,
+        "n_cash": 1,
+        "n_closed_pairs": 241
+      },
+      "page_equity": 29693.72
+    },
+    "twr": {
+      "twr_pct": 207.1708000000001,
+      "monthly": 4.691699624931722,
+      "months": 24.476386036960985,
+      "mdd_pct": -19.348953315231686,
+      "mdd_peak": "2026-01-29 07:05:37",
+      "mdd_trough": "2026-03-19 08:53:17",
+      "final_capital": 30717.080000000013,
+      "first_cap": "2024-11-05 09:57:04",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 242,
+      "peak": 3.4250999999999987,
+      "n_daily": 157
+    },
+    "twr_alt_start": {
+      "twr_pct": 207.1708000000001,
+      "monthly": 56.74455204642417,
+      "months": 2.4969199178644765,
+      "mdd_pct": -19.348953315231686,
+      "mdd_peak": "2026-01-29 07:05:37",
+      "mdd_trough": "2026-03-19 08:53:17",
+      "final_capital": 30717.080000000013,
+      "first_cap": "2024-11-05 09:57:04",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 242,
+      "peak": 3.4250999999999987,
+      "n_daily": 157
+    },
+    "twr_rf": {
+      "twr_pct": 200.08580000000111,
+      "monthly": 4.591935301716821,
+      "months": 24.476386036960985,
+      "mdd_pct": -19.766911406242915,
+      "mdd_peak": "2026-01-29 07:05:37",
+      "mdd_trough": "2026-03-19 08:53:17",
+      "final_capital": 30008.580000000107,
+      "first_cap": "2024-11-05 09:57:04",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 242,
+      "peak": 3.3845500000000026,
+      "n_daily": 157
+    },
+    "twr_stress": {
+      "twr_pct": 195.26580000000112,
+      "monthly": 4.522764906712351,
+      "months": 24.476386036960985,
+      "mdd_pct": -20.056933458461568,
+      "mdd_peak": "2026-01-29 07:05:37",
+      "mdd_trough": "2026-03-19 08:53:17",
+      "final_capital": 29526.5800000001,
+      "first_cap": "2024-11-05 09:57:04",
+      "last": "2026-11-20 00:00:00",
+      "n_events": 242,
+      "peak": 3.356549999999998,
+      "n_daily": 157
+    },
+    "money_weighted": {
+      "capital_in": 10000.0,
+      "simple_pnl_over_capital_in_pct": 207.17079999999996,
+      "simple_monthly": 4.737238720552672,
+      "page_growth": 196.27,
+      "page_growth_monthly_on_official_clock": 4.581272294323813,
+      "cashflow_twr_pct": 207.1708000000001
+    },
+    "last12m": {
+      "twr_pct": 54.010468894147934,
+      "monthly": 3.6668474926930372,
+      "months": 11.991786447638603,
+      "mdd_pct": -19.348953315231686,
+      "n_trades": 147,
+      "start_capital": 19944.799999999992
+    },
+    "top10": {
+      "top10": [
+        {
+          "date": "2026-03-02",
+          "pnl": 1948.8999999999999
+        },
+        {
+          "date": "2026-04-08",
+          "pnl": 1781.5
+        },
+        {
+          "date": "2026-01-28",
+          "pnl": 1764.8999999999999
+        },
+        {
+          "date": "2026-01-26",
+          "pnl": 1465.92
+        },
+        {
+          "date": "2026-04-02",
+          "pnl": 1449.85
+        },
+        {
+          "date": "2026-01-29",
+          "pnl": 1443.9299999999998
+        },
+        {
+          "date": "2026-08-05",
+          "pnl": 1381.57
+        },
+        {
+          "date": "2026-09-03",
+          "pnl": 1110.32
+        },
+        {
+          "date": "2026-01-12",
+          "pnl": 1068.5099999999998
+        },
+        {
+          "date": "2026-01-21",
+          "pnl": 1059.02
+        }
+      ],
+      "top10_log_share": 42.50173940031137,
+      "twr_without": 90.64919751590355,
+      "monthly_without": 2.6713323079757156,
+      "n_close_days": 156
+    },
+    "stacking": {
+      "n": 241,
+      "same_side_open_within_1min": 0,
+      "same_side_open_within_5min": 0,
+      "averaging_down": 0,
+      "opposite_hedges": 0,
+      "max_concurrent_tickets": 1,
+      "max_concurrent_lots": 0.1,
+      "max_concurrent_same_symbol": 1,
+      "n_pending": 0,
+      "pending_to_fill": 0.0,
+      "lot_escalation": {
+        "n_sequences": 13,
+        "n_escalated": 0,
+        "frac": 0.0,
+        "fail": false
+      },
+      "grid_rule": {
+        "fail": false,
+        "by_concurrent_and_averaging": false,
+        "by_lot_escalation": false,
+        "max_concurrent_same_symbol": 1,
+        "averaging_down": 0
+      }
+    },
+    "lots_vs_balance": {
+      "median_lots": 0.1,
+      "median_lots_per_bal": 3.6898136053759123e-06,
+      "p90_lots_per_bal": 6.885587020393046e-06,
+      "corr_lots_balance": null
+    },
+    "lots_vs_balance_by_year": {
+      "2024": {
+        "n": 5,
+        "median_lots": 0.1,
+        "median_lots_per_bal": 1.0370862026051607e-05,
+        "p90_lots_per_bal": 1.0799484372036927e-05
+      },
+      "2025": {
+        "n": 103,
+        "median_lots": 0.1,
+        "median_lots_per_bal": 6.005367597558701e-06,
+        "p90_lots_per_bal": 7.4776674764302256e-06
+      },
+      "2026": {
+        "n": 133,
+        "median_lots": 0.1,
+        "median_lots_per_bal": 3.241529963244292e-06,
+        "p90_lots_per_bal": 3.637295410282289e-06
+      }
+    },
+    "recost": {
+      "gold_bp": {
+        "n": 241,
+        "avg_net": 25.274664506517034,
+        "median_net": 81.47218971401178,
+        "avg_stress": 24.77905181966245,
+        "unit": "bp"
+      },
+      "fx_pips": {},
+      "median_hold_min": 1061.9166666666667,
+      "median_hold_gold": 1061.9166666666667,
+      "median_hold_fx": null,
+      "sl_visible_pct": 12.033195020746888,
+      "tp_visible_pct": 87.96680497925311,
+      "n": 241,
+      "n_gold": 241,
+      "n_fx": 0,
+      "comment_sl": 0,
+      "comment_tp": 0,
+      "comment_empty": 0,
+      "by_symbol": {
+        "XAUUSD": {
+          "n": 241,
+          "avg_net": 25.274664506517034,
+          "median_net": 81.47218971401178,
+          "avg_stress": 24.77905181966245,
+          "median_hold_min": 1061.9166666666667,
+          "unit": "bp",
+          "wr": 87.96680497925311,
+          "sl_visible_pct": 12.033195020746888,
+          "comment_sl": 0,
+          "comment_tp": 0
+        }
+      },
+      "hold_buckets": {
+        "lt_1min": 1,
+        "1_to_15min": 4,
+        "15min_to_4h": 43,
+        "4h_to_1d": 89,
+        "gt_1d": 104,
+        "median_min": 1061.9166666666667,
+        "mean_min": 4372.144674965422,
+        "p10_min": 76.0,
+        "p90_min": 11011.066666666668
+      },
+      "hold_bucket_pnl": {
+        "lt_1min": {
+          "n": 1,
+          "vendor_pnl": 362.0,
+          "avg_rf_pips": 359.00000000000034,
+          "median_hold_min": 0.7666666666666667,
+          "wr": 100.0,
+          "top_symbols": {
+            "XAUUSD": 1
+          }
+        },
+        "1_to_15min": {
+          "n": 4,
+          "vendor_pnl": 1460.9,
+          "avg_rf_pips": 362.2250000000025,
+          "median_hold_min": 6.516666666666667,
+          "wr": 100.0,
+          "top_symbols": {
+            "XAUUSD": 4
+          }
+        },
+        "15min_to_4h": {
+          "n": 43,
+          "vendor_pnl": 15298.73,
+          "avg_rf_pips": 352.98372093023283,
+          "median_hold_min": 84.43333333333334,
+          "wr": 100.0,
+          "top_symbols": {
+            "XAUUSD": 43
+          }
+        },
+        "4h_to_1d": {
+          "n": 89,
+          "vendor_pnl": 22460.819999999996,
+          "avg_rf_pips": 250.7337078651687,
+          "median_hold_min": 702.9666666666667,
+          "wr": 92.13483146067416,
+          "top_symbols": {
+            "XAUUSD": 89
+          }
+        },
+        "gt_1d": {
+          "n": 104,
+          "vendor_pnl": -18865.370000000003,
+          "avg_rf_pips": -176.4384615384614,
+          "median_hold_min": 6568.35,
+          "wr": 78.84615384615384,
+          "top_symbols": {
+            "XAUUSD": 104
+          }
+        }
+      },
+      "hard_sl": {
+        "n": 241,
+        "n_visible": 29,
+        "pct": 12.033195020746888,
+        "n_sl_col": 29,
+        "n_sl_comment": 29
+      },
+      "winner_loser": {
+        "n_win": 212,
+        "n_loss": 29,
+        "median_hold_win": 910.8666666666667,
+        "median_hold_loss": 6493.983333333334,
+        "mean_hold_win": 3903.2040880503146,
+        "mean_hold_loss": 7800.262068965519,
+        "avg_win": 352.486179245283,
+        "avg_loss": -1862.4134482758618
+      },
+      "swap_year": {
+        "swap_total": -943.32,
+        "swap_per_year": -462.48004026845643,
+        "avg_capital": 24364.184380165287,
+        "swap_pct_of_equity_yr": -1.8981962747128043
+      }
+    },
+    "hard_sl": {
+      "n": 241,
+      "n_visible": 29,
+      "pct": 12.033195020746888,
+      "n_sl_col": 29,
+      "n_sl_comment": 29
+    },
+    "grid": {
+      "fail": false,
+      "by_concurrent_and_averaging": false,
+      "by_lot_escalation": false,
+      "max_concurrent_same_symbol": 1,
+      "averaging_down": 0
+    },
+    "gr": {
+      "offset_h": 1,
+      "n_events": 241,
+      "n_event_hits": 1,
+      "uniq_rate": 0.004149377593360996,
+      "ticket_hits": 0,
+      "n_tickets": 241,
+      "ticket_rate": 0.0
+    },
+    "crash": {
+      "mean_daily_twr_pct": 0.6703233504030057,
+      "nonloss_rate": 1.0,
+      "pass_bar": true,
+      "offset_h_broker": 2,
+      "days": [
+        {
+          "date": "2026-04-21",
+          "n_trades": 1,
+          "pnl": -2448.0699999999997,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-04-23",
+          "n_trades": 1,
+          "pnl": -2448.0699999999997,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-04-30",
+          "n_trades": 2,
+          "pnl": 687.0799999999999,
+          "daily_twr_pct": 1.1242276270655882
+        },
+        {
+          "date": "2026-05-01",
+          "n_trades": 1,
+          "pnl": 343.37,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-05-04",
+          "n_trades": 1,
+          "pnl": 343.37,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-05-14",
+          "n_trades": 1,
+          "pnl": -3579.71,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-05-25",
+          "n_trades": 1,
+          "pnl": -3579.71,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-05-27",
+          "n_trades": 1,
+          "pnl": -3579.71,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-05-29",
+          "n_trades": 1,
+          "pnl": 338.6,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-06-02",
+          "n_trades": 1,
+          "pnl": 338.6,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-06-05",
+          "n_trades": 2,
+          "pnl": 689.3,
+          "daily_twr_pct": 2.428823114869627
+        },
+        {
+          "date": "2026-06-18",
+          "n_trades": 1,
+          "pnl": -2206.0699999999997,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-06-24",
+          "n_trades": 4,
+          "pnl": 1402.51,
+          "daily_twr_pct": 3.739839528456379
+        },
+        {
+          "date": "2026-06-30",
+          "n_trades": 1,
+          "pnl": 353.46,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-07-01",
+          "n_trades": 2,
+          "pnl": 701.5999999999999,
+          "daily_twr_pct": 1.1922378053325744
+        },
+        {
+          "date": "2026-07-30",
+          "n_trades": 1,
+          "pnl": 331.46999999999997,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-05",
+          "n_trades": 5,
+          "pnl": 1728.06,
+          "daily_twr_pct": 4.57957853438371
+        },
+        {
+          "date": "2026-08-06",
+          "n_trades": 2,
+          "pnl": 713.02,
+          "daily_twr_pct": 1.0982379191134761
+        },
+        {
+          "date": "2026-08-10",
+          "n_trades": 1,
+          "pnl": 349.46,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-08-11",
+          "n_trades": 1,
+          "pnl": 355.58,
+          "daily_twr_pct": 1.0714028399257502
+        },
+        {
+          "date": "2026-08-21",
+          "n_trades": 3,
+          "pnl": 1066.5,
+          "daily_twr_pct": 2.1940597413310448
+        },
+        {
+          "date": "2026-08-27",
+          "n_trades": 1,
+          "pnl": -2497.6,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-09-14",
+          "n_trades": 1,
+          "pnl": -2450.42,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-09-16",
+          "n_trades": 1,
+          "pnl": -2450.42,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-09-22",
+          "n_trades": 1,
+          "pnl": -2450.42,
+          "daily_twr_pct": 0.0
+        },
+        {
+          "date": "2026-10-12",
+          "n_trades": 1,
+          "pnl": 322.18,
+          "daily_twr_pct": 0.0
+        }
+      ]
+    },
+    "direction_perm": {
+      "n": 2000,
+      "real_mean": 83.02315352697111,
+      "null_mean": -6.773898755186563,
+      "null_p05": -93.9700829875517,
+      "null_p95": 81.78609958506239,
+      "p_right": 0.0475,
+      "percentile": 95.25
+    },
+    "timing_perm": {
+      "n": 2000,
+      "window_h": 4,
+      "real_mean_bp": 25.274664506517034,
+      "null_mean": 27.737523034343905,
+      "null_p05": 20.0742969667235,
+      "null_p95": 35.312397011234246,
+      "p_right": 0.712,
+      "percentile": 28.799999999999997,
+      "mid_from": "2015-01-01 23:00:00+00:00",
+      "mid_to": "2026-10-26 18:48:00+00:00"
+    },
+    "floating_gold": {
+      "derivable": true,
+      "n_points": 453,
+      "n_mid_nan": 30,
+      "equity_mdd_pct": -19.478730548013235,
+      "equity_peak": "2026-01-29 05:05:37+00:00",
+      "equity_trough": "2026-03-19 12:34:00+00:00",
+      "twr_mdd_pct": -19.47873054801321,
+      "twr_peak": "2026-01-29 05:05:37+00:00",
+      "twr_trough": "2026-03-19 12:34:00+00:00",
+      "note": "Gold-only mark-to-market at trade event times using Dukascopy mid; FX floating is not included.",
+      "official": true
+    },
+    "happy_news_overlap": {
+      "offset_h": 0,
+      "window0": "2024-11-05 19:04:00",
+      "window1": "2026-11-10 15:30:02",
+      "n_a_window": 240,
+      "n_b_window": 608,
+      "n_events_a": 240,
+      "n_events_b": 595,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "happy_gold_overlap": {
+      "offset_h": 0,
+      "window0": "2024-11-05 19:04:00",
+      "window1": "2026-11-11 16:37:22",
+      "n_a_window": 240,
+      "n_b_window": 358,
+      "n_events_a": 240,
+      "n_events_b": 358,
+      "n_hits": 1,
+      "uniq_rate_a": 0.004166666666666667,
+      "uniq_rate_b": 0.002793296089385475,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "happy_jp_overlap": {
+      "offset_h": 0,
+      "window0": "2024-11-05 19:04:00",
+      "window1": "2026-11-04 00:05:01",
+      "n_a_window": 237,
+      "n_b_window": 229,
+      "n_events_a": 237,
+      "n_events_b": 229,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "solnce_overlap": {
+      "offset_h": 1,
+      "window0": "2024-12-06 12:33:08",
+      "window1": "2026-11-12 16:56:48",
+      "n_a_window": 235,
+      "n_b_window": 1162,
+      "n_events_a": 235,
+      "n_events_b": 490,
+      "n_hits": 3,
+      "uniq_rate_a": 0.01276595744680851,
+      "uniq_rate_b": 0.006122448979591836,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "quantumstar_overlap": {
+      "offset_h": 1,
+      "window0": "2025-05-08 17:01:29",
+      "window1": "2026-11-12 16:56:48",
+      "n_a_window": 202,
+      "n_b_window": 773,
+      "n_events_a": 202,
+      "n_events_b": 326,
+      "n_hits": 3,
+      "uniq_rate_a": 0.01485148514851485,
+      "uniq_rate_b": 0.009202453987730062,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "verdict": {
+      "verdict": "NO-GO",
+      "go": false,
+      "age_ok": true,
+      "monthly_ok_30": true,
+      "monthly_ok_35": true,
+      "dd_ok": true,
+      "top10_ok": true,
+      "gr_ok": true,
+      "gold_ok": true,
+      "fx_ok": true,
+      "fx_4pip_sensitivity": true,
+      "gold_stress_ok": true,
+      "fx_stress_ok": true,
+      "hold_ok_15": true,
+      "hold_ok_5_sensitivity": true,
+      "hard_sl_ok": false,
+      "grid_ok": true,
+      "sibling_fail": false,
+      "family_match_fail": false,
+      "reasons": [
+        "hard SL coverage 12.033195020746888% < 80%"
+      ],
+      "fail_reasons": [
+        "hard SL coverage 12.033195020746888% < 80%"
+      ],
+      "sibling_note": "no siblings listed in t302"
+    }
+  },
+  "cross_overlap": {
+    "van_pm__eu_zone": {
+      "offset_h": -3,
+      "window0": "2024-12-02 16:25:56",
+      "window1": "2026-11-06 05:17:15",
+      "n_a_window": 2043,
+      "n_b_window": 946,
+      "n_events_a": 1936,
+      "n_events_b": 868,
+      "n_hits": 1,
+      "uniq_rate_a": 0.0005165289256198347,
+      "uniq_rate_b": 0.001152073732718894,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "van_pm__gold_ea": {
+      "offset_h": 0,
+      "window0": "2024-10-23 09:55:18",
+      "window1": "2026-11-06 08:17:15",
+      "n_a_window": 2093,
+      "n_b_window": 701,
+      "n_events_a": 1983,
+      "n_events_b": 460,
+      "n_hits": 1,
+      "uniq_rate_a": 0.0005042864346949068,
+      "uniq_rate_b": 0.002173913043478261,
+      "ticket_hits": 1,
+      "ticket_rate_a": 0.00047778308647873863
+    },
+    "van_pm__stable_sky": {
+      "offset_h": 0,
+      "window0": "2024-10-23 09:55:18",
+      "window1": "2026-09-09 01:35:26",
+      "n_a_window": 1789,
+      "n_b_window": 313,
+      "n_events_a": 1715,
+      "n_events_b": 287,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "van_pm__blue_agg": {
+      "offset_h": 0,
+      "window0": "2024-10-23 09:55:18",
+      "window1": "2026-11-06 08:17:15",
+      "n_a_window": 2093,
+      "n_b_window": 1061,
+      "n_events_a": 1983,
+      "n_events_b": 690,
+      "n_hits": 1,
+      "uniq_rate_a": 0.0005042864346949068,
+      "uniq_rate_b": 0.0014492753623188406,
+      "ticket_hits": 2,
+      "ticket_rate_a": 0.0009555661729574773
+    },
+    "van_pm__soft_chili": {
+      "offset_h": -1,
+      "window0": "2024-11-05 19:04:00",
+      "window1": "2026-11-06 07:17:15",
+      "n_a_window": 2077,
+      "n_b_window": 240,
+      "n_events_a": 1968,
+      "n_events_b": 240,
+      "n_hits": 1,
+      "uniq_rate_a": 0.0005081300813008131,
+      "uniq_rate_b": 0.004166666666666667,
+      "ticket_hits": 1,
+      "ticket_rate_a": 0.00048146364949446316
+    },
+    "eu_zone__gold_ea": {
+      "offset_h": 0,
+      "window0": "2024-12-02 16:25:56",
+      "window1": "2026-11-10 09:38:42",
+      "n_a_window": 947,
+      "n_b_window": 616,
+      "n_events_a": 869,
+      "n_events_b": 388,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "eu_zone__stable_sky": {
+      "offset_h": 0,
+      "window0": "2024-12-02 16:25:56",
+      "window1": "2026-09-09 01:35:26",
+      "n_a_window": 925,
+      "n_b_window": 294,
+      "n_events_a": 848,
+      "n_events_b": 271,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "eu_zone__blue_agg": {
+      "offset_h": 2,
+      "window0": "2024-12-02 18:25:56",
+      "window1": "2026-11-10 11:38:42",
+      "n_a_window": 947,
+      "n_b_window": 1044,
+      "n_events_a": 869,
+      "n_events_b": 677,
+      "n_hits": 2,
+      "uniq_rate_a": 0.0023014959723820483,
+      "uniq_rate_b": 0.0029542097488921715,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "eu_zone__soft_chili": {
+      "offset_h": 0,
+      "window0": "2024-12-02 16:25:56",
+      "window1": "2026-11-10 09:38:42",
+      "n_a_window": 947,
+      "n_b_window": 235,
+      "n_events_a": 869,
+      "n_events_b": 235,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "gold_ea__stable_sky": {
+      "offset_h": 0,
+      "window0": "2024-08-12 16:30:10",
+      "window1": "2026-09-09 01:35:26",
+      "n_a_window": 736,
+      "n_b_window": 373,
+      "n_events_a": 534,
+      "n_events_b": 343,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "gold_ea__blue_agg": {
+      "offset_h": 0,
+      "window0": "2024-08-12 16:30:10",
+      "window1": "2026-11-17 15:30:08",
+      "n_a_window": 812,
+      "n_b_window": 1305,
+      "n_events_a": 560,
+      "n_events_b": 749,
+      "n_hits": 5,
+      "uniq_rate_a": 0.008928571428571428,
+      "uniq_rate_b": 0.006675567423230975,
+      "ticket_hits": 3,
+      "ticket_rate_a": 0.003694581280788177
+    },
+    "gold_ea__soft_chili": {
+      "offset_h": -1,
+      "window0": "2024-11-05 19:04:00",
+      "window1": "2026-11-18 01:23:34",
+      "n_a_window": 695,
+      "n_b_window": 240,
+      "n_events_a": 443,
+      "n_events_b": 240,
+      "n_hits": 2,
+      "uniq_rate_a": 0.004514672686230248,
+      "uniq_rate_b": 0.008333333333333333,
+      "ticket_hits": 1,
+      "ticket_rate_a": 0.0014388489208633094
+    },
+    "stable_sky__blue_agg": {
+      "offset_h": 0,
+      "window0": "2024-04-19 17:06:00",
+      "window1": "2026-09-09 01:35:26",
+      "n_a_window": 513,
+      "n_b_window": 1609,
+      "n_events_a": 462,
+      "n_events_b": 785,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "stable_sky__soft_chili": {
+      "offset_h": 0,
+      "window0": "2024-11-05 19:04:00",
+      "window1": "2026-09-09 01:35:26",
+      "n_a_window": 312,
+      "n_b_window": 230,
+      "n_events_a": 286,
+      "n_events_b": 230,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    },
+    "blue_agg__soft_chili": {
+      "offset_h": 0,
+      "window0": "2024-11-05 19:04:00",
+      "window1": "2026-11-17 15:30:08",
+      "n_a_window": 1058,
+      "n_b_window": 240,
+      "n_events_a": 691,
+      "n_events_b": 240,
+      "n_hits": 0,
+      "uniq_rate_a": 0.0,
+      "uniq_rate_b": 0.0,
+      "ticket_hits": 0,
+      "ticket_rate_a": 0.0
+    }
+  }
+}
