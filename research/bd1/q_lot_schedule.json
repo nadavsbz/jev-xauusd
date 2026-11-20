@@ -1,0 +1,122 @@
+[
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 26699.37,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2025.12.01",
+  "to": "2026.01.06",
+  "report": "ls_251201_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.01"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 28542.77,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2026.01.06",
+  "to": "2026.02.09",
+  "report": "ls_260106_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.07"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 51055.48,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2026.02.09",
+  "to": "2026.03.27",
+  "report": "ls_260209_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.10"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 65818.38,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2026.03.27",
+  "to": "2026.04.06",
+  "report": "ls_260327_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.14"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 73333.84,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2026.04.06",
+  "to": "2026.04.13",
+  "report": "ls_260406_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.20"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 84968.29,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2026.04.13",
+  "to": "2026.04.17",
+  "report": "ls_260413_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.21"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 93022.46,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2026.04.17",
+  "to": "2026.05.01",
+  "report": "ls_260417_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.23"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 111728.64,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2026.05.01",
+  "to": "2026.06.01",
+  "report": "ls_260501_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.25"
+  }
+ }
+]
