@@ -1,0 +1,7 @@
+sge ok
+cny ok
+  XAUUSD scale probe: raw~2062688, expected~2030.0, scale=1000.0, err=0.016
+Dukascopy H1 XAUUSD 2016-10-01..2026-11-10 scale=1000.0
+  monthly 2016-10: +744 (total 744)
+  monthly 2016-11: +720 (total 1464)
+  monthly 2016-12: +744 (total 2208)

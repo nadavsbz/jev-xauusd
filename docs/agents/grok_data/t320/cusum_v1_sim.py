@@ -2,6 +2,8 @@
 # Units: daily return standardized by sigma0. Page lower-side CUSUM: S=max(0,S+(mu0-r)/sigma0-k), alarm S>=h
 # Inputs (VERIFIED from Claude tester, 2020-24.10.2025): I2 mu0=17.7bp sigma0=155bp (position days);
 # C1 mu0=6.9bp sigma0=117bp (calendar days, 365/yr).
+# Per side (VERIFIED, Claude tester, 20.11.2026 21:45; side defined by exit deal): Long n=420 mu0=25.2bp sigma0=144bp; Short n=388 mu0=9.7bp sigma0=172bp.
+# Per-side runs use the SAME method (k=0.5*mu0/sigma0, ARL0=750 calibration, same scenarios); nothing else changed. Combined I2/C1 code and order unchanged.
 import numpy as np
 rng=np.random.default_rng(20261120)
 def noise(n,T,df):
@@ -34,9 +36,9 @@ def report(label,mu_bp,sig_bp,ann,df,scen):
         f=lambda L: np.mean(a&(al<=L))
         print(f"   {name}: true SR={ratio*m0*np.sqrt(ann):.3f}  alarm<=250d {f(250):.2f} <=500d {f(500):.2f} <=750d {f(750):.2f} <=3000d {f(3000):.2f}  median delay {np.nanmedian(d):.0f} p25 {np.nanpercentile(d,25):.0f} p75 {np.nanpercentile(d,75):.0f} (days; among alarmed)")
 base=[("SR->0",0.0),("half SR",0.5)]
-side=base+[("side ratio 0.21 (long Y2/Y1 PnL=5.2/24.9k, ASSUMED same sizing)",5.2/24.9)]
 for df in (4,None):
     print("=== df",df)
     report("I2 combined (position days, 252)",17.7,155,252,df,base)
     report("C1 (calendar days, 365)",6.9,117,365,df,base)
-    report("I2 per-side (side-days, mu0/sigma0 side = combined, ASSUMED placeholder)",17.7,155,252,df,side)
+    report("I2 Long side (side-days, n=420, 252)",25.2,144,252,df,base)
+    report("I2 Short side (side-days, n=388, 252)",9.7,172,252,df,base)

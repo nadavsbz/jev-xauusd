@@ -1,0 +1,184 @@
+{
+ "XAUUSD": {
+  "daily_range_pct_med": 1.573,
+  "ann_vol_pct": 21.33,
+  "side_cost_pct": 0.005,
+  "cost_over_range": 0.0032,
+  "worst_swap_over_vol": 0.258
+ },
+ "NZDCAD": {
+  "daily_range_pct_med": 0.651,
+  "ann_vol_pct": 6.95,
+  "side_cost_pct": 0.0032,
+  "cost_over_range": 0.0049,
+  "worst_swap_over_vol": 0.266
+ },
+ "AUDCAD": {
+  "daily_range_pct_med": 0.576,
+  "ann_vol_pct": 6.39,
+  "side_cost_pct": 0.004,
+  "cost_over_range": 0.007,
+  "worst_swap_over_vol": 0.53
+ },
+ "GBPCAD": {
+  "daily_range_pct_med": 0.492,
+  "ann_vol_pct": 5.45,
+  "side_cost_pct": 0.0036,
+  "cost_over_range": 0.0074,
+  "worst_swap_over_vol": 0.555
+ },
+ "GBPUSD": {
+  "daily_range_pct_med": 0.585,
+  "ann_vol_pct": 6.61,
+  "side_cost_pct": 0.0028,
+  "cost_over_range": 0.0047,
+  "worst_swap_over_vol": 0.154
+ },
+ "EURNZD": {
+  "daily_range_pct_med": 0.59,
+  "ann_vol_pct": 6.45,
+  "side_cost_pct": 0.002,
+  "cost_over_range": 0.0034,
+  "worst_swap_over_vol": 0.241
+ },
+ "AUDUSD": {
+  "daily_range_pct_med": 0.763,
+  "ann_vol_pct": 8.73,
+  "side_cost_pct": 0.0034,
+  "cost_over_range": 0.0045,
+  "worst_swap_over_vol": 0.183
+ },
+ "EURCAD": {
+  "daily_range_pct_med": 0.463,
+  "ann_vol_pct": 5.18,
+  "side_cost_pct": 0.0026,
+  "cost_over_range": 0.0057,
+  "worst_swap_over_vol": 0.224
+ },
+ "GBPNZD": {
+  "daily_range_pct_med": 0.577,
+  "ann_vol_pct": 6.16,
+  "side_cost_pct": 0.0046,
+  "cost_over_range": 0.008,
+  "worst_swap_over_vol": 0.327
+ },
+ "USDJPY": {
+  "daily_range_pct_med": 0.732,
+  "ann_vol_pct": 9.41,
+  "side_cost_pct": 0.002,
+  "cost_over_range": 0.0027,
+  "worst_swap_over_vol": 0.51
+ },
+ "AUDNZD": {
+  "daily_range_pct_med": 0.413,
+  "ann_vol_pct": 4.57,
+  "side_cost_pct": 0.0078,
+  "cost_over_range": 0.0188,
+  "worst_swap_over_vol": 0.56
+ },
+ "GBPJPY": {
+  "daily_range_pct_med": 0.684,
+  "ann_vol_pct": 8.33,
+  "side_cost_pct": 0.0029,
+  "cost_over_range": 0.0043,
+  "worst_swap_over_vol": 0.592
+ },
+ "EURAUD": {
+  "daily_range_pct_med": 0.563,
+  "ann_vol_pct": 6.79,
+  "side_cost_pct": 0.002,
+  "cost_over_range": 0.0035,
+  "worst_swap_over_vol": 0.463
+ },
+ "USDCAD": {
+  "daily_range_pct_med": 0.426,
+  "ann_vol_pct": 4.91,
+  "side_cost_pct": 0.0034,
+  "cost_over_range": 0.008,
+  "worst_swap_over_vol": 0.521
+ },
+ "GBPAUD": {
+  "daily_range_pct_med": 0.572,
+  "ann_vol_pct": 6.45,
+  "side_cost_pct": 0.002,
+  "cost_over_range": 0.0035,
+  "worst_swap_over_vol": 0.261
+ },
+ "NZDUSD": {
+  "daily_range_pct_med": 0.811,
+  "ann_vol_pct": 9.12,
+  "side_cost_pct": 0.0037,
+  "cost_over_range": 0.0046,
+  "worst_swap_over_vol": 0.319
+ },
+ "EURGBP": {
+  "daily_range_pct_med": 0.339,
+  "ann_vol_pct": 4.13,
+  "side_cost_pct": 0.0032,
+  "cost_over_range": 0.0093,
+  "worst_swap_over_vol": 0.793
+ },
+ "AUDJPY": {
+  "daily_range_pct_med": 0.849,
+  "ann_vol_pct": 10.11,
+  "side_cost_pct": 0.0048,
+  "cost_over_range": 0.0057,
+  "worst_swap_over_vol": 0.467
+ },
+ "CADCHF": {
+  "daily_range_pct_med": 0.58,
+  "ann_vol_pct": 6.68,
+  "side_cost_pct": 0.002,
+  "cost_over_range": 0.0034,
+  "worst_swap_over_vol": 0.604
+ },
+ "NZDCHF": {
+  "daily_range_pct_med": 0.73,
+  "ann_vol_pct": 8.05,
+  "side_cost_pct": 0.0063,
+  "cost_over_range": 0.0087,
+  "worst_swap_over_vol": 0.637
+ },
+ "EURUSD": {
+  "daily_range_pct_med": 0.545,
+  "ann_vol_pct": 6.63,
+  "side_cost_pct": 0.002,
+  "cost_over_range": 0.0037,
+  "worst_swap_over_vol": 0.487
+ },
+ "CADJPY": {
+  "daily_range_pct_med": 0.725,
+  "ann_vol_pct": 8.77,
+  "side_cost_pct": 0.002,
+  "cost_over_range": 0.0028,
+  "worst_swap_over_vol": 0.335
+ },
+ "EURJPY": {
+  "daily_range_pct_med": 0.646,
+  "ann_vol_pct": 7.71,
+  "side_cost_pct": 0.0025,
+  "cost_over_range": 0.0039,
+  "worst_swap_over_vol": 0.39
+ },
+ "CHFJPY": {
+  "daily_range_pct_med": 0.633,
+  "ann_vol_pct": 7.35,
+  "side_cost_pct": 0.0035,
+  "cost_over_range": 0.0055,
+  "worst_swap_over_vol": 0.261
+ },
+ "NZDJPY": {
+  "daily_range_pct_med": 0.833,
+  "ann_vol_pct": 9.57,
+  "side_cost_pct": 0.0052,
+  "cost_over_range": 0.0062,
+  "worst_swap_over_vol": 0.39
+ },
+ "EURCHF": {
+  "daily_range_pct_med": 0.427,
+  "ann_vol_pct": 4.8,
+  "side_cost_pct": 0.0031,
+  "cost_over_range": 0.0073,
+  "worst_swap_over_vol": 0.822
+ }
+}

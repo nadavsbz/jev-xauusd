@@ -1,0 +1,3079 @@
+{
+ "prereg_sha": "see PREREG_t295.md",
+ "X": 2.0,
+ "Y": 0.5,
+ "proxy_ok": false,
+ "calibration": [
+  {
+   "X": 1.0,
+   "Y": 0.25,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.8095238095238095,
+    "daily_rate": 0.3033033033033033,
+    "b2": 0.46846846846846846,
+    "lift": 1.728021978021978
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.7619047619047619,
+    "daily_rate": 0.33296337402885684,
+    "b2": 0.5005549389567148,
+    "lift": 1.5221201562664977
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.38095238095238093,
+    "daily_rate": 0.25874125874125875,
+    "b2": 0.4195804195804196,
+    "lift": 0.9079365079365079
+   }
+  },
+  {
+   "X": 1.0,
+   "Y": 0.5,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.7619047619047619,
+    "daily_rate": 0.4774774774774775,
+    "b2": 0.6861861861861862,
+    "lift": 1.1103469834323225
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.9047619047619048,
+    "daily_rate": 0.5249722530521642,
+    "b2": 0.7425083240843507,
+    "lift": 1.218520891166631
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.7142857142857143,
+    "daily_rate": 0.46853146853146854,
+    "b2": 0.7342657342657343,
+    "lift": 0.9727891156462585
+   }
+  },
+  {
+   "X": 1.0,
+   "Y": 0.75,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.6666666666666666,
+    "daily_rate": 0.4451951951951952,
+    "b2": 0.6621621621621622,
+    "lift": 1.0068027210884354
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.8095238095238095,
+    "daily_rate": 0.46170921198668147,
+    "b2": 0.6703662597114317,
+    "lift": 1.20758435824661
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.7619047619047619,
+    "daily_rate": 0.43356643356643354,
+    "b2": 0.6993006993006993,
+    "lift": 1.0895238095238096
+   }
+  },
+  {
+   "X": 1.0,
+   "Y": 1.0,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.5238095238095238,
+    "daily_rate": 0.35435435435435436,
+    "b2": 0.5480480480480481,
+    "lift": 0.9557729941291585
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.7142857142857143,
+    "daily_rate": 0.36736958934517205,
+    "b2": 0.55826859045505,
+    "lift": 1.279466060778188
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.7142857142857143,
+    "daily_rate": 0.34265734265734266,
+    "b2": 0.5594405594405595,
+    "lift": 1.2767857142857142
+   }
+  },
+  {
+   "X": 1.5,
+   "Y": 0.25,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.3333333333333333,
+    "daily_rate": 0.07132132132132132,
+    "b2": 0.12312312312312312,
+    "lift": 2.7073170731707314
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.42857142857142855,
+    "daily_rate": 0.07880133185349611,
+    "b2": 0.1365149833518313,
+    "lift": 3.1393728222996513
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.0,
+    "daily_rate": 0.03496503496503497,
+    "b2": 0.06293706293706294,
+    "lift": 0.0
+   }
+  },
+  {
+   "X": 1.5,
+   "Y": 0.5,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.7619047619047619,
+    "daily_rate": 0.22972972972972974,
+    "b2": 0.38213213213213215,
+    "lift": 1.9938254280101035
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.5238095238095238,
+    "daily_rate": 0.24750277469478357,
+    "b2": 0.3951165371809101,
+    "lift": 1.325708935259497
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.19047619047619047,
+    "daily_rate": 0.1888111888111888,
+    "b2": 0.2727272727272727,
+    "lift": 0.6984126984126984
+   }
+  },
+  {
+   "X": 1.5,
+   "Y": 0.75,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.7619047619047619,
+    "daily_rate": 0.26876876876876876,
+    "b2": 0.43993993993993996,
+    "lift": 1.7318381277425645
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.6666666666666666,
+    "daily_rate": 0.2807991120976693,
+    "b2": 0.44950055493895674,
+    "lift": 1.4831275720164607
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.3333333333333333,
+    "daily_rate": 0.22377622377622378,
+    "b2": 0.34265734265734266,
+    "lift": 0.9727891156462585
+   }
+  },
+  {
+   "X": 1.5,
+   "Y": 1.0,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.5714285714285714,
+    "daily_rate": 0.2515015015015015,
+    "b2": 0.4196696696696697,
+    "lift": 1.3616151290569893
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.6666666666666666,
+    "daily_rate": 0.2597114317425083,
+    "b2": 0.42286348501664817,
+    "lift": 1.5765529308836395
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.2857142857142857,
+    "daily_rate": 0.20279720279720279,
+    "b2": 0.3356643356643357,
+    "lift": 0.8511904761904762
+   }
+  },
+  {
+   "X": 2.0,
+   "Y": 0.25,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.23809523809523808,
+    "daily_rate": 0.018018018018018018,
+    "b2": 0.03153153153153153,
+    "lift": 7.551020408163265
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.047619047619047616,
+    "daily_rate": 0.01553829078801332,
+    "b2": 0.025527192008879023,
+    "lift": 1.865424430641822
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.0,
+    "daily_rate": 0.0,
+    "b2": 0.0,
+    "lift": null
+   }
+  },
+  {
+   "X": 2.0,
+   "Y": 0.5,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.6666666666666666,
+    "daily_rate": 0.08783783783783784,
+    "b2": 0.15015015015015015,
+    "lift": 4.4399999999999995
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.2857142857142857,
+    "daily_rate": 0.09877913429522753,
+    "b2": 0.16981132075471697,
+    "lift": 1.6825396825396826
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.2857142857142857,
+    "daily_rate": 0.09090909090909091,
+    "b2": 0.16083916083916083,
+    "lift": 1.7763975155279503
+   }
+  },
+  {
+   "X": 2.0,
+   "Y": 0.75,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.7142857142857143,
+    "daily_rate": 0.14264264264264265,
+    "b2": 0.2424924924924925,
+    "lift": 2.9455992923485184
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.3333333333333333,
+    "daily_rate": 0.15760266370699222,
+    "b2": 0.26748057713651496,
+    "lift": 1.2461964038727524
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.23809523809523808,
+    "daily_rate": 0.13286713286713286,
+    "b2": 0.23076923076923078,
+    "lift": 1.0317460317460316
+   }
+  },
+  {
+   "X": 2.0,
+   "Y": 1.0,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.7142857142857143,
+    "daily_rate": 0.15765765765765766,
+    "b2": 0.2702702702702703,
+    "lift": 2.642857142857143
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.42857142857142855,
+    "daily_rate": 0.17314095449500555,
+    "b2": 0.29966703662597116,
+    "lift": 1.43015873015873
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.19047619047619047,
+    "daily_rate": 0.11888111888111888,
+    "b2": 0.18181818181818182,
+    "lift": 1.0476190476190474
+   }
+  },
+  {
+   "X": 2.5,
+   "Y": 0.25,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.09523809523809523,
+    "daily_rate": 0.006756756756756757,
+    "b2": 0.012762762762762763,
+    "lift": 7.462184873949579
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.0,
+    "daily_rate": 0.0022197558268590455,
+    "b2": 0.003329633740288568,
+    "lift": 0.0
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.0,
+    "daily_rate": 0.0,
+    "b2": 0.0,
+    "lift": null
+   }
+  },
+  {
+   "X": 2.5,
+   "Y": 0.5,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.5238095238095238,
+    "daily_rate": 0.03903903903903904,
+    "b2": 0.06981981981981981,
+    "lift": 7.502304147465439
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.09523809523809523,
+    "daily_rate": 0.03551609322974473,
+    "b2": 0.06215316315205328,
+    "lift": 1.5323129251700678
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.09523809523809523,
+    "daily_rate": 0.006993006993006993,
+    "b2": 0.013986013986013986,
+    "lift": 6.809523809523809
+   }
+  },
+  {
+   "X": 2.5,
+   "Y": 0.75,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.6190476190476191,
+    "daily_rate": 0.07732732732732733,
+    "b2": 0.13438438438438438,
+    "lift": 4.606544293695132
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.23809523809523808,
+    "daily_rate": 0.08657047724750278,
+    "b2": 0.14983351831298558,
+    "lift": 1.5890652557319223
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.09523809523809523,
+    "daily_rate": 0.04895104895104895,
+    "b2": 0.09090909090909091,
+    "lift": 1.0476190476190474
+   }
+  },
+  {
+   "X": 2.5,
+   "Y": 1.0,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.6666666666666666,
+    "daily_rate": 0.09684684684684684,
+    "b2": 0.16891891891891891,
+    "lift": 3.9466666666666668
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.38095238095238093,
+    "daily_rate": 0.11320754716981132,
+    "b2": 0.19755826859045506,
+    "lift": 1.9283039058319955
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.14285714285714285,
+    "daily_rate": 0.07692307692307693,
+    "b2": 0.1258741258741259,
+    "lift": 1.1349206349206347
+   }
+  },
+  {
+   "X": 3.0,
+   "Y": 0.25,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.047619047619047616,
+    "daily_rate": 0.0022522522522522522,
+    "b2": 0.0045045045045045045,
+    "lift": 10.571428571428571
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.0,
+    "daily_rate": 0.0011098779134295228,
+    "b2": 0.0022197558268590455,
+    "lift": 0.0
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.0,
+    "daily_rate": 0.0,
+    "b2": 0.0,
+    "lift": null
+   }
+  },
+  {
+   "X": 3.0,
+   "Y": 0.5,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.23809523809523808,
+    "daily_rate": 0.016516516516516516,
+    "b2": 0.02927927927927928,
+    "lift": 8.131868131868131
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.047619047619047616,
+    "daily_rate": 0.01553829078801332,
+    "b2": 0.02774694783573807,
+    "lift": 1.716190476190476
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.047619047619047616,
+    "daily_rate": 0.006993006993006993,
+    "b2": 0.013986013986013986,
+    "lift": 3.4047619047619047
+   }
+  },
+  {
+   "X": 3.0,
+   "Y": 0.75,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.42857142857142855,
+    "daily_rate": 0.04354354354354354,
+    "b2": 0.07507507507507508,
+    "lift": 5.708571428571428
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.14285714285714285,
+    "daily_rate": 0.049944506104328525,
+    "b2": 0.0876803551609323,
+    "lift": 1.6292947558770343
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.047619047619047616,
+    "daily_rate": 0.03496503496503497,
+    "b2": 0.06993006993006994,
+    "lift": 0.6809523809523809
+   }
+  },
+  {
+   "X": 3.0,
+   "Y": 1.0,
+   "DEV": {
+    "n_cut": 21,
+    "n_cov": 1332,
+    "recall": 0.6190476190476191,
+    "daily_rate": 0.06231231231231231,
+    "b2": 0.10885885885885886,
+    "lift": 5.686699507389163
+   },
+   "HOLD_A": {
+    "n_cut": 21,
+    "n_cov": 901,
+    "recall": 0.14285714285714285,
+    "daily_rate": 0.06992230854605994,
+    "b2": 0.12319644839067703,
+    "lift": 1.1595881595881594
+   },
+   "FLEET": {
+    "n_cut": 21,
+    "n_cov": 143,
+    "recall": 0.09523809523809523,
+    "daily_rate": 0.06293706293706294,
+    "b2": 0.11888111888111888,
+    "lift": 0.8011204481792716
+   }
+  }
+ ],
+ "chosen": {
+  "X": 2.0,
+  "Y": 0.5,
+  "DEV": {
+   "n_cut": 21,
+   "n_cov": 1332,
+   "recall": 0.6666666666666666,
+   "daily_rate": 0.08783783783783784,
+   "b2": 0.15015015015015015,
+   "lift": 4.4399999999999995
+  },
+  "HOLD_A": {
+   "n_cut": 21,
+   "n_cov": 901,
+   "recall": 0.2857142857142857,
+   "daily_rate": 0.09877913429522753,
+   "b2": 0.16981132075471697,
+   "lift": 1.6825396825396826
+  },
+  "FLEET": {
+   "n_cut": 21,
+   "n_cov": 143,
+   "recall": 0.2857142857142857,
+   "daily_rate": 0.09090909090909091,
+   "b2": 0.16083916083916083,
+   "lift": 1.7763975155279503
+  }
+ },
+ "gold_cut_days": {
+  "DEV": 21,
+  "HOLD_A": 21,
+  "FLEET": 21
+ },
+ "gold_cover_days": {
+  "DEV": 1332,
+  "HOLD_A": 901,
+  "FLEET": 143
+ },
+ "b17_cuts_by_year": {
+  "b17_2016": 3,
+  "b17_2017": 6,
+  "b17_2018": 4,
+  "b17_2019": 5,
+  "b17_2020": 3,
+  "b17_2021": 0,
+  "b17_2022": 3,
+  "b17_2023": 5,
+  "b17_2024": 6,
+  "b17_2025": 7,
+  "fleet": 21
+ },
+ "fleet_cut_days_all": 21,
+ "costs": {
+  "AUDCAD": {
+   "cls": "FX",
+   "spread_pct": 0.002009969448464383,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.002009969448464383,
+   "comm_pct": 0.002,
+   "side_pct": 0.004009969448464383,
+   "swap_long_pct_yr": 0.5644097150632964,
+   "swap_short_pct_yr": -3.386458290379778,
+   "worst_swap_charge": 3.386458290379778,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "AUDCHF": {
+   "cls": "FX",
+   "spread_pct": 0.0035582123541132936,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0035582123541132936,
+   "comm_pct": 0.002,
+   "side_pct": 0.005558212354113294,
+   "swap_long_pct_yr": 1.6053835327234343,
+   "swap_short_pct_yr": -6.421534130893737,
+   "worst_swap_charge": 6.421534130893737,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "AUDJPY": {
+   "cls": "FX",
+   "spread_pct": 0.0028295346861048395,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0028295346861048395,
+   "comm_pct": 0.002,
+   "side_pct": 0.0048295346861048395,
+   "swap_long_pct_yr": 1.8557892304136816,
+   "swap_short_pct_yr": -4.723827131962099,
+   "worst_swap_charge": 4.723827131962099,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "AUDNZD": {
+   "cls": "FX",
+   "spread_pct": 0.005788424804227205,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.005788424804227205,
+   "comm_pct": 0.002,
+   "side_pct": 0.007788424804227205,
+   "swap_long_pct_yr": 0.029732085400324203,
+   "swap_short_pct_yr": -2.5569593444278813,
+   "worst_swap_charge": 2.5569593444278813,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "AUDUSD": {
+   "cls": "FX",
+   "spread_pct": 0.0014138772048354266,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0014138772048354266,
+   "comm_pct": 0.002,
+   "side_pct": 0.003413877204835427,
+   "swap_long_pct_yr": -0.5328467153284672,
+   "swap_short_pct_yr": -1.5985401459854016,
+   "worst_swap_charge": 1.5985401459854016,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "CADCHF": {
+   "cls": "FX",
+   "spread_pct": 0.0,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0,
+   "comm_pct": 0.002,
+   "side_pct": 0.002,
+   "swap_long_pct_yr": 1.2414754851107976,
+   "swap_short_pct_yr": -4.034795326610092,
+   "worst_swap_charge": 4.034795326610092,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "CADJPY": {
+   "cls": "FX",
+   "spread_pct": 0.0,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0,
+   "comm_pct": 0.002,
+   "side_pct": 0.002,
+   "swap_long_pct_yr": 0.16309641902821345,
+   "swap_short_pct_yr": -2.9357355425078424,
+   "worst_swap_charge": 2.9357355425078424,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "CHFJPY": {
+   "cls": "FX",
+   "spread_pct": 0.0014998050283830206,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0014998050283830206,
+   "comm_pct": 0.002,
+   "side_pct": 0.0034998050283830207,
+   "swap_long_pct_yr": -1.9179233881561661,
+   "swap_short_pct_yr": -0.3835846776312333,
+   "worst_swap_charge": 1.9179233881561661,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "EURAUD": {
+   "cls": "FX",
+   "spread_pct": 0.0,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0,
+   "comm_pct": 0.002,
+   "side_pct": 0.002,
+   "swap_long_pct_yr": -3.14123251882588,
+   "swap_short_pct_yr": 0.6731212540341173,
+   "worst_swap_charge": 3.14123251882588,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "EURCAD": {
+   "cls": "FX",
+   "spread_pct": 0.0006228046149203056,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0006228046149203056,
+   "comm_pct": 0.002,
+   "side_pct": 0.002622804614920306,
+   "swap_long_pct_yr": -1.1604763994073624,
+   "swap_short_pct_yr": -0.9283811195258899,
+   "worst_swap_charge": 1.1604763994073624,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "EURCHF": {
+   "cls": "FX",
+   "spread_pct": 0.0011047160332830605,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0011047160332830605,
+   "comm_pct": 0.002,
+   "side_pct": 0.0031047160332830608,
+   "swap_long_pct_yr": 1.1841038118410383,
+   "swap_short_pct_yr": -3.947012706136795,
+   "worst_swap_charge": 3.947012706136795,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "EURGBP": {
+   "cls": "FX",
+   "spread_pct": 0.001162067783453038,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.001162067783453038,
+   "comm_pct": 0.002,
+   "side_pct": 0.003162067783453038,
+   "swap_long_pct_yr": -3.275030806225849,
+   "swap_short_pct_yr": 0.5240049289961358,
+   "worst_swap_charge": 3.275030806225849,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "EURJPY": {
+   "cls": "FX",
+   "spread_pct": 0.0005478701548390986,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0005478701548390986,
+   "comm_pct": 0.002,
+   "side_pct": 0.002547870154839099,
+   "swap_long_pct_yr": 0.20737811564312783,
+   "swap_short_pct_yr": -3.006982676825354,
+   "worst_swap_charge": 3.006982676825354,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "EURNZD": {
+   "cls": "FX",
+   "spread_pct": 0.0,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0,
+   "comm_pct": 0.002,
+   "side_pct": 0.002,
+   "swap_long_pct_yr": -1.554872853749236,
+   "swap_short_pct_yr": -0.36585243617629076,
+   "worst_swap_charge": 1.554872853749236,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "EURUSD": {
+   "cls": "FX",
+   "spread_pct": 0.0,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0,
+   "comm_pct": 0.002,
+   "side_pct": 0.002,
+   "swap_long_pct_yr": -3.2249048846895905,
+   "swap_short_pct_yr": 0.6252366613173695,
+   "worst_swap_charge": 3.2249048846895905,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "GBPAUD": {
+   "cls": "FX",
+   "spread_pct": 0.0,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0,
+   "comm_pct": 0.002,
+   "side_pct": 0.002,
+   "swap_long_pct_yr": -1.684589467854341,
+   "swap_short_pct_yr": -0.5615298226181137,
+   "worst_swap_charge": 1.684589467854341,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "GBPCAD": {
+   "cls": "FX",
+   "spread_pct": 0.0016459370116388167,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0016459370116388167,
+   "comm_pct": 0.002,
+   "side_pct": 0.0036459370116388163,
+   "swap_long_pct_yr": 0.4259811358789641,
+   "swap_short_pct_yr": -3.020593508959927,
+   "worst_swap_charge": 3.020593508959927,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "GBPNZD": {
+   "cls": "FX",
+   "spread_pct": 0.002619132325225189,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.002619132325225189,
+   "comm_pct": 0.002,
+   "side_pct": 0.0046191323252251885,
+   "swap_long_pct_yr": 0.0,
+   "swap_short_pct_yr": -2.0151744560534706,
+   "worst_swap_charge": 2.0151744560534706,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "GBPJPY": {
+   "cls": "FX",
+   "spread_pct": 0.000941856823640177,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.000941856823640177,
+   "comm_pct": 0.002,
+   "side_pct": 0.002941856823640177,
+   "swap_long_pct_yr": 1.072664359861592,
+   "swap_short_pct_yr": -4.930795847750865,
+   "worst_swap_charge": 4.930795847750865,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "GBPUSD": {
+   "cls": "FX",
+   "spread_pct": 0.0007557779222153363,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0007557779222153363,
+   "comm_pct": 0.002,
+   "side_pct": 0.0027557779222153367,
+   "swap_long_pct_yr": -1.0172951474155205,
+   "swap_short_pct_yr": -0.8248339033098816,
+   "worst_swap_charge": 1.0172951474155205,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "GBPCHF": {
+   "cls": "FX",
+   "spread_pct": 0.0,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0,
+   "comm_pct": 0.002,
+   "side_pct": 0.002,
+   "swap_long_pct_yr": 1.8109241802354428,
+   "swap_short_pct_yr": -6.091290424428309,
+   "worst_swap_charge": 6.091290424428309,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "NZDCAD": {
+   "cls": "FX",
+   "spread_pct": 0.0012179526216430183,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0012179526216430183,
+   "comm_pct": 0.002,
+   "side_pct": 0.0032179526216430184,
+   "swap_long_pct_yr": -0.8313298747311147,
+   "swap_short_pct_yr": -1.8473997216246998,
+   "worst_swap_charge": 1.8473997216246998,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "NZDCHF": {
+   "cls": "FX",
+   "spread_pct": 0.004319934336998078,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.004319934336998078,
+   "comm_pct": 0.002,
+   "side_pct": 0.006319934336998078,
+   "swap_long_pct_yr": 1.5758910260561712,
+   "swap_short_pct_yr": -5.121645834682556,
+   "worst_swap_charge": 5.121645834682556,
+   "cheap": true,
+   "cheap_strict5": false
+  },
+  "NZDJPY": {
+   "cls": "FX",
+   "spread_pct": 0.003187081724662937,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.003187081724662937,
+   "comm_pct": 0.002,
+   "side_pct": 0.005187081724662937,
+   "swap_long_pct_yr": 0.6210792599230882,
+   "swap_short_pct_yr": -3.72647555953853,
+   "worst_swap_charge": 3.72647555953853,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "NZDUSD": {
+   "cls": "FX",
+   "spread_pct": 0.0017089781166599993,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0017089781166599993,
+   "comm_pct": 0.002,
+   "side_pct": 0.003708978116659999,
+   "swap_long_pct_yr": -2.907945245165496,
+   "swap_short_pct_yr": 0.0,
+   "worst_swap_charge": 2.907945245165496,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "USDCAD": {
+   "cls": "FX",
+   "spread_pct": 0.0014084903800107046,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0014084903800107046,
+   "comm_pct": 0.002,
+   "side_pct": 0.003408490380010705,
+   "swap_long_pct_yr": 0.3836585964051716,
+   "swap_short_pct_yr": -2.557723976034477,
+   "worst_swap_charge": 2.557723976034477,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "USDCHF": {
+   "cls": "FX",
+   "spread_pct": 0.0,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0,
+   "comm_pct": 0.002,
+   "side_pct": 0.002,
+   "swap_long_pct_yr": 2.174975270829113,
+   "swap_short_pct_yr": -5.654935704155693,
+   "worst_swap_charge": 5.654935704155693,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "USDJPY": {
+   "cls": "FX",
+   "spread_pct": 0.0,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0,
+   "comm_pct": 0.002,
+   "side_pct": 0.002,
+   "swap_long_pct_yr": 0.8676450349685345,
+   "swap_short_pct_yr": -4.7948804564050596,
+   "worst_swap_charge": 4.7948804564050596,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  "XAGUSD": {
+   "cls": "metal",
+   "spread_pct": 0.027346577656237433,
+   "spread_src": "ecn_costs",
+   "spread_h1_pct": 0.027346577656237433,
+   "comm_pct": 0.002,
+   "side_pct": 0.02934657765623743,
+   "swap_long_pct_yr": -9.373580134726694,
+   "swap_short_pct_yr": 1.1536714011971319,
+   "worst_swap_charge": 9.373580134726694,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "XAUEUR": {
+   "cls": "metal",
+   "spread_pct": 0.0029744803118873096,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0029744803118873096,
+   "comm_pct": 0.002,
+   "side_pct": 0.00497448031188731,
+   "swap_long_pct_yr": -4.146973277585894,
+   "swap_short_pct_yr": 0.7257203235775315,
+   "worst_swap_charge": 4.146973277585894,
+   "cheap": true,
+   "cheap_strict5": true
+  },
+  ".DE40Cash": {
+   "cls": "index",
+   "spread_pct": 0.0007639594490324454,
+   "spread_src": "ecn_costs",
+   "spread_h1_pct": 0.0007632189522530224,
+   "comm_pct": 0.005,
+   "side_pct": 0.005763959449032446,
+   "swap_long_pct_yr": -7.2,
+   "swap_short_pct_yr": -1.8,
+   "worst_swap_charge": 7.2,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  ".US500Cash": {
+   "cls": "index",
+   "spread_pct": 0.002560786675345419,
+   "spread_src": "ecn_costs",
+   "spread_h1_pct": 0.0025580845616669174,
+   "comm_pct": 0.005,
+   "side_pct": 0.007560786675345419,
+   "swap_long_pct_yr": -8.6,
+   "swap_short_pct_yr": -1.8,
+   "worst_swap_charge": 8.6,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  ".US30Cash": {
+   "cls": "index",
+   "spread_pct": 0.0006062639188091361,
+   "spread_src": "ecn_costs",
+   "spread_h1_pct": 0.000605988377204741,
+   "comm_pct": 0.005,
+   "side_pct": 0.005606263918809137,
+   "swap_long_pct_yr": -8.6,
+   "swap_short_pct_yr": -1.8,
+   "worst_swap_charge": 8.6,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  ".USTECHCash": {
+   "cls": "index",
+   "spread_pct": 0.00034548340914773056,
+   "spread_src": "ecn_costs",
+   "spread_h1_pct": 0.0003469601949926738,
+   "comm_pct": 0.005,
+   "side_pct": 0.005345483409147731,
+   "swap_long_pct_yr": -8.6,
+   "swap_short_pct_yr": -1.8,
+   "worst_swap_charge": 8.6,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  ".JP225Cash": {
+   "cls": "index",
+   "spread_pct": 0.003024300252529071,
+   "spread_src": "ecn_costs",
+   "spread_h1_pct": 0.003027642374882679,
+   "comm_pct": 0.005,
+   "side_pct": 0.00802430025252907,
+   "swap_long_pct_yr": -7.2,
+   "swap_short_pct_yr": -1.8,
+   "worst_swap_charge": 7.2,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "BRENT": {
+   "cls": "energy/crypto",
+   "spread_pct": 0.014923145799134457,
+   "spread_src": "ecn_costs",
+   "spread_h1_pct": 0.01409542610426423,
+   "comm_pct": 0.005,
+   "side_pct": 0.019923145799134456,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "WTI": {
+   "cls": "energy/crypto",
+   "spread_pct": 0.0,
+   "spread_src": "ecn_costs",
+   "spread_h1_pct": 0.0,
+   "comm_pct": 0.005,
+   "side_pct": 0.005,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "GOOGL": {
+   "cls": "stock",
+   "spread_pct": 0.002946896920104969,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.002946896920104969,
+   "comm_pct": 0.02,
+   "side_pct": 0.02294689692010497,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "MSFT": {
+   "cls": "stock",
+   "spread_pct": 0.002423214436936338,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.002423214436936338,
+   "comm_pct": 0.02,
+   "side_pct": 0.02242321443693634,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "IBM": {
+   "cls": "stock",
+   "spread_pct": 0.008111287509400173,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.008111287509400173,
+   "comm_pct": 0.02,
+   "side_pct": 0.028111287509400174,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "VZ": {
+   "cls": "stock",
+   "spread_pct": 0.19063757678457952,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.19063757678457952,
+   "comm_pct": 0.02,
+   "side_pct": 0.21063757678457953,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "INTC": {
+   "cls": "stock",
+   "spread_pct": 0.010861891087270047,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.010861891087270047,
+   "comm_pct": 0.02,
+   "side_pct": 0.030861891087270048,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "HPE": {
+   "cls": "stock",
+   "spread_pct": 0.022836265178111395,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.022836265178111395,
+   "comm_pct": 0.02,
+   "side_pct": 0.04283626517811139,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "EA": {
+   "cls": "stock",
+   "spread_pct": 0.004933885928557332,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.004933885928557332,
+   "comm_pct": 0.02,
+   "side_pct": 0.024933885928557335,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "ORCL": {
+   "cls": "stock",
+   "spread_pct": 0.006805035726437565,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.006805035726437565,
+   "comm_pct": 0.02,
+   "side_pct": 0.026805035726437568,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "NVDA": {
+   "cls": "stock",
+   "spread_pct": 0.004888182961117227,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.004888182961117227,
+   "comm_pct": 0.02,
+   "side_pct": 0.02488818296111723,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "CSCO": {
+   "cls": "stock",
+   "spread_pct": 0.009332711233877274,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.009332711233877274,
+   "comm_pct": 0.02,
+   "side_pct": 0.029332711233877276,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "ADBE": {
+   "cls": "stock",
+   "spread_pct": 0.007958615213557414,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.007958615213557414,
+   "comm_pct": 0.02,
+   "side_pct": 0.027958615213557417,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "TSLA": {
+   "cls": "stock",
+   "spread_pct": 0.15726562722138634,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.15726562722138634,
+   "comm_pct": 0.02,
+   "side_pct": 0.17726562722138633,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "CMCSA": {
+   "cls": "stock",
+   "spread_pct": 0.03933136828609289,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.03933136828609289,
+   "comm_pct": 0.02,
+   "side_pct": 0.059331368286092895,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "DIS": {
+   "cls": "stock",
+   "spread_pct": 0.009628345850182938,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.009628345850182938,
+   "comm_pct": 0.02,
+   "side_pct": 0.02962834585018294,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "FOXA": {
+   "cls": "stock",
+   "spread_pct": 0.01594260671748374,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.01594260671748374,
+   "comm_pct": 0.02,
+   "side_pct": 0.03594260671748375,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "AMZN": {
+   "cls": "stock",
+   "spread_pct": 0.004037060253875213,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.004037060253875213,
+   "comm_pct": 0.02,
+   "side_pct": 0.02403706025387521,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "UPS": {
+   "cls": "stock",
+   "spread_pct": 0.1726529496350506,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.1726529496350506,
+   "comm_pct": 0.02,
+   "side_pct": 0.1926529496350506,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "NFLX": {
+   "cls": "stock",
+   "spread_pct": 0.012359412447188564,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.012359412447188564,
+   "comm_pct": 0.02,
+   "side_pct": 0.03235941244718857,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "MCD": {
+   "cls": "stock",
+   "spread_pct": 0.004062234729797355,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.004062234729797355,
+   "comm_pct": 0.02,
+   "side_pct": 0.024062234729797356,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "SBUX": {
+   "cls": "stock",
+   "spread_pct": 0.17234911864438054,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.17234911864438054,
+   "comm_pct": 0.02,
+   "side_pct": 0.19234911864438056,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "EBAY": {
+   "cls": "stock",
+   "spread_pct": 0.01109447107984585,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.01109447107984585,
+   "comm_pct": 0.02,
+   "side_pct": 0.03109447107984585,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "WMT": {
+   "cls": "stock",
+   "spread_pct": 0.16631652661064428,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.16631652661064428,
+   "comm_pct": 0.02,
+   "side_pct": 0.1863165266106443,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "DAL": {
+   "cls": "stock",
+   "spread_pct": 0.013218770654329146,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.013218770654329146,
+   "comm_pct": 0.02,
+   "side_pct": 0.03321877065432915,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "XOM": {
+   "cls": "stock",
+   "spread_pct": 0.16468435498627632,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.16468435498627632,
+   "comm_pct": 0.02,
+   "side_pct": 0.18468435498627633,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "CVX": {
+   "cls": "stock",
+   "spread_pct": 0.005300821627352239,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.005300821627352239,
+   "comm_pct": 0.02,
+   "side_pct": 0.02530082162735224,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "NEM": {
+   "cls": "stock",
+   "spread_pct": 0.009093389106119851,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.009093389106119851,
+   "comm_pct": 0.02,
+   "side_pct": 0.029093389106119853,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "JPM": {
+   "cls": "stock",
+   "spread_pct": 0.0033085194375516956,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0033085194375516956,
+   "comm_pct": 0.02,
+   "side_pct": 0.023308519437551696,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "BAC": {
+   "cls": "stock",
+   "spread_pct": 0.018642803877703208,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.018642803877703208,
+   "comm_pct": 0.02,
+   "side_pct": 0.03864280387770321,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "C": {
+   "cls": "stock",
+   "spread_pct": 0.00795291872117067,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.00795291872117067,
+   "comm_pct": 0.02,
+   "side_pct": 0.02795291872117067,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "WFC": {
+   "cls": "stock",
+   "spread_pct": 0.17515179822512844,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.17515179822512844,
+   "comm_pct": 0.02,
+   "side_pct": 0.19515179822512846,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "V": {
+   "cls": "stock",
+   "spread_pct": 0.15879411276752067,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.15879411276752067,
+   "comm_pct": 0.02,
+   "side_pct": 0.1787941127675207,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "GS": {
+   "cls": "stock",
+   "spread_pct": 0.003365983372042142,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.003365983372042142,
+   "comm_pct": 0.02,
+   "side_pct": 0.02336598337204214,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "PYPL": {
+   "cls": "stock",
+   "spread_pct": 0.01967729240456513,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.01967729240456513,
+   "comm_pct": 0.02,
+   "side_pct": 0.03967729240456513,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "PRU": {
+   "cls": "stock",
+   "spread_pct": 0.016620959029335993,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.016620959029335993,
+   "comm_pct": 0.02,
+   "side_pct": 0.036620959029335994,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "BRK.B": {
+   "cls": "stock",
+   "spread_pct": 0.004048501042489019,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.004048501042489019,
+   "comm_pct": 0.02,
+   "side_pct": 0.02404850104248902,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "AAPL": {
+   "cls": "stock",
+   "spread_pct": 0.0033436987996121313,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.0033436987996121313,
+   "comm_pct": 0.02,
+   "side_pct": 0.023343698799612133,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "KO": {
+   "cls": "stock",
+   "spread_pct": 0.012360939431396784,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.012360939431396784,
+   "comm_pct": 0.02,
+   "side_pct": 0.032360939431396785,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "PEP": {
+   "cls": "stock",
+   "spread_pct": 0.007119464616260856,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.007119464616260856,
+   "comm_pct": 0.02,
+   "side_pct": 0.027119464616260854,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "PG": {
+   "cls": "stock",
+   "spread_pct": 0.006813845734532571,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.006813845734532571,
+   "comm_pct": 0.02,
+   "side_pct": 0.02681384573453257,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "PM": {
+   "cls": "stock",
+   "spread_pct": 0.01121201928467317,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.01121201928467317,
+   "comm_pct": 0.02,
+   "side_pct": 0.031212019284673168,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "NKE": {
+   "cls": "stock",
+   "spread_pct": 0.023084025854108955,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.023084025854108955,
+   "comm_pct": 0.02,
+   "side_pct": 0.043084025854108955,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "GM": {
+   "cls": "stock",
+   "spread_pct": 0.012436264146250469,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.012436264146250469,
+   "comm_pct": 0.02,
+   "side_pct": 0.03243626414625047,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "GE": {
+   "cls": "stock",
+   "spread_pct": 0.006159531875577456,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.006159531875577456,
+   "comm_pct": 0.02,
+   "side_pct": 0.026159531875577458,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "MMM": {
+   "cls": "stock",
+   "spread_pct": 0.01210727041588474,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.01210727041588474,
+   "comm_pct": 0.02,
+   "side_pct": 0.03210727041588474,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "CAT": {
+   "cls": "stock",
+   "spread_pct": 0.009235031553024473,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.009235031553024473,
+   "comm_pct": 0.02,
+   "side_pct": 0.029235031553024475,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "BA": {
+   "cls": "stock",
+   "spread_pct": 0.008692250858359772,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.008692250858359772,
+   "comm_pct": 0.02,
+   "side_pct": 0.028692250858359775,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "JNJ": {
+   "cls": "stock",
+   "spread_pct": 0.004399665625412469,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.004399665625412469,
+   "comm_pct": 0.02,
+   "side_pct": 0.02439966562541247,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "PFE": {
+   "cls": "stock",
+   "spread_pct": 0.03729951510630362,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.03729951510630362,
+   "comm_pct": 0.02,
+   "side_pct": 0.05729951510630362,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "LLY": {
+   "cls": "stock",
+   "spread_pct": 0.007872360435228485,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.007872360435228485,
+   "comm_pct": 0.02,
+   "side_pct": 0.027872360435228484,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "META": {
+   "cls": "stock",
+   "spread_pct": 0.001748389302907851,
+   "spread_src": "H1-2026",
+   "spread_h1_pct": 0.001748389302907851,
+   "comm_pct": 0.02,
+   "side_pct": 0.02174838930290785,
+   "swap_long_pct_yr": -6.0,
+   "swap_short_pct_yr": -3.0,
+   "worst_swap_charge": 6.0,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "BTCUSD": {
+   "cls": "energy/crypto",
+   "spread_pct": 0.02030733535932286,
+   "spread_src": "ecn_costs",
+   "spread_h1_pct": 1.3532662230569772e-05,
+   "comm_pct": 0.005,
+   "side_pct": 0.025307335359322856,
+   "swap_long_pct_yr": -4.75,
+   "swap_short_pct_yr": -4.75,
+   "worst_swap_charge": 4.75,
+   "cheap": false,
+   "cheap_strict5": false
+  },
+  "ETHUSD": {
+   "cls": "energy/crypto",
+   "spread_pct": 0.06616220049350047,
+   "spread_src": "ecn_costs",
+   "spread_h1_pct": 0.0004624170539409494,
+   "comm_pct": 0.005,
+   "side_pct": 0.07116220049350046,
+   "swap_long_pct_yr": -4.75,
+   "swap_short_pct_yr": -4.75,
+   "worst_swap_charge": 4.75,
+   "cheap": false,
+   "cheap_strict5": false
+  }
+ },
+ "cheap": [
+  "AUDCAD",
+  "AUDJPY",
+  "AUDNZD",
+  "AUDUSD",
+  "CADCHF",
+  "CADJPY",
+  "CHFJPY",
+  "EURAUD",
+  "EURCAD",
+  "EURCHF",
+  "EURGBP",
+  "EURJPY",
+  "EURNZD",
+  "EURUSD",
+  "GBPAUD",
+  "GBPCAD",
+  "GBPJPY",
+  "GBPNZD",
+  "GBPUSD",
+  "NZDCAD",
+  "NZDCHF",
+  "NZDJPY",
+  "NZDUSD",
+  "USDCAD",
+  "USDJPY",
+  "XAUEUR"
+ ],
+ "cheap_strict5": [
+  "AUDCAD",
+  "AUDJPY",
+  "AUDNZD",
+  "AUDUSD",
+  "CADCHF",
+  "CADJPY",
+  "CHFJPY",
+  "EURAUD",
+  "EURCAD",
+  "EURCHF",
+  "EURGBP",
+  "EURJPY",
+  "EURNZD",
+  "EURUSD",
+  "GBPAUD",
+  "GBPCAD",
+  "GBPJPY",
+  "GBPNZD",
+  "GBPUSD",
+  "NZDCAD",
+  "NZDJPY",
+  "NZDUSD",
+  "USDCAD",
+  "USDJPY",
+  "XAUEUR"
+ ],
+ "overlap": {
+  "AUDCAD": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.09523809523809523,
+   "base_win": 0.12962962962962962,
+   "lift_cut": 0.7346938775510204,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.047619047619047616
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 229,
+   "both": 34,
+   "O_proxy": 0.1223021582733813,
+   "inst_daily_rate": 0.0757525636784651,
+   "lift_proxy": 1.6144953033206624,
+   "phi": 0.05598534150484012,
+   "jaccard": 0.07188160676532769,
+   "verdict": "PASS"
+  },
+  "AUDJPY": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.20634920634920634,
+   "base_win": 0.1590909090909091,
+   "lift_cut": 1.2970521541950113,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.23809523809523808
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 279,
+   "both": 42,
+   "O_proxy": 0.1510791366906475,
+   "inst_daily_rate": 0.09229242474363215,
+   "lift_proxy": 1.6369613986230371,
+   "phi": 0.06463598709085644,
+   "jaccard": 0.08155339805825243,
+   "verdict": "PASS"
+  },
+  "AUDNZD": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.1111111111111111,
+   "base_win": 0.10479797979797979,
+   "lift_cut": 1.0602409638554218,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 192,
+   "both": 25,
+   "O_proxy": 0.08992805755395683,
+   "inst_daily_rate": 0.06351306649024148,
+   "lift_proxy": 1.41589853117506,
+   "phi": 0.03446825440988143,
+   "jaccard": 0.056179775280898875,
+   "verdict": "PASS"
+  },
+  "AUDUSD": {
+   "n_gold_cut_days": 50,
+   "O_cut": 0.12,
+   "base_win": 0.1362397820163488,
+   "lift_cut": 0.8807999999999999,
+   "per_group": {
+    "DEV": {
+     "n": 8,
+     "O_cut": 0.125
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.047619047619047616
+    }
+   },
+   "n_common_days": 2053,
+   "gold_proxy_days": 206,
+   "inst_crash_days": 169,
+   "both": 35,
+   "O_proxy": 0.16990291262135923,
+   "inst_daily_rate": 0.08231855820750122,
+   "lift_proxy": 2.063968518412133,
+   "phi": 0.1064221046386725,
+   "jaccard": 0.10294117647058823,
+   "verdict": "PASS"
+  },
+  "CADCHF": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.1746031746031746,
+   "base_win": 0.13383838383838384,
+   "lift_cut": 1.3045822102425875,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.2857142857142857
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 229,
+   "both": 38,
+   "O_proxy": 0.1366906474820144,
+   "inst_daily_rate": 0.0757525636784651,
+   "lift_proxy": 1.8044359272407404,
+   "phi": 0.0732904220129313,
+   "jaccard": 0.08102345415778252,
+   "verdict": "PASS"
+  },
+  "CADJPY": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.23809523809523808,
+   "base_win": 0.16035353535353536,
+   "lift_cut": 1.4848143982002249,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.2857142857142857
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.23809523809523808
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 275,
+   "both": 43,
+   "O_proxy": 0.15467625899280577,
+   "inst_daily_rate": 0.09096923585841879,
+   "lift_proxy": 1.700313930673643,
+   "phi": 0.07050208676870794,
+   "jaccard": 0.08431372549019608,
+   "verdict": "PASS"
+  },
+  "CHFJPY": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.20634920634920634,
+   "base_win": 0.13173400673400673,
+   "lift_cut": 1.566408032861707,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.23809523809523808
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 234,
+   "both": 37,
+   "O_proxy": 0.13309352517985612,
+   "inst_daily_rate": 0.0774065497849818,
+   "lift_proxy": 1.7194090881141242,
+   "phi": 0.06631485356882799,
+   "jaccard": 0.07789473684210527,
+   "verdict": "PASS"
+  },
+  "EURAUD": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.15873015873015872,
+   "base_win": 0.13973063973063973,
+   "lift_cut": 1.135972461273666,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.23809523809523808
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.047619047619047616
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 250,
+   "both": 36,
+   "O_proxy": 0.12949640287769784,
+   "inst_daily_rate": 0.08269930532583526,
+   "lift_proxy": 1.5658705035971223,
+   "phi": 0.05407086904153491,
+   "jaccard": 0.07317073170731707,
+   "verdict": "PASS"
+  },
+  "EURCAD": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.12698412698412698,
+   "base_win": 0.1334175084175084,
+   "lift_cut": 0.9517800811176206,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.047619047619047616
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 233,
+   "both": 38,
+   "O_proxy": 0.1366906474820144,
+   "inst_daily_rate": 0.07707575256367846,
+   "lift_proxy": 1.7734584864297405,
+   "phi": 0.07113184793175369,
+   "jaccard": 0.080338266384778,
+   "verdict": "PASS"
+  },
+  "EURCHF": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.2222222222222222,
+   "base_win": 0.11237373737373738,
+   "lift_cut": 1.9775280898876404,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.3333333333333333
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.23809523809523808
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 199,
+   "both": 34,
+   "O_proxy": 0.1223021582733813,
+   "inst_daily_rate": 0.06582864703936486,
+   "lift_proxy": 1.8578865550775463,
+   "phi": 0.0724728394566589,
+   "jaccard": 0.07674943566591422,
+   "verdict": "PASS"
+  },
+  "EURGBP": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.15873015873015872,
+   "base_win": 0.12373737373737374,
+   "lift_cut": 1.2827988338192418,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.047619047619047616
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.2857142857142857
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 224,
+   "both": 22,
+   "O_proxy": 0.07913669064748201,
+   "inst_daily_rate": 0.07409857757194839,
+   "lift_proxy": 1.0679920349434737,
+   "phi": 0.006121133098341846,
+   "jaccard": 0.04583333333333333,
+   "verdict": "PASS"
+  },
+  "EURJPY": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.2222222222222222,
+   "base_win": 0.14814814814814814,
+   "lift_cut": 1.5,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.23809523809523808
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.23809523809523808
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 268,
+   "both": 46,
+   "O_proxy": 0.16546762589928057,
+   "inst_daily_rate": 0.0886536553092954,
+   "lift_proxy": 1.8664501234833029,
+   "phi": 0.08600058133483386,
+   "jaccard": 0.092,
+   "verdict": "PASS"
+  },
+  "EURNZD": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.1111111111111111,
+   "base_win": 0.12920875420875422,
+   "lift_cut": 0.8599348534201954,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.047619047619047616
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 224,
+   "both": 27,
+   "O_proxy": 0.09712230215827339,
+   "inst_daily_rate": 0.07409857757194839,
+   "lift_proxy": 1.310717497430627,
+   "phi": 0.027973028889895224,
+   "jaccard": 0.056842105263157895,
+   "verdict": "PASS"
+  },
+  "EURUSD": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.20634920634920634,
+   "base_win": 0.15404040404040403,
+   "lift_cut": 1.3395784543325526,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.2857142857142857
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 255,
+   "both": 52,
+   "O_proxy": 0.18705035971223022,
+   "inst_daily_rate": 0.08435329143235197,
+   "lift_proxy": 2.217463676117929,
+   "phi": 0.11759646950346934,
+   "jaccard": 0.10810810810810811,
+   "verdict": "PASS"
+  },
+  "GBPAUD": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.15873015873015872,
+   "base_win": 0.1334175084175084,
+   "lift_cut": 1.1897251013970258,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.2857142857142857
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.047619047619047616
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 230,
+   "both": 26,
+   "O_proxy": 0.09352517985611511,
+   "inst_daily_rate": 0.07608336089976844,
+   "lift_proxy": 1.2292461682827651,
+   "phi": 0.02093542391177899,
+   "jaccard": 0.05394190871369295,
+   "verdict": "PASS"
+  },
+  "GBPCAD": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.09523809523809523,
+   "base_win": 0.12878787878787878,
+   "lift_cut": 0.7394957983193277,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.0
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 230,
+   "both": 29,
+   "O_proxy": 0.10431654676258993,
+   "inst_daily_rate": 0.07608336089976844,
+   "lift_proxy": 1.3710822646230842,
+   "phi": 0.033888306941927966,
+   "jaccard": 0.060542797494780795,
+   "verdict": "PASS"
+  },
+  "GBPJPY": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.1746031746031746,
+   "base_win": 0.15614478114478114,
+   "lift_cut": 1.118213323065075,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.23809523809523808
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 299,
+   "both": 45,
+   "O_proxy": 0.1618705035971223,
+   "inst_daily_rate": 0.09890836916969897,
+   "lift_proxy": 1.6365703423882967,
+   "phi": 0.06711655663254541,
+   "jaccard": 0.08458646616541353,
+   "verdict": "PASS"
+  },
+  "GBPNZD": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.12698412698412698,
+   "base_win": 0.12247474747474747,
+   "lift_cut": 1.0368188512518408,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 217,
+   "both": 21,
+   "O_proxy": 0.07553956834532374,
+   "inst_daily_rate": 0.071782997022825,
+   "lift_proxy": 1.0523323276862382,
+   "phi": 0.004631346870828365,
+   "jaccard": 0.04430379746835443,
+   "verdict": "PASS"
+  },
+  "GBPUSD": {
+   "n_gold_cut_days": 50,
+   "O_cut": 0.12,
+   "base_win": 0.14332425068119892,
+   "lift_cut": 0.8372623574144485,
+   "per_group": {
+    "DEV": {
+     "n": 8,
+     "O_cut": 0.125
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    }
+   },
+   "n_common_days": 2053,
+   "gold_proxy_days": 206,
+   "inst_crash_days": 174,
+   "both": 28,
+   "O_proxy": 0.13592233009708737,
+   "inst_daily_rate": 0.08475401850949829,
+   "lift_proxy": 1.6037272625823011,
+   "phi": 0.06135531418169871,
+   "jaccard": 0.07954545454545454,
+   "verdict": "PASS"
+  },
+  "NZDCAD": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.07936507936507936,
+   "base_win": 0.1308922558922559,
+   "lift_cut": 0.6063389986219568,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.047619047619047616
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 227,
+   "both": 27,
+   "O_proxy": 0.09712230215827339,
+   "inst_daily_rate": 0.07509096923585842,
+   "lift_proxy": 1.2933952397553323,
+   "phi": 0.026604103693894297,
+   "jaccard": 0.056485355648535567,
+   "verdict": "PASS"
+  },
+  "NZDCHF": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.14285714285714285,
+   "base_win": 0.10816498316498316,
+   "lift_cut": 1.320733740967204,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.23809523809523808
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.047619047619047616
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 192,
+   "both": 29,
+   "O_proxy": 0.10431654676258993,
+   "inst_daily_rate": 0.06351306649024148,
+   "lift_proxy": 1.6424422961630696,
+   "phi": 0.05324343042340845,
+   "jaccard": 0.06575963718820861,
+   "verdict": "PASS"
+  },
+  "NZDJPY": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.23809523809523808,
+   "base_win": 0.14267676767676768,
+   "lift_cut": 1.6687737041719342,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.23809523809523808
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.2857142857142857
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 259,
+   "both": 44,
+   "O_proxy": 0.15827338129496402,
+   "inst_daily_rate": 0.08567648031756533,
+   "lift_proxy": 1.8473375739562787,
+   "phi": 0.08254457793508214,
+   "jaccard": 0.08924949290060852,
+   "verdict": "PASS"
+  },
+  "NZDUSD": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.1746031746031746,
+   "base_win": 0.140993265993266,
+   "lift_cut": 1.2383795309168442,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.23809523809523808
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 245,
+   "both": 46,
+   "O_proxy": 0.16546762589928057,
+   "inst_daily_rate": 0.08104531921931855,
+   "lift_proxy": 2.0416678901776537,
+   "phi": 0.09844585204193086,
+   "jaccard": 0.09643605870020965,
+   "verdict": "PASS"
+  },
+  "USDCAD": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.1746031746031746,
+   "base_win": 0.14814814814814814,
+   "lift_cut": 1.1785714285714286,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.23809523809523808
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 263,
+   "both": 44,
+   "O_proxy": 0.15827338129496402,
+   "inst_daily_rate": 0.0869996692027787,
+   "lift_proxy": 1.8192411849987689,
+   "phi": 0.08047969722946356,
+   "jaccard": 0.08853118712273642,
+   "verdict": "PASS"
+  },
+  "USDJPY": {
+   "n_gold_cut_days": 50,
+   "O_cut": 0.18,
+   "base_win": 0.17002724795640328,
+   "lift_cut": 1.058653846153846,
+   "per_group": {
+    "DEV": {
+     "n": 8,
+     "O_cut": 0.25
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    }
+   },
+   "n_common_days": 2053,
+   "gold_proxy_days": 206,
+   "inst_crash_days": 200,
+   "both": 33,
+   "O_proxy": 0.16019417475728157,
+   "inst_daily_rate": 0.0974184120798831,
+   "lift_proxy": 1.6443932038834952,
+   "phi": 0.07070146324679155,
+   "jaccard": 0.08847184986595175,
+   "verdict": "PASS"
+  },
+  "XAUEUR": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.36507936507936506,
+   "base_win": 0.16175231676495366,
+   "lift_cut": 2.2570271164021163,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.47619047619047616
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.38095238095238093
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.23809523809523808
+    }
+   },
+   "n_common_days": 3019,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 283,
+   "both": 141,
+   "O_proxy": 0.5071942446043165,
+   "inst_daily_rate": 0.09373964889036104,
+   "lift_proxy": 5.410669344383151,
+   "phi": 0.4517597689135664,
+   "jaccard": 0.3357142857142857,
+   "verdict": "FAIL"
+  }
+ },
+ "overlap_observation_noncheap": {
+  ".DE40Cash": {
+   "n_gold_cut_days": 62,
+   "O_cut": 0.14516129032258066,
+   "base_win": 0.21340162185232608,
+   "lift_cut": 0.6802258064516129,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.23809523809523808
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    },
+    "FLEET": {
+     "n": 20,
+     "O_cut": 0.05
+    }
+   },
+   "n_common_days": 2574,
+   "gold_proxy_days": 246,
+   "inst_crash_days": 315,
+   "both": 52,
+   "O_proxy": 0.21138211382113822,
+   "inst_daily_rate": 0.12237762237762238,
+   "lift_proxy": 1.7272938443670152,
+   "phi": 0.08828423107730854,
+   "jaccard": 0.10216110019646366,
+   "verdict": "PASS"
+  },
+  ".JP225Cash": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.25396825396825395,
+   "base_win": 0.18442105263157896,
+   "lift_cut": 1.377110966152062,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.47619047619047616
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    }
+   },
+   "n_common_days": 3020,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 338,
+   "both": 51,
+   "O_proxy": 0.18345323741007194,
+   "inst_daily_rate": 0.1119205298013245,
+   "lift_proxy": 1.63913839342727,
+   "phi": 0.07224578973035084,
+   "jaccard": 0.09026548672566372,
+   "verdict": "PASS"
+  },
+  ".US30Cash": {
+   "n_gold_cut_days": 54,
+   "O_cut": 0.2962962962962963,
+   "base_win": 0.18027210884353742,
+   "lift_cut": 1.6436058700209641,
+   "per_group": {
+    "DEV": {
+     "n": 12,
+     "O_cut": 0.5
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.2857142857142857
+    }
+   },
+   "n_common_days": 2276,
+   "gold_proxy_days": 223,
+   "inst_crash_days": 234,
+   "both": 44,
+   "O_proxy": 0.19730941704035873,
+   "inst_daily_rate": 0.10281195079086115,
+   "lift_proxy": 1.9191292016404125,
+   "phi": 0.10254502161295842,
+   "jaccard": 0.10653753026634383,
+   "verdict": "PASS"
+  },
+  ".US500Cash": {
+   "n_gold_cut_days": 54,
+   "O_cut": 0.1111111111111111,
+   "base_win": 0.19533527696793002,
+   "lift_cut": 0.5688225538971807,
+   "per_group": {
+    "DEV": {
+     "n": 12,
+     "O_cut": 0.25
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.047619047619047616
+    }
+   },
+   "n_common_days": 2276,
+   "gold_proxy_days": 223,
+   "inst_crash_days": 260,
+   "both": 39,
+   "O_proxy": 0.17488789237668162,
+   "inst_daily_rate": 0.11423550087873462,
+   "lift_proxy": 1.5309417040358746,
+   "phi": 0.06284145128878922,
+   "jaccard": 0.08783783783783784,
+   "verdict": "PASS"
+  },
+  ".USTECHCash": {
+   "n_gold_cut_days": 54,
+   "O_cut": 0.07407407407407407,
+   "base_win": 0.18999028182701652,
+   "lift_cut": 0.3898834896277351,
+   "per_group": {
+    "DEV": {
+     "n": 12,
+     "O_cut": 0.08333333333333333
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.047619047619047616
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    }
+   },
+   "n_common_days": 2276,
+   "gold_proxy_days": 223,
+   "inst_crash_days": 251,
+   "both": 35,
+   "O_proxy": 0.15695067264573992,
+   "inst_daily_rate": 0.11028119507908611,
+   "lift_proxy": 1.4231861790506137,
+   "phi": 0.049103650427491714,
+   "jaccard": 0.07972665148063782,
+   "verdict": "PASS"
+  },
+  "AUDCHF": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.20634920634920634,
+   "base_win": 0.13594276094276095,
+   "lift_cut": 1.5179124281291463,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.42857142857142855
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.0
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 227,
+   "both": 40,
+   "O_proxy": 0.14388489208633093,
+   "inst_daily_rate": 0.07509096923585842,
+   "lift_proxy": 1.9161410959338254,
+   "phi": 0.08307262495051605,
+   "jaccard": 0.08602150537634409,
+   "verdict": "PASS"
+  },
+  "BRENT": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.14285714285714285,
+   "base_win": 0.16336842105263158,
+   "lift_cut": 0.8744477172312224,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.23809523809523808
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    }
+   },
+   "n_common_days": 3018,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 288,
+   "both": 44,
+   "O_proxy": 0.15827338129496402,
+   "inst_daily_rate": 0.09542743538767395,
+   "lift_proxy": 1.6585731414868106,
+   "phi": 0.06813433976272033,
+   "jaccard": 0.0842911877394636,
+   "verdict": "PASS"
+  },
+  "BTCUSD": {
+   "n_gold_cut_days": 62,
+   "O_cut": 0.24193548387096775,
+   "base_win": 0.20416843896214376,
+   "lift_cut": 1.1849798387096775,
+   "per_group": {
+    "DEV": {
+     "n": 20,
+     "O_cut": 0.3
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.2857142857142857
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    }
+   },
+   "n_common_days": 2918,
+   "gold_proxy_days": 269,
+   "inst_crash_days": 359,
+   "both": 54,
+   "O_proxy": 0.20074349442379183,
+   "inst_daily_rate": 0.12302947224126114,
+   "lift_proxy": 1.6316699630323803,
+   "phi": 0.07539411855218683,
+   "jaccard": 0.09407665505226481,
+   "verdict": "PASS"
+  },
+  "ETHUSD": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.2698412698412698,
+   "base_win": 0.22601010101010102,
+   "lift_cut": 1.1939345570630486,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.42857142857142855
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    }
+   },
+   "n_common_days": 2685,
+   "gold_proxy_days": 254,
+   "inst_crash_days": 346,
+   "both": 44,
+   "O_proxy": 0.1732283464566929,
+   "inst_daily_rate": 0.12886405959031658,
+   "lift_proxy": 1.3442719949023714,
+   "phi": 0.04280051684754655,
+   "jaccard": 0.07913669064748201,
+   "verdict": "PASS"
+  },
+  "GBPCHF": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.06349206349206349,
+   "base_win": 0.12037037037037036,
+   "lift_cut": 0.5274725274725275,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.14285714285714285
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.0
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.047619047619047616
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 220,
+   "both": 37,
+   "O_proxy": 0.13309352517985612,
+   "inst_daily_rate": 0.07277538868673503,
+   "lift_proxy": 1.828826030085023,
+   "phi": 0.07389488832764389,
+   "jaccard": 0.08026030368763558,
+   "verdict": "PASS"
+  },
+  "USDCHF": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.25396825396825395,
+   "base_win": 0.14015151515151514,
+   "lift_cut": 1.8120978120978122,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.2857142857142857
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.23809523809523808
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.23809523809523808
+    }
+   },
+   "n_common_days": 3023,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 249,
+   "both": 58,
+   "O_proxy": 0.20863309352517986,
+   "inst_daily_rate": 0.08236850810453192,
+   "lift_proxy": 2.532923059143047,
+   "phi": 0.14615646347948433,
+   "jaccard": 0.12366737739872068,
+   "verdict": "PASS"
+  },
+  "WTI": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.12698412698412698,
+   "base_win": 0.17010526315789473,
+   "lift_cut": 0.7465032217507465,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.19047619047619047
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.0
+    }
+   },
+   "n_common_days": 2635,
+   "gold_proxy_days": 250,
+   "inst_crash_days": 263,
+   "both": 45,
+   "O_proxy": 0.18,
+   "inst_daily_rate": 0.09981024667931689,
+   "lift_proxy": 1.8034220532319392,
+   "phi": 0.08661439837390587,
+   "jaccard": 0.09615384615384616,
+   "verdict": "PASS"
+  },
+  "XAGUSD": {
+   "n_gold_cut_days": 63,
+   "O_cut": 0.19047619047619047,
+   "base_win": 0.13136842105263158,
+   "lift_cut": 1.44993894993895,
+   "per_group": {
+    "DEV": {
+     "n": 21,
+     "O_cut": 0.38095238095238093
+    },
+    "HOLD_A": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    },
+    "FLEET": {
+     "n": 21,
+     "O_cut": 0.09523809523809523
+    }
+   },
+   "n_common_days": 3022,
+   "gold_proxy_days": 278,
+   "inst_crash_days": 246,
+   "both": 96,
+   "O_proxy": 0.34532374100719426,
+   "inst_daily_rate": 0.0814030443414957,
+   "lift_proxy": 4.2421477452184595,
+   "phi": 0.30719982852224825,
+   "jaccard": 0.22429906542056074,
+   "verdict": "FAIL"
+  }
+ },
+ "passing": [
+  "AUDCAD",
+  "AUDJPY",
+  "AUDNZD",
+  "AUDUSD",
+  "CADCHF",
+  "CADJPY",
+  "CHFJPY",
+  "EURAUD",
+  "EURCAD",
+  "EURCHF",
+  "EURGBP",
+  "EURJPY",
+  "EURNZD",
+  "EURUSD",
+  "GBPAUD",
+  "GBPCAD",
+  "GBPJPY",
+  "GBPNZD",
+  "GBPUSD",
+  "NZDCAD",
+  "NZDCHF",
+  "NZDJPY",
+  "NZDUSD",
+  "USDCAD",
+  "USDJPY"
+ ],
+ "ranking": [
+  "NZDCAD",
+  "AUDCAD",
+  "GBPCAD",
+  "GBPUSD",
+  "EURNZD",
+  "AUDUSD",
+  "EURCAD",
+  "GBPNZD",
+  "USDJPY",
+  "AUDNZD",
+  "GBPJPY",
+  "EURAUD",
+  "USDCAD",
+  "GBPAUD",
+  "NZDUSD",
+  "EURGBP",
+  "AUDJPY",
+  "CADCHF",
+  "NZDCHF",
+  "EURUSD",
+  "CADJPY",
+  "EURJPY",
+  "CHFJPY",
+  "NZDJPY",
+  "EURCHF"
+ ],
+ "verdict": "PASS",
+ "inputs": {
+  "xau": "8d70754286dfcb8274803f58363183a61b35a2723d914f1278b2649014192d9b",
+  "fleet": "d4fe948d1f7a5363e55615dae86beedf51475a3b82095f1f3591396aac291306",
+  "base17": {
+   "2016": "8ad2920041e66a10494c2fe7b5e8666bfc7027ef719e15d898e48f0f6213c541",
+   "2017": "d53457a37696b98be2bc68eb9a8a09b05a5da6cea08884abaceddf19ebffdc3c",
+   "2018": "e609aecd6b925633d72ef870f3f036de8bd698308582f2978e044c9781fc4684",
+   "2019": "c4117bf2d3b5d8f7e6148e2d6e08bd7b23c6bb65baccf622b9e71a735afd2516",
+   "2020": "965f17b57ac588f44061a52f6d2fbb3eb0311bfdb4d8186c56c2d6768f40af89",
+   "2021": "5e271f3e3cb64c80149d54dbb66a6f967e821c9f223d09a4444cfcf466435118",
+   "2022": "26c7b1078b9b99d74c4e2c37d4ea3c081d612f2f22c958f6e551fec853a1dd1c",
+   "2023": "d92e7dd3c31d00d9b996944637668e373ecb296bbafd7ff2079b64a52ebbd3fa",
+   "2024": "d1bf0261b74f2a54ab648bdc1adc14be8c9c531ca0c4319c1760c738da6ce8f6",
+   "2025": "619ee68f779ce8d969695251f2a20b6f779d3446a64a5d9c9e1d5fe94c5d35ee"
+  }
+ }
+}

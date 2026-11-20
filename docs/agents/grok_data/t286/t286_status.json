@@ -1,0 +1,54 @@
+{
+ "task": "t286",
+ "checked_at": "2026-11-18T11:29+02:00",
+ "ea_found_on_box": false,
+ "searched_market_dirs": [
+  "C:\\MT5_JEV_GROK\\MQL5\\Experts\\Market (empty)"
+ ],
+ "only_bull_binary": {
+  "path": "/workspace/t285/ea/EA Bull Scalper.ex5",
+  "bytes": 161062,
+  "mtime": "2026-11-18T07:05:43+02:00",
+  "sha256": "fdfac1227a53794bc1dd4fa88591657dfdbc82f2d02dfc0ca46025679b0a4f05",
+  "origin": "Benzaquen MT5_JEV_TEST copy (t285)",
+  "tester": "X64 demo version; invalid license (538)"
+ },
+ "runs": [
+  {
+   "run_id": "t286_testbull4_w1",
+   "status": "not_run_blocked",
+   "reason": "no box-licensed Bull Scalper ex5 (demo not present on box)"
+  },
+  {
+   "run_id": "t286_new_profit_w1",
+   "status": "not_run_blocked",
+   "reason": "no box-licensed Bull Scalper ex5 (demo not present on box)"
+  },
+  {
+   "run_id": "t286_new_profit_w2",
+   "status": "not_run_blocked",
+   "reason": "no box-licensed Bull Scalper ex5 (demo not present on box)"
+  },
+  {
+   "run_id": "t286_new_profit_w3",
+   "status": "not_run_blocked",
+   "reason": "no box-licensed Bull Scalper ex5 (demo not present on box)"
+  },
+  {
+   "run_id": "t286_bull100_w1",
+   "status": "not_run_blocked",
+   "reason": "no box-licensed Bull Scalper ex5 (demo not present on box)"
+  },
+  {
+   "run_id": "t286_bull100_w2",
+   "status": "not_run_blocked",
+   "reason": "no box-licensed Bull Scalper ex5 (demo not present on box)"
+  },
+  {
+   "run_id": "t286_bull100_w3",
+   "status": "not_run_blocked",
+   "reason": "no box-licensed Bull Scalper ex5 (demo not present on box)"
+  }
+ ],
+ "credentials_used": false
+}

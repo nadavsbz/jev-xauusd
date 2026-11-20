@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>TLV – Telegram</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible"
+     content="IE=edge" />
+    <meta name="MobileOptimized" content="176" />
+    <meta name="HandheldFriendly" content="True" />
+    
+<meta property="og:title" content="TLV">
+<meta property="og:image" content="https://cdn4.telesco.pe/file/DFmUdWiJdswypA-4aiIXx9PLyCVnUhI0Vb8SX-nWbwf2ujFV7q7qc17QFJBMEGs34J3-bMBbq0p0r6wCmC7pSf6HTh78Cuby5sata7eisonryvxgj-g6n0PMNGMmTdU5w5LyERKOOPPUwIIsxQAh1T_lAXNWFahZbUktVc94nN43Q9rcC_jewJq3VKMIYFaUxD33WhJFrU-e-ehEL-a__dbqNNwXeO9aSBhCtPMtfZOf4msCHiukK1ywnwbj8Zr-BGJQ83E5ps6maF7knChB0RLKiBc-xYhrfgY8CMnnGpCnsAbEwAcWQgP8OsrgYpvPEk1h7E12PLxpepSQmsRm1A.jpg">
+<meta property="og:site_name" content="Telegram">
+<meta property="og:description" content="Trusted Liquidity Vanguard">
+
+<meta property="twitter:title" content="TLV">
+<meta property="twitter:image" content="https://cdn4.telesco.pe/file/DFmUdWiJdswypA-4aiIXx9PLyCVnUhI0Vb8SX-nWbwf2ujFV7q7qc17QFJBMEGs34J3-bMBbq0p0r6wCmC7pSf6HTh78Cuby5sata7eisonryvxgj-g6n0PMNGMmTdU5w5LyERKOOPPUwIIsxQAh1T_lAXNWFahZbUktVc94nN43Q9rcC_jewJq3VKMIYFaUxD33WhJFrU-e-ehEL-a__dbqNNwXeO9aSBhCtPMtfZOf4msCHiukK1ywnwbj8Zr-BGJQ83E5ps6maF7knChB0RLKiBc-xYhrfgY8CMnnGpCnsAbEwAcWQgP8OsrgYpvPEk1h7E12PLxpepSQmsRm1A.jpg">
+<meta property="twitter:site" content="@Telegram">
+
+<meta property="al:ios:app_store_id" content="686449807">
+<meta property="al:ios:app_name" content="Telegram Messenger">
+<meta property="al:ios:url" content="tg://resolve?domain=tlvsave">
+
+<meta property="al:android:url" content="tg://resolve?domain=tlvsave">
+<meta property="al:android:app_name" content="Telegram">
+<meta property="al:android:package" content="org.telegram.messenger">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@Telegram">
+<meta name="twitter:description" content="Trusted Liquidity Vanguard
+">
+
+    <link rel="prev" href="/s/tlvsave?before=184">
+<link rel="canonical" href="/s/tlvsave?before=204">
+
+    <script>window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches&&document.documentElement&&document.documentElement.classList&&document.documentElement.classList.add('theme_dark');</script>
+    <link rel="icon" type="image/svg+xml" href="//telegram.org/img/website_icon.svg?4">
+<link rel="apple-touch-icon" sizes="180x180" href="//telegram.org/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="//telegram.org/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="//telegram.org/img/favicon-16x16.png">
+<link rel="alternate icon" href="//telegram.org/img/favicon.ico" type="image/x-icon" />
+    <link href="//telegram.org/css/font-roboto.css?1" rel="stylesheet" type="text/css">
+    <link href="//telegram.org/css/widget-frame.css?75" rel="stylesheet" media="screen">
+    <link href="//telegram.org/css/telegram-web.css?39" rel="stylesheet" media="screen">
+    <script>TBaseUrl='/';</script>
+    <style>        .user-color-12 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #3391d4 0px, #3391d4 5px, #7dd3f0 5px, #7dd3f0 10px);
+          --user-accent-color: #3391d4;
+          --user-background: #3391d41f;
+        }        .user-color-10 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #27a910 0px, #27a910 5px, #a7dc57 5px, #a7dc57 10px);
+          --user-accent-color: #27a910;
+          --user-background: #27a9101f;
+        }        .user-color-8 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #e0802b 0px, #e0802b 5px, #fac534 5px, #fac534 10px);
+          --user-accent-color: #e0802b;
+          --user-background: #e0802b1f;
+        }        .user-color-7 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #e15052 0px, #e15052 5px, #f9ae63 5px, #f9ae63 10px);
+          --user-accent-color: #e15052;
+          --user-background: #e150521f;
+        }        .user-color-9 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #a05ff3 0px, #a05ff3 5px, #f48fff 5px, #f48fff 10px);
+          --user-accent-color: #a05ff3;
+          --user-background: #a05ff31f;
+        }        .user-color-11 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #27acce 0px, #27acce 5px, #82e8d6 5px, #82e8d6 10px);
+          --user-accent-color: #27acce;
+          --user-background: #27acce1f;
+        }        .user-color-13 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #dd4371 0px, #dd4371 5px, #ffbe9f 5px, #ffbe9f 10px);
+          --user-accent-color: #dd4371;
+          --user-background: #dd43711f;
+        }        .user-color-14 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #247bed 0px, #247bed 5px, #f04856 5px, #f04856 10px, #ffffff 10px, #ffffff 15px);
+          --user-accent-color: #247bed;
+          --user-background: #247bed1f;
+        }        .user-color-15 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #d67722 0px, #d67722 5px, #1ea011 5px, #1ea011 10px, #ffffff 10px, #ffffff 15px);
+          --user-accent-color: #d67722;
+          --user-background: #d677221f;
+        }        .user-color-16 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #179e42 0px, #179e42 5px, #e84a3f 5px, #e84a3f 10px, #ffffff 10px, #ffffff 15px);
+          --user-accent-color: #179e42;
+          --user-background: #179e421f;
+        }        .user-color-17 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #2894af 0px, #2894af 5px, #6fc456 5px, #6fc456 10px, #ffffff 10px, #ffffff 15px);
+          --user-accent-color: #2894af;
+          --user-background: #2894af1f;
+        }        .user-color-18 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #0c9ab3 0px, #0c9ab3 5px, #ffad95 5px, #ffad95 10px, #ffe6b5 10px, #ffe6b5 15px);
+          --user-accent-color: #0c9ab3;
+          --user-background: #0c9ab31f;
+        }        .user-color-19 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #7757d6 0px, #7757d6 5px, #f79610 5px, #f79610 10px, #ffde8e 10px, #ffde8e 15px);
+          --user-accent-color: #7757d6;
+          --user-background: #7757d61f;
+        }        .user-color-20 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #1585cf 0px, #1585cf 5px, #f2ab1d 5px, #f2ab1d 10px, #ffffff 10px, #ffffff 15px);
+          --user-accent-color: #1585cf;
+          --user-background: #1585cf1f;
+        }        body.dark .user-color-12, html.theme_dark .user-color-12 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #52bfff 0px, #52bfff 5px, #0b5494 5px, #0b5494 10px);
+          --user-accent-color: #52bfff;
+          --user-background: #52bfff1f;
+        }        body.dark .user-color-10, html.theme_dark .user-color-10 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #a7eb6e 0px, #a7eb6e 5px, #167e2d 5px, #167e2d 10px);
+          --user-accent-color: #a7eb6e;
+          --user-background: #a7eb6e1f;
+        }        body.dark .user-color-8, html.theme_dark .user-color-8 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #ecb04e 0px, #ecb04e 5px, #c35714 5px, #c35714 10px);
+          --user-accent-color: #ecb04e;
+          --user-background: #ecb04e1f;
+        }        body.dark .user-color-7, html.theme_dark .user-color-7 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #ff9380 0px, #ff9380 5px, #992f37 5px, #992f37 10px);
+          --user-accent-color: #ff9380;
+          --user-background: #ff93801f;
+        }        body.dark .user-color-9, html.theme_dark .user-color-9 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #c697ff 0px, #c697ff 5px, #5e31c8 5px, #5e31c8 10px);
+          --user-accent-color: #c697ff;
+          --user-background: #c697ff1f;
+        }        body.dark .user-color-11, html.theme_dark .user-color-11 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #40d8d0 0px, #40d8d0 5px, #045c7f 5px, #045c7f 10px);
+          --user-accent-color: #40d8d0;
+          --user-background: #40d8d01f;
+        }        body.dark .user-color-13, html.theme_dark .user-color-13 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #ff86a6 0px, #ff86a6 5px, #8e366e 5px, #8e366e 10px);
+          --user-accent-color: #ff86a6;
+          --user-background: #ff86a61f;
+        }        body.dark .user-color-14, html.theme_dark .user-color-14 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #3fa2fe 0px, #3fa2fe 5px, #e5424f 5px, #e5424f 10px, #ffffff 10px, #ffffff 15px);
+          --user-accent-color: #3fa2fe;
+          --user-background: #3fa2fe1f;
+        }        body.dark .user-color-15, html.theme_dark .user-color-15 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #ff905e 0px, #ff905e 5px, #32a527 5px, #32a527 10px, #ffffff 10px, #ffffff 15px);
+          --user-accent-color: #ff905e;
+          --user-background: #ff905e1f;
+        }        body.dark .user-color-16, html.theme_dark .user-color-16 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #66d364 0px, #66d364 5px, #d5444f 5px, #d5444f 10px, #ffffff 10px, #ffffff 15px);
+          --user-accent-color: #66d364;
+          --user-background: #66d3641f;
+        }        body.dark .user-color-17, html.theme_dark .user-color-17 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #22bce2 0px, #22bce2 5px, #3da240 5px, #3da240 10px, #ffffff 10px, #ffffff 15px);
+          --user-accent-color: #22bce2;
+          --user-background: #22bce21f;
+        }        body.dark .user-color-18, html.theme_dark .user-color-18 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #22bce2 0px, #22bce2 5px, #ff9778 5px, #ff9778 10px, #ffda6b 10px, #ffda6b 15px);
+          --user-accent-color: #22bce2;
+          --user-background: #22bce21f;
+        }        body.dark .user-color-19, html.theme_dark .user-color-19 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #9791ff 0px, #9791ff 5px, #f2731d 5px, #f2731d 10px, #ffdb59 10px, #ffdb59 15px);
+          --user-accent-color: #9791ff;
+          --user-background: #9791ff1f;
+        }        body.dark .user-color-20, html.theme_dark .user-color-20 {
+          --user-line-gradient: repeating-linear-gradient(-45deg, #3da6eb 0px, #3da6eb 5px, #eea51d 5px, #eea51d 10px, #ffffff 10px, #ffffff 15px);
+          --user-accent-color: #3da6eb;
+          --user-background: #3da6eb1f;
+        }.user-color-6, .user-color-4, .user-color-2, .user-color-0, .user-color-1, .user-color-3, .user-color-5,   .user-color-default {
+    --user-accent-color: var(--accent-color);
+    --user-accent-background: var(--accent-background);
+    --user-line-gradient: linear-gradient(45deg, var(--accent-color), var(--accent-color));
+  }</style>
+  </head>
+  <body class="widget_frame_base tgme_webpreview emoji_image thin_box_shadow tme_mode no_transitions">
+    <div class="tgme_background_wrap">
+      <canvas id="tgme_background" class="tgme_background" width="50" height="50" data-colors="dbddbb,6ba587,d5d88d,88b884"></canvas>
+      <div class="tgme_background_pattern"></div>
+    </div>
+    <header class="tgme_header search_collapsed">
+  <div class="tgme_container">
+    <div class="tgme_header_search">
+      <form class="tgme_header_search_form" action="/s/tlvsave">
+        <svg class="tgme_header_search_form_icon" width="20" height="20" viewBox="0 0 20 20"><g fill="none" stroke="#7D7F81" stroke-width="1.4"><circle cx="9" cy="9" r="6"></circle><path d="M13.5,13.5 L17,17" stroke-linecap="round"></path></g></svg>
+        <input class="tgme_header_search_form_input js-header_search" placeholder="Search" name="q" autocomplete="off" value="" />
+        <a href="/s/tlvsave" class="tgme_header_search_form_clear"><svg class="tgme_action_button_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20"><g class="icon_body" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#000000" stroke-width="1.5"><path d="M6 14l8-8m0 8L6 6" stroke-dasharray="0,11.314" stroke-dashoffset="5.657"/><path d="M26 14l8-8m0 8l-8-8" stroke-dasharray="0.371,10.943" stroke-dashoffset="5.842"/><path d="M46 14l8-8m0 8l-8-8" stroke-dasharray="1.982,9.332" stroke-dashoffset="6.647756"/><path d="M66 14l8-8m0 8l-8-8" stroke-dasharray="5.173,6.14" stroke-dashoffset="8.243"/><path d="M86 14l8-8m0 8l-8-8" stroke-dasharray="7.866,3.448" stroke-dashoffset="9.59"/><path d="M106 14l8-8m0 8l-8-8" stroke-dasharray="9.471,1.843" stroke-dashoffset="10.392"/><path d="M126 14l8-8m0 8l-8-8" stroke-dasharray="10.417,0.896" stroke-dashoffset="10.866"/><path d="M146 14l8-8m0 8l-8-8" stroke-dasharray="10.961,0.353" stroke-dashoffset="11.137"/><path d="M166 14l8-8m0 8l-8-8" stroke-dasharray="11.234,0.08" stroke-dashoffset="11.274"/><path d="M186 14l8-8m0 8l-8-8"/></g></svg></a>
+      </form>
+    </div>
+    <div class="tgme_header_right_column">
+      <section class="tgme_right_column">
+        <div class="tgme_channel_info">
+          <div class="tgme_channel_info_header">
+            <i class="tgme_page_photo_image bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i>
+            <div class="tgme_channel_info_header_title_wrap">
+              <div class="tgme_channel_info_header_title"><span dir="auto">TLV</span></div>
+              <div class="tgme_channel_info_header_labels"></div>
+            </div>
+            <div class="tgme_channel_info_header_username"><a href="https://t.me/tlvsave">@tlvsave</a></div>
+          </div>
+          <div class="tgme_channel_info_counters"><div class="tgme_channel_info_counter"><span class="counter_value">100</span> <span class="counter_type">subscribers</span></div><div class="tgme_channel_info_counter"><span class="counter_value">92</span> <span class="counter_type">photos</span></div><div class="tgme_channel_info_counter"><span class="counter_value">10</span> <span class="counter_type">links</span></div></div>
+          <div class="tgme_channel_info_description">Trusted Liquidity Vanguard</div>
+          <a class="tgme_channel_download_telegram" href="//telegram.org/dl?tme=a0180f921fb33d63b6_212633686700034815">
+            <svg class="tgme_channel_download_telegram_icon" width="21px" height="18px" viewBox="0 0 21 18"><g fill="none"><path fill="#ffffff" d="M0.554,7.092 L19.117,0.078 C19.737,-0.156 20.429,0.156 20.663,0.776 C20.745,0.994 20.763,1.23 20.713,1.457 L17.513,16.059 C17.351,16.799 16.62,17.268 15.88,17.105 C15.696,17.065 15.523,16.987 15.37,16.877 L8.997,12.271 C8.614,11.994 8.527,11.458 8.805,11.074 C8.835,11.033 8.869,10.994 8.905,10.958 L15.458,4.661 C15.594,4.53 15.598,4.313 15.467,4.176 C15.354,4.059 15.174,4.037 15.036,4.125 L6.104,9.795 C5.575,10.131 4.922,10.207 4.329,10.002 L0.577,8.704 C0.13,8.55 -0.107,8.061 0.047,7.614 C0.131,7.374 0.316,7.182 0.554,7.092 Z"></path></g></svg>Download Telegram
+          </a>
+          <div class="tgme_footer">
+            <div class="tgme_footer_column">
+              <h5><a href="//telegram.org/faq">About</a></h5>
+            </div>
+            <div class="tgme_footer_column">
+              <h5><a href="//telegram.org/blog">Blog</a></h5>
+            </div>
+            <div class="tgme_footer_column">
+              <h5><a href="//telegram.org/apps">Apps</a></h5>
+            </div>
+            <div class="tgme_footer_column">
+              <h5><a href="//core.telegram.org/">Platform</a></h5>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="tgme_header_info">
+      <a class="tgme_channel_join_telegram" href="//telegram.org/dl?tme=a0180f921fb33d63b6_212633686700034815">
+        <svg class="tgme_channel_join_telegram_icon" width="19px" height="16px" viewBox="0 0 19 16"><g fill="none"><path fill="#ffffff" d="M0.465,6.638 L17.511,0.073 C18.078,-0.145 18.714,0.137 18.932,0.704 C19.009,0.903 19.026,1.121 18.981,1.33 L16.042,15.001 C15.896,15.679 15.228,16.111 14.549,15.965 C14.375,15.928 14.211,15.854 14.068,15.748 L8.223,11.443 C7.874,11.185 7.799,10.694 8.057,10.345 C8.082,10.311 8.109,10.279 8.139,10.249 L14.191,4.322 C14.315,4.201 14.317,4.002 14.195,3.878 C14.091,3.771 13.926,3.753 13.8,3.834 L5.602,9.138 C5.112,9.456 4.502,9.528 3.952,9.333 L0.486,8.112 C0.077,7.967 -0.138,7.519 0.007,7.11 C0.083,6.893 0.25,6.721 0.465,6.638 Z"></path></g></svg>Join
+      </a>
+      <a class="tgme_header_link" href="https://t.me/tlvsave">
+        <i class="tgme_page_photo_image bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i>
+        <div class="tgme_header_title_wrap">
+          <div class="tgme_header_title"><span dir="auto">TLV</span></div>
+          <div class="tgme_header_labels"></div>
+        </div>
+        <div class="tgme_header_counter">100 subscribers</div>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="tgme_main" data-url="/tlvsave">
+  <div class="tgme_container">
+    <section class="tgme_channel_history js-message_history">
+      <div class="tgme_widget_message_centered js-messages_more_wrap"><a href="/s/tlvsave?before=184" class="tme_messages_more js-messages_more" data-before="184"></a></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/184" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MTg0LCJ0IjoxNzk0ODY3NDM1LCJoIjoiNDI3Yjg5YmUzNWM1NmI2MmNlIn0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<a class="tgme_widget_message_photo_wrap 5830077715736891360 1357420747_460001248" href="https://t.me/tlvsave/184" style="width:710px;background-image:url('https://cdn4.telesco.pe/file/vcBhFjfo49XeUex1g31OiXl6XdtQ8v2FOcrqsIBJ3LZD-06pl4tQDZzN3WM37Uq4h1zxoXcpd32oprSozrD2fL7ZUHx2LEU3e6hbxbznIS9riNQglRW_92mmFpU4Pvgj56xhRMU-j3sKzGE8XZhJEbpJqYNoRxm9AuI7-IMKrgWFClWuMHXSMdrTdSfECrtUYF3fztHJBC8xjyGipq7yDEpGl_ngsfzva1mj0nAZ7wYdNXPbGaMOQNb-VOk_E3bywoYcjHwcjJ8Y7LmpDGl_da9lu4Lg1bPJLnrV_R6SZpUjbIp4w0Ro5lxK4A0KyB1Z3lsPCvEHAn3-ufCsRenQjw.jpg')">
+  <div class="tgme_widget_message_photo" style="padding-top:112.67605633803%"></div>
+</a>
+<div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">108</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/184"><time datetime="2026-09-06T07:08:38+00:00" class="time">07:08</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/185" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MTg1LCJ0IjoxNzk0ODY3NDM1LCJoIjoiY2U5YjNjOWRjYzFlZDZiZTQ3In0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<div class="tgme_widget_message_text js-message_text" dir="auto">Hello to all investors and members of the TLV community&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F918B.png')"><b>👋</b></i><br/><br/>We have wrapped up a fantastic trading week&#33; Following the previous directional move, the market delivered the expected correction, allowing our algorithms to smoothly close all active positions in solid profit across both strategies.<br/>Once again, patience and disciplined risk management proved to be key.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F8C90.png')"><b>🌐</b></i> What Drove the Currency Pairs?<br/><br/> <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A6F09F87BA.png')"><b>🇦🇺</b></i><b> AUD / </b><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A8F09F87A6.png')"><b>🇨🇦</b></i><b> CAD (S1 &amp; S2):</b> The market correction on AUD/CAD allowed the system to safely complete its cycle and lock in profits with low floating risk.<br/><br/> <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87AAF09F87BA.png')"><b>🇪🇺</b></i><b> EUR / </b><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87ACF09F87A7.png')"><b>🇬🇧</b></i><b> GBP (S1):</b> Balanced price action on European pairs contributed to the overall stability and growth of our flagship account.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9A80.png')"><b>🚀</b></i> TLV S2 AUDCAD MediumRisk<br/>Our dynamic S2 strategy delivered a standout performance with a strong weekly gain&#33;<br/> <b>Weekly Profit:</b> <b>+0.61%</b> (+1.85 USD)<br/> <b>Max Drawdown:</b> <b>-0.6%</b><br/> <b>Balance:</b> <b>304.24 USD</b><br/> <b>Investors:</b> <b>3</b><br/> <b>Profile:</b> Dynamic AUD/CAD profile built to capitalize quickly on market pullbacks.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9BA1.png')"><b>🛡️</b></i> TLV S1 AUDCAD EURGBP<br/>Our conservative flagship returned straight to green numbers with smooth, steady growth.<br/> <b>Weekly Profit:</b> <b>+0.33%</b> (+0.63 USD)<br/> <b>Max Drawdown:</b> <b>-0.46%</b><br/> <b>Balance:</b> <b>190.95 USD</b><br/> <b>Investors:</b> <b>250</b><br/> <b>Profile:</b> Conservative approach on AUD/CAD and EUR/GBP pairs.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F92A1.png')"><b>💡</b></i> <b>Summary:</b><br/>A full green week across both accounts with maximum drawdowns well below 1%. This is systematic trading in action—patiently managing trades and closing them at the right target.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F998F.png')"><b>🙏</b></i> <b>Thank You&#33;</b><br/>A big thank you to our entire community and <b>250+ investors</b> for your trust and support. Here&#39;s to another successful trading week ahead&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9388.png')"><b>📈</b></i><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/E29CA8.png')"><b>✨</b></i></div>
+<div class="tgme_widget_message_reactions js-message_reactions"><span class="tgme_reaction"><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F94A5.png')"><b>🔥</b></i>1</span></div><div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">131</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/185"><time datetime="2026-09-06T07:09:12+00:00" class="time">07:09</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/186" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MTg2LCJ0IjoxNzk0ODY3NDM1LCJoIjoiODRmNGY1ODljMGEzOGQ0YTZiIn0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<a class="tgme_widget_message_photo_wrap 5850259758470861228 1362119745_460001708" href="https://t.me/tlvsave/186" style="width:716px;background-image:url('https://cdn4.telesco.pe/file/lN7uArpl1IBX_fQkMqLf4ProgmVEIGmSxZQldqVnXWFQbOgsLRteu0ALMv7xQB8dBKIp2nkpDOzkwLFXNsCBvGxMm7u4paH4ouGRmKmsW8LESIynaNrHkeI5l5jBXGmwaa4_9RX_erAHXEOzyP2iPcQ_O0FzQfK5M9cDK9Z6Kxxnj9qdmhdZTwVNf2warGmE9y0lsB2RjC7k4qU0dmp0m6hBuwNjVgFwhS5wExL4hjgWyyRuep3p8aSkqEMZNecOsIW16V5F48qY3OCh7mHg34fuHO0gvMKkweUU0yvXfevsocZtCrgxpUTvzMHWemRDvhbLyHbN-0GKxlOWAz-6xg.jpg')">
+  <div class="tgme_widget_message_photo" style="padding-top:111.73184357542%"></div>
+</a>
+<div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">103</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/186"><time datetime="2026-09-12T16:41:23+00:00" class="time">16:41</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/187" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MTg3LCJ0IjoxNzk0ODY3NDM1LCJoIjoiYTk5NjRkMjE4Mzk4MzViZmNhIn0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<div class="tgme_widget_message_text js-message_text" dir="auto">Hello to all investors and members of the TLV community&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F918B.png')"><b>👋</b></i><br/><br/>We have wrapped up another highly successful and solid green trading week&#33; Stable market conditions allowed both of our strategies to secure smooth profits with extremely low risk exposure.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F8C90.png')"><b>🌐</b></i> What Drove the Currency Pairs?<br/><br/> <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A6F09F87BA.png')"><b>🇦🇺</b></i><b> AUD / </b><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A8F09F87A6.png')"><b>🇨🇦</b></i><b> CAD (S1 &amp; S2):</b> Balanced price action on AUD/CAD allowed our algorithms to smoothly close profitable positions without putting pressure on the accounts.<br/><br/> <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87AAF09F87BA.png')"><b>🇪🇺</b></i><b> EUR / </b><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87ACF09F87A7.png')"><b>🇬🇧</b></i><b> GBP (S1):</b> Calm movement on European pairs kept floating risk at absolute minimums, maintaining a steady upward equity curve.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9A80.png')"><b>🚀</b></i> TLV S2 AUDCAD MediumRisk<br/>Our dynamic S2 strategy delivered another great green performance and continues to build momentum—welcoming another new investor&#33;<br/> <b>Weekly Profit:</b> <b>+0.51%</b> (+1.54 USD)<br/> <b>Max Drawdown:</b> only <b>-0.44%</b><br/> <b>Balance:</b> <b>301.97 USD</b><br/> <b>Investors:</b> <b>4</b> <i>(growing community on S2&#33; </i><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F8E89.png')"><b>🎉</b></i><i>)</i><br/> <b>Profile:</b> Dynamic AUD/CAD profile built for faster growth under strictly controlled risk.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9BA1.png')"><b>🛡️</b></i> TLV S1 AUDCAD EURGBP<br/>Our conservative flagship demonstrated its reliable form once again, posting another clean positive week.<br/> <b>Weekly Profit:</b> <b>+0.32%</b> (+0.61 USD)<br/> <b>Max Drawdown:</b> only <b>-0.30%</b><br/> <b>Balance:</b> <b>191.18 USD</b><br/> <b>Investors:</b> <b>254</b><br/> <b>Profile:</b> Conservative approach on AUD/CAD and EUR/GBP pairs.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F92A1.png')"><b>💡</b></i> <b>Summary:</b><br/>Another textbook week with full green numbers on both accounts and maximum drawdowns kept strictly under 0.5%. This is what our automated system is built for—stability, safety, and consistent performance.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F998F.png')"><b>🙏</b></i> <b>Thank You&#33;</b><br/>A big thank you to our entire community and all <b>258+ investors</b> across both strategies for your continued trust and support. Here&#39;s to another successful trading week ahead&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9388.png')"><b>📈</b></i><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/E29CA8.png')"><b>✨</b></i></div>
+<div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">114</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/187"><time datetime="2026-09-12T16:42:15+00:00" class="time">16:42</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/188" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MTg4LCJ0IjoxNzk0ODY3NDM1LCJoIjoiYTZjMjFjYWVhN2RhYzIwOWU0In0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<a class="tgme_widget_message_photo_wrap 5890720850070148210 1371540327_460002418" href="https://t.me/tlvsave/188" style="width:631px;background-image:url('https://cdn4.telesco.pe/file/m0hGPVPHfMjPNbG5xQmGm9eM8fMrqWbOz7RwKLGwMmLprmsTgCBAdo5DFWWrt7Bm2WA4PLTk5wDKjYwaOiFY5YiFsxSNHGhnJsA9BvSJBsXLBtkevE7NGCOZ5ZXz0_jcbmJWprHaeunXqw51XZ-N5agSLI3YJEQpna59Gy0ugMqPtQ7b4GfpHSKWEOleMpWKskivXuCMFhmtyAjT1_UaMOHx3NwMzBrESFYDHarERUNxaXR8bomcoU3-fnpKhBzmL2h_vJmgT-4UbarR297-OWbDG_NSusqoBYk03YvFYK4910v4NQHtq2B7RWwjGD_6UkgLEVUZCfOPsIt11Ppx2Q.jpg')">
+  <div class="tgme_widget_message_photo" style="padding-top:126.78288431062%"></div>
+</a>
+<div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">86</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/188"><time datetime="2026-09-26T18:22:08+00:00" class="time">18:22</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/189" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MTg5LCJ0IjoxNzk0ODY3NDM1LCJoIjoiZjNjOGIzOGRiNjhhODYxMGZlIn0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<div class="tgme_widget_message_text js-message_text" dir="auto">Hello to all investors and members of the TLV community&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F918B.png')"><b>👋</b></i><br/><br/>We have wrapped up another two-week trading period. The markets presented a more dynamic face this time, but once again, patience and disciplined risk management proved their worth—both strategies finished the period nicely in the green&#33;&nbsp; <br/><br/>During these two weeks, Strategy S2 experienced a controlled floating drawdown, which was smoothly recovered as the market completed its expected correction.&nbsp; <br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F8C90.png')"><b>🌐</b></i> What Drove the Currency Pairs?<br/><br/> <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A6F09F87BA.png')"><b>🇦🇺</b></i><b> AUD / </b><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A8F09F87A6.png')"><b>🇨🇦</b></i><b> CAD (S1 &amp; S2):</b> Increased volatility on AUD/CAD temporarily elevated floating drawdown during the period. However, the subsequent market retracement allowed our algorithms to safely close the entire trading cycle in profit.&nbsp; <br/><br/> <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87AAF09F87BA.png')"><b>🇪🇺</b></i><b> EUR / </b><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87ACF09F87A7.png')"><b>🇬🇧</b></i><b> GBP (S1):</b> European pairs traded within a very stable range, providing smooth performance for our flagship account.&nbsp; <br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9A80.png')"><b>🚀</b></i> TLV S2 AUDCAD MediumRisk<br/>Our dynamic S2 strategy handled the market pressure and bounced back into solid profits. Confidence in this profile continues to grow—welcoming our 5th investor&#33;&nbsp; <br/> <b>2-Week Profit:</b> <b>+0.66%</b> (+2.01 USD)&nbsp; <br/> <b>Max Drawdown:</b> <b>-3.25%</b> <i>(handled smoothly)</i>&nbsp; <br/> <b>Balance:</b> <b>307.68 USD</b>&nbsp; <br/> <b>Investors:</b> <b>5</b> <i>(welcome to the new member&#33; </i><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F8E89.png')"><b>🎉</b></i><i>)</i>&nbsp; <br/> <b>Profile:</b> Dynamic AUD/CAD profile designed to capitalize on market corrections.&nbsp; <br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9BA1.png')"><b>🛡️</b></i> TLV S1 AUDCAD EURGBP<br/>Our conservative flagship demonstrated its rock-solid reliability once again, locking in steady gains with minimal floating risk.&nbsp; <br/> <b>2-Week Profit:</b> <b>+0.26%</b> (+0.50 USD)&nbsp; <br/> <b>Max Drawdown:</b> only <b>-0.51%</b>&nbsp; <br/> <b>Balance:</b> <b>191.86 USD</b>&nbsp; <br/> <b>Investors:</b> <b>250</b>&nbsp; <br/> <b>Profile:</b> Conservative approach on AUD/CAD and EUR/GBP pairs.&nbsp; <br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F92A1.png')"><b>💡</b></i> <b>Summary:</b><br/>Trading naturally involves periods of temporary floating drawdown, but this is precisely what our risk management parameters are built for. Both strategies delivered green results, confirming the system&#39;s resilience.&nbsp; <br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F998F.png')"><b>🙏</b></i> <b>Thank You&#33;</b><br/><br/>A big thank you to all our investors across both strategies for your continued trust and support. Moving forward step by step&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9388.png')"><b>📈</b></i><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/E29CA8.png')"><b>✨</b></i></div>
+<div class="tgme_widget_message_reactions js-message_reactions"><span class="tgme_reaction"><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F918F.png')"><b>👏</b></i>1</span></div><div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">108</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta">edited &nbsp;<a class="tgme_widget_message_date" href="https://t.me/tlvsave/189"><time datetime="2026-09-26T18:22:13+00:00" class="time">18:22</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/190" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MTkwLCJ0IjoxNzk0ODY3NDM1LCJoIjoiN2U2OGU3NDM4NWM1ZGMxYzExIn0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<a class="tgme_widget_message_photo_wrap 5913717380578217799 1376894624_460001095" href="https://t.me/tlvsave/190" style="width:711px;background-image:url('https://cdn4.telesco.pe/file/mvFWwTYPmdjARPHrS1EXzjU1CoPfbBDy67eHm44aGLT_qD2uiytwc6mWb9c5pYY9Jy3IsJiH3S52d8u6rDjbrJmUbyxY_rgvpx71UZoXDTVQGe9QWMtAHedgdkIAsWBBWe_rhKteVVViccKEhXazrr3hQaoHvQiHyVi8TG_ZTy8on18WZ_7XxVdQtSfJAijjWef3amLgSPNV2Hb0cQFzQHKtK_CJClaYQugKbQiqin8eVyjsUVyMHzCiweHg7O5BYhmEJ45m5CW_7YIlBhxyfPBoDuphjFSSEgCuZaHqSmOI7srPh-tLLwMfTZPE_eNFx-zyifQNPDrvJWKtxo4_AQ.jpg')">
+  <div class="tgme_widget_message_photo" style="padding-top:112.51758087201%"></div>
+</a>
+<div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">78</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/190"><time datetime="2026-10-03T20:32:01+00:00" class="time">20:32</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/191" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MTkxLCJ0IjoxNzk0ODY3NDM1LCJoIjoiNzIxNDYyNjBjNzk4N2E3ODlkIn0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<div class="tgme_widget_message_text js-message_text" dir="auto">Hello to all investors and members of the TLV community&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F918B.png')"><b>👋</b></i><br/><br/>Another trading week is in the books&#33; Markets presented divergent price action across our target currency pairs. While Strategy S2 delivered a textbook bounce back into strong profits, our conservative S1 experienced a minor pullback toward the end of the week.<br/><br/>Risk management remains tightly controlled, with drawdowns kept well below the 1% threshold across both accounts.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F8C90.png')"><b>🌐</b></i> What Drove the Currency Pairs?<br/><br/> <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A6F09F87BA.png')"><b>🇦🇺</b></i><b> AUD / </b><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A8F09F87A6.png')"><b>🇨🇦</b></i><b> CAD (S1 &amp; S2):</b> Price action on AUD/CAD allowed Strategy S2 to catch a solid market swing and close accumulated trades cleanly in profit.<br/><br/> <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87AAF09F87BA.png')"><b>🇪🇺</b></i><b> EUR / </b><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87ACF09F87A7.png')"><b>🇬🇧</b></i><b> GBP (S1):</b> Price pressure on European pairs in the latter half of the week opened structured positions, where we patiently await the next retracement.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9A80.png')"><b>🚀</b></i> TLV S2 AUDCAD MediumRisk<br/>Our dynamic strategy performed a strong bounce back following a brief mid-week dip, locking in great gains.<br/><br/> <b>Weekly Profit:</b> <b>+0.59%</b> (+1.78 USD)<br/> <b>Max Drawdown:</b> <b>-0.94%</b><br/> <b>Balance:</b> <b>302.99 USD</b><br/> <b>Investors:</b> <b>4</b><br/> <b>Profile:</b> Dynamic AUD/CAD profile built to capitalize on sharp market reversals.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9BA1.png')"><b>🛡️</b></i> TLV S1 AUDCAD EURGBP<br/>Our flagship strategy saw a minor dip due to open working positions, while our investor count continues to rise&#33;<br/><br/> <b>Weekly Result:</b> <b>-0.23%</b> (-0.44 USD)<br/> <b>Max Drawdown:</b> only <b>-0.58%</b><br/> <b>Balance:</b> <b>192.32 USD</b><br/> <b>Investors:</b> <b>254</b> <i>(welcome to the new members&#33; </i><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9388.png')"><b>📈</b></i><i>)</i><br/> <b>Profile:</b> Conservative approach on AUD/CAD and EUR/GBP pairs.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F92A1.png')"><b>💡</b></i> <b>Summary:</b><br/>Patience is key in trading—while S2 turned market pullbacks into solid profits this week, S1 safely holds active trades with minimal drawdown (&lt; 0.6%). Capital protection remains our highest priority.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F998F.png')"><b>🙏</b></i> <b>Thank You&#33;</b><br/>A big thank you to all <b>254+ investors</b> for your ongoing trust and support. Here&#39;s to another disciplined trading week ahead&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9388.png')"><b>📈</b></i><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/E29CA8.png')"><b>✨</b></i><br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9497.png')"><b>🔗</b></i> <b>Registration &amp; Joining the Strategies:</b><br/>If you don&#39;t have a RoboForex account yet, you can register via our official link:<br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9189.png')"><b>👉</b></i> <a href="https://www.google.com/url?sa=E&amp;amp;source=gmail&amp;amp;q=https://my.roboforex.com/en/?a=aqyn" target="_blank" rel="noopener" onclick="return confirm('Open this link?\n\n'+this.href);"><u>https://my.roboforex.com/en/?a=aqyn</u></a><br/><i>(Direct links for copying specific strategies via CopyFX can be found in the pinned messages.)</i></div>
+<div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">84</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/191"><time datetime="2026-10-03T20:34:00+00:00" class="time">20:34</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/192" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MTkyLCJ0IjoxNzk0ODY3NDM1LCJoIjoiZDU2YzM4MmM2MGNjOTcwNDk1In0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<a class="tgme_widget_message_photo_wrap 5935909837373902578 1382061708_460001010" href="https://t.me/tlvsave/192" style="width:705px;background-image:url('https://cdn4.telesco.pe/file/UK6dU7-8g07PMjrtrbZd3-cdEpAMdCxGdaw8lYOQLnlwu_o71ymSBvgoMlU9rg7GxJbSzS7zbw141CDFoKPdBiJp_wZuYP_KnqETzHainv28IodbzV0-P0YuR8rYeg_135-X9cyAb4aMcjPFcUWZ8il5Id_TTE-lF6g6QpMG6XEQ_TItHLH6mTylrYba_Rw3UPXsW5bNjhGx6_HiiTS3_bH0qlIbyOaefYgYM_bMXAExa9_MRNgsQbmf3lfTChuAEpOFuf1Ttupmrxfm7CmGwmn82axgAy38jrscXLXomxCkVwh3OlFyae_iu9ZJedCVJN0L5nu38oAGOO99QVyFLg.jpg')">
+  <div class="tgme_widget_message_photo" style="padding-top:113.47517730496%"></div>
+</a>
+<div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">67</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/192"><time datetime="2026-10-11T08:54:06+00:00" class="time">08:54</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/193" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MTkzLCJ0IjoxNzk0ODY3NDM1LCJoIjoiMGNkNjA5OWIzODEzZmJkZjViIn0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<div class="tgme_widget_message_text js-message_text" dir="auto">Hello to all investors and members of the TLV community&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F918B.png')"><b>👋</b></i><br/><br/>Another trading week is in the books. Markets presented contrasting price action across our target currency pairs this week. While Strategy S2 continued its steady upward trajectory with another green week, our conservative S1 holds open working positions as we patiently await the next market retracement.<br/><br/>Even during temporary market pressure, risk management remains our top priority—floating drawdowns are tightly controlled at very safe levels.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F8C90.png')"><b>🌐</b></i> What Drove the Currency Pairs?<br/><br/> <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A6F09F87BA.png')"><b>🇦🇺</b></i><b> AUD / </b><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A8F09F87A6.png')"><b>🇨🇦</b></i><b> CAD (S1 &amp; S2):</b> Smooth price action on AUD/CAD allowed Strategy S2 to safely lock in profits while maintaining low floating risk.<br/><br/> <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87AAF09F87BA.png')"><b>🇪🇺</b></i><b> EUR / </b><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87ACF09F87A7.png')"><b>🇬🇧</b></i><b> GBP (S1):</b> Stronger directional movement on European pairs opened structured positions, where the algorithm is patiently waiting for the market correction.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9A80.png')"><b>🚀</b></i> TLV S2 AUDCAD MediumRisk<br/>Our dynamic strategy delivered another textbook green week with minimal floating drawdown.<br/> <b>Weekly Profit:</b> <b>+0.26%</b> (+0.81 USD)<br/> <b>Max Drawdown:</b> only <b>-0.53%</b><br/> <b>Balance:</b> <b>309.48 USD</b><br/> <b>Investors:</b> <b>5</b><br/> <b>Profile:</b> Dynamic AUD/CAD profile built for steady profit growth.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9BA1.png')"><b>🛡️</b></i> TLV S1 AUDCAD EURGBP<br/>Our flagship strategy is safely managing active trades under strictly controlled floating risk. Our community of 254 investors remains rock solid&#33;<br/> <b>Weekly Result:</b> <b>-0.45%</b> (-0.87 USD)<br/> <b>Max Drawdown:</b> <b>-1.5%</b> <i>(fully within risk parameters)</i><br/> <b>Balance:</b> <b>192.74 USD</b><br/> <b>Investors:</b> <b>254</b><br/> <b>Profile:</b> Conservative approach on AUD/CAD and EUR/GBP pairs.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F92A1.png')"><b>💡</b></i> <b>Summary:</b><br/>Trading demands patience and adherence to the plan. While S2 consistently secures profits, S1 is actively managing working trades with low risk exposure. Capital preservation remains fully intact.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F998F.png')"><b>🙏</b></i> <b>Thank You&#33;</b><br/>A big thank you to all <b>259+ investors</b> across both strategies for your continued trust and support. Here&#39;s to another disciplined trading week ahead&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9388.png')"><b>📈</b></i><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/E29CA8.png')"><b>✨</b></i><br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9497.png')"><b>🔗</b></i> <b>Registration &amp; Joining the Strategies:</b><br/>If you don&#39;t have a RoboForex account yet, you can register via our official link:<br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9189.png')"><b>👉</b></i> <a href="https://www.google.com/search?q=https://my.roboforex.com/en/%3Fa%3Daqyn" target="_blank" rel="noopener" onclick="return confirm('Open this link?\n\n'+this.href);"><u>https://my.roboforex.com/en/?a=aqyn</u></a><br/><i>(Direct links for copying specific strategies via CopyFX can be found in the pinned messages.)</i></div>
+<div class="tgme_widget_message_reactions js-message_reactions"><span class="tgme_reaction"><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/E29DA4.png')"><b>❤</b></i>1</span></div><div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">93</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/193"><time datetime="2026-10-11T08:54:38+00:00" class="time">08:54</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/194" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MTk0LCJ0IjoxNzk0ODY3NDM1LCJoIjoiMDBhZjdkNWEyZTBjN2JkNjBhIn0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<a class="tgme_widget_message_photo_wrap 5956321544894091560 1386814179_460001576" href="https://t.me/tlvsave/194" style="width:707px;background-image:url('https://cdn4.telesco.pe/file/X6PO3VOKLDNqATdPN1XGFoyCtpryPjwT4KDPaXEbahD07h31jZow66fnVAklehMK76w_5IqQb2iC5_t0yTfCYWefoukzMfHnRgNaJ-IezLlDaSOijnDftC4u2jaogzr6XNKmPZwz567mzoNRVnAo0pffboi8iKqqDyIz91are6nqd9kck8jTMiljCxkx9rx_4NQ5vUOK_SnDY1hzwOCX6eQxvhQXo3LSEo890txtfg6eVE9wzlCpityoLuPPLpLJq5VYkmaMzXU1_MoBXePcFRHChuYwX7bE7pVFroxca9qRLtomOlBs7KwF8myq6u7y4ED8sxkh_WhsYQiSOVVfdA.jpg')">
+  <div class="tgme_widget_message_photo" style="padding-top:113.15417256011%"></div>
+</a>
+<div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">75</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/194"><time datetime="2026-10-18T20:30:01+00:00" class="time">20:30</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/195" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MTk1LCJ0IjoxNzk0ODY3NDM1LCJoIjoiYTAwODlkMWM5Y2IxYjc1NDNjIn0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<div class="tgme_widget_message_text js-message_text" dir="auto">Hello to all investors and members of the TLV community&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F918B.png')"><b>👋</b></i><br/><br/>We have wrapped up a fantastic and highly educational trading week&#33; Following the previous directional movement, the markets delivered the expected correction, once again proving why patience pays off.<br/><br/>Working positions on Strategy S1 closed beautifully into a strong profit, while risk management across both accounts executed flawlessly.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F8C90.png')"><b>🌐</b></i> What Drove the Currency Pairs?<br/><br/> <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87AAF09F87BA.png')"><b>🇪🇺</b></i><b> EUR / </b><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87ACF09F87A7.png')"><b>🇬🇧</b></i><b> GBP &amp; </b><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A6F09F87BA.png')"><b>🇦🇺</b></i><b> AUD / </b><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A8F09F87A6.png')"><b>🇨🇦</b></i><b> CAD (S1):</b> The market reversal across European and commodity pairs allowed Strategy S1 to capitalize on accumulated positions and close the entire cycle in a strong positive result.<br/><br/> <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A6F09F87BA.png')"><b>🇦🇺</b></i><b> AUD / </b><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A8F09F87A6.png')"><b>🇨🇦</b></i><b> CAD (S2):</b> Price action on AUD/CAD showed slight fluctuations this week, which the system safely balanced out at breakeven with minimal drawdown.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9BA1.png')"><b>🛡️</b></i> TLV S1 AUDCAD EURGBP<br/>Our flagship strategy patiently managed its active trades during the retracement and surged into a great weekly profit&#33;<br/> <b>Weekly Profit:</b> <b>+1.54%</b> (+2.93 USD)<br/> <b>Max Drawdown:</b> <b>-3.47%</b> <i>(handled smoothly)</i><br/> <b>Balance:</b> <b>194.10 USD</b><br/> <b>Investors:</b> <b>254</b><br/> <b>Profile:</b> Conservative approach on AUD/CAD and EUR/GBP pairs.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9A80.png')"><b>🚀</b></i> TLV S2 AUDCAD MediumRisk<br/>Our dynamic strategy finished the week essentially at breakeven and welcomed another investor aboard—now up to 6 investors&#33;<br/> <b>Weekly Result:</b> <b>-0.01%</b> (-0.03 USD)<br/> <b>Max Drawdown:</b> only <b>-0.36%</b><br/> <b>Balance:</b> <b>301.56 USD</b><br/> <b>Investors:</b> <b>6</b> <i>(welcome to the new member&#33; </i><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F8E89.png')"><b>🎉</b></i><i>)</i><br/> <b>Profile:</b> Dynamic AUD/CAD profile with strict risk controls.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F92A1.png')"><b>💡</b></i> <b>Summary:</b><br/>A textbook example of our trading logic in action: active positions from last week were turned into a strong +1.54% gain thanks to the market correction. Patience and system discipline remain key.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F998F.png')"><b>🙏</b></i> <b>Thank You&#33;</b><br/><br/>A big thank you to our entire community and all <b>260+ investors</b> across both strategies for your trust and support. Here&#39;s to another successful trading week ahead&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9388.png')"><b>📈</b></i><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/E29CA8.png')"><b>✨</b></i><br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9497.png')"><b>🔗</b></i> <b>Registration &amp; Joining the Strategies:</b><br/>If you don&#39;t have a RoboForex account yet, you can register via our official link:<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9189.png')"><b>👉</b></i> <a href="https://www.google.com/search?q=https://my.roboforex.com/en/%3Fa%3Daqyn" target="_blank" rel="noopener" onclick="return confirm('Open this link?\n\n'+this.href);"><u>https://my.roboforex.com/en/?a=aqyn</u></a><br/><br/><i>(Direct links for copying specific strategies via CopyFX can be found in the pinned messages.)</i></div>
+<div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">98</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/195"><time datetime="2026-10-18T20:30:46+00:00" class="time">20:30</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/196" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MTk2LCJ0IjoxNzk0ODY3NDM1LCJoIjoiMWNhNmU3MWEyZDEzMWUyZTE5In0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<a class="tgme_widget_message_photo_wrap 5976606464979701652 1391537130_460001172" href="https://t.me/tlvsave/196" style="width:714px;background-image:url('https://cdn4.telesco.pe/file/IRXMJWl1GO5hPiazbQ7UPLgEiPLzKSrPtHoAoltxAKTZxPSaJKAJqZ84XQHtvLP-qtb8i-l4zQrT_3B9tV3b5TwlJ9fyQH40EnHX9r_VNUB16uDp-Uv5GEYy4tOcM7VYOdsUWIgmVgubHBce-aH8Q-4qzOdBlmDrj8h3bVEileBMgUJpyoltY8iKMkwejwPiuEvB7WmnMXSN1UevYD1_0B3i1Z2cSTLDD3kD2kJ6cuzuZe-9QDnlv6k2CoNJEyaXb0YHDo2EQNdPwxb1J8ya_2ZsatHzLcMIne8eITDg97FXa2VpSJvfnvagmPoi6rJ9wIrValncFraTnl3fKnRrBA.jpg')">
+  <div class="tgme_widget_message_photo" style="padding-top:112.04481792717%"></div>
+</a>
+<div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">76</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/196"><time datetime="2026-10-25T11:28:35+00:00" class="time">11:28</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/197" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MTk3LCJ0IjoxNzk0ODY3NDM1LCJoIjoiZmFjMzNjMTNlZGRkN2Q0ZThiIn0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<div class="tgme_widget_message_text js-message_text" dir="auto">Hello to all investors and members of the TLV community&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F918B.png')"><b>👋</b></i><br/><br/>Another trading week is in the books. Markets presented contrasting price action across our strategies this week. While our dynamic S2 delivered a stellar growth performance closing in strong profit, our conservative S1 is currently managing active working positions as we patiently await the expected market correction.<br/>Risk management across both accounts remains tightly controlled, keeping floating drawdowns at safe levels.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F8C90.png')"><b>🌐</b></i> What Drove the Currency Pairs?<br/><br/> <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A6F09F87BA.png')"><b>🇦🇺</b></i> AUD / <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A8F09F87A6.png')"><b>🇨🇦</b></i> CAD (S2): Smooth price action on the AUD/CAD commodity pair allowed Strategy S2 to capture a strong upward swing and secure solid profits.<br/><br/> <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87AAF09F87BA.png')"><b>🇪🇺</b></i> EUR / <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87ACF09F87A7.png')"><b>🇬🇧</b></i> GBP &amp; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A6F09F87BA.png')"><b>🇦🇺</b></i> AUD / <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A8F09F87A6.png')"><b>🇨🇦</b></i> CAD (S1): Stronger directional movement opened structured positions on Strategy S1, where the algorithm is patiently waiting for the proper market retracement.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9A80.png')"><b>🚀</b></i> TLV S2 AUDCAD MediumRisk<br/>Our dynamic strategy delivered a fantastic weekly performance, significantly pushing its equity curve upwards&#33;<br/> Weekly Profit: +1.02% (+3.06 USD)<br/> Max Drawdown: only -0.42%<br/> Balance: 308.46 USD<br/> Investors: 4<br/> Profile: Dynamic AUD/CAD profile built for efficient profit acceleration.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9BA1.png')"><b>🛡️</b></i> TLV S1 AUDCAD EURGBP<br/>Our flagship strategy is managing active trades within a strictly monitored, secure framework while our investor community continues to expand—now reaching 256 investors&#33;<br/> Weekly Result: -0.23% (-0.45 USD)<br/> Max Drawdown: -1.41% (fully within safe risk parameters)<br/> Balance: 194.56 USD<br/> Investors: 256 (welcome to the new members&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9388.png')"><b>📈</b></i>)<br/> Profile: Conservative approach on AUD/CAD and EUR/GBP pairs.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F92A1.png')"><b>💡</b></i> Summary:<br/>Trading demands a system and patience. While S2 delivered a great +1.02% gain this week, S1 safely holds open trades with controlled risk exposure. Capital preservation remains fully intact.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F998F.png')"><b>🙏</b></i> Thank You&#33;<br/><br/>A big thank you to all 260+ investors across both strategies for your continued trust and support. Here’s to another disciplined trading week ahead&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9388.png')"><b>📈</b></i><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/E29CA8.png')"><b>✨</b></i><br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9497.png')"><b>🔗</b></i> Registration &amp; Joining the Strategies:<br/>If you don’t have a RoboForex account yet, you can register via our official link:<br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9189.png')"><b>👉</b></i> <a href="https://my.roboforex.com/en/?a=aqyn" target="_blank" rel="noopener">https://my.roboforex.com/en/?a=aqyn</a><br/><br/>(Direct links for copying specific strategies via CopyFX can be found in the pinned messages.)</div>
+<div class="tgme_widget_message_reactions js-message_reactions"><span class="tgme_reaction"><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/E29DA4.png')"><b>❤</b></i>2</span></div><div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">87</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/197"><time datetime="2026-10-25T11:29:14+00:00" class="time">11:29</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/198" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MTk4LCJ0IjoxNzk0ODY3NDM1LCJoIjoiYTczMGM5YzlkYWQ5NTU0NWU2In0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<a class="tgme_widget_message_photo_wrap 5996602673068711584 1396192860_460005024" href="https://t.me/tlvsave/198" style="width:701px;background-image:url('https://cdn4.telesco.pe/file/b-OEWZb3VaFxNLkPwplXGnXaSG6R-CdDvF-nVmOGNOqzjFsykMAYaOqHeughzeLstVa8aD-Vw4RPf_fbV6Uir--e4hloZXNpaKrzvCfi-42E_ez5fB-JZ_c-ZW9LNpAbyAjaOwJDj4ewtWibxOzpMS2BC8EINduSSRVrqxdm2v0YtdmvRaRJkOTHeLxDsA9HobL_QtAbzZrZEhjqbo-sa1LUYFLNpepGRSAcGo7KgB7Lwxkt-g1je05-Zq2sH8lE49rVESEI3MK0PbFMd7Wc9gKnxqXrf6WemS5hcef2s5jCMcgMwlSTStRrYq1bbjV4IDYHT9OXgtEwH4z6hnJJuw.jpg')">
+  <div class="tgme_widget_message_photo" style="padding-top:114.12268188302%"></div>
+</a>
+<div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">54</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/198"><time datetime="2026-11-01T22:23:38+00:00" class="time">22:23</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/199" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MTk5LCJ0IjoxNzk0ODY3NDM1LCJoIjoiNWI4Y2Y2YWVhOWY0ZTc5NGJhIn0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<div class="tgme_widget_message_text js-message_text" dir="auto">Hello to all investors and members of the TLV community&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F918B.png')"><b>👋</b></i><br/><br/>Another trading week is in the books. The markets once again demonstrated how vital a robust, disciplined system is. While our dynamic S2 strategy continues its steady and smooth upward trajectory, our flagship S1 (particularly on the EUR/GBP currency pair) is facing a continuing downward trend—marking the second time we are managing active working positions while patiently waiting for the expected market correction to close them in profit.<br/><br/>Times like these truly test risk management. Our algorithms keep the situation fully under control, ensuring capital remains protected within a secure framework.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F8C90.png')"><b>🌐</b></i> What Drove the Currency Pairs?<br/><br/> <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A6F09F87BA.png')"><b>🇦🇺</b></i> AUD / <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A8F09F87A6.png')"><b>🇨🇦</b></i> CAD (S2): Smooth and stable price action on the AUD/CAD commodity pair allowed Strategy S2 to deliver another solid profit with minimal risk exposure.<br/><br/> <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87AAF09F87BA.png')"><b>🇪🇺</b></i> EUR / <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87ACF09F87A7.png')"><b>🇬🇧</b></i> GBP (S1): EUR/GBP continues its strong bearish trend, triggering active working positions on Strategy S1. The algorithms are disciplined and standing by for the market retracement.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9A80.png')"><b>🚀</b></i> TLV S2 AUDCAD <br/><br/>MediumRisk<br/>Our dynamic strategy delivered another great week, pushing its balance past 318 USD&#33;<br/> Weekly Profit: +0.46% (+1.45 USD)<br/> Max Drawdown: only -0.11%<br/> Balance: 318.66 USD<br/> Investors: 5<br/> Profile: Dynamic AUD/CAD profile built for steady and safe growth.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9BA1.png')"><b>🛡️</b></i> TLV S1 AUDCAD EURGBP<br/><br/>Our flagship strategy is currently navigating a sustained trend on EUR/GBP, patiently waiting for the market correction. Our investor community continues to grow—reaching 258 investors&#33;<br/> Weekly Result: -2.35% (-4.53 USD)<br/> Max Drawdown: -4.74% (fully within safe risk parameters for this type of market phase)<br/> Balance: 194.82 USD<br/> Investors: 258 (welcome to the new members&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9388.png')"><b>📈</b></i>)<br/> Profile: Conservative approach on AUD/CAD and EUR/GBP pairs.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F92A1.png')"><b>💡</b></i> Summary:<br/>Trading naturally involves periods where the market pushes in one direction for longer (such as EUR/GBP right now). For the second time, we are managing open positions while patiently awaiting a correction to lock in profits. Our algorithms are built for this, keeping risk tightly controlled.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F998F.png')"><b>🙏</b></i> Thank You&#33;<br/>A big thank you to all 263+ investors across both strategies for your unwavering trust and support. Here’s to moving forward step by step&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9388.png')"><b>📈</b></i><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/E29CA8.png')"><b>✨</b></i><br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9497.png')"><b>🔗</b></i> Registration &amp; Joining the Strategies:<br/>If you don’t have a RoboForex account yet, you can register via our official link:<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9189.png')"><b>👉</b></i> <a href="https://my.roboforex.com/en/?a=aqyn" target="_blank" rel="noopener">https://my.roboforex.com/en/?a=aqyn</a></div>
+<div class="tgme_widget_message_reactions js-message_reactions"><span class="tgme_reaction"><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/E29DA4.png')"><b>❤</b></i>1</span></div><div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">64</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/199"><time datetime="2026-11-01T22:24:28+00:00" class="time">22:24</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/200" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MjAwLCJ0IjoxNzk0ODY3NDM1LCJoIjoiODNjZDEwODYwODRhNTkyZTc4In0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<a class="tgme_widget_message_photo_wrap 6015053513269907139 1400488781_460000963" href="https://t.me/tlvsave/200" style="width:696px;background-image:url('https://cdn4.telesco.pe/file/fpoNcyB1PxjxO7w22NO2-ZIqZ-Qgv3m3BrKf5h5MC6F6_qklSh0UMDbwfFhToKpG3tsp1NnoDkQnNGDD4H8kkVg74NQWFrrHg5OOfCoXqwyEsULApw93f52Hc8aAEGYnP8eVYTPSjCkn00Mw7ugZlbxAa604jYAN-VLZ2AuaDrq4ppEI7TXsnovA7ulUQF6_9G4n7GSnDdccLIj3PgBYyPIK0SpAijqxExZMYfWuuv4ox-l2IB4lFdPs9-FS7BEqV1kgKX2Wgh9jCRizyVpoj6_MY61eiHVghaw8C7BkrDKfIGuLmQpUvu72MtDs0gTFFyygL4fEhzPu0_6a3F-1eA.jpg')">
+  <div class="tgme_widget_message_photo" style="padding-top:114.94252873563%"></div>
+</a>
+<div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">38</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/200"><time datetime="2026-11-07T15:40:45+00:00" class="time">15:40</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/201" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MjAxLCJ0IjoxNzk0ODY3NDM1LCJoIjoiZDIyM2Y1ZjJlYWZhNjE4NDMxIn0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<div class="tgme_widget_message_text js-message_text" dir="auto">Hello to all investors and members of the TLV community&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F918B.png')"><b>👋</b></i><br/><br/>Another trading week is in the books. The markets once again demonstrated that discipline and a robust system are everything. While our dynamic S2 strategy delivered a solid rebound and closed in the green, our conservative flagship S1 (especially on the EUR/GBP currency pair) continues to navigate a sustained trend. We are managing active working positions here, patiently awaiting the market correction to close the cycle in profit.<br/><br/>Times like these truly test risk management—our algorithms keep everything tightly controlled within a secure, pre-set framework.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F8C90.png')"><b>🌐</b></i> What Drove the Currency Pairs?<br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A6F09F87BA.png')"><b>🇦🇺</b></i> AUD / <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A8F09F87A6.png')"><b>🇨🇦</b></i> CAD (S2): Stable price action on the AUD/CAD commodity pair allowed Strategy S2 to capture upside momentum and secure a clean green close.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87AAF09F87BA.png')"><b>🇪🇺</b></i> EUR / <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87ACF09F87A7.png')"><b>🇬🇧</b></i> GBP (S1): EUR/GBP remains in a stronger directional trend, keeping active working positions open on Strategy S1 as the algorithms patiently stand by for a correction.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9A80.png')"><b>🚀</b></i> TLV S2 AUDCAD MediumRisk<br/>Our dynamic strategy handled the week brilliantly, pushing its balance past 328 USD while welcoming more investors aboard&#33;<br/>Weekly Profit: +0.49% (+1.55 USD)<br/>Max Drawdown: -4.64% (handled smoothly during the market bounce)<br/>Balance: 328.17 USD<br/>Investors: 7 (welcome to the new S2 members&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F8E89.png')"><b>🎉</b></i>)<br/>Profile: Dynamic AUD/CAD profile built for efficient profit growth.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9BA1.png')"><b>🛡️</b></i> TLV S1 AUDCAD EURGBP<br/>Our flagship strategy is currently managing an ongoing trend on EUR/GBP, patiently waiting for the market correction. Our investor community continues to expand rapidly—reaching 263 investors&#33;<br/>Weekly Result: -1.99% (-3.83 USD)<br/>Max Drawdown: -5.3% (fully within safe risk parameters for this market phase)<br/>Balance: 195.49 USD<br/>Investors: 263 (thank you for your incredible trust&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9388.png')"><b>📈</b></i>)<br/>Profile: Conservative approach on AUD/CAD and EUR/GBP pairs.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F92A1.png')"><b>💡</b></i> Summary:<br/>Trading naturally involves periods where markets trend for longer stretches. S2 delivered a great profit this week, while on S1 we are patiently waiting out the active working trades for a correction. Our algorithms are built for this, keeping capital fully protected.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F998F.png')"><b>🙏</b></i> Thank You&#33;<br/>A big thank you to all 270+ investors across both strategies for your unwavering trust and support. Here’s to moving forward step by step&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9388.png')"><b>📈</b></i><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/E29CA8.png')"><b>✨</b></i><br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9497.png')"><b>🔗</b></i> Registration &amp; Joining the Strategies:<br/>If you don’t have a RoboForex account yet, you can register via our official link:<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9189.png')"><b>👉</b></i> <a href="https://my.roboforex.com/en/?a=aqyn" target="_blank" rel="noopener">https://my.roboforex.com/en/?a=aqyn</a>&nbsp;</div>
+<div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">48</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/201"><time datetime="2026-11-07T15:42:23+00:00" class="time">15:42</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/202" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MjAyLCJ0IjoxNzk0ODY3NDM1LCJoIjoiNTVkMzViNDMwMjAxMmNmYzUwIn0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<a class="tgme_widget_message_photo_wrap 6039706518174765469 1406228756_460001693" href="https://t.me/tlvsave/202" style="width:701px;background-image:url('https://cdn4.telesco.pe/file/fvV8GRMs_6qcj_SRKeAG19c8eeivHU9IV8UfS5-N5BaQh0E-HCUGFXe8AadHmbg-TfGdebVED5N8tBHoKMLFuTYclBBYphe8XUpFqeMgWA2h-WQPVZKOodeXO_qlcgAXuyScxTAn6-OIFBFnP2QMHuKn87-Etpl5eKAxo47EvgGQIsGgSdFi8HrUcEFNo2Ibe14pR3vURPwKNs64evMKWuKKjEsmYWOZVKHNfI49M2ltEyK26jJRDwT1UX4QpBGTTV0wbCZPt3KH-0344iN9dACbCH-HSB9dVCC8OztCVwXYEwFtXi9APHpd2eE2EHyzEMbdfaW_fOgoyiLsPXDK0w.jpg')">
+  <div class="tgme_widget_message_photo" style="padding-top:114.12268188302%"></div>
+</a>
+<div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">23</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/202"><time datetime="2026-11-15T14:55:32+00:00" class="time">14:55</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div><div class="tgme_widget_message_wrap js-widget_message_wrap"><div class="tgme_widget_message text_not_supported_wrap js-widget_message" data-post="tlvsave/203" data-view="eyJjIjotMjQ4NDQ4ODY2NiwicCI6MjAzLCJ0IjoxNzk0ODY3NDM1LCJoIjoiN2VmOGFhOTFhM2UyZjA1MTNlIn0">
+  <div class="tgme_widget_message_user"><a href="https://t.me/tlvsave"><i class="tgme_widget_message_user_photo bgcolor2" data-content="T"><img src="https://cdn4.telesco.pe/file/MPU0VvNrNp1pg-xKguSzfHeGXFDzH6VhhDoHlQoC17R9Eov3uIam7YeewVGNP-VOeNAQKuH2pYoC7zTH7xpguzl6OMFb5WahvMduzMTxJmPoC0eCY6JfcyAh0YxRoREQbmtmpdY5frs9F9BMXTZuvT55ozjJMgDKqCAHRD7A9d0B4Q1UxHXqFOG3J8nsLoS-Fe8x1Kw5GpOrP4My-dIivPBXJSC6DxyWino3Em6SyVsa0phREDsfm416sgjyhtMsCW40aYyDR8b7E9dk7kQmRUA7xpfgrT8Z2Vp97CRUaOzmOp3IwEnVEd8MLeWMORCVOUke5caDxw0UT7zgeSwuhw.jpg"></i></a></div>
+  <div class="tgme_widget_message_bubble">
+    
+        <i class="tgme_widget_message_bubble_tail">
+      <svg class="bubble_icon" width="9px" height="20px" viewBox="0 0 9 20">
+        <g fill="none">
+          <path class="background" fill="#ffffff" d="M8,1 L9,1 L9,20 L8,20 L8,18 C7.807,15.161 7.124,12.233 5.950,9.218 C5.046,6.893 3.504,4.733 1.325,2.738 L1.325,2.738 C0.917,2.365 0.89,1.732 1.263,1.325 C1.452,1.118 1.72,1 2,1 L8,1 Z"></path>
+          <path class="border_1x" fill="#d7e3ec" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0 L9,0 L9,20 L7,20 L7,20 L7.002,18.068 C6.816,15.333 6.156,12.504 5.018,9.58 C4.172,7.406 2.72,5.371 0.649,3.475 C-0.165,2.729 -0.221,1.464 0.525,0.649 C0.904,0.236 1.439,0 2,0 Z"></path>
+          <path class="border_2x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.5 L9,0.5 L9,20 L7.5,20 L7.5,20 L7.501,18.034 C7.312,15.247 6.64,12.369 5.484,9.399 C4.609,7.15 3.112,5.052 0.987,3.106 C0.376,2.547 0.334,1.598 0.894,0.987 C1.178,0.677 1.579,0.5 2,0.5 Z"></path>
+          <path class="border_3x" d="M9,1 L2,1 C1.72,1 1.452,1.118 1.263,1.325 C0.89,1.732 0.917,2.365 1.325,2.738 C3.504,4.733 5.046,6.893 5.95,9.218 C7.124,12.233 7.807,15.161 8,18 L8,20 L9,20 L9,1 Z M2,0.667 L9,0.667 L9,20 L7.667,20 L7.667,20 L7.668,18.023 C7.477,15.218 6.802,12.324 5.64,9.338 C4.755,7.064 3.243,4.946 1.1,2.983 C0.557,2.486 0.52,1.643 1.017,1.1 C1.269,0.824 1.626,0.667 2,0.667 Z"></path>
+        </g>
+      </svg>
+    </i>
+    <div class="tgme_widget_message_author accent_color"><a class="tgme_widget_message_owner_name" href="https://t.me/tlvsave"><span dir="auto">TLV</span></a></div>
+
+
+<div class="tgme_widget_message_text js-message_text" dir="auto">Hello to all investors and members of the TLV community&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F918B.png')"><b>👋</b></i><br/><br/>Another trading week is in the books. The markets continue to test traders’ patience, underscoring the value of a disciplined, emotion-free system. While our dynamic S2 strategy secured another strong green week, our flagship S1 has been managing active working positions on EUR/GBP for several weeks now, patiently awaiting a larger market correction to close the cycle in profit.<br/>The encouraging news is that floating drawdown on S1 <br/>actually decreased compared to last week, keeping everything tightly within safe parameters.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F8C90.png')"><b>🌐</b></i> What Drove the Currency Pairs?<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A6F09F87BA.png')"><b>🇦🇺</b></i> AUD / <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87A8F09F87A6.png')"><b>🇨🇦</b></i> CAD (S2): Steady price action on the AUD/CAD commodity pair allowed Strategy S2 to consistently lock in gains with minimal drawdown.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87AAF09F87BA.png')"><b>🇪🇺</b></i> EUR / <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F87ACF09F87A7.png')"><b>🇬🇧</b></i> GBP (S1): EUR/GBP remains in an extended multi-week trend cycle. Active positions are safely protected by our risk management as the algorithms stand by for a larger market retracement.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9A80.png')"><b>🚀</b></i> TLV S2 AUDCAD MediumRisk<br/>Our dynamic strategy delivered another textbook green performance and welcomed more investors aboard&#33;<br/>Weekly Profit: +0.74% (+2.43 Max Drawdown: only -0.91%&nbsp;<br/>Balance: 329.75 USD Investors: 9 (welcome to the new S2 members&#33;<br/>Profile: Dynamic AUD/CAD profile built for efficient profit growth.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9BA1.png')"><b>🛡️</b></i> TLV S1 AUDCAD EURGBP<br/>Our flagship strategy is safely managing multi-week open positions on EUR/GBP with improving drawdown levels, while community trust reaches a new high—now at 266 investors&#33;<br/><br/>Weekly Result: -0.52% (-0.99 USD)&nbsp;<br/> Max Drawdown: -3.97% (improved from last week and well within safe risk limits)<br/>Balance: 195.85 USD&nbsp;<br/>Investors: 266 (thank you for your continued suppor<br/><br/>Profile: Conservative approach on AUD/CAD and EUR/GBP pairs.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F92A1.png')"><b>💡</b></i> Summary:<br/>Successful trading is a marathon, not a sprint. S2 continues its strong momentum with a +0.74% gain, while S1 patiently waits for a larger correction on EUR/GBP under strict capital protection. Discipline and consistency remain our foundation.<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F998F.png')"><b>🙏</b></i> Thank You&#33;<br/>A big thank you to all 275+ investors across both strategies for your unwavering trust and patience. Here’s to moving forward step by step&#33; <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9388.png')"><b>📈</b></i><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/E29CA8.png')"><b>✨</b></i><br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9497.png')"><b>🔗</b></i> Registration &amp; Joining the Strategies:<br/>If you don’t have a RoboForex account yet, you can register via our official link:<br/><br/><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F9189.png')"><b>👉</b></i> <a href="https://my.roboforex.com/en/?a=aqyn" target="_blank" rel="noopener">https://my.roboforex.com/en/?a=aqyn</a></div>
+<div class="tgme_widget_message_reactions js-message_reactions"><span class="tgme_reaction"><i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/E29DA4.png')"><b>❤</b></i>1</span></div><div class="tgme_widget_message_footer compact js-message_footer">
+  
+  <div class="tgme_widget_message_info short js-message_info">
+    <span class="tgme_widget_message_views">25</span><span class="copyonly"> views</span><span class="tgme_widget_message_meta"><a class="tgme_widget_message_date" href="https://t.me/tlvsave/203"><time datetime="2026-11-15T14:59:07+00:00" class="time">14:59</time></a></span>
+  </div>
+</div>
+  </div>
+  
+</div></div>
+    </section>
+  </div>
+</main>
+    <script src="//telegram.org/js/jquery.min.js"></script>
+    <script src="//telegram.org/js/jquery-ui.min.js"></script>
+    <script src="//telegram.org/js/tgwallpaper.min.js?3"></script>
+<script src="//telegram.org/js/tgsticker.js?32"></script>
+
+    <script src="//telegram.org/js/widget-frame.js?68"></script>
+    <script src="//telegram.org/js/telegram-web.js?14"></script>
+    <script>TWeb.init();
+</script>
+    
+  </body>
+</html>
+<!-- page generated in 167.96ms -->
