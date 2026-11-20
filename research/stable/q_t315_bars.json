@@ -1,0 +1,162 @@
+[
+ {
+  "name": "Bots ECN demo",
+  "expert": "Jev\\BarExport.ex5",
+  "symbol": "EURUSD",
+  "period": "H1",
+  "model": 2,
+  "deposit": 100000,
+  "leverage": 100,
+  "base_set": "bar_export.set",
+  "from": "2015.01.01",
+  "to": "2026.11.15",
+  "report": "barexp_t315_EURUSD",
+  "overrides": {
+   "OutName": "t315"
+  }
+ },
+ {
+  "name": "Bots ECN demo",
+  "expert": "Jev\\BarExport.ex5",
+  "symbol": "GBPUSD",
+  "period": "H1",
+  "model": 2,
+  "deposit": 100000,
+  "leverage": 100,
+  "base_set": "bar_export.set",
+  "from": "2015.01.01",
+  "to": "2026.11.15",
+  "report": "barexp_t315_GBPUSD",
+  "overrides": {
+   "OutName": "t315"
+  }
+ },
+ {
+  "name": "Bots ECN demo",
+  "expert": "Jev\\BarExport.ex5",
+  "symbol": "USDJPY",
+  "period": "H1",
+  "model": 2,
+  "deposit": 100000,
+  "leverage": 100,
+  "base_set": "bar_export.set",
+  "from": "2015.01.01",
+  "to": "2026.11.15",
+  "report": "barexp_t315_USDJPY",
+  "overrides": {
+   "OutName": "t315"
+  }
+ },
+ {
+  "name": "Bots ECN demo",
+  "expert": "Jev\\BarExport.ex5",
+  "symbol": "AUDUSD",
+  "period": "H1",
+  "model": 2,
+  "deposit": 100000,
+  "leverage": 100,
+  "base_set": "bar_export.set",
+  "from": "2015.01.01",
+  "to": "2026.11.15",
+  "report": "barexp_t315_AUDUSD",
+  "overrides": {
+   "OutName": "t315"
+  }
+ },
+ {
+  "name": "Bots ECN demo",
+  "expert": "Jev\\BarExport.ex5",
+  "symbol": "XAUUSD",
+  "period": "H1",
+  "model": 2,
+  "deposit": 100000,
+  "leverage": 100,
+  "base_set": "bar_export.set",
+  "from": "2015.01.01",
+  "to": "2026.11.15",
+  "report": "barexp_t315_XAUUSD",
+  "overrides": {
+   "OutName": "t315"
+  }
+ },
+ {
+  "name": "Bots ECN demo",
+  "expert": "Jev\\BarExport.ex5",
+  "symbol": ".US500Cash",
+  "period": "H1",
+  "model": 2,
+  "deposit": 100000,
+  "leverage": 100,
+  "base_set": "bar_export.set",
+  "from": "2015.01.01",
+  "to": "2026.11.15",
+  "report": "barexp_t315_US500Cash",
+  "overrides": {
+   "OutName": "t315"
+  }
+ },
+ {
+  "name": "Bots ECN demo",
+  "expert": "Jev\\BarExport.ex5",
+  "symbol": ".DE40Cash",
+  "period": "H1",
+  "model": 2,
+  "deposit": 100000,
+  "leverage": 100,
+  "base_set": "bar_export.set",
+  "from": "2015.01.01",
+  "to": "2026.11.15",
+  "report": "barexp_t315_DE40Cash",
+  "overrides": {
+   "OutName": "t315"
+  }
+ },
+ {
+  "name": "Bots ECN demo",
+  "expert": "Jev\\BarExport.ex5",
+  "symbol": ".JP225Cash",
+  "period": "H1",
+  "model": 2,
+  "deposit": 100000,
+  "leverage": 100,
+  "base_set": "bar_export.set",
+  "from": "2015.01.01",
+  "to": "2026.11.15",
+  "report": "barexp_t315_JP225Cash",
+  "overrides": {
+   "OutName": "t315"
+  }
+ },
+ {
+  "name": "Bots ECN demo",
+  "expert": "Jev\\BarExport.ex5",
+  "symbol": "WTI",
+  "period": "H1",
+  "model": 2,
+  "deposit": 100000,
+  "leverage": 100,
+  "base_set": "bar_export.set",
+  "from": "2015.01.01",
+  "to": "2026.11.15",
+  "report": "barexp_t315_WTI",
+  "overrides": {
+   "OutName": "t315"
+  }
+ },
+ {
+  "name": "Bots ECN demo",
+  "expert": "Jev\\BarExport.ex5",
+  "symbol": "XAGUSD",
+  "period": "H1",
+  "model": 2,
+  "deposit": 100000,
+  "leverage": 100,
+  "base_set": "bar_export.set",
+  "from": "2015.01.01",
+  "to": "2026.11.15",
+  "report": "barexp_t315_XAGUSD",
+  "overrides": {
+   "OutName": "t315"
+  }
+ }
+]
