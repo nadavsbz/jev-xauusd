@@ -7,6 +7,10 @@ CF = "C:/Users/Benza/AppData/Roaming/MetaQuotes/Terminal/Common/Files/"
 SYMS = ["EURUSD", "GBPUSD", "USDJPY", "AUDUSD", "XAUUSD", "XAGUSD", ".US500Cash", ".DE40Cash", ".JP225Cash", "WTI"]
 DIGITS = {"EURUSD": 5, "GBPUSD": 5, "USDJPY": 3, "AUDUSD": 5, "XAUUSD": 2, "XAGUSD": 3, ".US500Cash": 2, ".DE40Cash": 2, ".JP225Cash": 2, "WTI": 3}
 COMM = 0.5e-4   # round trip, of notional
+# technical fix 20.11 17:45 (before any result): the exported bar spread is mostly 0 in open-prices mode, so it cannot price costs.
+# Fixed one-side costs (ASSUMED, typical RF ECN spread/2 + commission/2), in fraction of price:
+SIDE = {"EURUSD": 0.5e-4, "GBPUSD": 0.6e-4, "USDJPY": 0.5e-4, "AUDUSD": 0.6e-4, "XAUUSD": 0.8e-4, "XAGUSD": 4.0e-4,
+        ".US500Cash": 0.6e-4, ".DE40Cash": 0.6e-4, ".JP225Cash": 1.0e-4, "WTI": 2.6e-4}
 
 
 def load(s):
@@ -17,12 +21,11 @@ def load(s):
 
 
 def cost_ok(s, d):
-    h = d[(d.index.hour >= 10) & (d.index.hour <= 20)]
-    side = (h.spr / h.close).median() / 2 + COMM / 2      # one side: half spread + half commission
+    side = SIDE[s]
     return float(side), bool(side <= 2e-4)
 
 
-def trades(d):
+def trades(d, s):
     h, l, c, o = d.high.values, d.low.values, d.close.values, d.open.values
     tr = np.maximum(h - l, np.maximum(abs(h - np.r_[c[0], c[:-1]]), abs(l - np.r_[c[0], c[:-1]])))
     atr = pd.Series(tr).rolling(20).mean().values
@@ -43,7 +46,7 @@ def trades(d):
         if x is None: break
         units = 0.0025 / (2 * a / e)                          # 0.25% risk at the stop
         gross = sig * (x - e) / e * units
-        cst = ((spr[i + 1] + spr[min(j, n - 1)]) / 2 / e + COMM) * units
+        cst = 2 * SIDE[s] * units
         out.append((idx[i + 1], sig, gross - cst, cst))
         i = j
     return pd.DataFrame(out, columns=["t", "side", "r", "cost"])
@@ -63,7 +66,7 @@ if __name__ == "__main__":
         print(json.dumps({s: {"side_cost_bp": round(v[0] * 1e4, 2), "ok": v[1]} for s, v in costs.items()}, indent=1)); sys.exit()
     lo, hi = ("2015-01-01", "2020-12-31") if part == "dev" else ("2021-01-01", "2026-11-15")
     keep = [s for s in data if costs[s][1]]
-    T = {s: trades(data[s][lo:hi]) for s in keep}
+    T = {s: trades(data[s][lo:hi], s) for s in keep}
     days = pd.bdate_range(lo, min(pd.Timestamp(hi), max(data[s].index[-1] for s in keep)))
     per = {s: T[s].groupby(T[s].t.dt.normalize()).r.sum().reindex(days, fill_value=0) for s in keep if len(T[s])}
     port = pd.DataFrame(per).sum(axis=1)
