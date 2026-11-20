@@ -1,0 +1,1047 @@
+{
+ "experiment": "t301",
+ "phase": "dev",
+ "generated": "2026-11-20 13:05 Asia/Jerusalem",
+ "gates": "pass iff paths_no_wipe>=2 of 3 AND median_net(15 cells)>0 AND median_dd(15 cells)<=25 (PREREG_t301.md, frozen)",
+ "verdicts": {
+  "base": {
+   "dev": {
+    "paths_no_wipe": 0,
+    "n_paths": 3,
+    "median_net": -4742.0,
+    "median_dd": 90.09,
+    "cells": 15,
+    "wiped_cells": 12,
+    "pass": false
+   },
+   "dev_realticks_2021_2023": {
+    "paths_no_wipe": 0,
+    "n_paths": 3,
+    "median_net": -3807.23,
+    "median_dd": 84.85,
+    "cells": 9,
+    "wiped_cells": 6,
+    "pass": false
+   }
+  },
+  "a_news": {
+   "dev": {
+    "paths_no_wipe": 0,
+    "n_paths": 3,
+    "median_net": -4705.54,
+    "median_dd": 89.83,
+    "cells": 15,
+    "wiped_cells": 12,
+    "pass": false
+   },
+   "dev_realticks_2021_2023": {
+    "paths_no_wipe": 0,
+    "n_paths": 3,
+    "median_net": -3790.21,
+    "median_dd": 84.75,
+    "cells": 9,
+    "wiped_cells": 6,
+    "pass": false
+   }
+  },
+  "b_fri": {
+   "dev": {
+    "paths_no_wipe": 0,
+    "n_paths": 3,
+    "median_net": -4965.0,
+    "median_dd": 89.27,
+    "cells": 15,
+    "wiped_cells": 12,
+    "pass": false
+   },
+   "dev_realticks_2021_2023": {
+    "paths_no_wipe": 0,
+    "n_paths": 3,
+    "median_net": -3967.18,
+    "median_dd": 85.61,
+    "cells": 9,
+    "wiped_cells": 6,
+    "pass": false
+   }
+  },
+  "c_dayeq": {
+   "dev": {
+    "paths_no_wipe": 2,
+    "n_paths": 3,
+    "median_net": -2232.5,
+    "median_dd": 61.82,
+    "cells": 15,
+    "wiped_cells": 1,
+    "pass": false
+   },
+   "dev_realticks_2021_2023": {
+    "paths_no_wipe": 2,
+    "n_paths": 3,
+    "median_net": -4254.9,
+    "median_dd": 74.76,
+    "cells": 9,
+    "wiped_cells": 1,
+    "pass": false
+   }
+  },
+  "d_cap6": {
+   "dev": {
+    "paths_no_wipe": 2,
+    "n_paths": 3,
+    "median_net": -913.69,
+    "median_dd": 58.59,
+    "cells": 15,
+    "wiped_cells": 1,
+    "pass": false
+   },
+   "dev_realticks_2021_2023": {
+    "paths_no_wipe": 3,
+    "n_paths": 3,
+    "median_net": -837.36,
+    "median_dd": 54.99,
+    "cells": 9,
+    "wiped_cells": 0,
+    "pass": false
+   }
+  },
+  "all": {
+   "dev": {
+    "paths_no_wipe": 3,
+    "n_paths": 3,
+    "median_net": -2127.89,
+    "median_dd": 56.59,
+    "cells": 15,
+    "wiped_cells": 0,
+    "pass": false
+   },
+   "dev_realticks_2021_2023": {
+    "paths_no_wipe": 3,
+    "n_paths": 3,
+    "median_net": -2423.15,
+    "median_dd": 57.48,
+    "cells": 9,
+    "wiped_cells": 0,
+    "pass": false
+   }
+  }
+ },
+ "any_pass": false,
+ "holdout_launched": false,
+ "cells": {
+  "base_d0_2019": {
+   "net": -6092.55,
+   "dd_pct": 103.07,
+   "pf": 0.58,
+   "trades": 1833,
+   "wipe": true,
+   "stopout_at": "2019.06.03 13:30:00",
+   "final_balance": -92.55,
+   "quality": "0% real ticks"
+  },
+  "base_d0_2020": {
+   "net": -5884.04,
+   "dd_pct": 99.12,
+   "pf": 0.76,
+   "trades": 5674,
+   "wipe": true,
+   "stopout_at": "2020.07.27 14:00:00",
+   "final_balance": 115.96,
+   "quality": "63% real ticks"
+  },
+  "base_d0_2021": {
+   "net": -4742.0,
+   "dd_pct": 90.09,
+   "pf": 0.8,
+   "trades": 7812,
+   "wipe": true,
+   "stopout_at": "2021.09.16 16:41:00",
+   "final_balance": 1258.0,
+   "quality": "100% real ticks"
+  },
+  "base_d0_2022": {
+   "net": 11165.73,
+   "dd_pct": 25.01,
+   "pf": 1.46,
+   "trades": 11246,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 17165.73,
+   "quality": "100% real ticks"
+  },
+  "base_d0_2023": {
+   "net": -3720.74,
+   "dd_pct": 84.27,
+   "pf": 0.88,
+   "trades": 8126,
+   "wipe": true,
+   "stopout_at": "2023.09.27 18:26:00",
+   "final_balance": 2279.26,
+   "quality": "100% real ticks"
+  },
+  "base_d20_2019": {
+   "net": -5392.99,
+   "dd_pct": 99.74,
+   "pf": 0.44,
+   "trades": 1361,
+   "wipe": true,
+   "stopout_at": "2019.04.18 04:45:00",
+   "final_balance": 607.01,
+   "quality": "0% real ticks"
+  },
+  "base_d20_2020": {
+   "net": -5808.65,
+   "dd_pct": 98.56,
+   "pf": 0.76,
+   "trades": 5689,
+   "wipe": true,
+   "stopout_at": "2020.07.27 17:47:00",
+   "final_balance": 191.35,
+   "quality": "63% real ticks"
+  },
+  "base_d20_2021": {
+   "net": -4649.4,
+   "dd_pct": 89.44,
+   "pf": 0.82,
+   "trades": 7692,
+   "wipe": true,
+   "stopout_at": "2021.09.16 16:41:00",
+   "final_balance": 1350.6,
+   "quality": "100% real ticks"
+  },
+  "base_d20_2022": {
+   "net": 11400.98,
+   "dd_pct": 24.72,
+   "pf": 1.45,
+   "trades": 11210,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 17400.98,
+   "quality": "100% real ticks"
+  },
+  "base_d20_2023": {
+   "net": -3836.56,
+   "dd_pct": 84.95,
+   "pf": 0.88,
+   "trades": 8024,
+   "wipe": true,
+   "stopout_at": "2023.09.27 18:26:00",
+   "final_balance": 2163.44,
+   "quality": "100% real ticks"
+  },
+  "base_d50_2019": {
+   "net": -6588.96,
+   "dd_pct": 109.55,
+   "pf": 0.47,
+   "trades": 1830,
+   "wipe": true,
+   "stopout_at": "2019.06.03 13:30:00",
+   "final_balance": -588.96,
+   "quality": "0% real ticks"
+  },
+  "base_d50_2020": {
+   "net": -5962.96,
+   "dd_pct": 99.71,
+   "pf": 0.73,
+   "trades": 5606,
+   "wipe": true,
+   "stopout_at": "2020.07.27 06:16:00",
+   "final_balance": 37.04,
+   "quality": "63% real ticks"
+  },
+  "base_d50_2021": {
+   "net": 9442.8,
+   "dd_pct": 79.05,
+   "pf": 1.49,
+   "trades": 10503,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 15442.8,
+   "quality": "100% real ticks"
+  },
+  "base_d50_2022": {
+   "net": -5840.3,
+   "dd_pct": 97.88,
+   "pf": 0.47,
+   "trades": 1356,
+   "wipe": true,
+   "stopout_at": "2022.02.24 06:16:00",
+   "final_balance": 159.7,
+   "quality": "100% real ticks"
+  },
+  "base_d50_2023": {
+   "net": -3807.23,
+   "dd_pct": 84.85,
+   "pf": 0.88,
+   "trades": 8069,
+   "wipe": true,
+   "stopout_at": "2023.09.27 18:25:00",
+   "final_balance": 2192.77,
+   "quality": "100% real ticks"
+  },
+  "a_news_d0_2019": {
+   "net": -6109.47,
+   "dd_pct": 103.28,
+   "pf": 0.57,
+   "trades": 1806,
+   "wipe": true,
+   "stopout_at": "2019.06.03 13:30:00",
+   "final_balance": -109.47,
+   "quality": "0% real ticks"
+  },
+  "a_news_d0_2020": {
+   "net": -5821.15,
+   "dd_pct": 98.63,
+   "pf": 0.76,
+   "trades": 5596,
+   "wipe": true,
+   "stopout_at": "2020.07.27 06:16:00",
+   "final_balance": 178.85,
+   "quality": "63% real ticks"
+  },
+  "a_news_d0_2021": {
+   "net": -4587.3,
+   "dd_pct": 88.8,
+   "pf": 0.81,
+   "trades": 7754,
+   "wipe": true,
+   "stopout_at": "2021.09.16 16:39:00",
+   "final_balance": 1412.7,
+   "quality": "100% real ticks"
+  },
+  "a_news_d0_2022": {
+   "net": 11179.87,
+   "dd_pct": 24.99,
+   "pf": 1.45,
+   "trades": 11172,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 17179.87,
+   "quality": "100% real ticks"
+  },
+  "a_news_d0_2023": {
+   "net": -3692.13,
+   "dd_pct": 84.1,
+   "pf": 0.88,
+   "trades": 8064,
+   "wipe": true,
+   "stopout_at": "2023.09.27 18:26:00",
+   "final_balance": 2307.87,
+   "quality": "100% real ticks"
+  },
+  "a_news_d20_2019": {
+   "net": -5403.46,
+   "dd_pct": 99.88,
+   "pf": 0.44,
+   "trades": 1339,
+   "wipe": true,
+   "stopout_at": "2019.04.18 04:45:00",
+   "final_balance": 596.54,
+   "quality": "0% real ticks"
+  },
+  "a_news_d20_2020": {
+   "net": -5851.01,
+   "dd_pct": 98.87,
+   "pf": 0.76,
+   "trades": 5627,
+   "wipe": true,
+   "stopout_at": "2020.07.27 14:00:00",
+   "final_balance": 148.99,
+   "quality": "63% real ticks"
+  },
+  "a_news_d20_2021": {
+   "net": -4705.54,
+   "dd_pct": 89.83,
+   "pf": 0.82,
+   "trades": 7642,
+   "wipe": true,
+   "stopout_at": "2021.09.16 16:41:00",
+   "final_balance": 1294.46,
+   "quality": "100% real ticks"
+  },
+  "a_news_d20_2022": {
+   "net": 11391.24,
+   "dd_pct": 24.73,
+   "pf": 1.44,
+   "trades": 11138,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 17391.24,
+   "quality": "100% real ticks"
+  },
+  "a_news_d20_2023": {
+   "net": -3815.8,
+   "dd_pct": 84.83,
+   "pf": 0.88,
+   "trades": 7957,
+   "wipe": true,
+   "stopout_at": "2023.09.27 18:26:00",
+   "final_balance": 2184.2,
+   "quality": "100% real ticks"
+  },
+  "a_news_d50_2019": {
+   "net": -6615.14,
+   "dd_pct": 109.91,
+   "pf": 0.47,
+   "trades": 1802,
+   "wipe": true,
+   "stopout_at": "2019.06.03 13:30:00",
+   "final_balance": -615.14,
+   "quality": "0% real ticks"
+  },
+  "a_news_d50_2020": {
+   "net": -6065.15,
+   "dd_pct": 100.51,
+   "pf": 0.72,
+   "trades": 5546,
+   "wipe": true,
+   "stopout_at": "2020.07.27 06:16:00",
+   "final_balance": -65.15,
+   "quality": "63% real ticks"
+  },
+  "a_news_d50_2021": {
+   "net": 9346.6,
+   "dd_pct": 79.19,
+   "pf": 1.49,
+   "trades": 10415,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 15346.6,
+   "quality": "100% real ticks"
+  },
+  "a_news_d50_2022": {
+   "net": -5848.4,
+   "dd_pct": 97.99,
+   "pf": 0.47,
+   "trades": 1343,
+   "wipe": true,
+   "stopout_at": "2022.02.24 06:16:00",
+   "final_balance": 151.6,
+   "quality": "100% real ticks"
+  },
+  "a_news_d50_2023": {
+   "net": -3790.21,
+   "dd_pct": 84.75,
+   "pf": 0.88,
+   "trades": 8005,
+   "wipe": true,
+   "stopout_at": "2023.09.27 18:25:00",
+   "final_balance": 2209.79,
+   "quality": "100% real ticks"
+  },
+  "b_fri_d0_2019": {
+   "net": -6240.94,
+   "dd_pct": 104.92,
+   "pf": 0.56,
+   "trades": 1666,
+   "wipe": true,
+   "stopout_at": "2019.06.03 13:30:00",
+   "final_balance": -240.94,
+   "quality": "0% real ticks"
+  },
+  "b_fri_d0_2020": {
+   "net": -6113.15,
+   "dd_pct": 100.91,
+   "pf": 0.73,
+   "trades": 5096,
+   "wipe": true,
+   "stopout_at": "2020.07.27 06:15:00",
+   "final_balance": -113.15,
+   "quality": "63% real ticks"
+  },
+  "b_fri_d0_2021": {
+   "net": -5043.92,
+   "dd_pct": 92.14,
+   "pf": 0.78,
+   "trades": 7110,
+   "wipe": true,
+   "stopout_at": "2021.09.16 16:39:00",
+   "final_balance": 956.08,
+   "quality": "100% real ticks"
+  },
+  "b_fri_d0_2022": {
+   "net": 10138.49,
+   "dd_pct": 26.6,
+   "pf": 1.44,
+   "trades": 10105,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 16138.49,
+   "quality": "100% real ticks"
+  },
+  "b_fri_d0_2023": {
+   "net": -3805.63,
+   "dd_pct": 84.6,
+   "pf": 0.87,
+   "trades": 7368,
+   "wipe": true,
+   "stopout_at": "2023.09.27 18:23:00",
+   "final_balance": 2194.37,
+   "quality": "100% real ticks"
+  },
+  "b_fri_d20_2019": {
+   "net": -4938.86,
+   "dd_pct": 85.51,
+   "pf": 0.45,
+   "trades": 1241,
+   "wipe": true,
+   "stopout_at": "2019.04.18 01:00:00",
+   "final_balance": 1061.14,
+   "quality": "0% real ticks"
+  },
+  "b_fri_d20_2020": {
+   "net": -5836.05,
+   "dd_pct": 98.67,
+   "pf": 0.73,
+   "trades": 5094,
+   "wipe": true,
+   "stopout_at": "2020.07.27 06:14:00",
+   "final_balance": 163.95,
+   "quality": "63% real ticks"
+  },
+  "b_fri_d20_2021": {
+   "net": -5112.32,
+   "dd_pct": 92.66,
+   "pf": 0.78,
+   "trades": 6984,
+   "wipe": true,
+   "stopout_at": "2021.09.16 16:39:00",
+   "final_balance": 887.68,
+   "quality": "100% real ticks"
+  },
+  "b_fri_d20_2022": {
+   "net": 10283.77,
+   "dd_pct": 26.35,
+   "pf": 1.44,
+   "trades": 10069,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 16283.77,
+   "quality": "100% real ticks"
+  },
+  "b_fri_d20_2023": {
+   "net": -3967.18,
+   "dd_pct": 85.61,
+   "pf": 0.87,
+   "trades": 7272,
+   "wipe": true,
+   "stopout_at": "2023.09.27 18:23:00",
+   "final_balance": 2032.82,
+   "quality": "100% real ticks"
+  },
+  "b_fri_d50_2019": {
+   "net": -4965.0,
+   "dd_pct": 89.27,
+   "pf": 0.53,
+   "trades": 1664,
+   "wipe": true,
+   "stopout_at": "2019.06.03 11:00:00",
+   "final_balance": 1035.0,
+   "quality": "0% real ticks"
+  },
+  "b_fri_d50_2020": {
+   "net": -5939.88,
+   "dd_pct": 99.51,
+   "pf": 0.72,
+   "trades": 5056,
+   "wipe": true,
+   "stopout_at": "2020.07.27 06:14:00",
+   "final_balance": 60.12,
+   "quality": "63% real ticks"
+  },
+  "b_fri_d50_2021": {
+   "net": 8675.12,
+   "dd_pct": 81.9,
+   "pf": 1.48,
+   "trades": 9503,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 14675.12,
+   "quality": "100% real ticks"
+  },
+  "b_fri_d50_2022": {
+   "net": -6104.66,
+   "dd_pct": 101.44,
+   "pf": 0.41,
+   "trades": 1185,
+   "wipe": true,
+   "stopout_at": "2022.02.24 06:16:00",
+   "final_balance": -104.66,
+   "quality": "100% real ticks"
+  },
+  "b_fri_d50_2023": {
+   "net": -4116.25,
+   "dd_pct": 86.56,
+   "pf": 0.86,
+   "trades": 7326,
+   "wipe": true,
+   "stopout_at": "2023.09.27 18:23:00",
+   "final_balance": 1883.75,
+   "quality": "100% real ticks"
+  },
+  "c_dayeq_d0_2019": {
+   "net": -2438.44,
+   "dd_pct": 53.45,
+   "pf": 0.85,
+   "trades": 6237,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 3561.56,
+   "quality": "0% real ticks"
+  },
+  "c_dayeq_d0_2020": {
+   "net": -840.76,
+   "dd_pct": 51.43,
+   "pf": 0.96,
+   "trades": 11037,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 5159.24,
+   "quality": "63% real ticks"
+  },
+  "c_dayeq_d0_2021": {
+   "net": 1816.85,
+   "dd_pct": 37.18,
+   "pf": 1.1,
+   "trades": 10453,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 7816.85,
+   "quality": "100% real ticks"
+  },
+  "c_dayeq_d0_2022": {
+   "net": -3585.75,
+   "dd_pct": 63.33,
+   "pf": 0.85,
+   "trades": 10765,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 2414.25,
+   "quality": "100% real ticks"
+  },
+  "c_dayeq_d0_2023": {
+   "net": -5428.11,
+   "dd_pct": 92.57,
+   "pf": 0.74,
+   "trades": 9957,
+   "wipe": true,
+   "stopout_at": null,
+   "final_balance": 571.89,
+   "quality": "100% real ticks"
+  },
+  "c_dayeq_d20_2019": {
+   "net": -2232.5,
+   "dd_pct": 51.19,
+   "pf": 0.86,
+   "trades": 6269,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 3767.5,
+   "quality": "0% real ticks"
+  },
+  "c_dayeq_d20_2020": {
+   "net": -2042.13,
+   "dd_pct": 61.82,
+   "pf": 0.91,
+   "trades": 10889,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 3957.87,
+   "quality": "63% real ticks"
+  },
+  "c_dayeq_d20_2021": {
+   "net": 1622.25,
+   "dd_pct": 32.65,
+   "pf": 1.09,
+   "trades": 10279,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 7622.25,
+   "quality": "100% real ticks"
+  },
+  "c_dayeq_d20_2022": {
+   "net": -5128.76,
+   "dd_pct": 87.3,
+   "pf": 0.78,
+   "trades": 10306,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 871.24,
+   "quality": "100% real ticks"
+  },
+  "c_dayeq_d20_2023": {
+   "net": -4681.27,
+   "dd_pct": 84.84,
+   "pf": 0.79,
+   "trades": 10021,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 1318.73,
+   "quality": "100% real ticks"
+  },
+  "c_dayeq_d50_2019": {
+   "net": -2091.25,
+   "dd_pct": 52.19,
+   "pf": 0.87,
+   "trades": 6243,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 3908.75,
+   "quality": "0% real ticks"
+  },
+  "c_dayeq_d50_2020": {
+   "net": -1256.93,
+   "dd_pct": 62.68,
+   "pf": 0.95,
+   "trades": 10947,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 4743.07,
+   "quality": "63% real ticks"
+  },
+  "c_dayeq_d50_2021": {
+   "net": 3073.45,
+   "dd_pct": 31.75,
+   "pf": 1.18,
+   "trades": 10307,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 9073.45,
+   "quality": "100% real ticks"
+  },
+  "c_dayeq_d50_2022": {
+   "net": -4254.9,
+   "dd_pct": 74.76,
+   "pf": 0.82,
+   "trades": 10391,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 1745.1,
+   "quality": "100% real ticks"
+  },
+  "c_dayeq_d50_2023": {
+   "net": -4795.82,
+   "dd_pct": 86.25,
+   "pf": 0.78,
+   "trades": 10081,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 1204.18,
+   "quality": "100% real ticks"
+  },
+  "d_cap6_d0_2019": {
+   "net": -924.47,
+   "dd_pct": 59.35,
+   "pf": 0.85,
+   "trades": 2976,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 5075.53,
+   "quality": "0% real ticks"
+  },
+  "d_cap6_d0_2020": {
+   "net": -5596.48,
+   "dd_pct": 95.18,
+   "pf": 0.57,
+   "trades": 3871,
+   "wipe": true,
+   "stopout_at": null,
+   "final_balance": 403.52,
+   "quality": "63% real ticks"
+  },
+  "d_cap6_d0_2021": {
+   "net": -594.01,
+   "dd_pct": 50.9,
+   "pf": 0.93,
+   "trades": 4897,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 5405.99,
+   "quality": "100% real ticks"
+  },
+  "d_cap6_d0_2022": {
+   "net": -3168.49,
+   "dd_pct": 68.21,
+   "pf": 0.77,
+   "trades": 6247,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 2831.51,
+   "quality": "100% real ticks"
+  },
+  "d_cap6_d0_2023": {
+   "net": -837.36,
+   "dd_pct": 54.99,
+   "pf": 0.89,
+   "trades": 4214,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 5162.64,
+   "quality": "100% real ticks"
+  },
+  "d_cap6_d20_2019": {
+   "net": -812.26,
+   "dd_pct": 58.88,
+   "pf": 0.87,
+   "trades": 3054,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 5187.74,
+   "quality": "0% real ticks"
+  },
+  "d_cap6_d20_2020": {
+   "net": -1943.34,
+   "dd_pct": 61.89,
+   "pf": 0.83,
+   "trades": 4767,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 4056.66,
+   "quality": "63% real ticks"
+  },
+  "d_cap6_d20_2021": {
+   "net": 85.31,
+   "dd_pct": 51.12,
+   "pf": 1.01,
+   "trades": 5772,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 6085.31,
+   "quality": "100% real ticks"
+  },
+  "d_cap6_d20_2022": {
+   "net": -4208.89,
+   "dd_pct": 77.31,
+   "pf": 0.67,
+   "trades": 4856,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 1791.11,
+   "quality": "100% real ticks"
+  },
+  "d_cap6_d20_2023": {
+   "net": -898.77,
+   "dd_pct": 55.92,
+   "pf": 0.88,
+   "trades": 4154,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 5101.23,
+   "quality": "100% real ticks"
+  },
+  "d_cap6_d50_2019": {
+   "net": -913.69,
+   "dd_pct": 58.31,
+   "pf": 0.86,
+   "trades": 3056,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 5086.31,
+   "quality": "0% real ticks"
+  },
+  "d_cap6_d50_2020": {
+   "net": -1268.37,
+   "dd_pct": 58.59,
+   "pf": 0.88,
+   "trades": 5087,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 4731.63,
+   "quality": "63% real ticks"
+  },
+  "d_cap6_d50_2021": {
+   "net": -30.55,
+   "dd_pct": 51.06,
+   "pf": 1.0,
+   "trades": 5544,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 5969.45,
+   "quality": "100% real ticks"
+  },
+  "d_cap6_d50_2022": {
+   "net": -3826.81,
+   "dd_pct": 80.28,
+   "pf": 0.67,
+   "trades": 4321,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 2173.19,
+   "quality": "100% real ticks"
+  },
+  "d_cap6_d50_2023": {
+   "net": -382.78,
+   "dd_pct": 53.08,
+   "pf": 0.95,
+   "trades": 4796,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 5617.22,
+   "quality": "100% real ticks"
+  },
+  "all_d0_2019": {
+   "net": -130.79,
+   "dd_pct": 37.52,
+   "pf": 0.98,
+   "trades": 4227,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 5869.21,
+   "quality": "0% real ticks"
+  },
+  "all_d0_2020": {
+   "net": -2262.21,
+   "dd_pct": 56.59,
+   "pf": 0.88,
+   "trades": 9386,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 3737.79,
+   "quality": "63% real ticks"
+  },
+  "all_d0_2021": {
+   "net": -1306.05,
+   "dd_pct": 50.23,
+   "pf": 0.9,
+   "trades": 7981,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 4693.95,
+   "quality": "100% real ticks"
+  },
+  "all_d0_2022": {
+   "net": -2124.06,
+   "dd_pct": 57.38,
+   "pf": 0.87,
+   "trades": 8090,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 3875.94,
+   "quality": "100% real ticks"
+  },
+  "all_d0_2023": {
+   "net": -2441.47,
+   "dd_pct": 63.94,
+   "pf": 0.84,
+   "trades": 8083,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 3558.53,
+   "quality": "100% real ticks"
+  },
+  "all_d20_2019": {
+   "net": -869.97,
+   "dd_pct": 49.68,
+   "pf": 0.9,
+   "trades": 4310,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 5130.03,
+   "quality": "0% real ticks"
+  },
+  "all_d20_2020": {
+   "net": -2127.89,
+   "dd_pct": 54.93,
+   "pf": 0.89,
+   "trades": 9304,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 3872.11,
+   "quality": "63% real ticks"
+  },
+  "all_d20_2021": {
+   "net": -1029.37,
+   "dd_pct": 46.14,
+   "pf": 0.92,
+   "trades": 8034,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 4970.63,
+   "quality": "100% real ticks"
+  },
+  "all_d20_2022": {
+   "net": -2537.61,
+   "dd_pct": 57.48,
+   "pf": 0.85,
+   "trades": 8005,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 3462.39,
+   "quality": "100% real ticks"
+  },
+  "all_d20_2023": {
+   "net": -2423.15,
+   "dd_pct": 62.75,
+   "pf": 0.84,
+   "trades": 7846,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 3576.85,
+   "quality": "100% real ticks"
+  },
+  "all_d50_2019": {
+   "net": 932.43,
+   "dd_pct": 38.5,
+   "pf": 1.14,
+   "trades": 4183,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 6932.43,
+   "quality": "0% real ticks"
+  },
+  "all_d50_2020": {
+   "net": -2519.01,
+   "dd_pct": 56.8,
+   "pf": 0.87,
+   "trades": 9465,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 3480.99,
+   "quality": "63% real ticks"
+  },
+  "all_d50_2021": {
+   "net": -845.71,
+   "dd_pct": 41.46,
+   "pf": 0.93,
+   "trades": 6964,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 5154.29,
+   "quality": "100% real ticks"
+  },
+  "all_d50_2022": {
+   "net": -3580.63,
+   "dd_pct": 65.82,
+   "pf": 0.8,
+   "trades": 8715,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 2419.37,
+   "quality": "100% real ticks"
+  },
+  "all_d50_2023": {
+   "net": -3471.73,
+   "dd_pct": 69.62,
+   "pf": 0.78,
+   "trades": 7868,
+   "wipe": false,
+   "stopout_at": null,
+   "final_balance": 2528.27,
+   "quality": "100% real ticks"
+  }
+ },
+ "sanity_v17orig_vs_v17t301_off_base_d0_2019": {
+  "net_both": -6092.55,
+  "trades_both": 1833,
+  "identical": true
+ },
+ "infra_notes": [
+  "all_d0_2019 try1 FAIL (terminal hung, rc=1 after 46127s, 00:10:51->12:59:38), try2 OK 13:01:00 (63s, 8.5MB report)"
+ ],
+ "sha256": {
+  "PREREG_t301.md": "f8ca1547307090a42698ffb3eaaca27f0adced8f9ea4c1bd1b168d27b0ea98a5",
+  "PREREG_t301_addendum1.md": "8c1e2ea624b06cfc4eca414b3b56ee3f2713a71986f89e41022492feeb91c735",
+  "PREREG_t301_addendum2.md": "d5a66c2706537ce9f2a9e3c35188579f8080be6c47c041ec722b24a2c40d883e",
+  "analyze.py": "7e4c7111babe9e001804349398d00337d34f51564eafc4c66c3c003cf4be98ce",
+  "out/t301_results.json": "913ed4a6b44a9c1b61c97b7bf9fbea536c9d929cf13c56fa4382997cc6cc05c4"
+ }
+}
