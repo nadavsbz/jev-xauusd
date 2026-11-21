@@ -1,0 +1,52 @@
+[
+ {
+  "name": "Robo ECN demo",
+  "symbol": "BTCUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "c1.set",
+  "from": "2024.01.01",
+  "to": "2026.11.15",
+  "expert": "Jev\\CryptoTrend_C1.ex5",
+  "model": 1,
+  "report": "t325_c1_av15",
+  "overrides": {
+   "Symbols": "BTCUSD,ETHUSD",
+   "RebalPct": "0.30",
+   "DelayBars": "0",
+   "LongShare": "0.5",
+   "TargetVol": "0.2",
+   "MaxGross": "3.0",
+   "History": "1600",
+   "MinBars": "320",
+   "Magic": "61001",
+   "AssetVol": "0.15"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": "BTCUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "c1.set",
+  "from": "2024.01.01",
+  "to": "2026.11.15",
+  "expert": "Jev\\CryptoTrend_C1.ex5",
+  "model": 1,
+  "report": "t325_c1_av075",
+  "overrides": {
+   "Symbols": "BTCUSD,ETHUSD",
+   "RebalPct": "0.30",
+   "DelayBars": "0",
+   "LongShare": "0.5",
+   "TargetVol": "0.2",
+   "MaxGross": "3.0",
+   "History": "1600",
+   "MinBars": "320",
+   "Magic": "61001",
+   "AssetVol": "0.075"
+  }
+ }
+]
