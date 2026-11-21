@@ -1,0 +1,42 @@
+[
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "indexnoise.set",
+  "expert": "Jev\\IndexNoise.ex5",
+  "model": 4,
+  "from": "2025.01.01",
+  "to": "2025.12.31",
+  "report": "t324_chk2_rf2025",
+  "overrides": {
+   "TargetVol": "0.15",
+   "DstFix": "true",
+   "OpenHour": "16",
+   "LastCheck": "21",
+   "ExitHour": "22"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "indexnoise.set",
+  "expert": "Jev\\IndexNoise.ex5",
+  "model": 4,
+  "from": "2025.04.01",
+  "to": "2026.11.15",
+  "report": "t324_i2_rf_fixed",
+  "overrides": {
+   "TargetVol": "0.15",
+   "DstFix": "true",
+   "OpenHour": "16",
+   "LastCheck": "21",
+   "ExitHour": "22"
+  }
+ }
+]
