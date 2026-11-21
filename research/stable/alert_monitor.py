@@ -3,7 +3,7 @@ Read-only: works on the exported deal file (research/stable/demo_export.py) and 
 Usage: py -3.12 research/stable/alert_monitor.py data/derived/demo_c1i2/deals_YYYYMMDD.csv
 
 Conventions (from the protocol, t320, 20.11.2026):
-- t=0 = 2026-11-23. Demo risk = 1.5x tester, so demo returns and DD are divided by 1.5 before the thresholds.
+- t=0 = 2026-11-23. Demo exposure = 0.5x the reference tester (sets 0.075 vs 0.15), so demo returns are divided by 0.5 before the thresholds.
 - I2: daily return = realised P&L of the day (magic 7302, server date) / account balance at the start of the day; only days with
   an I2 exit count (same as the n=803 reference). Side = exit deal type (exit sell closes a long).
 - C1: needs mark-to-market daily equity, which deals alone cannot give (positions are held for days). Until daily snapshots exist
@@ -14,7 +14,9 @@ Conventions (from the protocol, t320, 20.11.2026):
 import os, sys
 import numpy as np, pandas as pd
 
-T0, DEPOSIT, RISK = pd.Timestamp("2026-11-23"), 40000.0, 1.5
+# RISK = demo exposure / reference-tester exposure. Fixed 21.11 (before t0): the demo sets run TargetVol/AssetVol 0.075, the
+# references (in2dst_t, c1_ecn_av15_full) run 0.15 -> 0.5 (measured: I2 notional/equity 0.93 demo vs 2.05 tester). Was 1.5 (wrong).
+T0, DEPOSIT, RISK = pd.Timestamp("2026-11-23"), 40000.0, 0.5
 REF = {  # mu0, sigma0 (fraction/day), k, h  - PROTOCOL v1, sha 40efaf90...
     "I2": (17.7e-4, 155e-4, 0.0571, 16.7), "I2_long": (25.2e-4, 144e-4, 0.0875, 14.1),
     "I2_short": (9.7e-4, 172e-4, 0.0282, 20.3), "C1": (6.9e-4, 117e-4, 0.0295, 20.0)}
