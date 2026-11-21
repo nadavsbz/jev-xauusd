@@ -1,0 +1,20 @@
+[
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "indexnoisetp.set",
+  "expert": "Jev\\IndexNoiseTP.ex5",
+  "model": 4,
+  "from": "2019.01.01",
+  "to": "2019.12.31",
+  "report": "in2tp0_t_2019",
+  "overrides": {
+   "TargetVol": "0.15",
+   "DstFix": "true",
+   "TPPct": "0"
+  }
+ }
+]

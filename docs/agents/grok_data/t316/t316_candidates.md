@@ -1,0 +1,44 @@
+# t316: היפוך לממוצע תוך-יומי - סריקת מועמדים (20.11.2026, שעון ישראל, מחקר שולחני בלבד, ללא ריצות)
+**סטטוס:** מחקר + הצעות PREREG (PROPOSED). לא הורצה אף בדיקה, לא נגענו בטרמינלים.
+**תגיות:** VERIFIED = נקרא במקור בפועל ומצוטט. OBSERVED = תוצאה של מישהו אחר/שלנו מדווחת במקור. ASSUMED = הנחה שלי. UNKNOWN = לא נמצא.
+**אזהרה על איכות מקורות:** רוב הבדיקות החוזרות שמצאתי הן בלוגים/אתרי backtest עצמאיים ולא ספרות שפוטה. לכן הן OBSERVED (דיווח של צד שלישי, לא שחזרתי).
+
+## מסקנה מקדימה (OBSERVED + ASSUMED)
+1. **אין מועמד היפוך תוך-יומי אחד שעבר את סף העלות עם ראיה חיובית אחרי פרסום.** כל משפחות ההיפוך התוך-יומי (לילה-יום, fix, גאפ, Bollinger/RSI ב-M15/H1, range-fade) נכשלות אחרי עלות, או שהאפקט קטן מפי 2 מעלות RF.
+2. **היחידה עם ראיה חיובית אחרי פרסום היא RSI(2) יומי של Connors (פורסם 11.2008)**. זה היפוך *בינימי* (החזקה כ-3 ימים), לא תוך-יומי, ובתדירות נמוכה (8–17 עסקאות בשנה לכלי). **הוא עובר את מסך העלות, אך לא את רף התשואה** (ראו חישוב). ASSUMED: תשואה עצמאית ~0.3–0.5% לחודש.
+3. **"t315 הפוך" נפסל חשבונית ללא ריצה חדשה** (ראו PREREG_C): מ-Sharpe נטו −0.66 ובעלות כפולה −1.79 (OBSERVED, research_t315.md) נגזר Sharpe ברוטו ≈ +0.47 ועלות ≈ 1.13 יחידות Sharpe. ההיפוך המדויק ≈ −0.47 − 1.13 = **−1.6** (ASSUMED ליניאריות). המפסיד הוא העלות ולא הכיוון.
+
+## טבלת מועמדים
+| # | משפחה / מקור | כללים מדויקים | מכשירים ב-RF | תוצאות מדווחות (מקור) | פורסם | ראיה אחרי פרסום | מסך עלות | פסק דין |
+|---|---|---|---|---|---|---|---|---|
+| 1 | היפוך לילה-יום (Liu, Liu, Wang, Zhou, Zhu; Della Corte, Kosowski, Wang) | קנה נכס שנפל הכי הרבה בלילה, שורט מי שעלה, סגירה בסוף היום | US500/USTEC/US30 | בנייר: +36.4 נ"ב ליום 2007–2014, [edgeormyth](https://edgeormyth.com/tests/overnight-reversal/) (OBSERVED). אחרי פרסום 2015–2026: **+1.91 נ"ב ליום** ברוטו, נכשל בכל 5 התנאים (שם). SSRN: [2730304](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2730304) | 2015–2016 | שלילית: דעיכה פי ~20 (OBSERVED). **שלנו r55: נטו −5.3/−3.0/−8.8 נ"ב, Sharpe −0.68** (claude_outbox, OBSERVED) | 1.9 נ"ב מול עלות RF ≥ 0.6–1.0 נ"ב לצד: **נכשל** | **DROP** (כבר נבדק r55) |
+| 2 | W-pattern סביב FX fixes (Krohn, Mueller, Whelan, JF 2024) | USD יורד אחרי fix ועולה לפניו; מסחר סביב Tokyo/ECB/London fix | EURUSD, USDJPY וכו' | ~2 נ"ב ליום לכל כיוון, עד ~3 נ"ב, [JF](https://onlinelibrary.wiley.com/doi/10.1111/jofi.13306) (VERIFIED). Sharpe 0.65 ב-EUR/London fix בעלות "שמרנית" ו-**שלילי בעלות מלאה**, [INSEAD WP](https://sites.insead.edu/facultyresearch/research/file.cfm?fid=66802) (VERIFIED) | WP 2019, JF 12.2023 | נתוני המאמר עד 2019. **שלנו t312 FX fix: DEV 0.35, holdout −1.21** (OBSERVED, claude_outbox) | 2–3 נ"ב מול 4–5 נ"ב עלות: **נכשל** | **DROP** (t312) |
+| 3 | Gap fade במדדים (NQ, DAX) | כניסה בפתיחה נגד הגאפ, יעד = סגירת הגאפ | USTEC, DE40 | NQ 2015–2025: 60.3% מהגאפים נסגרים עד הסגירה, [tradingstats](https://tradingstats.net/gap-fill-strategy/) (OBSERVED), אבל **OOS 2023–2025 נטו −1.92 נק', t −0.44, n=766**, [arXiv 2605.04004](https://arxiv.org/pdf/2605.04004) (OBSERVED). DAX: הפסד ~35% (2 שנים), [trading-treff](https://trading-treff.de/wissen/gap-fade-strategie-backtest-dax) (OBSERVED). שבועי 2013–2023: אין הטיה, [JRFM](https://doi.org/10.3390/jrfm18030132) (VERIFIED מתקציר) | Carter 2005; ספרות מאוחרת | שלילית | edge ≈ 0 | **DROP** (גם r25 שלנו) |
+| 4 | Bollinger / RSI ו-range-fade תוך-יומי | חצייה חזרה אל תוך הרצועה; fade של קצה טווח M15 | זהב, FX, מדדים | Bollinger+RSI 2020–2025, 30 בדיקות: 15m −0.090R, 1h −0.067R נטו; **4h +0.005R** (ברוטו +0.025R), [backtestingmax](https://www.backtestingmax.com/backtests/rsi-bollinger-bands) (OBSERVED). Range-fade M15, 6,200 עסקאות, שנתיים: **−0.105R נטו, ברוטו −0.035R, לא טוב מאקראי**, [rezsync](https://rezsync.com/algo/research/do-intraday-ranges-work-fade-or-breakout) (OBSERVED). RSI(14) NQ/ES 15m: שלילי ברוטו, [cemarket](https://cemarketsolutions.com/research/strategies/bollinger-band-plus-rsi) (OBSERVED) | מסורתי | כל התוצאות 2020–2026, שליליות | ברוטו ≈ 0 ב-15m/1h; ב-4h edge 0.025R מול עלות 0.02R = פי 1.25: **נכשל** | **DROP** |
+| 5 | Pairs / cointegration ב-FX (Lemishko, Landi, Caicedo-Llano) | מחזורי z-score על קואינטגרציה בין צמדי USD, יומי | FX majors | OOS Sharpe עולה על benchmark עם 2 נ"ב עלות, [SSRN 4771108](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4771108) (OBSERVED); סיכום שחזור: **תשואה 1.23% לשנה, Sharpe 0.35, MDD 13%**, [paperswithbacktest](https://paperswithbacktest.com/strategies/cointegration-based-strategies-in-forex-pair-trading) (OBSERVED, לא נקרא במלואו) | 2024 | עצמאי: UNKNOWN. 2 נ"ב הנחת עלות מול 4–5 נ"ב אצלנו | תשואה 1.2% לשנה: **רחוק מרף 3.5% לחודש** | **DROP** |
+| 6 | **Connors RSI(2) יומי על מדדים** (Connors/Alvarez, ספר 11.2008) | לונג אם close>SMA200 וגם RSI(2)<10; יציאה בסגירה הראשונה מעל SMA5; ללא סטופ במקור | US500, USTEC, DE40, JP225 | SPY 1993–2026: ממוצע **0.63% לעסקה**, 265 עסקאות (≈8 בשנה), 204 מנצחות, Sharpe 0.81, MDD 14.8%, [empiricalab](https://empiricalab.substack.com/p/connors-rsi2-spy) (OBSERVED). אחרי פרסום (מ-2009): 149 עסקאות, **0.51% לעסקה**, 74% מנצחות, Sharpe 0.97→0.68 (שם). 2016–10.2026: **+0.532% לעסקה, PF 2.61, 94 עסקאות**, עלות 0.04% הלוך-חזור, [ripbacktest](https://ripbacktest.com/posts/rsi-2-strategy-spy/) (OBSERVED). QQQ: עובר רק 3 מתוך 6 שערים (שם). 10 שנים S&P: +18.1% סה"כ, MDD 21.5%, 73 עסקאות, [backtrex](https://backtrex.com/en/backtests/connors-rsi-2-sp-500) (OBSERVED). **מניות בודדות 2016–2025: שלילי** −16.6 נק' לשנה מול benchmark, [tickfloor](https://tickfloor.com/research/claims/rsi2-mean-reversion) (OBSERVED) | 11.2008 | **חלקית חיובית**: דעיכה של כ-1/3 לעסקה אבל נשאר חיובי, גם אחרי 2016 | edge 0.5% מול עלות RF ≈ ספרד ~1 נ"ב + swap מדדים −8.6% לשנה על לונג, כלומר ~2.4 נ"ב ללילה ≈ 7 נ"ב ל-3 לילות (ASSUMED שמצב swap 5 הוא אחוזים שנתיים; [rf_ecn_swaps](D:\Claude\jev\docs\agents\rf_ecn_swaps_20261030.csv)) ⇒ **פי ~5–6: עובר** | **KEEP (מסך עלות כן, רף תשואה לא)** |
+| 7 | **RSI(2) יומי על זהב** | אותו כלל: close>SMA200, RSI(2)<10, יציאה מעל SMA5, מקסימום 30 יום | XAUUSD | COMEX GC יומי 2008–11.2026: 299 עסקאות (16.7 בשנה), 69% מנצחות, **+0.25% לעסקה**, PF 1.42, סכום +74%, DD מצטבר −35%, עלות $0.30/אונקיה, [xauusdglobal](https://www.xauusdglobal.com/gold-trading-strategies-tested/more-tests/) (OBSERVED). שאר הכללים באותה עמוד: Donchian55/20 −0.22%, Monday gap fade −0.02% | 2008 (הכלל) | כל התקופה אחרי פרסום, **אבל זהב עלה +310%** באותה תקופה (שם), לכן הטיית לונג. פיצול פנימי: UNKNOWN | ברוטו ≈ 0.25%+0.015% = 0.265%; עלות RF ≥ 10 נ"ב + swap זהב (UNKNOWN, לא בקובץ) ⇒ **פי ~2.4–2.6: גבולי** | **KEEP (גבולי)** |
+| 8 | היפוך אחר-הצהריים / "lunch-time flip" אחרי חצי שעה קיצונית | נגד תנועה חריגה של 30 דק' בשעות דלות נזילות | US500/USTEC | רק מאמרי עיתונות (JPMorgan, "הפיכה ב-13:00") [wealthadvisor, 404 בבדיקה, UNKNOWN]. מחקרי עבר על היפוך בחוזי S&P: [JBF 2004](https://www.sciencedirect.com/science/article/abs/pii/S0378426604000949) ו-[JBF 1999](https://www.sciencedirect.com/science/article/abs/pii/S0378426699000722), ושניהם מציינים רגישות לעלויות (VERIFIED מתקציר בחיפוש). Miwa 2020 הוא היפוך *שבועי* במניות, לא תוך-יומי, [SSRN 3174484](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3174484) | 1999–2020 | **UNKNOWN** (אין שחזור עם מספרים). **שלנו r68 כלל 4 (היפוך אחר-צהריים) כבר כלול ב-55 ניסויים; תוצאה ספציפית לא מצאתי בקובץ** | UNKNOWN | **DROP: אין ראיה מספרית; מכוסה ב-r68** |
+
+## מסך עלות (חישוב)
+- **עלות RF (רף ההוראות):** זהב ≥10 נ"ב הלוך-חזור; FX 4–5 פיפס (≈ 4–5 נ"ב); מדדים ≈ 1 נ"ב ספרד (ASSUMED מ-med_spread_2026 בקובץ swaps, שם הערכים 2.6e-5 ו-3.5e-6 ASSUMED כיחס מחיר, כלומר 0.3–2.6 נ"ב).
+- **כלל:** edge ברוטו לעסקה ≥ פי 2 מעלות.
+- **עוברים:** #6 (פי 5–6), #7 (פי 2.4–2.6 גבולי). **נופלים:** #1 (1.9 נ"ב), #2 (2–3 נ"ב מול 4–5), #3 (≈0), #4 (≈0 עד פי 1.25), #5 (1.2% לשנה), #8 (UNKNOWN).
+
+## רף התשואה, בגלוי (ASSUMED, חישוב שלי)
+- #6: 8 עסקאות בשנה לכלי × 0.5% ≈ 4% בשנה לכלי; סל 4 מדדים בלי חפיפה ≈ עד 16% בשנה בחשיפה מלאה בכל עסקה, אך MDD גדל. בפועל חפיפה גבוהה בין מדדים (נפילות משותפות). **תשואה צפויה ~0.5–1% לחודש, רחוק מ-3.5%.** ASSUMED, בלי ריצה.
+- #7: 16.7 × 0.25% ≈ 4.2% בשנה = 0.35% בחודש בחשיפה מלאה.
+- **לכן:** שני המועמדים לא יכולים לעבור את רף נדב כמערכת עצמאית. נדב קבע שמגוון של ~0.7% לחודש לא שווה השקעה. אני ממליץ להריץ A/B רק כאימות זול (ימי, ללא מכשיר חדש), ולהחליט אם להמשיך רק אם יש מתאם נמוך ל-C1/I2. **ההמלצה הכנה: אין כאן מנוע חדש לרף 3.5%.**
+
+## בחירת Top-2
+1. **A: RSI(2) יומי על 4 מדדי RF** (#6), כי זה היחיד עם ראיה חיובית אחרי פרסום וגם עם מרווח עלות רחב.
+2. **B: RSI(2) יומי על זהב** (#7), גבולי, כי זהב הוא המכשיר העיקרי של נדב, אבל נדרשת בקרה נגד הטיית השוק העולה.
+3. **C: t315 הפוך**, לבקשת Claude, עם בדיקה חשבונית קודמת שמצפה לנפילה.
+
+## מה לא נמצא (UNKNOWN)
+- שחזור עצמאי מפורסם של היפוך תוך-יומי ב-USTEC/US500 עם מספרים נטו אחרי 2018.
+- swap זהב ב-RF (לא בקובץ).
+- פיצול לפני/אחרי פרסום עבור RSI(2) על זהב ועל מדדים אירופיים/יפן.
+- מונה DSR המצטבר: ביד Claude (UNKNOWN אצלי).
+
+אין המלצת מסחר, ההחלטה של נדב.

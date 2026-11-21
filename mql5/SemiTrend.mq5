@@ -27,9 +27,18 @@ input int    DynFrom    = 6;     // from this level the distance grows
 input double DynMult    = 1.2;
 input double TP         = 1.0;   // $ over the average price (100 points on 2 digits)
 input long   Magic      = 77001;
+// Support / resistance zones (own open logic, r93): H1 fractals, zone = level +- SRWidth*ATR,
+// "verified" when >= SRMinTouch fractals fall inside it (Untested/Verified/Turncoat idea).
+input int    SRMode     = 0;     // 0 off, 1 room (no buy just under resistance / sell just above support), 2 fresh break in trade direction
+input int    SRLook     = 500;   // H1 bars scanned for fractals
+input double SRWidth    = 0.25;  // zone half-width, x ATR(H1,14)
+input int    SRMinTouch = 2;     // fractals inside a zone to count it
+input double SRRoom     = 1.0;   // mode 1: min room to the opposing zone, x ATR
+input int    SRBreak    = 24;    // mode 2: break must have happened within this many closed H1 bars
 
 CTrade trade;
 int hM15 = INVALID_HANDLE, hH4 = INVALID_HANDLE, maM15 = INVALID_HANDLE, maH4 = INVALID_HANDLE;
+int hFr = INVALID_HANDLE, hAtr = INVALID_HANDLE;
 datetime lastBar = 0;
 
 int OnInit()
@@ -40,6 +49,12 @@ int OnInit()
    maH4  = iMA(_Symbol, PERIOD_H4, 200, 0, MODE_SMA, PRICE_CLOSE);
    if(hM15 == INVALID_HANDLE || hH4 == INVALID_HANDLE || maM15 == INVALID_HANDLE || maH4 == INVALID_HANDLE)
       return INIT_FAILED;
+   if(SRMode != 0)
+     {
+      hFr  = iFractals(_Symbol, PERIOD_H1);
+      hAtr = iATR(_Symbol, PERIOD_H1, 14);
+      if(hFr == INVALID_HANDLE || hAtr == INVALID_HANDLE) return INIT_FAILED;
+     }
    trade.SetExpertMagicNumber(Magic);
    return INIT_SUCCEEDED;
   }
@@ -77,6 +92,46 @@ int Cycle(double &avg, double &last, int &n)
      }
    avg = vol > 0 ? pv / vol : 0;
    return side;
+  }
+
+// true = the S/R rule allows a new cycle on side dir (closed H1 bars only)
+bool SRAllow(int dir)
+  {
+   if(SRMode == 0) return true;
+   double atr = Buf(hAtr, 0, 1); if(atr <= 0) return false;
+   double up[], lo[], cl[];
+   // fractals need 2 bars on the right: start at shift 3
+   if(CopyBuffer(hFr, 0, 3, SRLook, up) != SRLook || CopyBuffer(hFr, 1, 3, SRLook, lo) != SRLook) return false;
+   if(CopyClose(_Symbol, PERIOD_H1, 1, SRBreak + 1, cl) != SRBreak + 1) return false;
+   double lv[]; int age[]; int m = 0;
+   ArrayResize(lv, 2 * SRLook); ArrayResize(age, 2 * SRLook);
+   for(int i = 0; i < SRLook; i++)                            // index 0 = oldest; shift = 3 + SRLook-1-i
+     {
+      int sh = 3 + SRLook - 1 - i;
+      if(up[i] != EMPTY_VALUE && up[i] > 0) { lv[m] = up[i]; age[m] = sh; m++; }
+      if(lo[i] != EMPTY_VALUE && lo[i] > 0) { lv[m] = lo[i]; age[m] = sh; m++; }
+     }
+   double w = SRWidth * atr, c1 = cl[SRBreak], c0 = cl[0];  // cl[SRBreak] = last closed, cl[0] = SRBreak+1 bars back
+   double near = DBL_MAX; bool broke = false;
+   for(int a = 0; a < m; a++)
+     {
+      int t = 0;
+      for(int b = 0; b < m; b++) if(MathAbs(lv[b] - lv[a]) <= w) t++;
+      if(t < SRMinTouch) continue;
+      double top = lv[a] + w, bot = lv[a] - w;
+      if(SRMode == 1)
+        {
+         if(dir == 1 && bot > c1) near = MathMin(near, bot - c1);   // resistance above
+         if(dir == -1 && top < c1) near = MathMin(near, c1 - top);  // support below
+        }
+      else if(age[a] > SRBreak + 1)
+        {
+         if(dir == 1 && c0 <= top && c1 > top) broke = true;         // closed up through the zone
+         if(dir == -1 && c0 >= bot && c1 < bot) broke = true;        // closed down through the zone
+        }
+     }
+   if(SRMode == 1) return near >= SRRoom * atr;
+   return broke;
   }
 
 void CloseAll()
@@ -127,5 +182,6 @@ void OnTick()
    if(EntryMode == 0 && d2 == regime) return;                  // wait for a fresh flip ("a new dot")
    int bb15 = c15 > m15 ? 1 : (c15 < m15 ? -1 : 0);
    if(bb15 != regime) return;                                  // above / below the middle band
+   if(!SRAllow(regime)) return;                                // support / resistance rule (r93)
    if(regime == 1) trade.Buy(LotN(0), _Symbol); else trade.Sell(LotN(0), _Symbol);
   }

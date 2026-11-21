@@ -1,0 +1,10 @@
+[
+ {"name": "Black Dragon 3", "symbol": "XAUUSD", "period": "H1", "deposit": 120000, "leverage": 100, "model": 4, "base_set": "goldasia.set", "expert": "Jev\\GoldAsia.ex5", "from": "2019.01.01", "to": "2019.12.31", "report": "goldasia_pro_2019", "overrides": {}},
+ {"name": "Black Dragon 3", "symbol": "XAUUSD", "period": "H1", "deposit": 120000, "leverage": 100, "model": 4, "base_set": "goldasia.set", "expert": "Jev\\GoldAsia.ex5", "from": "2020.01.01", "to": "2020.12.31", "report": "goldasia_pro_2020", "overrides": {}},
+ {"name": "Black Dragon 3", "symbol": "XAUUSD", "period": "H1", "deposit": 120000, "leverage": 100, "model": 4, "base_set": "goldasia.set", "expert": "Jev\\GoldAsia.ex5", "from": "2021.01.01", "to": "2021.12.31", "report": "goldasia_pro_2021", "overrides": {}},
+ {"name": "Black Dragon 3", "symbol": "XAUUSD", "period": "H1", "deposit": 120000, "leverage": 100, "model": 4, "base_set": "goldasia.set", "expert": "Jev\\GoldAsia.ex5", "from": "2022.01.01", "to": "2022.12.31", "report": "goldasia_pro_2022", "overrides": {}},
+ {"name": "Black Dragon 3", "symbol": "XAUUSD", "period": "H1", "deposit": 120000, "leverage": 100, "model": 4, "base_set": "goldasia.set", "expert": "Jev\\GoldAsia.ex5", "from": "2023.01.01", "to": "2023.12.31", "report": "goldasia_pro_2023", "overrides": {}},
+ {"name": "Black Dragon 3", "symbol": "XAUUSD", "period": "H1", "deposit": 120000, "leverage": 100, "model": 4, "base_set": "goldasia.set", "expert": "Jev\\GoldAsia.ex5", "from": "2024.01.01", "to": "2024.12.31", "report": "goldasia_pro_2024", "overrides": {}},
+ {"name": "Black Dragon 3", "symbol": "XAUUSD", "period": "H1", "deposit": 120000, "leverage": 100, "model": 4, "base_set": "goldasia.set", "expert": "Jev\\GoldAsia.ex5", "from": "2025.01.01", "to": "2025.12.31", "report": "goldasia_pro_2025", "overrides": {}},
+ {"name": "Black Dragon 3", "symbol": "XAUUSD", "period": "H1", "deposit": 120000, "leverage": 100, "model": 4, "base_set": "goldasia.set", "expert": "Jev\\GoldAsia.ex5", "from": "2026.01.01", "to": "2026.11.10", "report": "goldasia_pro_2026", "overrides": {}}
+]

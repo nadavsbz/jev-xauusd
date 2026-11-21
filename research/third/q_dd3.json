@@ -1,0 +1,34 @@
+[
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".US500Cash",
+  "deposit": 120000,
+  "leverage": 100,
+  "model": 4,
+  "from": "2018.01.01",
+  "to": "2026.11.01",
+  "period": "M1",
+  "base_set": "dd3.set",
+  "expert": "Jev\\IndexDD3.ex5",
+  "report": "dd3_us500_2018_2026",
+  "overrides": {
+   "DecideHHMM": "2258"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".US500Cash",
+  "deposit": 120000,
+  "leverage": 100,
+  "model": 4,
+  "from": "2018.01.01",
+  "to": "2026.11.01",
+  "period": "M15",
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "report": "imr_us500_2018_2026",
+  "overrides": {
+   "DecideHHMM": "2245"
+  }
+ }
+]

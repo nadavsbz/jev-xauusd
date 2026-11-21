@@ -32,7 +32,8 @@ def next_monday(d):
 
 
 def run(cfg, start, end, deposit, lot, rep):
-    write_set(cfg["base_set"], {"Lot_Init_": f"{lot:.2f}"}, rep + ".set")
+    over = {"Lot_Init_": f"{lot:.2f}", **cfg.get("overrides", {}), **cfg.get("_seg_over", {})}   # t300: fixed + per-segment inputs
+    write_set(cfg["base_set"], over, rep + ".set")
     subprocess.run(["powershell", "-NoProfile", "-Command",
                     "Get-Process terminal64,metatester64 -ErrorAction SilentlyContinue | "
                     "Where-Object { $_.Path -like 'C:\\MT5_JEV_TEST\\*' } | Stop-Process -Force"])
@@ -199,7 +200,12 @@ def main():
         eq, safe = float(cfg["deposit"]), 0.0; peak = eq
         start = dt.date.fromisoformat(cfg["from"])
     stop = dt.date.fromisoformat(cfg["to"])
+    rng = np.random.default_rng(cfg["seed"]) if "delay_choices" in cfg else None   # t300 Monte Carlo on EntryTickDelay
+    for _ in range(len(done)):
+        if rng is not None: rng.choice(cfg["delay_choices"])                       # replay draws so a restart keeps the path
     while start < stop and eq > 0:
+        if rng is not None:
+            cfg["_seg_over"] = {"EntryTickDelay": str(int(rng.choice(cfg["delay_choices"])))}
         boundary = next_monday(start)
         if boundary >= stop:
             boundary, end = None, stop
@@ -217,6 +223,7 @@ def main():
         w.update(eq_end=round(e1, 2), safe=round(safe, 2), total=round(e1 + safe, 2),
                  next_start=str(min(next_day(w["hit"] or w.get("flat") or str(end)), stop))
                  if (w["hit"] or w.get("flat")) else str(end))   # ASSUMED: the next run starts the day after
+        if "_seg_over" in cfg: w["delay"] = int(cfg["_seg_over"]["EntryTickDelay"])
         peak = w["peak"]
         with open(out, "a", encoding="utf-8") as f:
             f.write(json.dumps(w) + "\n")

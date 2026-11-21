@@ -1,0 +1,22 @@
+{
+ "report": "bull47opt_oferxm_w1",
+ "base_set": "ofer_xm_20261118.set",
+ "fixed": {
+  "InpLotSize": "0.1"
+ },
+ "ranges": {
+  "InpMagicNumber": [
+   110,
+   1,
+   111
+  ]
+ },
+ "name": "Robo ECN demo",
+ "expert": "Market\\EA Bull Scalper.ex5",
+ "symbol": ".USTECHCash",
+ "period": "H1",
+ "deposit": 5000,
+ "leverage": 33,
+ "from": "2025.03.31",
+ "to": "2025.05.31"
+}

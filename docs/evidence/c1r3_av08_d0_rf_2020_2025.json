@@ -1,0 +1,91 @@
+{
+ "report_file": "c1r3_av08_d0_rf_2020_2025.htm",
+ "report_sha256": "0fcc7631d389728ab2329b0fd73224724898c71d7fef3930f665ac7a7efc26bd",
+ "settings": {
+  "יועץ אוטומטי (רובוט)": "CryptoTrend_C1",
+  "צמד": "BTCUSD",
+  "תקופה": "H1 (2020.01.01 - 2025.10.24)",
+  "חברה": "RoboForex Ltd",
+  "מטבע": "USD",
+  "פיקדון התחלתי": "120,000.00",
+  "מינוף": "1:100",
+  "איכות היסטוריה": "0%"
+ },
+ "inputs": [
+  "Symbols=BTCUSD,ETHUSD",
+  "TargetVol=0.2",
+  "AssetVol=0.08",
+  "MaxGross=3.0",
+  "RebalPct=0.30",
+  "History=1600",
+  "MinBars=320",
+  "DelayBars=0",
+  "Magic=61001"
+ ],
+ "summary_from_report": {
+  "סך רווח נקי": "176,396.46",
+  "רווח ברוטו": "525,239.63",
+  "מאזן הפסד מקסימלי": "36,538.88 (15.43%)",
+  "שווי הפסד מקסימלי": "47,730.46 (19.36%)",
+  "הפסד ברוטו": "-348,843.17",
+  "מקדם רווח": "1.51",
+  "סך עסקאות": "2647"
+ },
+ "recomputed": {
+  "deposit": 120000.0,
+  "entries": 1576,
+  "trading_profit_before_costs": 189035.14,
+  "commission": 0.0,
+  "swap": -12638.68,
+  "net": 176396.46,
+  "lots_opened": 882.4,
+  "exit_deals": 2647,
+  "exit_win_rate_pct": 35.29,
+  "exit_avg_win": 562.36,
+  "exit_avg_loss": -203.64,
+  "daily_realised_pct_of_deposit_per_weekday": {
+   "count": 1517.0,
+   "mean": 0.085,
+   "std": 0.904,
+   "min": -3.228,
+   "25%": -0.124,
+   "50%": 0.0,
+   "75%": 0.0,
+   "max": 10.669
+  },
+  "worst_days_pct": {
+   "2022-12-16": -3.23,
+   "2022-10-14": -2.9,
+   "2023-03-03": -2.46,
+   "2024-01-04": -2.36,
+   "2022-11-30": -1.82
+  },
+  "active_days": 823,
+  "end_of_test_closes": 3,
+  "end_of_test_net": -77.2,
+  "end_of_test_date": "2025-10-23"
+ },
+ "job": {
+  "name": "Black Dragon 3",
+  "symbol": "BTCUSD",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "c1.set",
+  "from": "2020.01.01",
+  "to": "2025.10.24",
+  "expert": "Jev\\CryptoTrend_C1.ex5",
+  "report": "c1r3_av08_d0_rf_2020_2025",
+  "model": 1,
+  "overrides": {
+   "Symbols": "BTCUSD,ETHUSD",
+   "RebalPct": "0.30",
+   "AssetVol": "0.08",
+   "DelayBars": "0"
+  }
+ },
+ "files": {
+  "ea_sha256": "ab61f094b0691b981451a3f1e8aac2f84bd752afcbf101afec014c40598d2a26",
+  "set_sha256": "e8f589a0ac520bc85f397ed0a1e07622c572384c6d7081f2fe4761b258151cd7"
+ }
+}
