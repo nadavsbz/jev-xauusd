@@ -8,7 +8,7 @@ Conventions (from the protocol, t320, 20.11.2026):
   an I2 exit count (same as the n=803 reference). Side = exit deal type (exit sell closes a long).
 - C1: needs mark-to-market daily equity, which deals alone cannot give (positions are held for days). Until daily snapshots exist
   (data/derived/demo_c1i2/c1_snapshots.csv: date,c1_mtm_pnl) C1 CUSUM/DD is reported as NOT ACTIVE - not computed from realised P&L.
-- RED = combined CUSUM >= h or DD >= 1.5 x MDD_ref. YELLOW = side CUSUM >= h (I2), or demo/tester ratio < 0.7 for 4 weeks
+- RED = combined CUSUM >= h or DD >= bootstrap p99 (v1.1). YELLOW = DD >= p95, side CUSUM >= h (I2), or demo/tester ratio < 0.7 for 4 weeks
   (ratio comes from docs/evidence/demo_tracker.md, entered by hand). RED/YELLOW are recommendations only; every live action is Nadav's.
 """
 import os, sys
@@ -18,7 +18,10 @@ T0, DEPOSIT, RISK = pd.Timestamp("2026-11-23"), 40000.0, 1.5
 REF = {  # mu0, sigma0 (fraction/day), k, h  - PROTOCOL v1, sha 40efaf90...
     "I2": (17.7e-4, 155e-4, 0.0571, 16.7), "I2_long": (25.2e-4, 144e-4, 0.0875, 14.1),
     "I2_short": (9.7e-4, 172e-4, 0.0282, 20.3), "C1": (6.9e-4, 117e-4, 0.0295, 20.0)}
-MDD_RED = {"I2": 0.284, "C1": 0.494}
+# v1.1 (21.11, before t0, GPT t321 P1): block-bootstrap MDD of 12-month reference paths (research/stable/t321_mdd_boot.py)
+# RED = p99, YELLOW = p95, from the tester reference only (no demo data used)
+MDD_RED = {"I2": 0.26, "C1": 0.37}
+MDD_YEL = {"I2": 0.21, "C1": 0.31}
 
 
 def cusum(r, name):
@@ -45,7 +48,7 @@ def main(path):
         for nm, typ in (("I2_long", 1), ("I2_short", 0)):   # deal type 1 = sell exit closes a long
             x = i2[i2.type == typ].groupby("day").pnl.sum()
             sides[nm] = cusum(x / g.base.reindex(x.index) / RISK, nm)[:2] if len(x) else (0.0, REF[nm][3])
-        lvl = "RED" if s >= h or dd >= MDD_RED["I2"] else ("YELLOW" if any(a >= b for a, b in sides.values()) else "GREEN")
+        lvl = "RED" if s >= h or dd >= MDD_RED["I2"] else ("YELLOW" if dd >= MDD_YEL["I2"] or any(a >= b for a, b in sides.values()) else "GREEN")
         rep.append(f"I2: {lvl}  days {len(r)}  cum {r.sum() * 100:+.2f}% (tester units)  CUSUM {s:.2f}/{h}  DD {dd * 100:.1f}%/"
                    f"{MDD_RED['I2'] * 100:.1f}%  " + "  ".join(f"{k} {a:.2f}/{b}" for k, (a, b) in sides.items()))
     snap = "data/derived/demo_c1i2/c1_snapshots_raw.csv"   # demo_export.py appends "server time,C1 realised+floating"
@@ -57,7 +60,7 @@ def main(path):
         c = c.dropna()   # a gap merges two days into one step (documented, conservative for CUSUM count)
         c = c[c.index >= T0]; r = c.diff().dropna() / (DEPOSIT + c.shift(1).dropna()) / RISK
         s, h, _ = cusum(r, "C1"); eq = (1 + r).cumprod(); dd = -(eq / eq.cummax() - 1).min() if len(r) else 0.0
-        lvl = "RED" if s >= h or dd >= MDD_RED["C1"] else "GREEN"
+        lvl = "RED" if s >= h or dd >= MDD_RED["C1"] else ("YELLOW" if dd >= MDD_YEL["C1"] else "GREEN")
         rep.append(f"C1: {lvl}  days {len(r)}  CUSUM {s:.2f}/{h}  DD {dd * 100:.1f}%/{MDD_RED['C1'] * 100:.1f}%")
     else:
         rep.append("C1: CUSUM/DD NOT ACTIVE (no daily mark-to-market snapshots yet); weekly demo/tester ratio only")
