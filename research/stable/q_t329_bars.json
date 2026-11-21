@@ -1,0 +1,18 @@
+[
+ {
+  "name": "Robo ECN demo",
+  "expert": "Jev\\BarExport.ex5",
+  "symbol": ".USTECHCash",
+  "period": "M5",
+  "model": 2,
+  "deposit": 100000,
+  "leverage": 100,
+  "base_set": "bar_export.set",
+  "report": "barexp_t329_USTECH",
+  "overrides": {
+   "OutName": "t329"
+  },
+  "from": "2016.01.01",
+  "to": "2026.11.20"
+ }
+]
