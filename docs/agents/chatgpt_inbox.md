@@ -2980,3 +2980,1679 @@ SR_P \approx \bar{SR}\sqrt{\frac{N}{1+(N-1)\rho}}
 **P1 · פערי יישום ב־t326.** הקוד סוגר ופותח מחדש בגבול חודש גם כשהכיוון נותר זהה. הוא מחבר תשואות open-to-close בשעות שמאוחדות לעסקה, ולכן תזוזה בין close ל־open סמוך נשמטת. אמתו PnL על רצף מחירי ביצוע וחשיפה בפועל. ספירת נרות שנתית יכולה להסתיר חורים מרוכזים בשעה, ובקוד ימים חסרים למטבע אחד יכולים לקבל אפס בתיק. דרשו כיסוי לכל שעה ולשני המטבעות, חלון צפיפות מותאם לשנה חלקית והפרדה בין אפס כלכלי לנתון חסר. הבקרה משתמשת באותו seed לכל מטבע בכל הגרלה, ולכן מחילה עליהם אותן שעות אקראיות. הגדירו במפורש אם זו הבקרה הרצויה והשוו גם לבקרה ששומרת על turnover וחפיפה בין מטבעות. הקוד מחשב קורלציה ל־C1 בלבד. הוסיפו את מדידת I2 המובטחת ובדקו התאמה בין שעוני הסגירה. [קוד t326](../../research/stable/t326.py)
 
 בארטיפקטים שנבדקו לא נמצא ממצא P0. ההכרעות על שערים ומסחר נשארות אצל נדב.
+
+
+---
+
+# t341 (22.11.2026, תגובה ב-PR #44)
+
+## t341 — ביקורת t338/t340, תוכנית EDGAR ל־Net Payout Yield, ועדכון t342 + Rulebook מכני ל־SMC
+
+## מסקנה מקדימה
+
+1. **t338 — NO-GO נשאר מוצדק**, אך קיימים כמה ליקויים מהותיים בסימולציה ובמדדי העסקאות. הם אינם מספקים בסיס להפוך Sharpe ‏0.44 למעבר; חלקם דווקא עלולים להרע את התוצאה.
+2. **t340 — NO-GO לשני המימושים שנבדקו נשאר מוצדק**, אבל אי אפשר להסיק ממנו שכל העתקת 13F חסרת ערך. מיפוי OpenFIGI הנוכחי אינו point-in-time, הטיית הכיסוי אינה בעלת כיוון ידוע, ויש באג מהותי בהשמטת תקופת ההחזקה האחרונה.
+3. **אפשר לבנות Net Payout Yield בחינם מ־EDGAR**, אך `companyfacts` עדיף על `frames`. נדרש מנגנון tag waterfall, חישוב רבעונים מתוך YTD, סינון לפי זמן הקבלה בפועל וטבלת CIK–security–ticker היסטורית. זה פרויקט נתונים אמיתי, לא חיבור של שלושה tags.
+4. לאור כישלונות t338, t340 ו־t342, **אין לי כרגע מועמד חזק יותר מ־Conservative Formula** שעומד באותן דרישות. היתרון שלה הוא turnover נמוך, long-only ומנגנון חתכי שונה מ־C1/I2; החיסרון הוא איכות נתוני NPY.
+5. **t342 נסגר בצדק:** 24 ניסויים, הטוב ביותר `t=2.44` מול סף 2.9, ולמועמדי H4 החזקים יש דמיון וקורלציה ל־C1. אין הצדקה לפתוח holdout או לכוונן פרמטרים.
+6. ל־SMC אין rulebook אחד שהקהילה מקבלת. אפשר לכתוב **גרסה מכנית אחת**, אבל יש לתייג אותה כ־`ASSUMED IMPLEMENTATION`, לא כ“הגדרת SMC הרשמית”. המחקר העצמאי שמצאתי הוא בעיקר שלילי לאחר עלויות.
+
+---
+
+# 1. ביקורת קוד בדיעבד — t338
+
+## P1 — יצירת עסקאות תאורטיות מראש מדכאת אותות שלאחר כניסה שלא בוצעה
+
+`batch_trades` יוצר מראש רצף של “עסקאות” לכל מניה ומתקדם עד יציאת ה־stop התאורטית. לאחר מכן `portfolio` עשוי שלא לבצע את הכניסה בגלל חוסר מזומן:
+
+```python
+if notional <= 0:
+    continue
+```
+
+אבל האותות הבאים בתוך תקופת העסקה התאורטית כבר נמחקו ב־`batch_trades`.
+
+### דוגמה
+
+- מניה קובעת ATH ביום שני.
+- אין מזומן, ולכן התיק אינו קונה.
+- ביום שלישי מתפנה מזומן.
+- ביום רביעי המניה קובעת ATH חדש.
+- לפי הכלל הרשום, היא שוב מועמדת.
+- לפי הקוד, היא עדיין בתוך “העסקה” התאורטית שלא בוצעה ולכן אין אות.
+
+### השפעה
+
+זה משנה:
+
+- את מספר הכניסות;
+- את פיזור ההחזקות;
+- את החשיפה;
+- את עקומת ההון;
+- את תוצאות DEV וה־holdout.
+
+### תיקון נכון
+
+יש להפריד בין:
+
+1. יצירת אותות יומיים לכל מניה;
+2. מצב הפוזיציות שבוצעו בפועל;
+3. עדכון stop רק לפוזיציה אמיתית;
+4. דיכוי כניסה חוזרת רק כל עוד קיימת פוזיציה אמיתית.
+
+אין ליצור מראש “עסקה מלאה” לפני שנודע אם לתיק היה מזומן לבצע אותה.
+
+---
+
+## P1 — היקום הנוכחי של Alpaca אינו יקום point-in-time
+
+`universe()` משתמש ב־`assets.json` הנוכחי וב־exchange הנוכחי:
+
+```python
+a["exchange"] in ("NYSE", "NASDAQ", "AMEX")
+```
+
+לכן:
+
+- מניה שנסחרה ב־NYSE בזמן אמת ונמחקה או עברה ל־OTC עלולה להיעלם מכל ההיסטוריה;
+- מניה ששינתה סוג נייר או ticker עלולה להיות מסווגת לפי מצבה הנוכחי;
+- `status=all` אינו מספיק אם סינון ה־exchange וה־asset type מתבסס על snapshot נוכחי.
+
+זו הטיית שורדים אפשרית, בעיקר ב־DEV המוקדם. הכיוון הסביר הוא שיפור מלאכותי, אך גודלו אינו ידוע.
+
+### אומדן חינמי מוצע
+
+לא ניתן להסיר את ההטיה לחלוטין רק מ־Alpaca, אך אפשר למדוד אותה:
+
+1. להוריד את רשימות ה־SEC tickers/CIK העכשוויות ואת submissions history.
+2. לבנות רשימת חברות שהגישו 10-K/10-Q בכל שנה אך אינן ביקום Alpaca הנוכחי.
+3. להשוות לפי שנה:
+   - מספר CIK פעילים;
+   - מספר סימולים עם מחירים;
+   - מספר חברות שנעלמות לפני סוף המדגם;
+   - שיעור delisting מתוך CRSP-like delisting lists ציבוריים, אם נמצא מקור.
+4. להריץ bounds:
+   - בסיס נוכחי;
+   - לכל מניה שנעלמה ללא תמורה ידועה: recovery של 0%;
+   - recovery של 25%;
+   - recovery של 50%;
+   - השארת ההון קשור עד סוף החלון.
+
+אם ה־Sharpe נשאר מתחת לסף בכל התרחישים, ההטיה אינה משנה את ההכרעה. אין לתאר את המדגם כ־survivorship-free.
+
+---
+
+## P1 — מימוש מניה שנעלמה במחיר האחרון אינו fill אפשרי
+
+בסוף סדרה `batch_trades` יוצר:
+
+```python
+ex_i = n - 1
+ex_px = c[n - 1]
+ex_kind = "end"
+```
+
+וב־portfolio ההון משתחרר כאילו ניתן היה למכור במחיר האחרון.
+
+מחיר אחרון יכול להיות:
+
+- מחיר לפני halt;
+- מחיר לפני delisting;
+- מחיר לפני bankruptcy;
+- מחיר לפני merger;
+- נתון אחרון משום שההורדה חסרה, לא משום שהנייר חדל להתקיים.
+
+אין מידע שניתן היה לבצע בו מכירה לאחר שנודע שהסדרה הסתיימה.
+
+### מדיניות נדרשת
+
+יש להבחין בין:
+
+1. **סוף חלון מחקר:** שערוך בלבד במחיר האחרון בתוך החלון; לא אירוע מסחר.
+2. **מיזוג במזומן:** תמורה לפי תנאי העסקה ובמועד התשלום.
+3. **מיזוג במניות:** החלפת המניה לפי יחס ההמרה.
+4. **delisting עם מסחר OTC:** המשך החזקה וסדרה חדשה.
+5. **bankruptcy ללא recovery ידוע:** תרחישי recovery של 0%/25%/50%, לא מחיר אחרון.
+6. **חור נתונים:** חסימה או השלמת נתונים, לא liquidation.
+
+---
+
+## P1 — מדדי העסקאות כוללים עסקאות שלא בוצעו
+
+המדדים נבנים מ־`T`, כלומר מכל העסקאות התאורטיות שיצר `batch_trades`:
+
+```python
+W = Tp[(Tp.ed >= lo) & (Tp.ed <= hi)]
+```
+
+אבל `portfolio` עשוי לדלג על חלקן בגלל תקרת מזומן. לכן:
+
+- `trades`;
+- `win_rate`;
+- `expectancy_R`;
+
+אינם בהכרח מדדי העסקאות של התיק.
+
+### השלכה
+
+הטענה שה־expectancy נשאר 0.36R ב־holdout אינה בהכרח תוצאה של העסקאות שבוצעו בפועל. היא יכולה להיות נכונה לאות התאורטי אך לא לתיק עם מגבלת 100% exposure.
+
+### תיקון
+
+`portfolio` צריך להחזיר execution ledger אמיתי:
+
+```text
+tid
+signal_date
+entry_date
+entry_price
+shares
+initial_stop
+exit_date
+exit_price
+entry_cost
+exit_cost
+realized_pnl
+R
+skip_reason
+```
+
+כל מדדי העסקאות יחושבו רק מ־`shares > 0`.
+
+---
+
+## P1 — עסקאות שחוצות את גבול המדידה משתמשות בעתיד במדדי העסקאות
+
+הקוד מסנן את `W` לפי **מועד הכניסה בלבד**. עסקה שנפתחה ב־DEV ונסגרה ב־holdout מקבלת במדדי DEV את מחיר היציאה העתידי.
+
+עקומת ההון נחתכה בזמן, אבל:
+
+- win rate;
+- expectancy R;
+- top-10 contribution;
+
+עלולים לקרוא מחירים מהתקופה הבאה.
+
+### טיפול נכון
+
+בסוף כל חלון:
+
+- פוזיציה פתוחה משוערכת במחיר הסגירה האחרון בחלון;
+- מדווחת כ־`open_at_boundary`, לא כעסקה סגורה;
+- התרומה לחלון היא מהכניסה או מתחילת החלון ועד סוף החלון;
+- אין להשתמש במחיר יציאה עתידי.
+
+---
+
+## P1 — ריכוז הרווח ב־holdout משמיט פוזיציות שהועברו מ־DEV
+
+ה־portfolio בהרצת holdout מתחיל למעשה לפני 2022, ולכן יכול להחזיק ב־1.1.2022 פוזיציות ישנות. תשואתן בתוך holdout נכנסת לעקומת ההון, אבל `W` כולל רק עסקאות שנפתחו בתוך holdout.
+
+כך המונה והמכנה של `top10_share_of_profit` אינם מתייחסים לאותו P&L.
+
+### תיקון
+
+לכל פוזיציה יש לחשב את תרומתה **בתוך החלון**:
+
+\[
+PnL_{i,[lo,hi]}
+=
+V_{i,hi}-V_{i,lo}
++\text{cash flows בתוך החלון}
+\]
+
+פוזיציה מועברת נפתחת לצורכי attribution במחיר ה־mark של סוף היום שקדם ל־`lo`.
+
+---
+
+## P1 — סדרת העסקאות אינה שומרת זהות נכס היסטורית
+
+פיצול לפי פער של יותר מ־15 ימי לוח מונע לעיתים חיבור גס של שתי סדרות, אבל פער אינו מזהה חברה:
+
+- אותה חברה יכולה להיות מושעית ליותר מ־15 יום;
+- ticker יכול לעבור לחברה חדשה ללא פער גדול;
+- חברה יכולה לשנות ticker בלי פער;
+- שני ניירות שונים יכולים לחלוק ticker בתקופות שונות.
+
+נדרש מפתח כגון:
+
+```text
+alpaca_asset_id + valid_from + valid_to
+```
+
+ולא `symbol` בלבד.
+
+---
+
+## P2 — יום המסחר הראשון בחלון נשמט מן התשואות וה־MDD
+
+`st()` חותכת קודם את עקומת ההון ואחר כך עושה `pct_change()`:
+
+```python
+e = eq[lo:hi]
+r = e.pct_change().dropna()
+```
+
+אם הייתה חשיפה מועברת, תשואת יום המסחר הראשון בחלון הולכת לאיבוד. גם ה־MDD אינו מעוגן בהון של סוף היום הקודם.
+
+### תיקון
+
+יש לצרף כעוגן את הסגירה האחרונה שלפני `lo`, לחשב את תשואת היום הראשון ממנה, ורק לאחר מכן לחתוך את סדרת התשואות.
+
+---
+
+## P2 — ימי מזומן מלא עלולים להיעלם מן Sharpe
+
+אינדקס התיק נבנה מ־`C.index`, שמקורו ב־paths של עסקאות תאורטיות. בתקופה שבה אין אף עסקה או שכל התיק במזומן, ימי מסחר עלולים לא להיכלל.
+
+CAGR לפי זמן קלנדרי עדיין מתקרב להגדרה הנכונה, אבל Sharpe שמוכפל ב־`sqrt(252)` צריך לכלול תשואת אפס בכל יום מסחר תקין שבו התיק היה במזומן.
+
+יש ליישר ללוח NYSE ולמלא אפס רק ביום מסחר תקין, לא ביום חסר נתונים.
+
+---
+
+## P2 — תנאי ATH מאפשר שוויון לשיא, לא בהכרח “שיא חדש”
+
+```python
+entry_sig = elig & (c >= prevmax)
+```
+
+`>=` מאפשר אות גם כאשר הסגירה שווה בדיוק לשיא קודם. אם ההגדרה היא “new all-time high”, הכלל המדויק הוא בדרך כלל `c > prevmax`.
+
+במחירים מעוגלים לסנט ההבדל עשוי ליצור אותות נוספים. יש להכריע לפי ה־PDF ולהקפיא.
+
+---
+
+## look-ahead ב־ATR, σ והביצוע
+
+לא מצאתי look-ahead ישיר בליבת האות:
+
+- ATR ו־σ כוללים את סגירת יום האות;
+- האות מתקבל בסגירה;
+- הכניסה בפתיחת היום הבא;
+- יציאת stop מתקבלת בסגירה מתחת ל־stop ומבוצעת בפתיחה הבאה.
+
+זה עקבי, בתנאי שהמחירים המתואמים אינם משתמשים ב־adjustment factor שלא היה ידוע בזמן אמת באופן שמשנה את זיהוי ה־ATH. פיצולים עתידיים מותרים לצורך יצירת סדרה כלכלית עקבית רק אם כל ההיסטוריה עד יום ההחלטה מובאת ליחידות יום ההחלטה; אסור להשתמש בדיבידנד עתידי כדי לשנות אות היסטורי.
+
+---
+
+## פסק דין t338
+
+- ה־NO-GO לפי Sharpe ‏0.44 נשאר.
+- אין בסיס לפתוח מחדש holdout או לשנות סף.
+- מדדי העסקאות וה־top-10 אינם אמינים עד שיחושבו מ־execution ledger.
+- עקומת התיק עצמה מושפעת מהבאג שבו עסקה שלא בוצעה מדכאת אותות עתידיים.
+- לא ניתן לדעת ללא הרצה מתוקנת אם ההשפעה חיובית או שלילית.
+- ההרצה המתוקנת תהיה **בדיקת תיקון בדיעבד**, לא holdout חדש.
+
+---
+
+# 2. ביקורת קוד בדיעבד — t340
+
+## P1 — תקופת ההחזקה האחרונה בכל חלון אינה נמדדת
+
+הקוד חותך את מועדי האיזון ל־`hi` ואז מריץ:
+
+```python
+for k in range(len(R) - 1):
+```
+
+כלומר, האיזון האחרון ברשימה אינו מבוצע משום שאין אחריו איזון נוסף.
+
+ב־DEV:
+
+- איזון נובמבר 2021 אמור להחזיק עד סוף דצמבר 2021;
+- בפועל הוא אינו נכנס כלל.
+
+ב־holdout עתידי, גם האיזון האחרון עד הנתון האחרון יושמט.
+
+### תיקון
+
+רשימת intervals צריכה להיות:
+
+```text
+rebalance_0 → rebalance_1
+...
+rebalance_last → measurement_end
+```
+
+כאשר `measurement_end` הוא סוף `hi` או המחיר האחרון הזמין לפניו.
+
+הבאג יכול לשנות CAGR, Sharpe וההשוואה ל־SPY. הוא אינו הופך אוטומטית את ה־NO-GO.
+
+---
+
+## P1 — נייר שנעלם הופך למזומן במחיר היסטורי
+
+בסוף interval:
+
+```python
+O.loc[d1].reindex(tick).fillna(seg.iloc[-1])
+```
+
+אם אין מחיר פתיחה באיזון הבא, הקוד משתמש בסגירה האחרונה. לאחר מכן כל `val` מושקע בתיק הבא.
+
+זה מעניק:
+
+1. מכירה במחיר שלא היה ניתן לביצוע לאחר ההיעלמות;
+2. שחרור מיידי של ההון;
+3. השקעת ההון מחדש.
+
+בפועל ההון יכול להישאר קשור ב־halt, bankruptcy או corporate action.
+
+נדרשת אותה מדיניות מפורשת שתוארה ל־t338.
+
+---
+
+## P1 — OpenFIGI current mapping אינו point-in-time, והטייתו אינה חד־כיוונית
+
+מיפוי CUSIP נוכחי ל־ticker נוכחי אינו משחזר בהכרח את נייר הערך בתקופת הדוח:
+
+- CUSIP משתנה במיזוג, שינוי מבנה או reorganization;
+- ticker ממוחזר;
+- CUSIP ישן של מניה מצליחה שנרכשה יכול להיעלם;
+- CUSIP של חברה שנכשלה יכול להיעלם;
+- אותו issuer יכול להחזיק כמה share classes.
+
+לכן הקביעה שהכיסוי החלקי “עוזר לאסטרטגיה” אינה מוכחת. הכיוון הוא `UNKNOWN`.
+
+### פתרון חינמי חלקי
+
+במקום OpenFIGI בלבד:
+
+1. להשתמש ב־SEC `company_tickers_exchange.json` ל־CIK–ticker נוכחי.
+2. להשתמש ב־submissions JSON לכל CIK לשמות קודמים וטפסים היסטוריים.
+3. להשתמש ב־13F issuer name + class + CUSIP.
+4. לשמור mapping עם:
+   - `cusip`;
+   - `figi`;
+   - `share_class_figi`;
+   - `ticker`;
+   - `valid_from`;
+   - `valid_to`;
+   - `mapping_source`;
+   - `confidence`.
+5. במקרה של ambiguity, לא לבחור אוטומטית את תוצאת OpenFIGI הראשונה.
+6. למדוד coverage לפי **שווי point-in-time**, לא לפי מספר CUSIP בלבד.
+7. להריץ bounds עבור unmapped holdings:
+   - return של SPY;
+   - return של 0%;
+   - loss של 100%;
+   - השארת משקל כמזומן.
+
+אין דרך חינמית מושלמת לשחזר כל CUSIP היסטורי; הכיסוי צריך להישאר מגבלת ראיה.
+
+---
+
+## P1 — מסנן “קבוצת־על רופפת” אינו באמת superset
+
+ב־`parse_zip` מסננים לפני המיפוי:
+
+```python
+size between 10 and 100
+sum between 100m and 25b
+```
+
+אבל הרישום מגדיר כשירות לפי **החזקות ממופות**:
+
+- 10–60;
+- 100m–20b.
+
+קרן עם 120 החזקות גולמיות אך 50 החזקות מניות ממופות אמורה להיות כשירה לפי הרישום, אך נזרקת לפני המיפוי. כך גם קרן עם שווי גולמי 30 מיליארד אך שווי מניות ממופה 15 מיליארד.
+
+יש להסיר prefilters שאינם תנאי הכרחי, או להרחיב אותם כך שיובטח מתמטית שכל קרן שעשויה לעבור אחרי המיפוי נשמרת.
+
+---
+
+## P1 — כלל 45 הימים אינו מטפל בדחיית deadline לסוף שבוע או חג
+
+הקוד דורש:
+
+```python
+fd - per <= 45 days
+```
+
+ה־13F נדרש בתוך 45 ימים מסוף הרבעון, אבל כאשר היום ה־45 אינו יום עסקים, המועד המעשי עשוי לעבור ליום העסקים הבא. דוח שהוגש בזמן לפי לוח SEC יכול להיפסל בקוד.
+
+בנוסף, איזון ב“יום המסחר הראשון מ־16 בחודש” מניח שכל הדוחות הכשירים כבר פורסמו. נדרש להשתמש ב־acceptance datetime בפועל, לא רק `FILING_DATE`.
+
+### כלל נקי
+
+- לכל רבעון לחשב את deadline החוקי בפועל, כולל סוף שבוע וחג פדרלי.
+- inclusion cutoff הוא זמן קבוע, למשל 16:00 ET ביום העסקים שלאחר deadline.
+- האיזון מתבצע רק לאחר cutoff זה.
+- כל filing שהתקבל אחריו נדחה לרבעון הבא או מושמט לפי הרישום.
+- אין להשתמש בדוח לפי תאריך יום בלבד אם הוא התקבל אחרי מועד הביצוע.
+
+---
+
+## P1 — `FILING_DATE` יומי אינו מספיק ל־point-in-time
+
+אם האיזון מתבצע בפתיחה, דוח שהוגש באותו יום אחרי הסגירה אינו יכול להשתתף.
+
+ה־SEC מספק acceptance timestamp ב־submission metadata. יש לדרוש:
+
+\[
+acceptanceDateTime < executionTime
+\]
+
+ולא רק `fd <= rebalance_date`.
+
+---
+
+## P1 — בחירת “הדוח האחרון” אינה מטפלת נכון בתיקונים
+
+הקוד מסיר amendments מראש:
+
+```python
+ISAMENDMENT != Y
+```
+
+ולאחר מכן בוחר latest original filing.
+
+בעיות אפשריות:
+
+- amendment יכול לתקן טעות מהותית;
+- amendment restatement יכול להחליף רשימת החזקות;
+- amendment יכול להיות addition בלבד;
+- שימוש בתיקון תלוי במועד קבלתו.
+
+לשחזור point-in-time:
+
+- לפני מועד האיזון משתמשים בגרסה האחרונה שהייתה זמינה;
+- יש לפרש `RESTATEMENT`, `ADD NEW HOLDINGS` ושדות amendment type;
+- אם לא מממשים amendments, יש לתייג את המימוש כ־original-only ולא כשחזור ��לא של המידע שעמד למשקיע.
+
+---
+
+## P1 — Variant B עלול להיפגע ממיפוי משתנה לאורך זמן
+
+תשואת ה־clone ההיסטורית של קרן מחושבת רק על החזקות שממופות כיום. אם coverage של קרן משתנה לאורך שמונת הרבעונים:
+
+- תשואת העבר שלה אינה על תיק עקבי;
+- קרן יכולה לעלות בדירוג משום שהחזקות מפסידות לא מופו;
+- או לרדת משום שהחזקות מוצלחות שנרכשו נעלמו.
+
+לכן דירוג הקרנות ב־B חשוף יותר להטיית mapping מאשר וריאנט A.
+
+נדרש coverage floor לכל fund-period, לדוגמה שיעור שווי ממופה מינימלי שנקבע מראש. אין לבחור את הסף לאחר התוצאה.
+
+---
+
+## P2 — benchmark GURU והאסטרטגיה צריכים להשתמש באותו חלון מדויק
+
+לא די לדווח GURU באותן שנות לוח. יש להשתמש:
+
+- באותו תאריך התחלה;
+- באותו תאריך סיום;
+- באותם ימי מסחר;
+- באותו טיפול בדיבידנדים;
+- ובאותו עוגן לפני יום המדידה הראשון.
+
+אחרת CAGR/Sharpe יכולים להשתנות בגלל חיתוך.
+
+---
+
+## פסק דין t340
+
+- וריאנטים A ו־B שנבדקו לא עברו DEV; ה־NO-GO שלהם נשאר.
+- אין הצדקה להריץ holdout.
+- אין בסיס לטענה רחבה שכל העתקת קרנות אינה עובדת.
+- המסקנה הנתמכת היא:
+
+> במימוש original-only, עם OpenFIGI current mapping והיקום הזמין, שני הכללים הרשומים לא הכו את SPY ב־DEV.
+
+- הדמיון ל־GURU הוא sanity check שימושי, אך אינו מאמת את ה־mapping או את הטיפול בניירות שנעלמו.
+- הרצה מתוקנת לא מחזירה DEV לעצמאות; היא תהיה diagnostic בלבד.
+
+---
+
+# 3. Conservative Formula — בניית Net Payout Yield מ־EDGAR בחינם
+
+## תשובה קצרה
+
+כן, אפשר לבנות pipeline חינמי, אך מומלץ להשתמש ב־**`companyfacts` לכל CIK**, לא ב־`frames` כמקור ראשי.
+
+ה־SEC מסביר שה־API חינמי, ללא API key, מתעדכן בזמן אמת וכולל `companyfacts`, `companyconcept` ו־`frames`. `frames` מחזיר עובדה אחת “המתאימה ביותר” לרבעון קלנדרי ועלול להיות בעייתי לחברות עם fiscal calendar לא סטנדרטי; `companyfacts` שומר accession, form, filed, start/end, frame ויחידות לכל fact. [SEC — EDGAR APIs](https://www.sec.gov/search-filings/edgar-application-programming-interfaces)
+
+---
+
+## 3.1 הגדרת NPY
+
+הגדרה פרקטית:
+
+\[
+NPY_{i,t}
+=
+\frac{
+Dividends_{TTM}
++
+Repurchases_{TTM}
+-
+EquityIssuance_{TTM}
+}{
+MarketCap_{i,t}
+}
+\]
+
+חשוב להקפיא מראש אם `EquityIssuance` כולל:
+
+- common stock issuance בלבד;
+- stock option exercises;
+- employee stock plans;
+- issuance in acquisitions;
+- preferred stock.
+
+ל־Conservative Formula יש להשתמש בהגדרה התואמת למאמר, לא בבחירה של tags שנותנת את התוצאה היפה ביותר.
+
+---
+
+## 3.2 Tags מרכזיים — repurchases
+
+### tag ראשי
+
+```text
+us-gaap:PaymentsForRepurchaseOfCommonStock
+```
+
+### חלופות אפשריות
+
+```text
+us-gaap:PaymentsForRepurchaseOfCommonAndPreferredStock
+us-gaap:PaymentsForRepurchaseOfEquity
+us-gaap:PaymentsForRepurchaseOfPreferredStock
+```
+
+### כללי בחירה
+
+1. מעדיפים common-only.
+2. אם קיים combined common+preferred:
+   - משתמשים בו רק אם preferred immaterial או אם אין tag common נפרד;
+   - לא מחברים combined ו־common, כדי למנוע double count.
+3. אם קיימים גם total וגם components, בוחרים hierarchy יחיד.
+4. custom extensions אי��ן זמינות ב־companyfacts standard API; חברה שחושפת רק custom tag תישאר חסרה, אלא אם מורידים instance XBRL מן filing עצמו.
+
+---
+
+## 3.3 Tags מרכזיים — issuance
+
+### tags אפשריים
+
+```text
+us-gaap:ProceedsFromIssuanceOfCommonStock
+us-gaap:ProceedsFromStockOptionsExercised
+us-gaap:ProceedsFromIssuanceOfSharesUnderIncentiveAndShareBasedCompensationPlansIncludingStockOptions
+us-gaap:ProceedsFromIssuanceOrSaleOfEquity
+us-gaap:ProceedsFromIssuanceOfPreferredStockAndPreferenceStock
+```
+
+### זהירות
+
+`ProceedsFromIssuanceOfCommonStock` אינו בהכרח כולל את כל הדילול:
+
+- מניות שהונפקו ברכישה יכולות להיות non-cash;
+- stock-based compensation יכולה לדלל בלי cash proceeds;
+- option exercises עשויים להיות tag נפרד;
+- ATM offering יכול להיות common issuance;
+- convertible conversion עלול לא להופיע כ־cash proceeds.
+
+לכן יש לבחור אחת משתי הגדרות:
+
+### A. Cash net payout
+
+\[
+CashNPY
+=
+Dividends
++
+CashRepurchases
+-
+CashProceedsFromIssuance
+\]
+
+זו ההגדרה הקלה והאמינה יותר מ־cash-flow statement.
+
+### B. Share-count net payout
+
+\[
+ShareNPY
+\approx
+DividendsYield
+-
+\Delta SharesOutstanding
+\]
+
+זו תופסת דילול non-cash, אך מושפעת מ־splits, acquisitions ו־share-class changes ודורשת pipeline מורכב יותר.
+
+אין לערבב את A ו־B לאחר ראיית התוצאה.
+
+---
+
+## 3.4 Tags מרכזיים — dividends
+
+### עדיפות ראשונה: cash-flow statement
+
+```text
+us-gaap:PaymentsOfDividendsCommonStock
+```
+
+### חלופות
+
+```text
+us-gaap:PaymentsOfDividends
+us-gaap:PaymentsOfOrdinaryDividends
+us-gaap:PaymentsOfDividendsMinorityInterest
+us-gaap:PaymentsOfDividendsPreferredStockAndPreferenceStock
+```
+
+### כללי בחירה
+
+1. מעדיפים common-stock dividends.
+2. אם קיים `PaymentsOfDividends` total:
+   - מפחיתים preferred dividends רק אם component אמין וזמין;
+   - אחרת מסמנים combined.
+3. לא להשתמש ב־`CommonStockDividendsPerShareDeclared` להכפלה אוטומטית במספר המניות:
+   - זה declared, לא בהכרח paid;
+   - מספר המניות משתנה;
+   - timing שונה.
+4. לא להשתמש ב־dividends payable כתחליף לתזרים.
+
+---
+
+## 3.5 הורדה
+
+לכל CIK:
+
+```text
+https://data.sec.gov/api/xbrl/companyfacts/CIK##########.json
+```
+
+ובנפרד metadata:
+
+```text
+https://data.sec.gov/submissions/CIK##########.json
+```
+
+אפשר גם להוריד את bulk ZIP הלילי של companyfacts. ה־SEC מציין שה־APIs אינם דורשים authentication או API key ושה־bulk מתעדכן מדי לילה. [SEC API documentation](https://www.sec.gov/search-filings/edgar-application-programming-interfaces)
+
+יש לשלוח `User-Agent` מזוהה בהתאם למדיניות SEC ולא לבצע scraping אגרסיבי.
+
+---
+
+## 3.6 schema מקומי
+
+לשמור כל fact בלי לדרוס גרסאות קודמות:
+
+```text
+cik
+taxonomy
+tag
+unit
+value
+start
+end
+fy
+fp
+form
+filed
+accn
+frame
+source_url
+downloaded_at
+```
+
+לא לבחור מיד “ערך אחרון”. point-in-time דורש לשמור את כל filings וה־restatements.
+
+---
+
+## 3.7 טיפול ב־YTD מול רבעוני
+
+זה החלק הקריטי.
+
+חברות רבות מדווחות cash-flow tags כך:
+
+- Q1: שלושה חודשים;
+- Q2: שישה חודשים YTD;
+- Q3: תשעה חודשים YTD;
+- 10-K: שנה מלאה.
+
+לכן אסור לסכום Q1 + Q2 + Q3 + FY.
+
+### נגזרת רבעונית
+
+נסמן:
+
+- \(Y_1\): Q1 YTD;
+- \(Y_2\): Q2 YTD, שישה חודשים;
+- \(Y_3\): Q3 YTD, תשעה חודשים;
+- \(FY\): שנה מלאה.
+
+אז:
+
+\[
+Q1=Y_1
+\]
+
+\[
+Q2=Y_2-Y_1
+\]
+
+\[
+Q3=Y_3-Y_2
+\]
+
+\[
+Q4=FY-Y_3
+\]
+
+### תנאים
+
+מבצעים subtraction רק אם:
+
+- אותו CIK;
+- אותו tag;
+- אותה unit;
+- אותה fiscal year;
+- start זהה או תואם תחילת fiscal year;
+- end מתקדם כרונולוגית;
+- form מתאים;
+- facts אינם amended באופן לא עקבי;
+- אין fiscal year change.
+
+אם חסר Q1 אך יש Q2 YTD, אי אפשר להפיק Q2 standalone בלי הנחה. מסמנים `UNKNOWN`, לא מחלקים בשניים.
+
+---
+
+## 3.8 זיהוי duration
+
+לא להסתמך רק על `fp`. להשתמש גם במשך:
+
+- כ־70–110 ימים: quarter;
+- כ־150–220: half-year YTD;
+- כ־240–310: nine-month YTD;
+- כ־330–400: annual.
+
+טווחים רחבים נדרשים לשנות 52/53 שבועות.
+
+יש לזהות fiscal year לפי `fy`, `fp`, start/end ו־10-K, לא לפי quarter קלנדרי.
+
+---
+
+## 3.9 Filed / acceptance time
+
+`companyfacts` מספק `filed`, בדרך כלל תאריך. לביצוע מדויק בפתיחה נדרש גם acceptance timestamp מתוך submissions/filing index.
+
+כלל point-in-time:
+
+\[
+fact\_available =
+acceptanceDateTime < portfolioDecisionTime
+\]
+
+אם יש רק `filed` ללא שעה:
+
+- שמרני: העובדה זמינה החל מיום המסחר הבא;
+- אין להשתמש בה בפתיחת אותו יום.
+
+### amendments
+
+בעת כל rebalance:
+
+1. אוספים רק filings שהתקבלו לפני cutoff.
+2. עבור אותו fiscal period/tag בוחרים את הגרסה האחרונה שהייתה זמינה אז.
+3. restatement עתידי אינו משנה ערך היסטורי שכבר שימש בהחלטה.
+4. 10-K/A או 10-Q/A נכנס רק לאחר acceptance שלו.
+5. שומרים גם `as_reported` וגם `latest_known_as_of_t`.
+
+---
+
+## 3.10 TTM
+
+במועד איזון \(t\):
+
+1. בונים ארבעה רבעונים standalone אחרונים שהיו ידועים ב־\(t\).
+2. אם ארבעתם זמינים:
+
+\[
+TTM=\sum_{q=1}^{4}Q_q
+\]
+
+3. אם חסר רבעון:
+   - אפשר להשתמש ב־FY האחרון רק אם הוא עדיין בתוך lag קבוע שהוגדר;
+   - אין לערבב FY וארבעה רבעונים באופן שגורם double count.
+4. נדרש freshness cutoff, למשל:
+   - הדוח האחרון התקבל בתוך 180 ימים;
+   - אחרת המניה אינה כשירה.
+
+---
+
+## 3.11 Market cap point-in-time
+
+במועד האיזון:
+
+\[
+MarketCap=P_{close,t-1}\times SharesOutstanding_{known,t}
+\]
+
+tags אפשריים:
+
+```text
+dei:EntityCommonStockSharesOutstanding
+us-gaap:CommonStocksIncludingAdditionalPaidInCapitalMember
+us-gaap:CommonStockSharesOutstanding
+us-gaap:WeightedAverageNumberOfSharesOutstandingBasic
+```
+
+העדיפות היא shares outstanding instant, לא weighted-average EPS denominator. גם כאן יש share classes, splits ו־units.
+
+חלופה פשוטה יותר:
+
+- להשתמש ב־Alpaca/SEC security master כדי לקבל shares outstanding point-in-time;
+- אם אין, market cap נעשה חסם הנתונים.
+
+אין להשתמש בשווי שוק נוכחי לצורך דירוג היסטורי.
+
+---
+
+## 3.12 התאמת CIK לסימול
+
+יש לבנות טבלת mapping היסטורית:
+
+```text
+cik
+security_id
+ticker
+exchange
+share_class
+valid_from
+valid_to
+source
+```
+
+### מקורות
+
+1. SEC submissions JSON:
+   - tickers;
+   - exchanges;
+   - former names;
+   - filing history.
+2. `company_tickers_exchange.json`.
+3. Alpaca asset ID ו־symbol history.
+4. EDGAR filing cover:
+   - `Trading Symbol`;
+   - title of each class;
+   - exchange.
+5. corporate actions:
+   - mergers;
+   - ticker changes;
+   - splits;
+   - spin-offs.
+
+### כלל
+
+המפתח הראשי הוא `CIK + share class/security ID`, לא ticker בלבד.
+
+חברה יכולה להחזיק:
+
+- כמה classes;
+- ticker שהתשנה;
+- CIK קבוע עם symbol חדש;
+- symbol ממוחזר בידי CIK אחר.
+
+---
+
+## 3.13 tag waterfall מוצע
+
+לכל component מקפיאים hierarchy לפני התוצאה.
+
+### Repurchases
+
+1. `PaymentsForRepurchaseOfCommonStock`
+2. combined common/preferred, אם אין common-only
+3. custom-XBRL extraction
+4. missing
+
+### Issuance
+
+1. `ProceedsFromIssuanceOfCommonStock`
+2. common issuance + options/employee-plan proceeds, אם הגדרת המחקר כוללת אותם
+3. `ProceedsFromIssuanceOrSaleOfEquity` אם אין פירוט
+4. custom extraction
+5. missing
+
+### Dividends
+
+1. `PaymentsOfDividendsCommonStock`
+2. `PaymentsOfDividends` פחות preferred component
+3. total dividends
+4. custom extraction
+5. missing
+
+אסור לבחור tag אחר לכל חברה על בסיס התוצאה הכלכלית. הבחירה היא לפי hierarchy קפוא וסמנטיקה.
+
+---
+
+## 3.14 בקרות איכות
+
+לכל חברה־רבעון:
+
+1. `Q1+Q2+Q3+Q4 ≈ FY`.
+2. אין standalone quarter שלילי אלא אם restatement/נתון חשבונאי מסביר אותו.
+3. repurchases אינם גדולים באופן בלתי־סביר מ־market cap.
+4. issuance אינה מוכפלת בגלל total + components.
+5. unit היא USD; אם לא, conversion point-in-time או exclusion.
+6. fiscal year change מסומן.
+7. 10-K/10-Q values תואמים cash-flow statement בדוח המקורי במדגם ידני.
+8. audit ידני של לפחות:
+   - 25 חברות גדולות;
+   - 25 קטנות;
+   - 10 עם buybacks גדולים;
+   - 10 עם issuance גדולה;
+   - 10 עם fiscal year לא קלנדרי.
+9. coverage לפי market cap ולפי מספר חברות בכל rebalance.
+10. comparison מול Compustat-like public samples או Macrotrends לצורכי sanity בלבד, לא כמקור point-in-time.
+
+---
+
+## 3.15 סדר עבודה מעשי
+
+### שלב 1 — proof of data
+
+- 20 CIKs, ‏2016–2026.
+- להפיק quarterly repurchases, issuance, dividends.
+- להשוות ידנית לדוחות.
+
+### שלב 2 — universe
+
+- לבנות CIK/security/ticker history לכל מניות Alpaca.
+- לזהות common stock בלבד.
+- לשמור delisted securities.
+
+### שלב 3 — bulk facts
+
+- להוריד bulk companyfacts.
+- להפיק את כל tag candidates.
+- לשמור raw facts ללא dedup הרסני.
+
+### שלב 4 — point-in-time engine
+
+פונקציה:
+
+```python
+facts_as_of(cik, decision_timestamp)
+```
+
+שמחזירה רק facts שהתקבלו לפני ההחלטה.
+
+### שלב 5 — YTD decomposition
+
+- להפיק standalone quarters;
+- לשמור provenance של כל subtraction;
+- לא להשלים missing quarter.
+
+### שלב 6 — TTM ו־NPY
+
+- ארבעה רבעונים;
+- market cap point-in-time;
+- coverage flags.
+
+### שלב 7 — replication snapshot
+
+לפני backtest:
+
+- להקפיא קובץ parquet עם hash;
+- לפרסם coverage;
+- לפרסם שיעור custom/missing;
+- לקבוע minimum coverage;
+- רק אז להריץ DEV.
+
+---
+
+## 3.16 האם `frames` מספיק?
+
+לא כמקור ראשי.
+
+`frames` נוח לחתך רוחב, אבל ה־SEC מזהיר שהוא בוחר facts המתאימים ביותר לתקופה קלנדרית, בעוד fiscal calendars יכולים להיות שונים. הוא גם אינו מתאים באותה מידה לשחזור “מה היה ידוע ביום מסוים”. [SEC — XBRL frames API](https://www.sec.gov/search-filings/edgar-application-programming-interfaces)
+
+שימוש נכון:
+
+- `companyfacts` לבניית point-in-time;
+- `frames` לבקרת coverage ו־sanity cross-sectional בלבד.
+
+---
+
+# 4. האם יש מועמד טוב יותר מ־Conservative Formula?
+
+## התשובה הכנה
+
+כרגע **לא**.
+
+לאחר:
+
+- t338: ATH trend נכשל ב־holdout;
+- t340: 13F cloning נכשל ב־DEV;
+- t342: אינדיקטורי הקהל לא עברו תיקון משפחתי;
+- כישלונות האירועים, מאקרו־FX, קריפטו־עונתי ואינדיקטורים קלאסיים;
+
+ה־Conservative Formula נשארת מועמד סביר משום שהיא:
+
+- long-only;
+- turnover רבעוני נמוך;
+- אינה זקוקה ל־short borrow;
+- מבוססת על שלושה מנגנונים שונים;
+- ניתנת למסחר ב־Alpaca;
+- שונה מ־C1 ומ־I2;
+- פחות רגישה לעלות;
+- בעלת replication עצמאי, גם אם לא OOS אמריקאי נקי.
+
+אבל אין הצדקה להריץ אותה עם NPY חלקי. אם EDGAR pipeline אינו עומד בבקרות, המועמד הוא `BLOCKED-DATA`.
+
+## מועמדים חלופיים ששקלתי ואיני מעדיף
+
+### PEAD / earnings drift
+
+- נתוני 8-K point-in-time זמינים;
+- אבל צריך consensus surprise או standardized unexpected earnings;
+- החזקה דרך earnings יוצרת gap risk;
+- יש ריבוי הגדרות וסיכון look-ahead גבוה.
+
+### Short-term reversal במניות
+
+- turnover גבוה;
+- עלויות והחלקה;
+- לרוב דורש short או market-neutral implementation;
+- קשה בחשבון 10–50 אלף.
+
+### Low volatility בלבד
+
+- פשוט וניתן לבדיקה;
+- אבל beta מנייתי גבוה;
+- עלול להיות crowded;
+- אינו מנוע עשיר מספיק לבדו.
+
+### Quality minus junk / profitability
+
+- ראיה אקדמית חזקה;
+- long-only אפשרי;
+- אבל דורש pipeline חשבונאי point-in-time דומה ל־Conservative Formula;
+- אם כבר בונים EDGAR, Conservative Formula נותנת שילוב מפוזר יותר.
+
+לכן סדר העבודה שאני מציע הוא:
+
+1. לבנות EDGAR NPY בצורה נכונה.
+2. להריץ Conservative Formula אחת, ללא וריאנטים.
+3. אם ה־coverage אינו מספיק — לסגור, לא להחליף tags לאחר התוצאה.
+4. אם היא נכשלת — להרחיב את הזירה למוצר/נתון חדש, לא לעוד סף על אות שכבר נכשל.
+
+---
+
+# 5. עדכון t342 — אינדיקטורי הקהל
+
+התוצאה החדשה תומכת במסקנה שכבר עלתה מהסבבים הקודמים:
+
+- לאינדיקטורי trend-following על ETH/BTC יש לעיתים edge גולמי;
+- אבל האפקט אינו חזק מספיק לאחר 24 ניסויים;
+- המועמדים הטובים הם בני אותה משפחה כמו C1;
+- H1 רגיש מאוד ל־turnover ועלויות;
+- TradingView popularity אינה ראיית רווחיות.
+
+`ETH H1 SuperTrend`, עם `t=2.44`, אינו “כמעט מעבר” במובן שמצדיק holdout. הסף 2.9 נקבע לפני התוצאה, והפער מהותי. פתיחת holdout או מעבר ל־ATR/multiplier אחר תהיה כוונון.
+
+**פסק הדין NO-GO לכל 24 הניסויים מוצדק.**
+
+---
+
+# 6. סעיף 4 — Rulebook מכני ל־SMC
+
+## קודם כול: אין SMC מכני אחד שהקהילה מקבלת
+
+**VERIFIED:** במדריכי SMC עצמם קיימות הגדרות שונות ל:
+
+- swing high/low;
+- wick לעומת close ב־BOS;
+- מהו displacement;
+- איזה נר הוא Order Block;
+- האם OB חייב לגרום ל־BOS;
+- האם FVG נמדד wick-to-wick;
+- כניסה בקצה, 50% או אחרי confirmation;
+- mitigation מלא או חלקי;
+- liquidity sweep;
+- premium/discount;
+- kill zones.
+
+מדריכים קהילתיים אף מדגישים שאין לסחור concept יחיד בלי “context”, כלומר שיקול דעת. [SMC educational guide](https://tdttv.com/smc-educational-guide.pdf)
+
+לכן אי אפשר לומר שהכלל הבא הוא “ה־SMC שהקהילה מקבלת”. זהו:
+
+> **`ASSUMED`: מימוש מכני, קפוא ובר־בדיקה של FVG + Order Block + BOS.**
+
+בחרתי ב־**BTCUSD, נרות 5 דקות**, כדי להימנע מפערי סשן ולהשתמש בנתון רציף. שעות הפעילות הן חלון ניו־יורק, אבל מוגדרות ב־ET עם DST ולא בשעות UTC קבועות.
+
+---
+
+## 6.1 נתונים והנחות כלליות
+
+- מכשיר: `BTCUSD`.
+- מקור אות: Binance `BTCUSDT` 1m aggregated ל־5m, או RF M5 אם קיים.
+- מקור ביצוע: RF BTCUSD.
+- timeframe: ‏M5.
+- חלון יצירת setup:
+  - 09:30–11:30 ET;
+  - חורף: 14:30–16:30 UTC;
+  - קיץ: 13:30–15:30 UTC.
+- כניסות מותרות עד 12:00 ET.
+- כל פוזיציה נסגרת לכל המאוחר ב־16:00 ET.
+- עסקה אחת בכל פעם.
+- לכל היותר עסקה אחת ביום.
+- אין החזקה ללילה.
+- עלות מלאה: spread + commission + slippage.
+- אם stop ויעד נפגעים באותו נר M5 לאחר הכניסה:
+  - stop נחשב ראשון.
+- אות שנוצר בסגירת נר ניתן לשימוש רק מן הנר הבא.
+- risk per trade לצורכי backtest: 1R קבוע; אין compounding בשלב בדיקת האות.
+
+---
+
+# 6.2 הגדרת swing מכנית
+
+נדרש בסיס ל־BOS ול־Order Block.
+
+## Swing High
+
+נר \(i\) הוא swing high מאושר אם:
+
+\[
+High_i > High_{i-1}, High_{i-2}
+\]
+
+וגם:
+
+\[
+High_i \ge High_{i+1}, High_{i+2}
+\]
+
+בשוויון בצד ימין, הנר המוקדם נבחר.
+
+ה־swing מאושר רק בסגירת \(i+2\), לא בזמן הנר \(i\).
+
+## Swing Low
+
+נר \(i\) הוא swing low מאושר אם:
+
+\[
+Low_i < Low_{i-1}, Low_{i-2}
+\]
+
+וגם:
+
+\[
+Low_i \le Low_{i+1}, Low_{i+2}
+\]
+
+גם כאן האישור מתקבל רק בסגירת \(i+2\).
+
+## swing active
+
+- ה־swing high הפעיל הוא ה־swing high המאושר האחרון שלא נשבר ב־close.
+- ה־swing low הפעיל הוא ה־swing low המאושר האחרון שלא נשבר ב־close.
+
+אין “major/minor swing” ואין בחירה ויזואלית.
+
+---
+
+# 6.3 Break of Structure — BOS
+
+## Bullish BOS
+
+Bullish BOS מתקיים בסגירת נר \(t\) אם:
+
+\[
+Close_t > ActiveSwingHigh + buffer
+\]
+
+כאשר:
+
+\[
+buffer=\max(2\times spread_t,\;0.05\times ATR_{14,M5,t-1})
+\]
+
+וה־swing היה מאושר לפני פתיחת נר \(t\).
+
+wick מעל swing ללא close אינו BOS.
+
+## Bearish BOS
+
+\[
+Close_t < ActiveSwingLow - buffer
+\]
+
+באותם תנאים.
+
+## displacement חובה
+
+נר ה־BOS חייב לעמוד גם ב:
+
+\[
+|Close_t-Open_t|\ge1.5\times medianBody_{20,t-1}
+\]
+
+וגוף הנר צריך להיות לפחות 60% מן הטווח:
+
+\[
+\frac{|Close_t-Open_t|}{High_t-Low_t}\ge0.60
+\]
+
+אחרת אין setup.
+
+### כניסה עצמאית לפי BOS
+
+כדי לתת ל־BOS כלל מלא גם בלי OB/FVG:
+
+- לאחר Bullish BOS: buy stop ב־`High_t + spread`.
+- לאחר Bearish BOS: sell stop ב־`Low_t - spread`.
+- הפקודה תקפה לשלושה נרות בלבד.
+- stop:
+  - לונג: מתחת ל־Low של נר BOS פחות buffer;
+  - שורט: מעל High של נר BOS ועוד buffer.
+- יעד: `2R`.
+- אם לא הופעלה בתוך שלושה נרות — ביטול.
+- יציאה בזמן: 16:00 ET.
+
+**זהו breakout rule, לא הקונצנזוס היחיד של SMC.**
+
+---
+
+# 6.4 Fair Value Gap — FVG
+
+## Bullish FVG
+
+לאחר סגירת נר \(t\), קיים Bullish FVG אם:
+
+\[
+Low_t > High_{t-2}
+\]
+
+הפער הוא:
+
+\[
+[High_{t-2}, Low_t]
+\]
+
+גודל מינימלי:
+
+\[
+Low_t-High_{t-2}
+\ge
+\max(2\times spread_t,\;0.10\times ATR_{14,M5,t-1})
+\]
+
+הנר האמצעי \(t-1\) חייב להיות bullish:
+
+\[
+Close_{t-1}>Open_{t-1}
+\]
+
+וגופו לפחות 60% מן הטווח.
+
+## Bearish FVG
+
+\[
+High_t < Low_{t-2}
+\]
+
+האזור:
+
+\[
+[High_t, Low_{t-2}]
+\]
+
+והנר האמצעי חייב להיות bearish עם אותו displacement.
+
+## כניסה
+
+- Bullish:
+  - limit buy ב־50% מן ה־FVG:
+
+\[
+Entry=\frac{High_{t-2}+Low_t}{2}
+\]
+
+- Bearish:
+  - limit sell באותו midpoint.
+
+הפקודה נשלחת רק לאחר סגירת נר \(t\).
+
+## תפוגה
+
+- הפקודה תקפה עד 12 נרות M5, כלומר שעה;
+- או עד 12:00 ET;
+- המוקדם מביניהם.
+
+## invalidation לפני כניסה
+
+- Bullish FVG מתבטל אם נר נסגר מתחת לקצה התחתון `High[t-2]`.
+- Bearish מתבטל אם נר נסגר מעל הקצה העליון `Low[t-2]`.
+
+## stop
+
+- Bullish: מתחת לקצה התחתון של הפער:
+
+\[
+Stop=High_{t-2}-buffer
+\]
+
+- Bearish:
+
+\[
+Stop=Low_{t-2}+buffer
+\]
+
+## יעד
+
+- יעד ראשי: `2R`.
+- אין partial.
+- אין trailing.
+- יציאה בזמן ב־16:00 ET.
+
+## כלל priority
+
+אם נוצרים כמה FVGs לפני fill, רק החדש ביותר נשמר. אין stacking.
+
+---
+
+# 6.5 Order Block — OB
+
+זו ההגדרה השנויה ביותר במחלוקת ב־SMC. כדי להסיר שיקול דעת:
+
+## Bullish Order Block
+
+לאחר Bullish BOS מאושר בנר \(t\):
+
+1. מחפשים לאחור לכל היותר 10 נרות.
+2. בוחרים את **הנר bearish האחרון** לפני נר ה־BOS:
+   \[
+   Close_j < Open_j
+   \]
+3. בין \(j+1\) ל־\(t\) אסור שהיה Bullish BOS קודם.
+4. אזור ה־OB הוא כל טווח הנר:
+   \[
+   [Low_j, High_j]
+   \]
+
+לא משתמשים רק בגוף ולא ב“נר המוסדי ביותר”.
+
+## Bearish Order Block
+
+לאחר Bearish BOS:
+
+- הנר bullish האחרון בעשרת הנרות הקודמים;
+- האזור `[Low_j, High_j]`.
+
+## תנאי FVG
+
+כדי לצמצם ambiguity, בגרסה המשולבת ה־OB כשיר רק אם נוצר גם FVG בכיוון ה־BOS בתוך הנרות \(j+1\) עד \(t+1\).
+
+Standalone OB יכול להיבדק בלי התנאי, אך הוא ניסוי נפרד.
+
+## כניסה
+
+- Bullish OB:
+  - buy limit ב־50% מטווח ה־OB:
+  \[
+  Entry=(Low_j+High_j)/2
+  \]
+- Bearish:
+  - sell limit באותו midpoint.
+
+הפקודה נשלחת לאחר סגירת נר ה־BOS.
+
+## stop
+
+- Bullish:
+  \[
+  Stop=Low_j-buffer
+  \]
+- Bearish:
+  \[
+  Stop=High_j+buffer
+  \]
+
+## יעד
+
+- `2R`, או ה־swing הנגדי הפעיל אם הוא רחוק פחות מ־2R.
+- כדי להימנע מיעד שנבחר בדיעבד:
+  - הכלל הראשי יהיה `2R`;
+  - swing target ידווח כאבחנה בלבד.
+
+## תפוגה וביטול
+
+- expiry: ‏24 נרות M5, כלומר שעתיים;
+- ביטול אם מתקבל BOS בכיוון הנגדי;
+- ביטול אם close עובר את קצה ה־stop לפני fill;
+- setup חדש מחליף ישן;
+- אין יותר מפקודת OB אחת פעילה.
+
+---
+
+# 6.6 הכלל המשולב — SMC mechanical confluence
+
+זה הכלל שהייתי רושם לבדיקה, במקום שלושה כללים שנבחרים בדיעבד.
+
+## לונג
+
+נדרש הרצף הבא:
+
+1. Swing high מאושר.
+2. Bullish BOS עם displacement.
+3. במהלך שלושת הנרות סביב ה־BOS נוצר Bullish FVG.
+4. מזוהה Bullish OB לפי הנר bearish האחרון לפני ה־BOS.
+5. ה־FVG וה־OB חופפים במחיר:
+
+\[
+\max(FVG_{low},OB_{low})
+<
+\min(FVG_{high},OB_{high})
+\]
+
+6. אזור הכניסה הוא midpoint של אזור החפיפה:
+
+\[
+Entry=
+\frac{
+OverlapLow+OverlapHigh
+}{2}
+\]
+
+7. stop מתחת לנמוך של ה־OB פחות buffer.
+8. יעד `2R`.
+9. fill בתוך 12 נרות.
+10. רק setup שנוצר 09:30–11:30 ET.
+11. כניסה עד 12:00 ET.
+12. יציאה עד 16:00 ET.
+
+## שורט
+
+תמונת ראי מלאה.
+
+## sizing
+
+\[
+PositionSize=
+\frac{RiskBudget}
+{|Entry-Stop|}
+\]
+
+אבל עם:
+
+- תקרת notional;
+- minimum stop distance של לפחות פי 3 מעלות round trip;
+- אם stop קטן מהסף — אין עסקה.
+
+## אין שיקול דעת
+
+אסור להוסיף:
+
+- liquidity sweep;
+- premium/discount;
+- daily bias;
+- higher timeframe narrative;
+- “clean FVG”;
+- “strong OB”;
+- “institutional candle”;
+- news filter;
+- London manipulation;
+- kill-zone אחר;
+- inducement;
+- CHoCH.
+
+כל הוספה כזו היא ניסוי חדש.
+
+---
+
+# 6.7 האם הקהילה מקבלת את הניסוח?
+
+**לא באופן מלא.**
+
+- הגדרת FVG של שלושה נרות, wick-to-wick, היא הנפוצה והקרובה ביותר לקונצנזוס.
+- BOS על close מעבר ל־swing נפוץ, אבל חלק משתמשים ב־wick.
+- swing של 2-left/2-right הוא בחירה מכנית שלנו; הקהילה משתמשת גם ב־1/1, ‏3/3 או structure discretionary.
+- Order Block כ“הנר הנגדי האחרון לפני displacement/BOS” נפוץ, אבל:
+  - חלק משתמשים בגוף בלבד;
+  - חלק בכל הטווח;
+  - חלק דורשים liquidity sweep;
+  - חלק דורשים FVG;
+  - חלק בוחרים את “origin of move” ידנית.
+- midpoint entries נפוצים, אך גם entry בקצה הקרוב או לאחר confirmation.
+
+לכן יש לכתוב ברישום:
+
+> `ASSUMED IMPLEMENTATION`: הכללים נבחרו כדי להפוך מושגים לא־חד־משמעיים לאלגוריתם ניתן לשחזור; הם אינם “הגדרת SMC הרשמית”.
+
+---
+
+# 6.8 מחקר עצמאי ו־replication
+
+## FVG — מחקר רחב, תוצאה שלילית
+
+מחקר מ־2026 בדק בערך 40 אלף FVGs בארבעה שוקי futures, שלושה timeframes ושבע שנות נתונים. הוא מצא שהתגובה ל־FVG קיימת סטטיסטית אך אינה יוצרת edge סחיר; תוצאה שנראתה רווחית נבעה מהכרעת יציאות על נרות שעה, וכאשר נבדקה בדקה ירד PF מכ־2.4 לכ־1.0. [Barot — *Fair Value Gaps Work — Until You Try to Trade Them*](https://ssrn.com/abstract=7148099)
+
+זו הראיה העצמאית החזקה ביותר שמצאתי, והיא **נגד** FVG standalone.
+
+## BTC/ETH FVG — replication שלילי
+
+בדיקה על BTC ו־ETH, נתוני דקה שנבנו ל־M5, עם עלות 0.05% לצד, דיווחה:
+
+- 2,232 עסקאות;
+- PF ‏0.43;
+- 0 מתוך 2 שווקים רווחיים;
+- drawdown כמעט מלא.
+
+[Secuora — FVG strategy backtest](https://secuora.net/strategy/fvg-strategy)
+
+זה אתר מחקר פרטי, לא כתב עת, אך הכללים והתוצאה מפורטים.
+
+## Nasdaq FVG — מדגם גדול, עלויות בולעות את האפקט
+
+בדיקה של 98,840 FVGs ב־Nasdaq מ־2020 עד 2026 השתמשה ב:
+
+- כניסה בקצה הקרוב לאחר סגירת הנר השלישי;
+- stop בקצה הרחוק;
+- יעדים 1R/2R/3R;
+- same-bar ambiguity מחמירה;
+- spread אמיתי ו־slippage.
+
+[QuantLab — Nasdaq FVG study](https://api-quantlab.com/research/fair-value-gaps)
+
+זה replication עצמאי שימושי, אך לא מאמר peer-reviewed.
+
+## Order Block + sweep + FVG
+
+בדיקה על EURUSD מ־2004 עד 2026 זיהתה 95,793 sweeps ו־21,889 setups לאחר BOS, עם כללים מכניים, עלויות ובדיקת מימוש עצמאית. [Order Block/FVG backtest](https://ripbacktest.com/posts/order-block-fair-value-gap-strategy-eurusd/)
+
+זה המקור הקרוב ביותר ל־rulebook משולב שמצאתי. יש לקרוא את טבלאות התוצאה המלאות לפני ייחוס רווחיות נטו; עצם מספר ה־setups אינו הוכחת edge.
+
+## פרויקט קוד פתוח — תוצאה שלילית
+
+פרויקט event-driven על US30/NAS100, עם FVG, עלויות וללא look-ahead, דיווח:
+
+- US30: ‏‎−0.30R לעסקה;
+- NAS100: ‏+0.05R;
+- confidence intervals כוללים אפס;
+- אות FVG לא שונה מה־drift הבלתי־מותנה.
+
+[GitHub — independent ICT/FVG backtest](https://github.com/fredlines/Backtest-project)
+
+## מסקנת הספרות
+
+לא מצאתי מחקר אקדמי או replication עצמאי משכנע שמראה כי:
+
+- SMC מלא;
+- או FVG;
+- או Order Block;
+- או BOS;
+
+מייצרים **תוצאה נטו יציבה מחוץ למדגם** לאחר עלויות במימוש שהקהילה מסכימה עליו.
+
+הראיה הזמינה היא ברובה:
+
+- שלילית;
+- רגישה להגדרה;
+- רגישה ל־same-bar fills;
+- או מבוססת על אתרים פרטיים ולא על peer review.
+
+---
+
+# 6.9 רישום מחקרי מוצע ל־SMC
+
+אם נדב מחליט לבדוק, הייתי מריץ **ניסוי אחד בלבד**:
+
+> BTCUSD M5, ‏09:30–12:00 ET, ‏BOS + overlapping FVG/OB, midpoint entry, OB stop, ‏2R, עסקה אחת ביום.
+
+## DEV / holdout
+
+- DEV: ‏2020–2022.
+- validation: ‏2023–2024.
+- holdout: ‏2025–2026, רק אם לא נצפה קודם.
+- אם השנים כבר נצפו במחקרים אחרים על אותם נתונים, יש לתייג אותן כחקרניות ולא holdout נקי.
+
+## שער מוקדם מוצע, לא מאושר
+
+- לפחות 100 עסקאות DEV;
+- mean R נטו חיובי;
+- t-stat מתוקן לפי מספר ניסויי SMC שבוצעו;
+- PF נטו לפחות 1.20;
+- תוצאה חיובית בעלות כפולה;
+- לא יותר מ־30% מהרווח מעשר העסקאות הטובות;
+- אין dependence על שנה אחת;
+- validation חיובי;
+- same-bar ambiguity תמיד מוכרע לרעת העסקה.
+
+## בקרות חובה
+
+1. FVG בלבד.
+2. BOS בלבד.
+3. OB בלבד.
+4. הכלל המשולב.
+5. random-time control עם אותם מרחקי stop/target.
+6. shuffled-day control.
+7. שינוי של tick אחד במחירי fill.
+8. נתוני M1 להכרעת fill/stop/target, גם אם האות M5.
+9. ביצוע bid/ask, לא mid.
+10. דיווח gross ו־cost בנפרד.
+
+ארבעת הכללים הם ארבע בדיקות; אם בוחרים את הטוב ביותר, נדרש תיקון משפחתי. לחלופין, הכלל המשולב בלבד הוא המועמד, והשלושה האחרים diagnostics שאינם מועמדים למעבר.
+
+---
+
+# שורה תחתונה
+
+- **t338:** קיימים באגים מהותיים בסימולציית האותות ובמדדי העסקאות, אך אין בסיס להפוך את ה־NO-GO. תיקון יהיה בדיעבד.
+- **t340:** חסרה תקופת ההחזקה האחרונה, טיפול ההיעלמות אינו בר־ביצוע, OpenFIGI אינו point-in-time, וכלל 45 הימים דורש acceptance-time ולוח deadline. שני הווריאנטים שנבדקו נשארים NO-GO.
+- **Conservative Formula:** אפשרית בחינם, אבל רק עם pipeline EDGAR אמיתי: `companyfacts`, hierarchy של tags, YTD decomposition, acceptance timestamps ומיפוי CIK–security היסטורי.
+- **מועמד טוב יותר:** לא נמצא כרגע. Conservative Formula עדיפה על פתיחת עוד כלל טכני חלש, בתנאי שהנתונים נבנים ללא look-ahead.
+- **t342:** NO-GO מוצדק; אין לפתוח holdout או לכוונן.
+- **SMC:** אפשר לנסח rulebook מכני, אך אין קונצנזוס קהילתי. המחקר העצמאי הזמין בעיקר שלילי לאחר עלויות; אם בודקים, יש לבדוק כלל משולב אחד, לא לסרוק עשרות פרשנויות.
+
+אין כאן אישור שער, פיתוח בוט או מסחר חי. ההחלטות שמורות לנדב.
+
+ [View task →](https://chatgpt.com/s/cd_6b035f0a392081919d6e60f3a73e6ca2)
