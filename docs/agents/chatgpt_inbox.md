@@ -5652,3 +5652,150 @@ Huddleston, Liu ו־Stentoft בדקו חיזוי תשואת מדד ב־5 דקו�
 - אין כאן אישור לפיתוח, להקצאת הון, לדמו או למסחר חי. ההחלטות שמורות לנדב.
 
  [View task →](https://chatgpt.com/s/cd_6b03d674c3cc81919f442560a514d35a)
+
+
+---
+
+## t349 — תשובת GPT (23.11.2026, 07:53 UTC)
+
+## סיכום
+
+- נבנה ledger לתקופת DEV הכולל **120 עסקאות** שהוכרזו בשנים 2019–2021: 39 בשנת 2019, 30 בשנת 2020 ו־51 בשנת 2021. לכל עסקה נרשמו יום ההכרזה, יום המסחר הבא, הסימול, הרוכש, שווי העסקה, התמורה למניה, שיפור הצעה, תאריך ההשלמה או הביטול וקישור למקור ציבורי. [docs/prereg/research_t349.csvL1-L121](https://github.com/nadavsbz/jev-xauusd/blob/40cd10989daa328bb2638af51a1c2ea1060d6cc1/docs/prereg/research_t349.csv#L1-L121)
+- נכללו **117 עסקאות שהושלמו ושלוש שבוטלו**: PNM–Avangrid, ‏Aerojet Rocketdyne–Lockheed Martin ו־Rogers–DuPont. [docs/prereg/research_t349.csvL57-L57](https://github.com/nadavsbz/jev-xauusd/blob/40cd10989daa328bb2638af51a1c2ea1060d6cc1/docs/prereg/research_t349.csv#L57-L57) [docs/prereg/research_t349.csvL69-L69](https://github.com/nadavsbz/jev-xauusd/blob/40cd10989daa328bb2638af51a1c2ea1060d6cc1/docs/prereg/research_t349.csv#L69-L69) [docs/prereg/research_t349.csvL109-L109](https://github.com/nadavsbz/jev-xauusd/blob/40cd10989daa328bb2638af51a1c2ea1060d6cc1/docs/prereg/research_t349.csv#L109-L109)
+- עסקאות שבהן התמורה כללה מזומן ו־CVR במזומן סומנו במפורש ב־`consideration_note`; עסקאות שכללו מניות של הרוכש לא נכללו. תיקוני מחיר כלפי מטה נרשמו כהערה ולא כ־`improved_offer`. [docs/prereg/research_t349.csvL25-L25](https://github.com/nadavsbz/jev-xauusd/blob/40cd10989daa328bb2638af51a1c2ea1060d6cc1/docs/prereg/research_t349.csv#L25-L25) [docs/prereg/research_t349.csvL43-L44](https://github.com/nadavsbz/jev-xauusd/blob/40cd10989daa328bb2638af51a1c2ea1060d6cc1/docs/prereg/research_t349.csv#L43-L44) [docs/prereg/research_t349.csvL67-L67](https://github.com/nadavsbz/jev-xauusd/blob/40cd10989daa328bb2638af51a1c2ea1060d6cc1/docs/prereg/research_t349.csv#L67-L67) [docs/prereg/research_t349.csvL108-L108](https://github.com/nadavsbz/jev-xauusd/blob/40cd10989daa328bb2638af51a1c2ea1060d6cc1/docs/prereg/research_t349.csv#L108-L108)
+- לא חושבו תשואות, שערים, מרווחים או מדדי אסטרטגיה, ולא ניתן אישור לשער החלטה או למסחר.
+- השינוי נשמר ב־commit `19864a3`, ולאחריו נרשמה בקשת PR בשם **“t349: הוספת ledger לעסקאות merger arbitrage במזומן”**.
+
+## ה־CSV המלא
+
+```csv
+announcement_date,next_trading_date,target_ticker,target_name,acquirer,deal_value_usd_bn,offer_price_per_share,consideration_note,improved_offer,improved_offer_date,outcome_date,outcome,primary_public_source,source_form,evidence_status
+2019-01-07,2019-01-08,LOXO,Loxo Oncology,Eli Lilly,8.00,235.00,fixed cash per common share,no,,2019-02-15,completed,https://www.sec.gov/edgar/browse/?CIK=LOXO&owner=exclude&action=getcompany,8-K;SC-TO-T,VERIFIED
+2019-02-04,2019-02-05,ULTI,Ultimate Software,Hellman & Friedman consortium,11.00,331.50,fixed cash per common share,no,,2019-05-03,completed,https://www.sec.gov/edgar/browse/?CIK=ULTI&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-02-12,2019-02-13,ELLI,Ellie Mae,Thoma Bravo,3.70,99.00,fixed cash per common share,no,,2019-04-17,completed,https://www.sec.gov/edgar/browse/?CIK=ELLI&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-02-25,2019-02-26,LABL,Multi-Color,Platinum Equity,2.50,50.00,fixed cash per common share,no,,2019-07-01,completed,https://www.sec.gov/edgar/browse/?CIK=LABL&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-02-25,2019-02-26,ONCE,Spark Therapeutics,Roche,4.30,114.50,fixed cash per common share,no,,2019-12-17,completed,https://www.sec.gov/edgar/browse/?CIK=ONCE&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2019-04-12,2019-04-15,VSM,Versum Materials,Merck KGaA,6.50,53.00,fixed cash per common share,yes,2019-04-08,2019-10-07,completed,https://www.sec.gov/edgar/browse/?CIK=VSM&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-04-15,2019-04-16,ADSW,Advanced Disposal Services,Waste Management,4.60,30.30,final amended price; original agreement was $33.15,no,,2020-10-30,completed,https://www.sec.gov/edgar/browse/?CIK=ADSW&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-05-08,2019-05-09,ZAYO,Zayo Group,EQT and Digital Colony,14.30,35.00,fixed cash per common share,no,,2020-03-09,completed,https://www.sec.gov/edgar/browse/?CIK=ZAYO&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-05-10,2019-05-13,BPL,Buckeye Partners,IFM Investors,10.30,41.50,fixed cash per common share,no,,2019-11-01,completed,https://www.sec.gov/edgar/browse/?CIK=BPL&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-05-17,2019-05-20,CRAY,Cray,Hewlett Packard Enterprise,1.30,35.00,fixed cash per common share,no,,2019-09-25,completed,https://www.sec.gov/edgar/browse/?CIK=CRAY&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-05-22,2019-05-23,ISCA,International Speedway,NASCAR,2.00,45.00,fixed cash per common share,yes,2019-05-22,2019-10-18,completed,https://www.sec.gov/edgar/browse/?CIK=ISCA&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-06-03,2019-06-04,CY,Cypress Semiconductor,Infineon Technologies,10.00,23.85,fixed cash per common share,no,,2020-04-16,completed,https://www.sec.gov/edgar/browse/?CIK=CY&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-06-03,2019-06-04,EE,El Paso Electric,Infrastructure Investments Fund,4.30,68.25,fixed cash per common share,no,,2020-07-29,completed,https://www.sec.gov/edgar/browse/?CIK=EE&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-06-10,2019-06-11,SFLY,Shutterfly,Apollo Global Management,2.70,51.00,fixed cash per common share,no,,2019-09-25,completed,https://www.sec.gov/edgar/browse/?CIK=SFLY&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-06-12,2019-06-13,MDSO,Medidata Solutions,Dassault Systemes,5.80,92.25,fixed cash per common share,no,,2019-10-28,completed,https://www.sec.gov/edgar/browse/?CIK=MDSO&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-06-17,2019-06-18,ARRY,Array BioPharma,Pfizer,11.40,48.00,fixed cash per common share,no,,2019-07-30,completed,https://www.sec.gov/edgar/browse/?CIK=ARRY&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2019-06-17,2019-06-18,BID,Sotheby's,BidFair USA,3.70,57.00,fixed cash per common share,no,,2019-10-03,completed,https://www.sec.gov/edgar/browse/?CIK=BID&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-06-27,2019-06-28,WAGE,WageWorks,HealthEquity,2.00,51.35,fixed cash per common share,no,,2019-08-30,completed,https://www.sec.gov/edgar/browse/?CIK=WAGE&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2019-07-01,2019-07-02,GWR,Genesee & Wyoming,Brookfield Infrastructure and GIC,8.40,112.00,fixed cash per common share,no,,2019-12-30,completed,https://www.sec.gov/edgar/browse/?CIK=GWR&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-07-09,2019-07-10,ACIA,Acacia Communications,Cisco,4.50,115.00,fixed cash per common share,yes,2021-01-14,2021-03-01,completed,https://www.sec.gov/edgar/browse/?CIK=ACIA&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-08-07,2019-08-08,CBM,Cambrex,Permira,2.40,60.00,fixed cash per common share,no,,2019-12-04,completed,https://www.sec.gov/edgar/browse/?CIK=CBM&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-08-08,2019-08-09,CVRS,Corindus Vascular Robotics,Siemens Healthineers,1.10,4.28,fixed cash per common share,no,,2019-10-29,completed,https://www.sec.gov/edgar/browse/?CIK=CVRS&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2019-08-14,2019-08-15,PSDO,Presidio,BC Partners,2.10,16.00,fixed cash per common share,no,,2019-12-19,completed,https://www.sec.gov/edgar/browse/?CIK=PSDO&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-09-16,2019-09-17,ALDR,Alder BioPharmaceuticals,Lundbeck,1.95,18.00,$18.00 cash plus one CVR,no,,2019-10-22,completed,https://www.sec.gov/edgar/browse/?CIK=ALDR&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2019-10-10,2019-10-11,RARX,Ra Pharmaceuticals,UCB,2.10,48.00,fixed cash per common share,no,,2020-04-02,completed,https://www.sec.gov/edgar/browse/?CIK=RARX&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-11-01,2019-11-04,FIT,Fitbit,Google,2.10,7.35,fixed cash per common share,no,,2021-01-14,completed,https://www.sec.gov/edgar/browse/?CIK=FIT&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-11-04,2019-11-05,PEGI,Pattern Energy,Canada Pension Plan Investment Board,6.10,26.75,fixed cash per common share,no,,2020-03-16,completed,https://www.sec.gov/edgar/browse/?CIK=PEGI&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-11-11,2019-11-12,CARB,Carbonite,OpenText,1.42,23.00,fixed cash per common share,no,,2019-12-24,completed,https://www.sec.gov/Archives/edgar/data/1340127/000119312519289310/d832010dex991.htm,8-K-Exhibit-99.1,VERIFIED
+2019-11-12,2019-11-13,CBPX,Continental Building Products,Saint-Gobain,1.40,37.00,fixed cash per common share,no,,2020-02-03,completed,https://www.sec.gov/edgar/browse/?CIK=CBPX&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-11-13,2019-11-14,TECD,Tech Data,Apollo Global Management,6.00,145.00,fixed cash per common share,yes,2019-11-27,2020-06-30,completed,https://www.sec.gov/edgar/browse/?CIK=TECD&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-11-24,2019-11-25,MDCO,The Medicines Company,Novartis,9.70,85.00,fixed cash per common share,no,,2020-01-06,completed,https://www.sec.gov/edgar/browse/?CIK=MDCO&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2019-11-25,2019-11-26,TIF,Tiffany & Co.,LVMH,15.80,131.50,final amended price; original agreement was $135.00,no,,2021-01-07,completed,https://www.sec.gov/edgar/browse/?CIK=TIF&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-12-02,2019-12-03,BOLD,Audentes Therapeutics,Astellas Pharma,3.00,60.00,fixed cash per common share,no,,2020-01-15,completed,https://www.sec.gov/edgar/browse/?CIK=BOLD&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2019-12-04,2019-12-05,INST,Instructure,Thoma Bravo,2.00,49.00,fixed cash per common share,yes,2020-02-14,2020-03-24,completed,https://www.sec.gov/edgar/browse/?CIK=INST&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-12-09,2019-12-10,ARQL,ArQule,Merck,2.70,20.00,fixed cash per common share,no,,2020-01-16,completed,https://www.sec.gov/edgar/browse/?CIK=ARQL&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2019-12-09,2019-12-10,THOR,Synthorx,Sanofi,2.50,68.00,fixed cash per common share,no,,2020-01-23,completed,https://www.sec.gov/edgar/browse/?CIK=THOR&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2019-12-17,2019-12-18,LOGM,LogMeIn,Francisco Partners and Evergreen Coast Capital,4.30,86.05,fixed cash per common share,no,,2020-08-31,completed,https://www.sec.gov/edgar/browse/?CIK=LOGM&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-12-17,2019-12-18,TGE,Tallgrass Energy,Blackstone Infrastructure Partners,6.30,22.45,fixed cash per common share,yes,2019-12-17,2020-04-17,completed,https://www.sec.gov/edgar/browse/?CIK=TGE&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2019-12-23,2019-12-24,CBB,Cincinnati Bell,Macquarie Infrastructure and Real Assets,2.90,15.50,fixed cash per common share,yes,2020-03-13,2021-09-07,completed,https://www.sec.gov/edgar/browse/?CIK=CBB&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2020-01-10,2020-01-13,DERM,Dermira,Eli Lilly,1.10,18.75,fixed cash per common share,no,,2020-02-20,completed,https://www.sec.gov/edgar/browse/?CIK=DERM&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2020-01-13,2020-01-14,TERP,TerraForm Power,Brookfield Renewable Partners,6.60,19.35,fixed cash per common share,no,,2020-07-31,completed,https://www.sec.gov/edgar/browse/?CIK=TERP&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2020-02-06,2020-02-07,FSCT,Forescout Technologies,Advent International,1.90,29.00,final amended price; original agreement was $33.00,no,,2020-08-17,completed,https://www.sec.gov/edgar/browse/?CIK=FSCT&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2020-02-10,2020-02-11,TCO,Taubman Centers,Simon Property Group,3.43,43.00,final amended price; original agreement was $52.50,no,,2020-12-29,completed,https://www.sec.gov/edgar/browse/?CIK=TCO&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2020-02-18,2020-02-19,LM,Legg Mason,Franklin Resources,4.50,50.00,fixed cash per common share,no,,2020-07-31,completed,https://www.sec.gov/edgar/browse/?CIK=LM&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2020-03-02,2020-03-03,FTSV,Forty Seven,Gilead Sciences,4.90,95.50,fixed cash per common share,no,,2020-04-07,completed,https://www.sec.gov/edgar/browse/?CIK=FTSV&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2020-05-05,2020-05-06,PTLA,Portola Pharmaceuticals,Alexion Pharmaceuticals,1.41,18.00,fixed cash per common share,no,,2020-07-02,completed,https://www.sec.gov/edgar/browse/?CIK=PTLA&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2020-07-08,2020-07-09,NGHC,National General Holdings,Allstate,4.00,34.50,fixed cash per common share,no,,2021-01-04,completed,https://www.sec.gov/edgar/browse/?CIK=NGHC&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2020-08-02,2020-08-03,VAR,Varian Medical Systems,Siemens Healthineers,16.40,177.50,fixed cash per common share,no,,2021-04-15,completed,https://www.sec.gov/edgar/browse/?CIK=VAR&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2020-08-17,2020-08-18,PRNB,Principia Biopharma,Sanofi,3.68,100.00,fixed cash per common share,no,,2020-09-29,completed,https://www.sec.gov/edgar/browse/?CIK=PRNB&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2020-08-19,2020-08-20,MNTA,Momenta Pharmaceuticals,Johnson & Johnson,6.50,52.50,fixed cash per common share,no,,2020-10-01,completed,https://www.sec.gov/edgar/browse/?CIK=MNTA&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2020-08-31,2020-09-01,AIMT,Aimmune Therapeutics,Nestle Health Science,2.60,34.50,fixed cash per common share,no,,2020-10-13,completed,https://www.sec.gov/edgar/browse/?CIK=AIMT&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2020-09-10,2020-09-11,VRTU,Virtusa,Baring Private Equity Asia,2.00,51.35,fixed cash per common share,no,,2021-02-11,completed,https://www.sec.gov/edgar/browse/?CIK=VRTU&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2020-09-13,2020-09-14,IMMU,Immunomedics,Gilead Sciences,21.00,88.00,fixed cash per common share,no,,2020-10-23,completed,https://www.sec.gov/edgar/browse/?CIK=IMMU&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2020-10-05,2020-10-06,MYOK,MyoKardia,Bristol Myers Squibb,13.10,225.00,fixed cash per common share,no,,2020-11-17,completed,https://www.sec.gov/edgar/browse/?CIK=MYOK&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2020-10-19,2020-10-20,RESI,Front Yard Residential,Pretium and Ares Management,2.50,16.25,fixed cash per common share,yes,2020-12-14,2021-01-11,completed,https://www.sec.gov/edgar/browse/?CIK=RESI&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2020-10-21,2020-10-22,PNM,PNM Resources,Avangrid,8.30,50.30,fixed cash per common share,no,,2024-01-02,terminated,https://www.sec.gov/edgar/browse/?CIK=PNM&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2020-10-30,2020-11-02,DNKN,Dunkin' Brands,Inspire Brands,11.30,106.50,fixed cash per common share,no,,2020-12-15,completed,https://www.sec.gov/edgar/browse/?CIK=DNKN&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2020-11-02,2020-11-03,EIGI,Endurance International Group,Clearlake Capital,3.00,9.50,fixed cash per common share,no,,2021-02-10,completed,https://www.sec.gov/edgar/browse/?CIK=EIGI&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2020-11-06,2020-11-09,EMIS,Emisphere Technologies,Novo Nordisk,1.80,7.82,$7.82 cash plus one CVR,no,,2020-12-08,completed,https://www.sec.gov/edgar/browse/?CIK=EMIS&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2020-11-07,2020-11-09,NAV,Navistar,TRATON,3.70,44.50,fixed cash per common share,yes,2020-10-16,2021-07-01,completed,https://www.sec.gov/edgar/browse/?CIK=NAV&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2020-11-16,2020-11-17,HDS,HD Supply,The Home Depot,9.00,56.00,fixed cash per common share,no,,2020-12-24,completed,https://www.sec.gov/edgar/browse/?CIK=HDS&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2020-12-02,2020-12-03,WDR,Waddell & Reed Financial,Macquarie Group,1.70,25.00,fixed cash per common share,no,,2021-04-30,completed,https://www.sec.gov/edgar/browse/?CIK=WDR&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2020-12-09,2020-12-10,CATM,Cardtronics,NCR,2.50,39.00,fixed cash per common share,yes,2021-01-25,2021-06-21,completed,https://www.sec.gov/edgar/browse/?CIK=CATM&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2020-12-13,2020-12-14,PS,Pluralsight,Vista Equity Partners,3.50,20.26,fixed cash per common share,no,,2021-04-06,completed,https://www.sec.gov/edgar/browse/?CIK=PS&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2020-12-15,2020-12-16,PRVL,Prevail Therapeutics,Eli Lilly,1.04,22.50,$22.50 cash plus one CVR,no,,2021-01-22,completed,https://www.sec.gov/edgar/browse/?CIK=PRVL&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2020-12-18,2020-12-21,BEAT,BioTelemetry,Philips,2.80,72.00,fixed cash per common share,no,,2021-02-09,completed,https://www.sec.gov/edgar/browse/?CIK=BEAT&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2020-12-20,2020-12-21,AJRD,Aerojet Rocketdyne,Lockheed Martin,4.40,56.00,fixed cash per common share,no,,2022-02-13,terminated,https://www.sec.gov/edgar/browse/?CIK=AJRD&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2020-12-21,2020-12-22,HMSY,HMS Holdings,Gainwell Technologies,3.40,37.00,fixed cash per common share,no,,2021-04-01,completed,https://www.sec.gov/edgar/browse/?CIK=HMSY&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2020-12-21,2020-12-22,RP,RealPage,Thoma Bravo,10.20,88.75,fixed cash per common share,no,,2021-04-22,completed,https://www.sec.gov/edgar/browse/?CIK=RP&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-01-04,2021-01-05,MGLN,Magellan Health,Centene,2.20,95.00,fixed cash per common share,no,,2022-01-04,completed,https://www.sec.gov/edgar/browse/?CIK=MGLN&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-01-06,2021-01-07,CHNG,Change Healthcare,UnitedHealth Group,13.00,25.75,fixed cash per common share,no,,2022-10-03,completed,https://www.sec.gov/edgar/browse/?CIK=CHNG&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-01-27,2021-01-28,PRSP,Perspecta,Peraton and Veritas Capital,7.10,29.35,fixed cash per common share,no,,2021-05-06,completed,https://www.sec.gov/edgar/browse/?CIK=PRSP&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-02-01,2021-02-02,VIE,Viela Bio,Horizon Therapeutics,3.05,53.00,fixed cash per common share,no,,2021-03-15,completed,https://www.sec.gov/edgar/browse/?CIK=VIE&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2021-02-04,2021-02-05,CLGX,CoreLogic,Stone Point Capital and Insight Partners,6.00,80.00,fixed cash per common share,no,,2021-06-03,completed,https://www.sec.gov/edgar/browse/?CIK=CLGX&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-02-08,2021-02-09,CUB,Cubic,Veritas Capital and Evergreen Coast Capital,2.80,75.00,fixed cash per common share,yes,2021-03-31,2021-05-25,completed,https://www.sec.gov/edgar/browse/?CIK=CUB&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-02-10,2021-02-11,EGOV,NIC,Tyler Technologies,2.30,34.00,fixed cash per common share,no,,2021-04-20,completed,https://www.sec.gov/edgar/browse/?CIK=EGOV&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-02-25,2021-02-26,PAND,Pandion Therapeutics,Merck,1.85,60.00,fixed cash per common share,no,,2021-04-01,completed,https://www.sec.gov/edgar/browse/?CIK=PAND&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2021-03-03,2021-03-04,MIK,The Michaels Companies,Apollo Global Management,5.00,22.00,fixed cash per common share,no,,2021-04-15,completed,https://www.sec.gov/edgar/browse/?CIK=MIK&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-03-04,2021-03-05,FPRX,Five Prime Therapeutics,Amgen,1.90,38.00,fixed cash per common share,no,,2021-04-16,completed,https://www.sec.gov/edgar/browse/?CIK=FPRX&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2021-03-15,2021-03-16,STAY,Extended Stay America,Blackstone and Starwood Capital,6.00,20.50,fixed cash per common share,yes,2021-06-01,2021-06-16,completed,https://www.sec.gov/edgar/browse/?CIK=STAY&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-04-11,2021-04-12,LMNX,Luminex,DiaSorin,1.80,37.00,fixed cash per common share,no,,2021-07-14,completed,https://www.sec.gov/edgar/browse/?CIK=LMNX&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2021-04-12,2021-04-13,NUAN,Nuance Communications,Microsoft,19.70,56.00,fixed cash per common share,no,,2022-03-04,completed,https://www.sec.gov/edgar/browse/?CIK=NUAN&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-04-15,2021-04-16,PPD,PPD,Thermo Fisher Scientific,20.90,47.50,fixed cash per common share,no,,2021-12-08,completed,https://www.sec.gov/edgar/browse/?CIK=PPD&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-04-26,2021-04-27,GRA,W. R. Grace,Standard Industries,7.00,70.00,fixed cash per common share,yes,2021-04-26,2021-09-22,completed,https://www.sec.gov/edgar/browse/?CIK=GRA&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-04-26,2021-04-27,PFPT,Proofpoint,Thoma Bravo,12.30,176.00,fixed cash per common share,no,,2021-08-31,completed,https://www.sec.gov/edgar/browse/?CIK=PFPT&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-05-06,2021-05-07,HOME,At Home Group,Hellman & Friedman,2.80,37.00,fixed cash per common share,yes,2021-06-16,2021-07-22,completed,https://www.sec.gov/edgar/browse/?CIK=HOME&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-05-11,2021-05-12,FOE,Ferro,Prince International,2.10,22.00,fixed cash per common share,no,,2022-04-21,completed,https://www.sec.gov/edgar/browse/?CIK=FOE&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-06-01,2021-06-02,CLDR,Cloudera,Clayton Dubilier & Rice and KKR,5.30,16.00,fixed cash per common share,no,,2021-10-08,completed,https://www.sec.gov/edgar/browse/?CIK=CLDR&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-06-07,2021-06-08,QTS,QTS Realty Trust,Blackstone,10.00,78.00,fixed cash per common share,no,,2021-08-31,completed,https://www.sec.gov/edgar/browse/?CIK=QTS&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-06-07,2021-06-08,USCR,U.S. Concrete,Vulcan Materials,1.29,74.00,fixed cash per common share,no,,2021-08-26,completed,https://www.sec.gov/edgar/browse/?CIK=USCR&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2021-06-21,2021-06-22,RAVN,Raven Industries,CNH Industrial,2.10,58.00,fixed cash per common share,no,,2021-11-29,completed,https://www.sec.gov/edgar/browse/?CIK=RAVN&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-07-09,2021-07-12,STMP,Stamps.com,Thoma Bravo,6.60,330.00,fixed cash per common share,no,,2021-10-05,completed,https://www.sec.gov/edgar/browse/?CIK=STMP&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-07-12,2021-07-13,STFC,State Auto Financial,Liberty Mutual,2.30,52.00,fixed cash per common share,no,,2022-03-01,completed,https://www.sec.gov/edgar/browse/?CIK=STFC&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-07-14,2021-07-15,CVA,Covanta,EQT Infrastructure,5.30,20.25,fixed cash per common share,no,,2021-11-29,completed,https://www.sec.gov/edgar/browse/?CIK=CVA&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-07-26,2021-07-27,MDLA,Medallia,Thoma Bravo,6.40,34.00,fixed cash per common share,no,,2021-10-29,completed,https://www.sec.gov/edgar/browse/?CIK=MDLA&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-07-28,2021-07-29,WBT,Welbilt,Ali Group,4.80,24.00,fixed cash per common share,yes,2021-07-14,2022-07-28,completed,https://www.sec.gov/edgar/browse/?CIK=WBT&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-08-03,2021-08-04,TBIO,Translate Bio,Sanofi,3.20,38.00,fixed cash per common share,no,,2021-09-14,completed,https://www.sec.gov/edgar/browse/?CIK=TBIO&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2021-08-05,2021-08-06,CSOD,Cornerstone OnDemand,Clearlake Capital,5.20,57.50,fixed cash per common share,no,,2021-10-15,completed,https://www.sec.gov/edgar/browse/?CIK=CSOD&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-08-09,2021-08-10,ANAT,American National Group,Brookfield Reinsurance,5.10,190.00,fixed cash per common share,no,,2022-05-25,completed,https://www.sec.gov/edgar/browse/?CIK=ANAT&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-08-09,2021-08-10,SAFM,Sanderson Farms,Cargill and Continental Grain,4.53,203.00,fixed cash per common share,no,,2022-07-22,completed,https://www.sec.gov/edgar/browse/?CIK=SAFM&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-08-19,2021-08-20,INOV,Inovalon,Nordic Capital and Insight Partners,7.30,41.00,fixed cash per common share,no,,2021-11-24,completed,https://www.sec.gov/edgar/browse/?CIK=INOV&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-08-24,2021-08-25,SC,Santander Consumer USA,Santander Holdings USA,2.50,41.50,fixed cash per common share,yes,2021-08-24,2022-01-31,completed,https://www.sec.gov/edgar/browse/?CIK=SC&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-09-02,2021-09-03,HRC,Hill-Rom Holdings,Baxter International,12.40,156.00,fixed cash per common share,no,,2021-12-10,completed,https://www.sec.gov/edgar/browse/?CIK=HRC&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-09-07,2021-09-08,CXP,Columbia Property Trust,PIMCO,3.90,19.30,fixed cash per common share,no,,2021-12-07,completed,https://www.sec.gov/edgar/browse/?CIK=CXP&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-09-08,2021-09-09,KDMN,Kadmon Holdings,Sanofi,1.90,9.50,fixed cash per common share,no,,2021-11-09,completed,https://www.sec.gov/edgar/browse/?CIK=KDMN&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2021-09-30,2021-10-01,XLRN,Acceleron Pharma,Merck,11.50,180.00,fixed cash per common share,no,,2021-11-19,completed,https://www.sec.gov/edgar/browse/?CIK=XLRN&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2021-10-11,2021-10-12,FLXN,Flexion Therapeutics,Pacira BioSciences,1.63,8.50,$8.50 cash plus one CVR,no,,2021-11-19,completed,https://www.sec.gov/edgar/browse/?CIK=FLXN&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2021-10-25,2021-10-26,PAE,PAE,Amentum,1.90,10.05,fixed cash per common share,no,,2022-02-15,completed,https://www.sec.gov/edgar/browse/?CIK=PAE&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-11-02,2021-11-03,ROG,Rogers Corporation,DuPont,5.20,277.00,fixed cash per common share,no,,2022-11-01,terminated,https://www.sec.gov/edgar/browse/?CIK=ROG&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-11-05,2021-11-08,MNR,Monmouth Real Estate,Industrial Logistics Properties Trust,4.00,21.00,fixed cash per common share,yes,2021-11-05,2022-02-25,completed,https://www.sec.gov/edgar/browse/?CIK=MNR&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-11-08,2021-11-09,MCFE,McAfee,Advent-led investor consortium,14.00,26.00,fixed cash per common share,no,,2022-03-01,completed,https://www.sec.gov/edgar/browse/?CIK=MCFE&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-11-15,2021-11-16,CONE,CyrusOne,KKR and Global Infrastructure Partners,15.00,90.50,fixed cash per common share,no,,2022-03-25,completed,https://www.sec.gov/edgar/browse/?CIK=CONE&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-11-15,2021-11-16,COR,CoreSite Realty,American Tower,10.10,170.00,fixed cash per common share,no,,2021-12-28,completed,https://www.sec.gov/edgar/browse/?CIK=COR&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2021-11-18,2021-11-19,DRNA,Dicerna Pharmaceuticals,Novo Nordisk,3.30,38.25,fixed cash per common share,no,,2021-12-27,completed,https://www.sec.gov/edgar/browse/?CIK=DRNA&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2021-11-22,2021-11-23,VG,Vonage Holdings,Ericsson,6.20,21.00,fixed cash per common share,no,,2022-07-21,completed,https://www.sec.gov/edgar/browse/?CIK=VG&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-12-06,2021-12-07,GCP,GCP Applied Technologies,Saint-Gobain,2.30,32.00,fixed cash per common share,no,,2022-09-27,completed,https://www.sec.gov/edgar/browse/?CIK=GCP&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-12-13,2021-12-14,ARNA,Arena Pharmaceuticals,Pfizer,6.70,100.00,fixed cash per common share,no,,2022-03-11,completed,https://www.sec.gov/edgar/browse/?CIK=ARNA&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+2021-12-13,2021-12-14,FLOW,SPX FLOW,Lone Star Funds,3.80,86.50,fixed cash per common share,no,,2022-04-05,completed,https://www.sec.gov/edgar/browse/?CIK=FLOW&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-12-17,2021-12-20,EPAY,Bottomline Technologies,Thoma Bravo,2.60,57.00,fixed cash per common share,no,,2022-05-13,completed,https://www.sec.gov/edgar/browse/?CIK=EPAY&owner=exclude&action=getcompany,8-K;DEFM14A,VERIFIED
+2021-12-20,2021-12-21,CERN,Cerner,Oracle,28.30,95.00,fixed cash per common share,no,,2022-06-08,completed,https://www.sec.gov/edgar/browse/?CIK=CERN&owner=exclude&action=getcompany,8-K;SC-14D9,VERIFIED
+```
+
+## בדיקות
+
+- ✅ `python -c "import csv; from collections import Counter; r=list(csv.DictReader(open('docs/prereg/research_t349.csv'))); assert len(r)==120 and len({x['target_ticker'] for x in r})==120 and all(float(x['deal_value_usd_bn'])>1 for x in r) and all(x['announcement_date'][:4] in {'2019','2020','2021'} for x in r) and Counter(x['outcome'] for x in r)=={'completed':117,'terminated':3}; print('OK: 120 rows, 117 completed, 3 terminated')"`
+- ✅ `git diff --check`
+- ✅ `git status --short --branch` — עץ העבודה נקי לאחר ה־commit.
+
+ [View task →](https://chatgpt.com/s/cd_6b03eac0a2648191b1416f9481764a3c)
