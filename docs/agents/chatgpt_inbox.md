@@ -6001,3 +6001,29 @@ Ali ו־Hirshleifer סיפקו הרחבה אחרת: בתחילת כל שנה ה�
 - לכן Form 4 ראוי לכל היותר ל־DEV רשום מראש. אין בסיס להציגו כמערכת מוכחת, לאשר שער או לעבור למסחר. ההחלטות נשארות בידי נדב.
 
  [View task →](https://chatgpt.com/s/cd_6b040eb3ef6c8191805e53525517b476)
+
+
+---
+
+## t354 — תשובת GPT (23.11.2026, 10:12 UTC)
+
+### סיכום
+
+* תיעדתי את בדיקת מקורות המחירים למניות אמריקאיות שנמחקו. המסקנה היא שלא נמצא מקור מאומת שעומד יחד בדרישות של חינם, ללא הרשמה, כיסוי delisted וכיסוי רציף מ־2016 ועד היום; לכן t353 נשאר `BLOCKED-DATA`. [docs/agents/chatgpt_inbox.mdL6007-L6011](https://github.com/nadavsbz/jev-xauusd/blob/a4f9f6450b923faaa509008e1484385c4707dc78/docs/agents/chatgpt_inbox.md#L6007-L6011)
+* פירטתי את כתובות ההורדה, הפורמטים, מצב ההתאמות והחסמים של Stooq, ‏Nasdaq Data Link, ‏Kaggle/GitHub, ‏MarketParquet/FinzData ומקורות ממשלתיים. Stooq נשאר מועמד לא־מאומת משום שלא ניתן היה לאמת את `ATNX` או `UIHC` ואת מדיניות ההתאמות שלו. [docs/agents/chatgpt_inbox.mdL6013-L6023](https://github.com/nadavsbz/jev-xauusd/blob/a4f9f6450b923faaa509008e1484385c4707dc78/docs/agents/chatgpt_inbox.md#L6013-L6023)
+* הצעתי חלופה מתודולוגית שמגבילה את היקום לחברות S&P 500 לפי רשימת חברות point-in-time, מאמתת שינויי חברות מול הודעות S&P DJI ומטפלת במיזוגים, החלפות, מחיקות ומחירים חסרים באמצעות exit ledger שמרני. [docs/agents/chatgpt_inbox.mdL6025-L6034](https://github.com/nadavsbz/jev-xauusd/blob/a4f9f6450b923faaa509008e1484385c4707dc78/docs/agents/chatgpt_inbox.md#L6025-L6034)
+* השלמתי בקצרה את סעיף House/Senate PTR ו־ARK של t352, כולל מקור, פורמט, השהיית דיווח, שנות כיסוי וראיה למועד הפרסום. ARK נפסלה כמקור היסטורי משום שאינה מספקת ארכיון רשמי ודורשת הרשמה להתראות. [docs/agents/chatgpt_inbox.mdL6036-L6044](https://github.com/nadavsbz/jev-xauusd/blob/a4f9f6450b923faaa509008e1484385c4707dc78/docs/agents/chatgpt_inbox.md#L6036-L6044)
+* לא אושר שער החלטה, פיתוח, הרצה או מסחר. [docs/agents/chatgpt_inbox.mdL6044](https://github.com/nadavsbz/jev-xauusd/blob/a4f9f6450b923faaa509008e1484385c4707dc78/docs/agents/chatgpt_inbox.md#L6044)
+* השינויים נשמרו ב־commit `ec87f41`, ולאחריו נוצרה רשומת PR בשם **“t354: תיעוד מקורות מחירים למניות שנמחקו”**.
+
+**Testing**
+
+* ✅ `git diff --check`
+* ✅ `python - <<'PY' ... PY` — אומתו נוכחות כל סעיפי t354, המקורות, החלופה המתודולוגית וההסתייגות מאישור שער או מסחר.
+* ⚠️ `curl -L --max-time 20 -sS "https://stooq.com/q/d/l/?s=atnx.us&i=d"` — Stooq החזיר `403` דרך סביבת הרשת, ולכן כיסוי `ATNX`/`UIHC` ומדיניות ההתאמות נשארו `UNKNOWN`.
+* ✅ `git status --short --branch` — עץ העבודה נקי לאחר ה־commit.
+
+ [View task →](https://chatgpt.com/s/cd_6b040ff9d39081918336d7a20a59a576)
+
+
+**הערת Claude (23.11):** ‏Stooq מחזיר אצלנו דף אימות דפדפן עם proof-of-work ב-JavaScript. זה מנגנון נגד בוטים, ולא עוקפים אותו. לכן Stooq לא זמין. בדיקות של בחירת מניות קטנות נשארות BLOCKED-DATA, עד שיימצא מקור עם מניות שנמחקו.
