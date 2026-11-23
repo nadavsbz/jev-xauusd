@@ -6078,3 +6078,26 @@ Ali ו־Hirshleifer סיפקו הרחבה אחרת: בתחילת כל שנה ה�
 * ✅ `git log -1 --oneline` — אומת commit ‏`c625a98 docs: add t361 research meta-analysis`.
 
  [View task →](https://chatgpt.com/s/cd_6b043f0e36c88191abc811f6a72171fd)
+
+## t364 — תשובת GPT (23.11.2026, 14:30 UTC)
+
+### סיכום
+
+* יצרתי את `docs/prereg/research_t364.md` כתוכנית מדידה מוקפאת עד 28.11.2026, עם תחולה מפורשת ל־C1 בחשבון ProCent ‏(`magic=61002`) מול `av15`, וכן דרישות זהות גרסה וחשיפה לאחר scaling. [docs/prereg/research_t364.mdL1-L21](https://github.com/nadavsbz/jev-xauusd/blob/abed5637b70cd0a6b7fcfb47d807a6902b1cd010/docs/prereg/research_t364.md#L1-L21)
+* הגדרתי את נתוני המקור הנדרשים ואת החישובים המדויקים להחלקת כניסה ויציאה, spread מצוטט ואפקטיבי, swap, דחיות, עסקאות חסרות וחשיפה שבוצעה בפועל. [docs/prereg/research_t364.mdL23-L73](https://github.com/nadavsbz/jev-xauusd/blob/abed5637b70cd0a6b7fcfb47d807a6902b1cd010/docs/prereg/research_t364.md#L23-L73)
+* הקפאתי אלגוריתם התאמה לפי `intent_id`, עם ספי זמן ומחיר, איחוד partial fills וכרטיסי hedging, טיפול במקרי one-to-many ואיסור התאמה מלאכותית בין החשבון האמיתי שהתחיל ב־21.11 לבין הדמו מתחילת נובמבר. [docs/prereg/research_t364.mdL75-L100](https://github.com/nadavsbz/jev-xauusd/blob/abed5637b70cd0a6b7fcfb47d807a6902b1cd010/docs/prereg/research_t364.md#L75-L100)
+* קבעתי פורמט דיווח עסקה־עסקה וספי YELLOW/RED לביצוע, swap, דחיות, פערי חשיפה ואיכות נתונים. ספי ה־DD הוקפאו בהתאם ל־PROTOCOL v1.1: ‏I2 ב־21%/26% ו־C1 ב־31%/37%. [docs/prereg/research_t364.mdL102-L136](https://github.com/nadavsbz/jev-xauusd/blob/abed5637b70cd0a6b7fcfb47d807a6902b1cd010/docs/prereg/research_t364.md#L102-L136)
+* ניסחתי מסנן יחיד וקבוע לימי שוק פגומים, המבוסס על spread לפני הבקשה ביחס ל־20 ימים קודמים, ללא בחירה בין מסננים חלופיים וללא שימוש במידע עתידי. [docs/prereg/research_t364.mdL138-L147](https://github.com/nadavsbz/jev-xauusd/blob/abed5637b70cd0a6b7fcfb47d807a6902b1cd010/docs/prereg/research_t364.md#L138-L147)
+* הבהרתי שהתוכנית אינה מאשרת שער, שינוי הקצאה או מסחר, ושכל החלטה נשארת בידי נדב. [docs/prereg/research_t364.mdL149-L153](https://github.com/nadavsbz/jev-xauusd/blob/abed5637b70cd0a6b7fcfb47d807a6902b1cd010/docs/prereg/research_t364.md#L149-L153)
+* השינוי נשמר ב־commit `853eccd`, ונוצרה רשומת PR בשם **“t364: הקפאת תוכנית מדידת ביצוע ל־C1 ול־I2”**.
+
+**Testing**
+
+* ✅ `python - <<'PY' ... PY` — אומתו 12 רכיבי החובה, ספי ה־DD וקיומו של מסנן מוקפא יחיד.
+* ✅ `git diff HEAD^ --check`
+* ✅ `git diff --cached --check`
+* ✅ `git status --short --branch` — עץ העבודה נקי לאחר ה־commit.
+
+ [View task →](https://chatgpt.com/s/cd_6b044ceccc0c8191a632b2a155ab8be0)
+
+**הערת Claude:** הקובץ research_t364.md נשמר רק בסביבה של GPT (commit 853eccd לא נדחף). התבקש הטקסט המלא בתגובה (t364b).
