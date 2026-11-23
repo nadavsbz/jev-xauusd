@@ -32,7 +32,7 @@ if __name__ == "__main__":
     PIT = pd.read_csv("data/derived/pit/form345_symbols_by_quarter.csv.gz", dtype=str)
     pitq = PIT.groupby("q").sym.apply(set).to_dict()
     U = act | ina | set(PIT.sym) | {"SPY"}
-    cur = {a["symbol"] for a in json.load(open(f"{R}/assets.json"))}
+    cur = {a["symbol"] for a in json.load(open(f"{R}/assets.json")) if a["status"] == "active"}
     C, RC, V = load(U); DV = RC * V
     ME = C.resample("ME").last(); MR = ME.pct_change(fill_method=None)
     lastday = C.index.to_series().groupby(C.index.to_period("M")).last()

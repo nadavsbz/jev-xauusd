@@ -1,7 +1,7 @@
 """t358 data: all inactive (delisted) NYSE/NASDAQ/AMEX symbols from Alpaca /v2/assets?status=inactive. Based on t353: Alpaca serves history for delisted symbols when asked by symbol; our bulk download used only the current asset list.
 Fetch raw (c,v) and adjusted (o,c) daily bars 2017-10..2026-11-20 for every t353 event symbol missing from data/raw/alpaca/daily.
 Writes data/raw/alpaca/daily_extra/<n>.csv.gz (raw) and daily_adj_extra/<n>.csv.gz. Key from git-ignored alpaca_key.json (never printed)."""
-import glob, json, os, re, time, urllib.request, urllib.parse, urllib.error
+import sys, glob, json, os, re, time, urllib.request, urllib.parse, urllib.error
 import pandas as pd
 K = json.load(open("alpaca_key.json")); H = {"APCA-API-KEY-ID": K["key_id"], "APCA-API-SECRET-KEY": K["secret"]}
 R = "data/raw/alpaca"; os.makedirs(f"{R}/daily_extra", exist_ok=True); os.makedirs(f"{R}/daily_adj_extra", exist_ok=True)
@@ -24,7 +24,7 @@ def get(url):
 def bars(symbols, adj):
     out, tok, symbols = [], None, list(symbols)
     while symbols:
-        q = dict(symbols=",".join(symbols), timeframe="1Day", start="2017-10-01", end="2026-11-21", feed="sip", adjustment=adj, limit=10000)
+        q = dict(symbols=",".join(symbols), timeframe="1Day", start=START, end=END, feed="sip", adjustment=adj, limit=10000)
         if tok: q["page_token"] = tok
         try: d = get("https://data.alpaca.markets/v2/stocks/bars?" + urllib.parse.urlencode(q))
         except urllib.error.HTTPError as e:
@@ -41,10 +41,12 @@ def bars(symbols, adj):
 
 have = set()
 for f in glob.glob(f"{R}/daily/*.csv.gz") + glob.glob(f"{R}/daily_extra/*.csv.gz"): have |= set(pd.read_csv(f, usecols=["s"]).s)
-import sys
+START, END = "2017-10-01", "2026-11-21"
+if len(sys.argv) > 2 and sys.argv[2] == "early": START, END = "2015-11-01", "2017-10-01"
 A = json.load(open(f"{R}/assets_inactive.json"))
 syms = sorted({a["symbol"] for a in A if a["exchange"] in ("NYSE", "NASDAQ", "AMEX") and re.fullmatch(r"[A-Z]{1,5}", a["symbol"])} - have)
-if len(sys.argv) > 1: syms = sorted(set(json.load(open(sys.argv[1]))) - have); PFX = "p"
+if len(sys.argv) > 2 and sys.argv[2] == "early": syms = sorted(set().union(*[set(pd.read_csv(f, usecols=["s"]).s.dropna().astype(str)) for f in glob.glob(f"{R}/daily_extra/[0-9p]*.csv.gz") if os.path.getsize(f) > 50])); PFX = "e"
+elif len(sys.argv) > 1: syms = sorted(set(json.load(open(sys.argv[1]))) - have); PFX = "p"
 else: PFX = "i"
 print("missing symbols to fetch", len(syms), flush=True)
 B = 50
