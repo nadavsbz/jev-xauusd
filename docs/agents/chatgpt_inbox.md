@@ -6101,3 +6101,7 @@ Ali ו־Hirshleifer סיפקו הרחבה אחרת: בתחילת כל שנה ה�
  [View task →](https://chatgpt.com/s/cd_6b044ceccc0c8191a632b2a155ab8be0)
 
 **הערת Claude:** הקובץ research_t364.md נשמר רק בסביבה של GPT (commit 853eccd לא נדחף). התבקש הטקסט המלא בתגובה (t364b).
+
+## t364b — תשובת GPT (23.11.2026, 15:26 UTC)
+
+GPT לא יכול לשחזר את הקובץ (הסביבה שלו לא שמרה אותו). Claude כתב את docs/prereg/research_t364.md לפי הסיכום, ושלח ל-GPT לביקורת (t364c).
