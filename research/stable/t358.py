@@ -28,7 +28,11 @@ def load(U):
 
 if __name__ == "__main__":
     st = sys.argv[1]
-    act, ina = univ(); U = act | ina | {"SPY"}
+    act, ina = univ()
+    PIT = pd.read_csv("data/derived/pit/form345_symbols_by_quarter.csv.gz", dtype=str)
+    pitq = PIT.groupby("q").sym.apply(set).to_dict()
+    U = act | ina | set(PIT.sym) | {"SPY"}
+    cur = {a["symbol"] for a in json.load(open(f"{R}/assets.json"))}
     C, RC, V = load(U); DV = RC * V
     ME = C.resample("ME").last(); MR = ME.pct_change(fill_method=None)
     lastday = C.index.to_series().groupby(C.index.to_period("M")).last()
@@ -40,7 +44,9 @@ if __name__ == "__main__":
         if any(p is None for p in past): continue
         P = pd.concat(past, axis=1); sig = P.mean(axis=1)[P.notna().all(axis=1)]
         px = RC.iloc[k0]; dv = DV.iloc[k0 - 59:k0 + 1].median()
-        elig = [s for s in sig.index if s != "SPY" and px.get(s, np.nan) >= 5 and dv.get(s, 0) >= 5e6]
+        q = pd.Timestamp(d0).to_period("Q"); qs = {f"{q.year}q{q.quarter}", f"{(q - 1).year}q{(q - 1).quarter}"}
+        base = act | ina | set().union(*[pitq.get(x, set()) for x in qs])
+        elig = [s for s in sig.index if s != "SPY" and s in base and px.get(s, np.nan) >= 5 and dv.get(s, 0) >= 5e6]
         if not elig: continue
         sg = sig[elig].sort_values(ascending=False); top = list(sg.index[: max(1, len(sg) // 10)])
         mend = m.to_timestamp(how="end").normalize().replace(day=1) + pd.offsets.MonthEnd(0)
@@ -51,7 +57,7 @@ if __name__ == "__main__":
                 seg = C[s].loc[d0:lastday[m]].dropna()
                 if len(seg) > 1: r_all[s] = seg.iloc[-1] / seg.iloc[0] - 1
         w = {s: 1 / len(top) for s in top}; turn = sum(abs(w.get(s, 0) - prev_w.get(s, 0)) for s in set(w) | set(prev_w)); prev_w = w
-        rows.append(dict(m=str(m), n_elig=len(elig), n_top=len(top), inactive_share=round(sum(s in ina for s in elig) / len(elig), 3),
+        rows.append(dict(m=str(m), n_elig=len(elig), n_top=len(top), inactive_share=round(sum(s not in cur for s in elig) / len(elig), 3),
                          port=float(r_all[top].mean()), ew=float(r_all.mean()), turn=turn, spy=float(MR.loc[mend, "SPY"])))
     T = pd.DataFrame(rows)
     if st == "density":

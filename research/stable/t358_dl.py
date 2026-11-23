@@ -41,12 +41,15 @@ def bars(symbols, adj):
 
 have = set()
 for f in glob.glob(f"{R}/daily/*.csv.gz") + glob.glob(f"{R}/daily_extra/*.csv.gz"): have |= set(pd.read_csv(f, usecols=["s"]).s)
+import sys
 A = json.load(open(f"{R}/assets_inactive.json"))
 syms = sorted({a["symbol"] for a in A if a["exchange"] in ("NYSE", "NASDAQ", "AMEX") and re.fullmatch(r"[A-Z]{1,5}", a["symbol"])} - have)
+if len(sys.argv) > 1: syms = sorted(set(json.load(open(sys.argv[1]))) - have); PFX = "p"
+else: PFX = "i"
 print("missing symbols to fetch", len(syms), flush=True)
 B = 50
 for i in range(0, len(syms), B):
-    n = i // B; fr, fa = f"{R}/daily_extra/i{n:04d}.csv.gz", f"{R}/daily_adj_extra/i{n:04d}.csv.gz"
+    n = i // B; fr, fa = f"{R}/daily_extra/{PFX}{n:04d}.csv.gz", f"{R}/daily_adj_extra/{PFX}{n:04d}.csv.gz"
     if os.path.exists(fr) and os.path.exists(fa): continue
     raw = bars(syms[i:i + B], "raw"); raw.to_csv(fr, index=False)
     adj = bars(syms[i:i + B], "all")
