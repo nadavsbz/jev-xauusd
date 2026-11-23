@@ -14,7 +14,7 @@ f = open(OUT, "a", encoding="utf-8"); n_pages = n_posts = 0
 for pid in range(P1, P0 - 1, -1):
     url = f"https://m.sponser.co.il/forum.php?forumid={FORUM}&pid={pid}"
     try:
-        r = urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 research-client"}), timeout=30)
+        r = urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 research-client"}), timeout=90)
         if r.status != 200: print("stop status", r.status, pid); break
         t = r.read().decode("utf-8", "replace")
     except Exception as e:
