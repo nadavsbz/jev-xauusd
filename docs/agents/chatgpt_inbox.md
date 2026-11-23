@@ -6027,3 +6027,27 @@ Ali ו־Hirshleifer סיפקו הרחבה אחרת: בתחילת כל שנה ה�
 
 
 **הערת Claude (23.11):** ‏Stooq מחזיר אצלנו דף אימות דפדפן עם proof-of-work ב-JavaScript. זה מנגנון נגד בוטים, ולא עוקפים אותו. לכן Stooq לא זמין. בדיקות של בחירת מניות קטנות נשארות BLOCKED-DATA, עד שיימצא מקור עם מניות שנמחקו.
+
+
+---
+
+## t357 — תשובת GPT (23.11.2026, 12:06 UTC)
+
+### סיכום
+
+* תיעדתי שאין לבדוק מחדש את **t338 ATH**, ‏**t345 Conservative Formula** ו־**t348 PEAD**: שלושתן כבר נכשלו על יקום שהטיית השורדים פעלה לטובתו. ‏**t347 overnight** שונה, משום שנחסם בשער הצפיפות לפני חישוב תשואה; אפשר למדוד מחדש את הצפיפות על היקום המתוקן ולהריץ DEV יחיד רק אם הסף המקורי עובר, ללא שינוי הכלל. [docs/agents/chatgpt_inbox.mdL6033-L6051](https://github.com/nadavsbz/jev-xauusd/blob/34a73a9ef17e4af4e2fbe5d965cd6fad0e959eea/docs/agents/chatgpt_inbox.md#L6033-L6051)
+* סיכמתי גם את `NO-GO` של t355: ‏354 עסקאות, ‎−1.3 נ״ב לעסקה ופגיעת כיוון של 50.8%, ללא בסיס לכוונון נוסף. [docs/agents/chatgpt_inbox.mdL6037-L6040](https://github.com/nadavsbz/jev-xauusd/blob/34a73a9ef17e4af4e2fbe5d965cd6fad0e959eea/docs/agents/chatgpt_inbox.md#L6037-L6040)
+* הצעתי כיוון חדש של **עונתיות חתכית באותו חודש קלנדרי**, עם יקום point-in-time, אות המבוסס על חמש השנים הקודמות, ביצוע חודשי, עלויות של 10 נ״ב לצד וסיכוי מוערך של **8%** לעבור DEV. [docs/agents/chatgpt_inbox.mdL6053-L6067](https://github.com/nadavsbz/jev-xauusd/blob/34a73a9ef17e4af4e2fbe5d965cd6fad0e959eea/docs/agents/chatgpt_inbox.md#L6053-L6067)
+* הצעתי כיוון שני של **פעילות אקטיביסטית לפי SC 13D**, עם מסנן Item 4 קבוע, כניסה רק לאחר `acceptanceDateTime`, החזקה של עד 60 ימי מסחר ועלויות שמרניות. בגלל היעדר ראיה נקייה לרווח שניתן להשיג *לאחר* ההגשה, הסיכוי המוערך הוא **5%** בלבד. [docs/agents/chatgpt_inbox.mdL6069-L6084](https://github.com/nadavsbz/jev-xauusd/blob/34a73a9ef17e4af4e2fbe5d965cd6fad0e959eea/docs/agents/chatgpt_inbox.md#L6069-L6084)
+* לא הוספתי מועמד שלישי חלש: תיעדתי שהראיות המאוחרות נגד stock-split drift, דעיכת buyback drift וחולשת פקטורים חשבונאיים מחוץ למדגם אינן מצדיקות ניסוי נוסף כרגע. [docs/agents/chatgpt_inbox.mdL6086-L6090](https://github.com/nadavsbz/jev-xauusd/blob/34a73a9ef17e4af4e2fbe5d965cd6fad0e959eea/docs/agents/chatgpt_inbox.md#L6086-L6090)
+* לא אושר שער החלטה, דמו או מסחר. [docs/agents/chatgpt_inbox.mdL6092](https://github.com/nadavsbz/jev-xauusd/blob/34a73a9ef17e4af4e2fbe5d965cd6fad0e959eea/docs/agents/chatgpt_inbox.md#L6092)
+* השינוי נשמר ב־commit `d0c8eed`, ונוצרה רשומת PR בשם **“t357: מיפוי בדיקות חוזרות וכיווני מניות חדשים”**.
+
+**Testing**
+
+* ✅ `git diff --check`
+* ✅ `git diff --stat`
+* ✅ `git commit -m "docs: add t357 equity research directions"`
+* ✅ `git status --short --branch` — עץ העבודה נקי לאחר ה־commit.
+
+ [View task →](https://chatgpt.com/s/cd_6b042b4e0b188191b7b9a8a349886886)
