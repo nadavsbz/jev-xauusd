@@ -6051,3 +6051,30 @@ Ali ו־Hirshleifer סיפקו הרחבה אחרת: בתחילת כל שנה ה�
 * ✅ `git status --short --branch` — עץ העבודה נקי לאחר ה־commit.
 
  [View task →](https://chatgpt.com/s/cd_6b042b4e0b188191b7b9a8a349886886)
+
+
+---
+
+## t361 — תשובת GPT (23.11.2026, 13:42 UTC)
+
+### סיכום
+
+* הוספתי את ניתוח־העל של t361 בעברית. המסקנה היא שהכשל המשותף אינו עלויות בלבד, אלא הפער בין אפקט מחקרי או מידע ציבורי לבין אלפא שנותרת **לאחר** הפרסום, בזמן ביצוע אפשרי וביקום נקי מהטיות. נוספו גם שחיקת ה־prior לאחר כ־90 בדיקות, דעיכת אנומליות, אי־יציבות משטר ופער בין מוצרי המחקר למכשירי הביצוע שלנו. [docs/agents/chatgpt_inbox.mdL6068-L6111](https://github.com/nadavsbz/jev-xauusd/blob/b4e702972b0019a5c362e24c792ae3b76cff73cb/docs/agents/chatgpt_inbox.md#L6068-L6111)
+* תיעדתי במפורש שאין כיום מנוע שלישי חדש שסיכויו המוערך לעבור DEV גבוה מ־5%. העלויות מחמירות תוצאות גבוליות, אך אינן מסבירות את הכישלונות השליליים המובהקים של t358, ‏t360 ו־t355. [docs/agents/chatgpt_inbox.mdL6060-L6064](https://github.com/nadavsbz/jev-xauusd/blob/b4e702972b0019a5c362e24c792ae3b76cff73cb/docs/agents/chatgpt_inbox.md#L6060-L6064) [docs/agents/chatgpt_inbox.mdL6080-L6084](https://github.com/nadavsbz/jev-xauusd/blob/b4e702972b0019a5c362e24c792ae3b76cff73cb/docs/agents/chatgpt_inbox.md#L6080-L6084)
+* הצעתי רק שני כיוונים מבניים:
+  * היפוך לאחר cascade של חיסולי קריפטו, עם כלל מוקפא המבוסס על ירידת מחיר, נפח, open interest ונתוני liquidation — סיכוי מוערך **4%**. [docs/agents/chatgpt_inbox.mdL6124-L6147](https://github.com/nadavsbz/jev-xauusd/blob/b4e702972b0019a5c362e24c792ae3b76cff73cb/docs/agents/chatgpt_inbox.md#L6124-L6147)
+  * היפוך לחץ כפוי סביב שינויי מדד מהירים, עם כניסה רק לאחר היום האפקטיבי, מגבלות נזילות ועלויות שמרניות — סיכוי מוערך **3%**. [docs/agents/chatgpt_inbox.mdL6149-L6169](https://github.com/nadavsbz/jev-xauusd/blob/b4e702972b0019a5c362e24c792ae3b76cff73cb/docs/agents/chatgpt_inbox.md#L6149-L6169)
+* לא הוספתי מועמד שלישי חלש. תיעדתי מדוע tax-loss seasonality, עשיית שוק רגילה ב־Binance, imbalance במכרזים והעתקת אותות ציבוריים נוספים אינם מצדיקים כרגע ניסוי נוסף. [docs/agents/chatgpt_inbox.mdL6171-L6178](https://github.com/nadavsbz/jev-xauusd/blob/b4e702972b0019a5c362e24c792ae3b76cff73cb/docs/agents/chatgpt_inbox.md#L6171-L6178)
+* המלצתי להפסיק סריקה רחבה ולמקד את הזמן בסייזינג משותף של C1/I2, בחישוב turnover לאחר scaling, במסנן ביצוע יחיד ומוקפא מראש לימי שוק פגומים, ובמדידת slippage, spread, swap, דחיות וחשיפה שבוצעה בפועל. [docs/agents/chatgpt_inbox.mdL6182-L6224](https://github.com/nadavsbz/jev-xauusd/blob/b4e702972b0019a5c362e24c792ae3b76cff73cb/docs/agents/chatgpt_inbox.md#L6182-L6224)
+* לא אושר שער החלטה, שינוי הקצאה, דמו או מסחר. [docs/agents/chatgpt_inbox.mdL6228-L6234](https://github.com/nadavsbz/jev-xauusd/blob/b4e702972b0019a5c362e24c792ae3b76cff73cb/docs/agents/chatgpt_inbox.md#L6228-L6234)
+* השינוי נשמר ב־commit `c625a98`, ונוצרה רשומת PR בשם **“t361: ניתוח־על של כישלונות המחקר והעדפת שיפור C1/I2”**.
+
+**Testing**
+
+* ✅ `git diff --check`
+* ✅ `python - <<'PY' ... PY` — אומתו קיום סעיף t361, תיוגי `OBSERVED`/`ASSUMED`/`VERIFIED`, ההסתברויות 4% ו־3%, הקביעה שאין כיוון מעל 5%, וההסתייגות מאישור שער.
+* ✅ `git diff --stat`
+* ✅ `git status --short --branch` — עץ העבודה נקי לאחר ה־commit.
+* ✅ `git log -1 --oneline` — אומת commit ‏`c625a98 docs: add t361 research meta-analysis`.
+
+ [View task →](https://chatgpt.com/s/cd_6b043f0e36c88191abc811f6a72171fd)
