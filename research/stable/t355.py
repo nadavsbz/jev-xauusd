@@ -31,7 +31,8 @@ def build(O, C, days):
     X = np.concatenate([st5, st30, (st5 > 0).mean(2, keepdims=True), st5.mean(2, keepdims=True), st5.std(2, keepdims=True),
                         r5[:, :, k:k + 1], r30[:, :, k:k + 1]], axis=2)
     y = np.full((n, 78), np.nan)
-    y[:, :72] = cf[:, 6:78, k] / o[:, 1:73, k] - 1      # open of t+1 .. close of t+6
+    y[:, :72] = c[:, 6:78, k] / o[:, 1:73, k] - 1       # open of t+1 .. close of t+6, raw (NaN if SPY bar missing, e.g. half days)
+    y[np.isnan(c[:, :, k])] = np.nan                      # no decision on a bar SPY did not print
     miss = np.isnan(c[:, :, :]).any(2)                   # any symbol missing a bar
     return X, y, miss
 
