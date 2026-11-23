@@ -5185,3 +5185,470 @@ Myfxbook מבחין בין שני אימותים:
 - אין כאן אישור שער, רכישת בוט, הרשמה לשירות, הקצאת הון או מסחר. ההחלטות שמורות לנדב.
 
  [View task →](https://chatgpt.com/s/cd_6b03cbcff77481919f463fbf65893cef)
+
+
+---
+
+## t346 — תשובת GPT (23.11.2026, 06:06 UTC)
+
+## t346 — מפת “מה עוד לא נבדק”
+
+## מסקנה מקדימה
+
+1. **כמעט כל המשפחות הקלאסיות כבר קיבלו לפחות בדיקה אחת** בזהב, במדדים, במט״ח ובקריפטו: מגמה, היפוך, פריצות, עונתיות, אירועים, carry, ‏lead–lag, זרימות/מיצוב ומשטרי תנודתיות.
+2. **החור הגדול והאמיתי הוא במניות בודדות עם מידע point-in-time**: הודעות רווח, תהליכי מיזוג, דפוסי לילה חתכיים ומידע תוך־יומי מן המניות המרכיבות את המדד. שלושת ניסויי המניות המרכזיים שכבר הסתיימו — ATH, ‏13F ו־Conservative Formula — אינם מכסים משפחות אלה. [docs/prereg/research_t338.mdL122-L139](https://github.com/nadavsbz/jev-xauusd/blob/6c896d35ff00f7da9e5930eacb6f5cda06229fd2/docs/prereg/research_t338.md#L122-L139) [docs/prereg/research_t340.mdL97-L100](https://github.com/nadavsbz/jev-xauusd/blob/6c896d35ff00f7da9e5930eacb6f5cda06229fd2/docs/prereg/research_t340.md#L97-L100) [docs/prereg/research_t345.mdL99-L106](https://github.com/nadavsbz/jev-xauusd/blob/6c896d35ff00f7da9e5930eacb6f5cda06229fd2/docs/prereg/research_t345.md#L99-L106)
+3. מצאתי **4 כיוונים חדשים סבירים**, לא 5. איני מוסיף מועמד חמישי רק כדי למלא מכסה. גם בארבעת אלה הסתברות המעבר שלי נמוכה, **6%–12%**.
+4. מבין הארבעה, הייתי מדרג ראשון את **דפוס הלילה החתכי במניות**, ושני את **PEAD long-only**. שני האחרים כבדים יותר בנתונים או קרובים יותר ל־I2.
+5. אין כאן אישור לשער, לפיתוח או למסחר. אלה מועמדים לרישום מוקדם בלבד.
+
+---
+
+# 1. שיטת המיפוי
+
+## פירוש הסימונים
+
+- **נבדק — עבר:** לפחות מימוש אחד עבר DEV והמשיך; אין פירוש הדבר שהמשפחה כולה “הוכחה”.
+- **נבדק — נכשל:** לפחות מבחן רלוונטי אחד בוצע ולא עבר את השער הרשום.
+- **נבדק — מעורב:** קיימת מערכת פעילה/מועמדת, אך וריאנטים אחרים נכשלו, או שהראיה אינה holdout נקי.
+- **נרשם בלבד / חסום:** יש prereg, אך אין תוצאה סופית תקפה.
+- **לא נבדק:** לא מצאתי ב־`docs/prereg/`, ב־`SCAN_PLAN`, בסקרים או במסמכי המחקר מבחן ישיר למשפחה ולמכשיר.
+- תא המסומן “נבדק” אינו טוען שכל וריאנט אפשרי נבדק. למשל, העובדה שמגמה במניות נבדקה ב־ATH אינה אומרת ש־PEAD נבדק.
+
+## מסמכי המסגרת שאינם ניסויי אלפא
+
+- `docs/SURVEY_2.md`, ‏`docs/SURVEY_3.md` ו־`docs/SURVEY_SOURCES.md` הם בעיקר **סקרי חשבונות, אותות, PAMM/CopyFX ובוטים**, לא בדיקות אסטרטגיה עצמאיות. המסקנה המשותפת היא שמרבית הרקורדים החזקים סובלים מ־equity DD לא ידוע/גבוה, גריד, recovery או היסטוריה שאינה ניתנת לשחזור.
+- `bd_live_set_t298.md`, ‏`bd_news_t309.md`, ‏`bull47_ofer_conditions.md` ו־`i2_eglobal_t324.md` הם בדיקות תפעול, נאמנות, תנאי חשבון או בוט קיים; הם נכללים בתאים המתאימים, אך אינם משפחת אלפא חדשה.
+- `screening_20261122.md` הוא **סינון ספרותי**, לא תוצאה אמפירית. רעיון שנפסל שם מחוסר התאמה אינו מסומן כאילו “נבדק”.
+
+---
+
+# 2. מטריצת משפחות × מכשירים
+
+להלן הטבלה המבוקשת. בכל תא מופיעים הסטטוס, תמצית התוצאה ושמות הקבצים המרכזיים.
+
+| משפחה | זהב | מדדים | FX | BTC/ETH | מניות | נפט |
+|---|---|---|---|---|---|---|
+| **מגמה / מומנטו�� / פריצה** | **נבדק — נכשל.** פריצת שבוע, מגמת סל סחורות, HalfTrend, Narrow-range/ORB ומאזני BD לא עברו; `r56_gold_weekly_breakout.md`, `r58_commodity_trend.md`, `r74_bd_gold_trend_balancer.md`, `r76_bd_balancer_ensemble.md`, `research_t315.md`, `research_t328.md`. | **נבדק — מעורב.** I2 הוא הרכיב הקיים; ORB, ‏CITSM, ‏VWAP, גרסת M5 הנאמנה למאמר ורוב הסריקות נכשלו; `r68_index_intraday_scan.md`, `r104_i2_paper_m5.md`, `research_t323.md`, `research_t336.md`, וב־`SCAN_PLAN.md` סבבים 5, 11, 15–16, 31, 48. | **נבדק — נכשל.** מגמת FX, מגמת יחסים וכלל SemiTrend לא עברו; `r92_semitrend_oos_2017_2021.md`, `r93_semitrend_sr.md`, וב־`SCAN_PLAN.md` סבבים 10, 39–40, 43. | **נבדק — מעורב.** C1 H6 נשאר הרכיב הקיים; C1 יומי, אלטים, breadth, COT, עקום, stablecoins ויציאות חלופיות לא שיפרו או נכשלו; `r61_nearmiss_holdout2.md`, `r77_c1_breadth.md`, `r78_c1_cot_filter.md`, `r81_c1_curve_filter.md`, `r82_c1_exit_variants.md`, `r94*.md`, `r105_c1_paper_daily.md`, `research_t329.md`. | **נבדק — נכשל.** ATH long-only עבר DEV אך נכשל ב־holdout, Sharpe ‏0.44; ORB מניות נרשם אך לא מצאתי תוצאה סופית; `research_t338.md`, `r103_orb_stocks_in_play.md`. | **נבדק — נכשל.** C1/מגמה על WTI/Brent ועל סל חוזים/ETF לא עברו; `r58_commodity_trend.md`, `r101_futures_trend.md`, וב־`SCAN_PLAN.md` סבבים 29 ו־58. |
+| **היפוך / mean reversion** | **נבדק — נכשל.** היפוך אסיה, CPI fade, IBS/RSI/SMC, OwnGold וחוקי intraday שונים לא עברו; `r51_owngold_c.md`, `r67_gold_asia_rev_cpi_fade.md`, `research_t343.md`, וב־`SCAN_PLAN.md` סבבים 6–7ב, 26, 34, 50. | **נבדק — נכשל.** overnight/day reversal, גאפ DE40, IBS ETF, פתיחה קיצונית ו־11 כללים תוך־יומיים נכשלו; `r55_on_reversal.md`, `r68_index_intraday_scan.md`, `r96_de40_us500_nyopen.md`, `r102_ibs_etf.md`, `research_t336.md`. | **נבדק — נכשל.** pair reversal, חזרה לממוצע בצמדי FX ו־WM-fix fade נכשלו; ב־`SCAN_PLAN.md` סבבים 12, 27 ו־43. | **נבדק — נכשל.** funding reversal, volume-shock reversal, RSI/SMC, פקיעת Deribit והיפוך ETH לא עברו; `r71_btc_funding_reversal.md`, `r80_crypto_volume_shock_reversal.md`, `r98_btc_deribit_expiry.md`, `research_t334.md`, `research_t343.md`. | **נבדק — נכשל.** היפוך שבועי חתכי ו־RSI+RVOL נכשלו; `r69_rsi_rvol_reversal.md`, וב־`SCAN_PLAN.md` סבב 28. | **נבדק — נכשל.** היפוך COT ומלאי/אירועי EIA לא עברו; `r57_eia_wti.md`, `r62_cot_reversal_wti.md`, `r63_inventory_carry_oil.md`. |
+| **עונתיות / לוח שנה / שעות** | **נבדק — נכשל.** PM fix, חלונות סשן, pre-holiday/NR7 ושעות פתיחה לא שרדו; `research_t323.md`, וב־`SCAN_PLAN.md` סבבים 7, 26, 33–36. | **נבדק — נכשל.** turn-of-month, תחילת חודש, לילה/יום, pre-holiday, expiration week ו־BOJ afternoon נכשלו; `r55_on_reversal.md`, `r59_tom_us500.md`, `r99_jp225_boj_afternoon.md`, `research_t310.md`. | **נבדק — נכשל.** Gotobi, month-end, WM fix, pre-holiday ו־FOMC-day FX נכשלו; `r65_fomc_fx.md`, `research_t317.md`, וב־`SCAN_PLAN.md` סבבים 9, 19, 27, 35–36. | **נבדק — נכשל.** שעות קריפטו, weekend→Monday, CME gap, פקיעה ותזמון תוך־יומי נכשלו; `r89_btc_weekend_monday.md`, `r98_btc_deribit_expiry.md`, `research_t326.md`, וב־`SCAN_PLAN.md` סבב 24. | **לא נבדק ישירות.** לא מצאתי מבחן point-in-time של עונתיות סביב הודעות רווח או דפוס לילה חתכי; `research_t338.md` הוא מגמת ATH, לא עונתיות. | **נבדק חלקית — נכשל.** עונתיות אירועית סביב EIA נב��קה, אך לא עונתיות חודשית/שנתית עצמאית של נפט; `r57_eia_wti.md`, `r63_inventory_carry_oil.md`. |
+| **אירועים / חדשות / מאקרו** | **נבדק — נכשל.** הודעות מאקרו, CPI, ‏FOMC, ‏TIPS+DXY וחדשות/straddle לא עברו; `r67_gold_asia_rev_cpi_fade.md`, `r72_gold_tips_dxy.md`, `bd_news_t309.md`, וב־`SCAN_PLAN.md` סבבים 32, 44, 46. | **נבדק — נכשל.** FOMC, pre-holiday, expiration, DIX, gamma regime ו־BOJ נכשלו; `r73_gamma_regime_intraday.md`, `r79_i2_dix_veto.md`, `r99_jp225_boj_afternoon.md`. | **נבדק — נכשל.** FOMC, מכרזי אג״ח→USDJPY, output gap וחדשות FX לא עברו; `r65_fomc_fx.md`, `r97_treasury_auction_usdjpy.md`, `research_t317.md`, `research_t332.md`. | **נבדק — נכשל.** TGA, funding, stablecoins, Deribit expiry ו־CME COT לא עברו; `r71_btc_funding_reversal.md`, `r78_c1_cot_filter.md`, `r94*.md`, `r98_btc_deribit_expiry.md`, `r100_tga_btc.md`. | **לא נבדק.** לא מצאתי PEAD, pre-earnings premium, merger arbitrage, buyback-announcement או insider-event strategy. ‏13F ב־`research_t340.md` הוא דיווח רבעוני מאוחר, לא event trading. | **נבדק — נכשל.** EIA inventory, COT ומלאי מול ממוצע חמש שנים נכשלו; `r57_eia_wti.md`, `r62_cot_reversal_wti.md`, `r63_inventory_carry_oil.md`. |
+| **Carry / מימון / term structure** | **נבדק חלקית — נכשל.** עלות swap ומגמת סחורות נבדקו, אך carry טהור של עקום זהב לא נבדק; `r58_commodity_trend.md`, ‏`STABLE_SYSTEM_PLAN.md`. | **נבדק חלקית — נכשל.** אין carry מדדי נקי; נבדקו לילה/יום, dividend-adjusted ETF ו־vol-target; `r55_on_reversal.md`, `r75_book_voltarget.md`, `r101_futures_trend.md`. | **נבדק — נכשל.** FX carry, dollar carry וגרסאות מסוננות נכשלו; `research_t331.md`, וב־`SCAN_PLAN.md` סבב G-a. | **נבדק — נכשל.** funding reversal ו־crypto carry כמנגנון נבדקו ולא עברו; `r71_btc_funding_reversal.md`. | **לא נבדק ישירות.** אין אסטרטגיית dividend carry, securities lending או option-implied carry במניות; Conservative Formula השתמשה ב־payout yield אך לא carry של החזקה; `research_t345.md`. | **נבדק חלקית — נכשל.** מלאי כ־carry proxy ומגמת futures/ETF נבדקו; carry טהור לפי backwardation/contango point-in-time לא נבדק בנפרד; `r63_inventory_carry_oil.md`, `r101_futures_trend.md`. |
+| **Lead–lag / יחסים / relative value** | **נבדק — נכשל.** נחושת/זהב כמסנן I2, יחס נכסים, XAUEUR sanity ו־lead–lag כללי לא הניבו קשר מנצל; `r91_leadlag_scan.md`, `r95_i2_coppergold.md`, וב־`SCAN_PLAN.md` סבבים 39–40. | **נבדק — נכשל.** NQ→BTC, ‏BTC weekend→Monday, ‏DE40→US500 ו־15-asset lead–lag נכשלו; `r89_btc_weekend_monday.md`, `r91_leadlag_scan.md`, `r96_de40_us500_nyopen.md`, וב־`SCAN_PLAN.md` סבב 14. | **נבדק — נכשל.** pair trading, cross-FX mean reversion, יחס מאקרו ומכרזים→USDJPY נכשלו; `r91_leadlag_scan.md`, `r97_treasury_auction_usdjpy.md`, וב־`SCAN_PLAN.md` סבבים 12, 30, 43. | **נבדק — נכשל.** NQ→BTC, TGA→BTC, stablecoins→C1, breadth ו־COT לא שיפרו; `r77_c1_breadth.md`, `r78_c1_cot_filter.md`, `r94*.md`, `r100_tga_btc.md`. | **נבדק חלקית — נכשל.** 13F copying, pair trading והיפוך חתכי נבדקו; lead–lag תוך־יומי מן המניות המרכיבות אל המדד **לא** נבדק; `research_t340.md`, וב־`SCAN_PLAN.md` סבבים 28 ו־30. | **נבדק — נכשל.** EIA/COT/מלאי ו־lead–lag רב־נכסי לא עברו; `r57_eia_wti.md`, `r62_cot_reversal_wti.md`, `r63_inventory_carry_oil.md`, `r91_leadlag_scan.md`. |
+| **Order flow / מיצוב / לחץ סוחרים** | **נבדק חלקית — נכשל.** משטר spread, fix, SGE premium ו־BD crash proxies לא עברו; `r90_spread_regime_bd_crash.md`, `g2_triage_20261117.md`, וב־`SCAN_PLAN.md` סבב 26. | **נבדק — נכשל.** gamma/GEX, DIX, CTA-vol והפקיעה החודשית נכשלו; `r70_vol_cta_flow.md`, `r73_gamma_regime_intraday.md`, `r79_i2_dix_veto.md`. | **נבדק חלקית — נכשל.** COT/carry, fix וחדשות נבדקו; order flow אמיתי של spot FX אינו זמין ולכן לא נבדק ישירות; `r65_fomc_fx.md`, `research_t331.md`, וב־`SCAN_PLAN.md` סבב 27. | **נבדק — נכשל.** funding, COT, stablecoin flow, Coinbase premium, volume shock ו־Deribit expiry נכשלו; `r71`, `r78`, `r80`, `r94`, `r98`, `g2_triage_20261117.md`. | **נבדק חלקית — נכשל.** DIX שימש veto ל־I2 ו־13F שימש החזקות מוסדיות; יצירות/פדיונות ETF, short-volume, insider flow ו־options flow ברמת מניה לא נבדקו; `r79_i2_dix_veto.md`, `research_t340.md`. | **נבדק — נכשל.** COT ומלאי הם proxies למיצוב/זרימה ולא עברו; `r62_cot_reversal_wti.md`, `r63_inventory_carry_oil.md`. |
+| **תנודתיות / משטר / ניהול חשיפה** | **נבדק — נכשל.** spread regime, quiet-gold switch, vol-target ומאזני BD לא שיפרו; `r74`, `r75`, `r76`, `r83`, `r84`, `r90`. | **נבדק — נכשל.** vol-target, CTA flow, gamma, DIX ו־risk scaling לא עברו; `r70`, `r73`, `r75`, `r79`, וב־`SCAN_PLAN.md` סבבים 52 ו־54. | **נבדק חלקית — נכשל.** carry crash filter ומשטרי מאקרו לא עברו; `research_t331.md`, `research_t332.md`, סבב G-a. | **נבדק — נכשל.** ADX+funding, C1 breadth, curve filter, vol-target וגרסאות יציאה נכשלו; `r71`, `r75`, `r77`, `r81`, `r82`, `r105`. | **נבדק — נכשל.** Conservative Formula, ATH עם vol sizing ו־RSI/RVOL נבדקו; אין volatility-managed equity factor עצמאי; `r69_rsi_rvol_reversal.md`, `research_t338.md`, `research_t345.md`. | **נבדק חלקית — נכשל.** מגמת סחורות ומלאי נבדקו עם scaling; אין אסטרטגיית oil-volatility risk premium או regime טהור; `r58`, `r63`, `r101`. |
+| **Cross-sectional / fundamental / factor** | **לא רלוונטי ברובו / לא נבדק.** זהב הוא מכשיר יחיד; לא נמצא חתך בין כורי זהב או חוזי זהב. | **נבדק חלקית — נכשל.** סקטורי ETF, IBS, turn-of-month ויחסי מדדים נבדקו; לא נמצא factor stock-selection שמומר ישירות למדד; `r102_ibs_etf.md`, `research_t310.md`. | **נבדק — נכשל.** carry G10, output gap, pair/relative ו־FOMC basket נכשלו; `r65`, `research_t317.md`, `research_t331.md`, `research_t332.md`. | **נבדק — נכשל/חסום.** חתך אלטים, breadth ו־hour seasonality נכשלו או לא ישימים בעלויות RF; `r61`, `r77`, `research_t326.md`, `research_t329.md`. | **נבדק — נכשל בשלוש משפחות, אך עדיין חור מרכזי.** ATH trend, ‏13F cloning ו־Conservative Formula נכשלו; `research_t338.md`, `research_t340.md`, `research_t345.md`. לא נבדקו earnings/event factors או overnight-bias factor. | **לא נבדק כחתך עצמאי.** סל סחורות רב־נכסי ומגמת futures נבדקו, אבל לא cross-sectional carry/value בין חוזי אנרגיה; `r58`, `r101`. |
+
+---
+
+# 3. מה כוסה בקבצי הרישום המוקדם
+
+כדי לוודא שלא “נפלו בין הכיסאות” קבצים שאינם בולטים בטבלה:
+
+- **r51–r61:** OwnGold, ‏3DD, קריפטו־I2, היפוך לילה במדדים, פריצת זהב, EIA, מגמת סחורות, turn-of-month ו־near-miss holdouts — כולם נכשלו או לא הוסיפו מועמד.
+- **r62–r70:** COT/מלאי נפט, mass scan, ‏FOMC FX, ארבעה רעיונות מבניים, זהב־אסיה/CPI, סריקת מדדים, RSI+RVOL ו־CTA/vol — אין עובר.
+- **r71–r81:** funding, ‏TIPS+DXY, gamma, מאזני BD, vol-target, breadth, ‏COT, ‏DIX, volume shock ועקום ריבית — אין עובר.
+- **r82–r92:** יציאות C1, מתגי BD, holdouts והגדרות משתמש, weekend BTC, spread regime, lead–lag ושיטת SemiTrend — אין עובר חדש.
+- **r93–r105:** SemiTrend+S/R, stablecoins, copper/gold, ‏DE40–US500, מכרזי אג״ח, Deribit expiry, ‏BOJ, ‏TGA, futures trend, ‏IBS, ‏I2 M5 ו־C1 יומי — כולם נכשלו; `r103_orb_stocks_in_play.md` הוא היוצא מן הכלל שמצאתי כ־**נרשם ללא תוצאה סופית**.
+- **t310–t345:** rebalancers/TOM, ‏announcement effects, מגמה/פריצה, עונתיות קריפטו, I2 בקריפטו, HalfTrend, dollar carry, output gap, ETH intraday, opening reversal, ATH stocks, ‏13F, אינדיקטורי TradingView, ‏SMC ו־Conservative Formula — אין מועמד חדש שעבר את כל הדרך.
+- **הקבצים התפעוליים:** `bd_live_set_t298.md`, ‏`bd_news_t309.md`, ‏`bull47_ofer_conditions.md`, ‏`i2_eglobal_t324.md` אינם חורים באסטרטגיות; הם בדיקות בוט, חשבון, חדשות או fidelity.
+
+---
+
+# 4. ארבעה כיוונים טובים שעדיין לא נבדקו
+
+## דירוג
+
+| דירוג | כיוון | מכשיר/ביצוע | סיכוי אישי לעבור DEV | קורלציה צפויה |
+|---:|---|---|---:|---|
+| 1 | Overnight-bias חתכי במניות | Alpaca, מניות אמריקאיות | **12%** | נמוכה ל־C1; נמוכה–בינונית ל־I2 |
+| 2 | PEAD long-only מ־EDGAR | Alpaca, מניות אמריקאיות | **10%** | נמוכה ל־C1 ול־I2 |
+| 3 | Merger-arbitrage long-only, עסקאות מזומן בלבד | Alpaca | **8%** | נמוכה מאוד |
+| 4 | חיזוי המדד מתשואות המניות המרכיבות | Alpaca→SPY/QQQ או RF US500 | **6%** | נמוכה ל־C1; בינונית–גבוהה ל־I2 |
+
+לא מצאתי מועמד חמישי באיכות דומה. ETF flows, buyback announcements ו־short-volume נשארו בחוץ משום שהיסטוריה point-in-time חינמית, נקייה ויציבה אינה מובטחת, או משום שהכלל הסחיר אינו מגובה בתוצאה מחוץ למדגם מספקת.
+
+---
+
+## 4.1 מקום ראשון — Overnight Bias חתכי במניות
+
+### הראיה המחקרית
+
+Lachance מצאה שהטיות תשואת לילה ברמת מניה הן מתמשכות: בחירה לפי תשואות הלילה של השנה הקודמת והחזקה בלילה בשנה הבאה הניבה, לפי המאמר, כ־37.5% לשנה בקבוצת המומנטום; הקבוצה בעלת overnight bias חיובי ומובהק כללה בממוצע כ־561 מניות בשנה. זהו מבנה **next-year out-of-sample**, מפני שהסיווג של שנה \(y\) משמש רק בשנת \(y+1\). [Lachance, “Night trading: Lower risk but higher returns?”](https://onlinelibrary.wiley.com/doi/10.1002/rfe.1180)
+
+### כלל מכני מוצע
+
+**יקום:**
+
+1. מניות NYSE/Nasdaq רגילות ב־Alpaca.
+2. מחיר סגירה לפחות 10 דולר.
+3. median daily dollar volume ב־60 הימים הקודמים לפחות 20 מיליון דולר.
+4. לפחות 220 זוגות תקינים של close→next-open בשנה הקודמת.
+5. אין ETF, ‏ADR, preferred, warrant או SPAC unit.
+
+**אות שנתי:**
+
+1. לכל מניה ולכל יום \(d\):
+   \[
+   r^{ON}_{i,d}=\frac{Open_{i,d}}{Close_{i,d-1}}-1
+   \]
+2. בסוף יום המסחר האחרון של כל שנה מחשבים לכל מניה:
+   - ממוצע תשואת הלילה ב־252 ימי המסחר האחרונים;
+   - \(t\)-stat של הממוצע;
+   - תשואת לילה מצטברת.
+3. כשירות: ממוצע חיובי ו־\(t\ge1.96\).
+4. מדרגים את הכשירות לפי תשואת הלילה המצטברת ובוחרים את 50 העליונות, או את העשירון העליון אם יש פחות מ־500 כשירות. בחירה אחת מראש; אני מציע **50** כדי להגביל פיזור ועלויות.
+
+**ביצוע:**
+
+1. בכל יום מסחר בשנת \(y+1\), קנייה ב־MOC.
+2. מכירה ב־MOO למחרת.
+3. משקל שווה; לכל מניה לכל היותר 2% מן ההון.
+4. אין פוזיציה במהלך היום ואין swap/borrow.
+5. אם מניית תיק מושעית ב־close או ב־open — אין fill מדומה; ההון נשאר קשור עד עסקה אפשרית או אירוע תאגידי.
+6. אין החלפה תוך־שנתית, פרט למחיקה/מיזוג.
+
+### נתונים זמינים
+
+- ברים יומיים/דקה ו־corporate actions דרך Alpaca.
+- security master נוכחי של Alpaca; להטיית שורדים נדרש לשמור snapshots ולהשתמש בניירות שנמחקו אם קיימת להם היסטוריה.
+- לוח NYSE חינמי.
+- אין צורך בנתוני יסוד, אופציות או ספק בתשלום.
+
+### עלויות
+
+- אין swap.
+- יש שתי פעולות ביום, אבל רק במניות נזילות.
+- הסיכון המרכזי הוא **MOC/MOO slippage**, לא עמלת Alpaca.
+- יש לקבע עלות של לפחות 2bp בכל צד, ובדיקת קיצון של 5bp בכל צד. אם היתרון אינו שורד 10bp round trip, הוא אינו מתאים.
+
+### למה שונה ממה שכבר נכשל
+
+- אינו ATH trend: הסיגנל הוא **הטיה קבועה בין סגירה לפתיחה**, לא תנועה במחיר.
+- אינו I2: החשיפה היא בלילה ולא במהלך סשן Nasdaq.
+- אינו turn-of-month או overnight reversal של מדד: זהו **חתך מניות שנלמד בשנה קודמת**.
+- אין קשר פונקציונלי למגמת BTC H6.
+
+### סיכוי לעבור DEV
+
+**12%.**
+
+זו ההערכה הגבוהה ברשימה, אך עדיין נמוכה: MOC/MOO, הטיית שורדים והדעיכה לאחר פרסום עלולים לאכול חלק גדול מן האפקט.
+
+---
+
+## 4.2 מקום שני — PEAD long-only מ־EDGAR, ללא consensus מסחרי
+
+### הראיה המחקרית
+
+PEAD הוא אחד האפקטים המתועדים ביותר בחשבונאות. סקירה מ־2021 מסכמת 216 מאמרים שפורסמו ועוד שמונה ניירות עבודה ומוצאת שהמחיר ממשיך לנוע בכיוון הפתעת הרווח, אך מדגישה שהאפקט חזק יותר דווקא בניירות עם עלויות מסחר גבוהות. [Fink, “A review of the Post-Earnings-Announcement Drift”](https://doi.org/10.1016/j.jbef.2020.100446)
+
+הראיה לגבי עלויות מחמירה: Ng, Rusticus ו־Verdi מצאו שעלויות מפחיתות מהותית את רווחי PEAD, ולכן מועמד long-only בניירות נזילים עדיף על long–short במניות קטנות. [Ng, Rusticus & Verdi](https://onlinelibrary.wiley.com/doi/10.1111/j.1475-679X.2008.00290.x)
+
+### כלל מכני מוצע
+
+**יקום:**
+
+1. 1,000 המניות האמריקאיות הגדולות לפי market cap point-in-time.
+2. מחיר לפחות 10 דולר.
+3. median dollar volume ב־60 ימים לפחות 20 מיליון דולר.
+4. ארבעה רבעונים קודמים תקינים ב־EDGAR.
+5. common stock בלבד.
+
+**הפתעת רווח:**
+
+במועד קבלת 8-K/10-Q/10-K:
+
+\[
+SUE_{i,q} =
+\frac{EPS_{i,q}-EPS_{i,q-4}}
+{\sigma(EPS_{i,q-k}-EPS_{i,q-k-4}),\,k=1..8}
+\]
+
+כאשר:
+
+- משתמשים ב־diluted EPS from continuing operations אם זמין;
+- tag waterfall מוקפא מראש;
+- כל fact חייב להיות filed/accepted לפני ההחלטה;
+- אין analyst consensus ואין נתון ששוכתב בעתיד.
+
+**אות:**
+
+1. מחשבים אחוזון SUE מול כל ההודעות שהיו זמינות באותו חודש.
+2. קונים רק אם:
+   - SUE בעשירון העליון;
+   - תשואת יום ההודעה מ־close הקודם עד close ההודעה חיובית;
+   - spread משוער ≤10bp.
+3. הודעה לפני 15:30 ET:
+   - כניסה ב־MOC של אותו יום, בתנאי שה־acceptance timestamp מוקדם מ־15:00 ET.
+4. הודעה אחרי 15:00 ET או אחרי הסגירה:
+   - כניסה ב־MOO ביום המסחר הבא.
+5. יציאה ב־close לאחר 20 ימי מסחר.
+6. לכל מניה פוזיציה אחת; אות חדש בזמן החזקה מתעלמים ממנו.
+7. משקל שווה, עד 2% למניה ועד 50 פוזיציות.
+8. אין שורט.
+
+### נתונים זמינים
+
+ה־SEC מספק ללא API key:
+
+- submissions history;
+- `companyfacts`;
+- טפסי 8-K, ‏10-Q ו־10-K;
+- acceptance metadata;
+- bulk ZIP המתעדכן בכל לילה.
+
+[תיעוד EDGAR API הרשמי](https://www.sec.gov/search-filings/edgar-application-programming-interfaces)
+
+מחירי מניות וביצוע — Alpaca.
+
+### עלויות
+
+- כ־25 סיבובים בשנה לכל “slot”, ולא פעילות יומית בכל המניות.
+- אין swap מהותי ב־Alpaca long-only.
+- יש להחיל לפחות 5bp לצד, משום שהכניסה אחרי הודעה יכולה להיות תנודתית.
+- החזקה של 20 ימים הופכת עלות של 10bp round trip לסבירה אם קיים drift של עשרות bp.
+
+### למה שונה ממה שכבר נכשל
+
+- אינו Conservative Formula: שם היה דירוג רבעוני של value/quality/payout; כאן מדובר **בתגובה לאירוע ובמידע חדש**.
+- אינו 13F: אין פיגור של עד 45 יום ואין חיקוי מנהלים.
+- אינו ATH: המחיר יכול להיות מתחת לשיא; הכניסה תלויה בהפתעת רווח.
+- צפויה קורלציה נמוכה ל־C1 ול־I2, מפני שהחשיפות מפוזרות על אירועים ספציפיים.
+
+### סיכוי לעבור DEV
+
+**10%.**
+
+האפקט אמיתי בספרות, אך העלויות, data cleaning והדעיכה במניות הגדולות עלולים להוריד אותו מתחת לסף.
+
+---
+
+## 4.3 מקום שלישי — Merger Arbitrage long-only בעסקאות מזומן
+
+### הראיה המחקרית
+
+Giglio ו־Shue הראו כי בעסקאות מיזוג, הזמן שעבר ללא חדשות נושא מידע על הסתברות ההשלמה, ושאסטרטגיה המשקיעה בשבועות שבהם hazard ההשלמה גבוה השיגה אלפא גבוהה יותר מאסטרטגיה בשבועות hazard נמוך. חשוב במיוחד: ה־hazard נאמד מן **המדגם הקודם**, ולא מתוצאת העסקה העתידית. [Giglio & Shue, “No News Is News”](https://www.nber.org/papers/w18914)
+
+מחקר עדכני יותר מדווח על אסטרטגיית שלושה אותות עם תשואה שנתית מחוץ למדגם של כ־21% ב־2017–2021, לעומת כ־7% למדד merger-arbitrage. הכלל המוצע כאן אינו העתק מדויק שלו ולכן הראיה תומכת במשפחה, לא במספר הצפוי שלנו. [“Predicting Stock Returns Around M&A Announcements”](https://www.tandfonline.com/doi/full/10.1080/15427560.2025.2563883)
+
+### כלל מכני מוצע
+
+**עסקאות כשירות:**
+
+1. target אמריקאי ציבורי, נסחר ב־Alpaca.
+2. הצעת רכישה **במזומן בלבד** ובמחיר קבוע.
+3. אין stock deal, collar, contingent value right או רכיב מטבע.
+4. מחיר יעד לפחות 5 דולר.
+5. median dollar volume לפחות 10 מיליון דולר.
+6. ההודעה והסכם המיזוג זמינים ב־8-K/DEFM14A/SC TO.
+7. אין תנאי “financing not secured”.
+8. אין עסקה שבה הרוכש או היעד בפשיטת רגל.
+
+**אות:**
+
+1. יום 0 הוא יום קבלת ההודעה ב־EDGAR.
+2. לא נכנסים ב־20 ימי המסחר הראשונים.
+3. ��יום 20, אם העסקה עדיין פעילה, מחשבים:
+   \[
+   spread=\frac{OfferPrice}{Close}-1
+   \]
+4. נכנסים רק אם:
+   - spread בין 1% ל־12%;
+   - אין filing של termination, superior proposal או regulatory challenge;
+   - ה־hazard ההיסטורי של עסקאות דומות ביום 20 לפחות 70%, כאשר ההערכה משתמשת רק בעסקאות שהסתיימו לפני יום ההחלטה.
+5. קנייה בפתיחת יום 21.
+6. יציאה:
+   - בקבלת cash consideration;
+   - בפתיחה שאחרי הודעת ביטול;
+   - או אחרי 180 ימי מסחר, המוקדם מביניהם.
+7. משקל 2% לעסקה; עד 20 עסקאות.
+8. אין short של הרוכש ואין מינוף.
+9. במקרה halt אין מימוש במחיר אחרון; ההון נשאר קשור.
+
+### נתונים זמינים
+
+- EDGAR submissions ו־filings חינמיים.
+- מחירים ו־corporate actions דרך Alpaca.
+- תמורת העסקה וה־termination date דורשים parser למסמכי 8-K/DEFM14A/SC TO; זה חינמי אך עבודת נתונים כבדה.
+- SEC מציין ש־8-K משמש לדיווח מהיר על אירועים מהותיים, לרבות אירועים תאגידיים. [SEC, “How to Read an 8-K”](https://www.sec.gov/files/readan8k.pdf)
+
+### עלויות
+
+- turnover נמוך.
+- אין swap אצל Alpaca long-only.
+- spread במניות יעד בדרך כלל קטן יחסית ל־deal spread, אך exit בכישלון יכול להיות gap גדול.
+- עלות המסחר אינה הסיכון העיקרי; **deal-break risk** הוא הסיכון.
+
+### למה שונה ממה שכבר נכשל
+
+- לא trend, לא mean reversion ולא factor.
+- התשואה נובעת מפיצוי על הסתברות כישלון ותת־תגובה לחלוף הזמן.
+- אין חפיפה מכנית ל־C1 או I2.
+- אינו 13F: ההחלטה מבוססת על חוזה ואירוע תאגידי, לא על החזקות מנהלים.
+
+### סיכוי לעבור DEV
+
+**8%.**
+
+הקורלציה אטרקטיבית והעלויות נמוכות, אך אירועי כישלון מעטים יכולים לשלוט בכל התוצאה, והפקת database נקי של עסקאות היסטוריות היא קשה.
+
+---
+
+## 4.4 מקום רביעי — חיזוי US500/USTECH מתוך תשואות המניות המרכיבות
+
+### הראיה המחקרית
+
+Huddleston, Liu ו־Stentoft בדקו חיזוי תשואת מדד ב־5 דקות מתוך חתך התשואות המפגרות של מניות המדד. מודלים רגולריים ועצי החלטה יצרו, לפי המאמר, predictability מובהקת ו־Sharpe של כ־0.98 **אחרי עלויות**, כשהמידע מן המניות המרכיבות הוסיף מעבר למגמת המדד ולמאפייני נזילות. [“Intraday Market Predictability: A Machine Learning Approach”](https://academic.oup.com/jfec/article-abstract/21/2/485/6400345)
+
+מחקר נוסף מדווח על SPY intraday Sharpe של 1.37 לאחר עלויות בתקופת forecast מחוץ למדגם, אך זהו מודל רחב יותר ולכן אני נותן לו משקל ראייתי נמוך יותר. [“Intraday Market Return Predictability Culled from the Factor Zoo”](https://public.econ.duke.edu/~boller/Papers/MS_2025.pdf)
+
+### כלל מכני מוצע
+
+כאן חייבים להימנע מ־“ML soup”. לכן הכלל צריך להיות קפוא:
+
+**יקום:**
+
+1. מניות S&P 100 הקבועות לפי membership point-in-time.
+2. רק מניות עם dollar volume חציוני מעל 50 מיליון דולר.
+3. מדד יעד: `SPY` דרך Alpaca או `US500Cash` ב־RF.
+4. ברים של 5 דקות, 09:30–16:00 ET.
+
+**Features בכל בר \(t\):**
+
+1. תשואת 5 דקות אחרונה של כל מניה.
+2. תשואת 30 דקות אחרונה.
+3. אחוז המניות החיוביות ב־5 דקות.
+4. תשואה משוקללת market-cap של החתך.
+5. dispersion חתכי.
+6. תשואת SPY עצמה ב־5 ו־30 דקות.
+
+אין RSI, ‏ATR, חדשות או features נוספים.
+
+**מודל:**
+
+1. Ridge regression בלבד.
+2. יעד: תשואת SPY מפתיחת בר \(t+1\) עד סגירת בר \(t+6\), כלומר 30 דקות.
+3. חלון אימון מתגלגל של 252 ימי מסחר.
+4. היפר־פרמטר ridge יחיד, קבוע מראש, או נבחר ב־nested training בלבד; אין בחירה על DEV.
+5. אימון מחדש פעם בחודש.
+6. כל preprocessing מחושב מתוך חלון העבר בלבד.
+
+**מסחר:**
+
+1. החלטות בכל חצי שעה, 10:00–15:00 ET.
+2. אם התחזית גדולה מ־10bp — לונג SPY/US500.
+3. אם קטנה מ־‎−10bp — שורט SPY/US500.
+4. אחרת שטוח.
+5. כניסה בפתיחת הבר הבא.
+6. יציאה לאחר שישה ברים או באות הפוך, המוקדם.
+7. אין יותר מפוזיציה אחת.
+8. סגירה מלאה ב־15:55 ET.
+9. target vol של 10%, תקרה 1×; turnover מחושב לאחר scaling.
+10. עלות RF בפועל או לפחות 2bp לצד; בדיקת קיצון 4bp לצד.
+
+### נתונים זמינים
+
+- SIP/IEX minute bars דרך Alpaca, בהתאם לתוכנית הנתונים הזמינה.
+- membership point-in-time הוא החסם: אם אין מקור חינמי אמין, אפשר להשתמש ב־SPY holdings snapshots רק מן התאריך שממנו הם זמינים, ולא להשליך את הרשימה הנוכחית אחורה.
+- ברי SPY/QQQ זמינים ב־Alpaca; US500/USTECH זמינים ב־MT5.
+
+### עלויות
+
+- אין swap: הכול תוך־יומי.
+- נסחר רק המדד, לא 100 מניות.
+- מכיוון שהאות עשוי להתחלף כמה פעמים ביום, turnover הוא הסיכון המרכזי.
+- סף 10bp נועד להימנע מחיזוי שאינו מכסה 4–8bp round trip והחלקה.
+
+### למה שונה ממה שכבר נכשל
+
+- r91 בדק lead–lag בין **15 נכסי RF**; כאן המקור הוא חתך של עשרות מניות המרכיבות את המדד.
+- I2 משתמש במחיר המדד מול noise area; כאן האות מגיע מ־breadth ו־dispersion של החברות.
+- אינו momentum פשוט: Ridge יכול לנצל פיזור לא אחיד, למשל כאשר הבנקים/שבבים נעים לפני המדד.
+- עם זאת, היעד הוא אותו סשן של US500/USTECH ולכן הקורלציה ל־I2 עלולה להיות בינונית–גבוהה. זו הסיבה שהוא רק במקום הרביעי.
+
+### סיכוי לעבור DEV
+
+**6%.**
+
+המאמר חזק יחסית, אך replication דורש נתוני minute נקיים, universe point-in-time, bid/ask ועלויות. בנוסף, זה התחום הקרוב ביותר ל־I2 ועלול להיכשל במסנן הקורלציה גם אם הוא רווחי.
+
+---
+
+# 5. מה לא נכנס לחמישייה
+
+## ETF creation/redemption flow
+
+יש מחקר שלפיו unexpected ETF flows מנבאים תשואות עתידיות, לרבות ברמה השבועית. [“Are the flows of exchange-traded funds informative?”](https://onlinelibrary.wiley.com/doi/full/10.1111/fima.12396)
+
+לא כללתי אותו משום ש:
+
+- סדרת shares-outstanding היסטורית point-in-time אינה מובטחת כמקור חינמי, מלא ויציב;
+- מחקרים אחרים מפרשים חלק מן הזרימות כמידע ולא כהיפוך;
+- בחירת “unexpected flow” דורשת מודל נוסף;
+- ללא snapshot מקורי של shares outstanding קל מאוד ליצור look-ahead.
+
+לכן: **רעיון מחקרי מעניין, אבל כרגע BLOCKED-DATA — לא מועמד חמישי טוב.**
+
+## Buyback announcement drift
+
+לא נכלל משום ש־Conservative Formula כבר בדקה payout/buybacks ברמת factor, ואילו event strategy דורשת זיהוי מלא של הכרזה ��דשה מול authorization ישן, accelerated repurchase והודעה חוזרת. אין עדיין rulebook יחיד עם תוצאת OOS נקייה שאוכל לייחס לו בביטחון.
+
+## Short-volume / FINRA
+
+לא נכלל משום ש־FINRA daily short volume אינו short interest ואינו direction של short sellers נקיים; הוא כולל פעילות market-making. שימוש בו כאילו הוא order flow דובי עלול להיות שגיאה סמנטית.
+
+## אופציות / variance risk premium
+
+לא נכלל משום שנתוני אופציות היסטוריים מלאים אינם חינמיים, מכירת אופציות אינה מתאימה ישירות ל־MT5/Alpaca במבנה הנוכחי, וסיכון הזנב אינו תואם את מגבלת ה־DD.
+
+## carry בעקום נפט/זהב
+
+לא נכלל משום שהביצוע הנקי דורש חוזים עתידיים וגלגול. CFD ב־RF מחליף carry ב־swap של הברוקר, ו־ETF commodity כולל roll yield אך מוסיף tracking ו־fees. לאחר כישלון `r101_futures_trend.md`, זה אינו מועמד מספיק חזק ללא מקור ביצוע חדש.
+
+---
+
+# 6. סדר עבודה מוצע, אם נדב יחליט להמשיך
+
+זה אינו אישור שער; זה סדר שממזער בזבוז holdout:
+
+1. **Overnight bias — בדיקת נתונים בלבד**
+   - האם יש universe היסטורי כולל delisted?
+   - האם MOC/MOO זמינים באיכות מספקת?
+   - האם 5bp לצד משאירים edge גולמי משמעותי?
+2. **PEAD — proof of data על 50 חברות**
+   - השוואת EPS ו־acceptance timestamps ידנית;
+   - רק אם decomposition תקין ממשיכים ל־1,000 מניות.
+3. **Merger arb — בניית event ledger**
+   - לא להריץ תשואה לפני אימות ידני של לפחות 100 עסקאות, כולל כישלונות.
+4. **Constituent→index**
+   - רק אם יש membership point-in-time ו־minute data בלי חורים;
+   - baseline ליניארי יחיד, בלי סריקת עשרות מודלים.
+
+לכל ארבעת הכיוונים הייתי דורש מראש:
+
+- DEV יחיד;
+- עלות בסיס ועלות כפולה;
+- universe point-in-time;
+- כל יום/אירוע שנכשל בנתונים יוצא לפני ידיעת התשואה;
+- top-10 days/trades concentration;
+- תשואה לפי שנה;
+- קורלציה יומית ל־C1 ול־I2;
+- השוואה ל־SPY/QQQ באותו חלון;
+- שום שינוי כלל לאחר צפייה בתוצאה.
+
+---
+
+# שורה תחתונה
+
+- **מיפוי:** המשפחות הקלאסיות כבר רוויות בדיקות, בעיקר בזהב, מדדים, FX וקריפטו.
+- **החור האמיתי:** מניות בודדות עם מידע point-in-time ואירועים תאגידיים.
+- **מספר כיוונים חדשים באיכות מספקת:** **4, לא 5**.
+- **הדירוג:**  
+  1. Overnight bias חתכי — **12%**.  
+  2. PEAD long-only — **10%**.  
+  3. Merger-arbitrage במזומן — **8%**.  
+  4. Constituent returns→index — **6%**.
+- איני מציע עוד וריאנט של מגמה, היפוך, funding, ‏FOMC, seasonality, ‏COT, ‏GEX, DIX או vol-target: המשפחות האלה כבר קיבלו בדיקות ישירות ורובן נסגרו.
+- אין כאן אישור לפיתוח, להקצאת הון, לדמו או למסחר חי. ההחלטות שמורות לנדב.
+
+ [View task →](https://chatgpt.com/s/cd_6b03d674c3cc81919f442560a514d35a)
