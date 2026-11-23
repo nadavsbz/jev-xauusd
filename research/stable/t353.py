@@ -43,10 +43,10 @@ def events():
 
 def load_px(syms):
     O, C, RC, V = [], [], [], []
-    for f in sorted(glob.glob("data/raw/alpaca/daily_adj/*.csv.gz")):
+    for f in sorted(glob.glob("data/raw/alpaca/daily_adj/*.csv.gz") + glob.glob("data/raw/alpaca/daily_adj_extra/*.csv.gz")):
         a = pd.read_csv(f); a = a[a.s.isin(syms)]
         if len(a): a["d"] = pd.to_datetime(a.t); O.append(a.pivot_table(index="d", columns="s", values="o")); C.append(a.pivot_table(index="d", columns="s", values="c"))
-    for f in sorted(glob.glob("data/raw/alpaca/daily/*.csv.gz")):
+    for f in sorted(glob.glob("data/raw/alpaca/daily/*.csv.gz") + glob.glob("data/raw/alpaca/daily_extra/*.csv.gz")):
         a = pd.read_csv(f, usecols=["s", "t", "c", "v"]).dropna(); a = a[a.s.isin(syms)]
         if len(a): a["d"] = pd.to_datetime(a.t.str[:10]); RC.append(a.pivot_table(index="d", columns="s", values="c")); V.append(a.pivot_table(index="d", columns="s", values="v"))
     f = lambda L: pd.concat(L, axis=1).sort_index(); O, C, RC, V = f(O), f(C), f(RC), f(V)
