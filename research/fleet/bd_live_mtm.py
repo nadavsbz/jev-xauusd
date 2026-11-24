@@ -8,7 +8,7 @@ PX = pd.read_csv("data/derived/intraday/XAUUSD_H1.csv"); PX["t"] = pd.to_datetim
 
 
 def run(n, d):
-    m = json.load(open(f"data/raw/black_dragon_{n}/{d}/manifest.json")); k = 100 if m["currency"] == "CNT" else 1
+    m = json.load(open(f"data/raw/black_dragon_{n}/{d}/manifest.json")); k = 100   # every fleet account is a cent account (Excel "סנטים"); RoboForex labels them USD
     x = pd.read_csv(f"data/raw/black_dragon_{n}/{d}/deals.csv"); x["t"] = pd.to_datetime(x.time, unit="s"); x = x.sort_values(["time", "ticket"])
     x["cash"] = (x.profit + x.swap + x.commission) / k
     tr = x[(x.type <= 1) & (x.magic == 5555)]
