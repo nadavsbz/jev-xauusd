@@ -23,6 +23,7 @@ def main(tag):
             sys.exit("REFUSED: connected login does not match the requested account")
         if ai.trade_allowed:
             sys.exit("REFUSED: trading is allowed on this login - not reading")
+        for s in ("BTCUSD", "ETHUSD"): mt5.symbol_select(s, True)
         tk = [mt5.symbol_info_tick(s) for s in ("BTCUSD", "ETHUSD")]
         export_server_time = str(pd.to_datetime(max(t.time for t in tk if t), unit="s")) if any(tk) else None
         now = datetime.now(timezone.utc)

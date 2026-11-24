@@ -1,0 +1,10 @@
+{
+ "selected_symbol_days": 42892,
+ "excluded": 8761,
+ "phantom_days": 8761,
+ "stale_days": 0,
+ "early_close_bars_dropped": 6677,
+ "symbol_days_with_halt_gap": 240,
+ "bars_total": 16304072,
+ "bars_expected": 16665420
+}
