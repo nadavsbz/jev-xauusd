@@ -15,13 +15,16 @@ SINCE = datetime(2026, 11, 20, tzinfo=timezone.utc)
 def main(tag):
     a = json.load(open("secrets/procent_investor.json", encoding="utf-8"))
     assert_clean_terminal(TERM)
-    ok = mt5.initialize(path=TERM, portable=True, login=int(a["login"]), password=a["password"], server=a["server"], timeout=120000)
-    if not ok:
-        sys.exit(f"initialize failed: {mt5.last_error()[0]}")
     try:
+        if not mt5.initialize(path=TERM, portable=True, login=int(a["login"]), password=a["password"], server=a["server"], timeout=120000):
+            sys.exit(f"initialize failed: {mt5.last_error()[0]}")
         ai = mt5.account_info()
-        if ai is None or ai.trade_allowed:
+        if ai is None or ai.login != int(a["login"]):
+            sys.exit("REFUSED: connected login does not match the requested account")
+        if ai.trade_allowed:
             sys.exit("REFUSED: trading is allowed on this login - not reading")
+        tk = [mt5.symbol_info_tick(s) for s in ("BTCUSD", "ETHUSD")]
+        export_server_time = str(pd.to_datetime(max(t.time for t in tk if t), unit="s")) if any(tk) else None
         now = datetime.now(timezone.utc)
         wait_for_history(SINCE, now)
         D = mt5.history_deals_get(SINCE, now) or ()
@@ -33,7 +36,8 @@ def main(tag):
         p = pd.DataFrame([x._asdict() for x in P])
         pc = ["ticket", "time", "type", "magic", "identifier", "volume", "price_open", "price_current", "swap", "profit", "symbol"]
         if len(p): p = p[pc]; p.to_csv(f"data/derived/procent/positions_{tag}.csv", index=False)
-        print(json.dumps(dict(currency=ai.currency, balance=ai.balance, equity=ai.equity, server_time_last=str(pd.to_datetime(d.time.max(), unit="s")) if len(d) else None,
+        spec = {s: dict(contract=i.trade_contract_size, vmin=i.volume_min, step=i.volume_step, digits=i.digits) for s in ("BTCUSD", "ETHUSD") if (i := mt5.symbol_info(s))}
+        print(json.dumps(dict(export_server_time=export_server_time, symbol_spec=spec, currency=ai.currency, balance=ai.balance, equity=ai.equity, last_deal_time=str(pd.to_datetime(d.time.max(), unit="s")) if len(d) else None,
                               n_deals=int(len(d)), n_trade_deals=int((d.type <= 1).sum()) if len(d) else 0,
                               positions=[dict(sym=r.symbol, side="buy" if r.type == 0 else "sell", vol=r.volume, open=str(pd.to_datetime(r.time, unit="s")), px=r.price_open, magic=int(r.magic), pnl=r.profit) for r in p.itertuples()] if len(p) else []), indent=1))
     finally:
