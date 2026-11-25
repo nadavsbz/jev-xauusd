@@ -1,0 +1,102 @@
+{
+ "version": "v2_M1",
+ "n_elig": 8,
+ "need": 5,
+ "K_this_run": 6,
+ "K_cumulative_t383": 12,
+ "C1_L0_median_loss_pct": 20.96,
+ "C1_pass": true,
+ "C2_median_recon_err_pct": 1.095,
+ "C2_pass": true,
+ "L0_cuts": 66,
+ "L0_cuts_within48h_of_live": 53,
+ "live_events": 59,
+ "live_median_loss_pct": 21.79,
+ "L0_total_net_usd": -279.77,
+ "winner": null,
+ "verdict": "NO-GO",
+ "m1_bars": 414834,
+ "m1_end_utc": "2026-10-30 21:00:00",
+ "validation": {
+  "A1": {
+   "mult": 100.0,
+   "basis_m1": 0.325,
+   "deal_in_m1bar": 0.999,
+   "n_events": 9,
+   "n_pos": 24167,
+   "n_nonXAU": 0,
+   "start_utc": "2025-09-17 19:11:19",
+   "end_deals_utc": "2026-10-26 18:30:56"
+  },
+  "A2": {
+   "mult": 100.0,
+   "basis_m1": 0.325,
+   "deal_in_m1bar": 0.9991,
+   "n_events": 8,
+   "n_pos": 21508,
+   "n_nonXAU": 0,
+   "start_utc": "2026-04-06 19:16:49",
+   "end_deals_utc": "2026-10-26 18:00:00"
+  },
+  "A3": {
+   "mult": 100.0,
+   "basis_m1": 0.29,
+   "deal_in_m1bar": 0.999,
+   "n_events": 6,
+   "n_pos": 12609,
+   "n_nonXAU": 0,
+   "start_utc": "2026-02-27 08:00:13",
+   "end_deals_utc": "2026-10-26 17:58:13"
+  },
+  "A4": {
+   "mult": 100.0,
+   "basis_m1": 0.305,
+   "deal_in_m1bar": 0.9985,
+   "n_events": 11,
+   "n_pos": 6479,
+   "n_nonXAU": 0,
+   "start_utc": "2026-04-11 19:54:56",
+   "end_deals_utc": "2026-09-02 13:59:24"
+  },
+  "A5": {
+   "mult": 100.0,
+   "basis_m1": 0.3,
+   "deal_in_m1bar": 0.9977,
+   "n_events": 5,
+   "n_pos": 8588,
+   "n_nonXAU": 0,
+   "start_utc": "2026-04-14 18:49:34",
+   "end_deals_utc": "2026-10-23 18:39:47"
+  },
+  "A6": {
+   "mult": 100.0,
+   "basis_m1": 0.305,
+   "deal_in_m1bar": 0.9988,
+   "n_events": 8,
+   "n_pos": 16800,
+   "n_nonXAU": 0,
+   "start_utc": "2026-04-14 18:51:34",
+   "end_deals_utc": "2026-10-23 18:39:50"
+  },
+  "A7": {
+   "mult": 100.0,
+   "basis_m1": 0.305,
+   "deal_in_m1bar": 0.9992,
+   "n_events": 8,
+   "n_pos": 5908,
+   "n_nonXAU": 0,
+   "start_utc": "2026-04-20 10:58:56",
+   "end_deals_utc": "2026-07-01 06:45:47"
+  },
+  "A8": {
+   "mult": 100.0,
+   "basis_m1": 0.313,
+   "deal_in_m1bar": 0.9997,
+   "n_events": 4,
+   "n_pos": 8970,
+   "n_nonXAU": 24,
+   "start_utc": "2025-09-28 17:23:40",
+   "end_deals_utc": "2026-10-26 18:15:01"
+  }
+ }
+}
