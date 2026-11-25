@@ -13,7 +13,8 @@ OUT = "docs/agents/grok_data/t384_tester"
 def quality(rep):
     t = open(f"C:/MT5_JEV_TEST/{rep}.htm", "rb").read().decode("utf-16")
     t = re.sub(r"[|\s]*\|[|\s]*", "|", re.sub("<[^>]+>", "|", t)); g = lambda k: t[t.find(k):].split("|")[1]
-    return g("איכות היסטוריה:"), g("טיקטוקים:"), g("נרות:")
+    per = re.search(r"\((\d{4}\.\d\d\.\d\d) - (\d{4}\.\d\d\.\d\d)\)", g("תקופה:"))
+    return g("איכות היסטוריה:"), g("טיקטוקים:"), g("נרות:"), pd.Timestamp(per.group(2).replace(".", "-")) if per else None
 
 
 def seg(rep, r, floor):
@@ -29,8 +30,11 @@ def seg(rep, r, floor):
     own = w[w.ts <= cut + pd.Timedelta(minutes=5)] if cut is not None else w
     common_end = min([x for x in (cut, r.cut_live, r.end_live) if x is not None and pd.notna(x)])
     common = w[w.ts <= common_end + pd.Timedelta(minutes=5)]
-    return d, dict(cut_T=cut, pnl_own_pct=100 * own.cash.sum() / dep, pnl_common_pct=100 * common.cash.sum() / dep,
-                   n_pre_start=int(len(pre)), q=quality(rep))
+    q = quality(rep)
+    so = d[d.comment.fillna("").str.lower().str.startswith("so ") & (d.ts < r.end_live)]
+    covered = q[3] is not None and q[3] >= r.end_live.normalize() + pd.Timedelta(days=1) and not len(so)
+    return d, dict(cut_T=cut, covered=bool(covered), pnl_own_pct=100 * own.cash.sum() / dep, pnl_common_pct=100 * common.cash.sum() / dep,
+                   n_pre_start=int(len(pre)), q=q)
 
 
 if __name__ == "__main__":
@@ -65,7 +69,8 @@ if __name__ == "__main__":
                     median_abs_dev_pp=round(float(dlt.abs().median()), 2), sign_agree=round(float((np.sign(t[col]) == np.sign(t.live_pct)).mean()), 3))
     out = dict(M1_main=m1(main), M1_all=m1(T), M3_clone_own=m3(main, "c_pnl_own_pct"), M3_clone_common=m3(main, "c_pnl_common_pct"),
                M3_bd_nofloor_common=m3(main, "b_pnl_common_pct"), M3_sp50_common=m3(main, "s_pnl_common_pct"),
-               quality=sorted(set(x for q in T.c_q for x in [q[0]])), pre_start_mismatch=T[T.c_n_pre_start > 0].seg_id.tolist())
+               quality=sorted(set(q[0] for col in ("c_q", "b_q", "s_q") for q in T[col])), not_covered=T[~(T.c_covered & T.b_covered)].seg_id.tolist(),
+               M1_main_bd_nofloor_would_cut="see t388 (Grok)", pre_start_mismatch=T[T.c_n_pre_start > 0].seg_id.tolist())
     T.drop(columns=["c_q", "b_q", "s_q"]).to_csv(f"{OUT}/t384_segments_tester.csv", index=False)
     print(json.dumps(out, indent=1, default=str, ensure_ascii=False))
     print(T[["seg_id", "live_pct", "c_pnl_common_pct", "b_pnl_common_pct", "cut_L", "c_cut_T"]].round(2).to_string(index=False))
