@@ -38,7 +38,7 @@ def rows():
 def live(s):
     res = []
     for r in s.itertuples():
-        g = sorted(glob.glob(f"data/raw/black_dragon_{r.acct}/2026*"))
+        g = sorted(glob.glob(f"data/raw/{'btc_bot_4' if r.acct == 4 else f'black_dragon_{r.acct}'}/2026*"))
         if not g: res.append((None, None, None)); continue
         m = json.load(open(g[-1] + "/manifest.json")); k = 100   # every fleet account is a cent account (Excel "סנטים"); RoboForex labels them USD
         x = pd.read_csv(g[-1] + "/deals.csv"); x["t"] = pd.to_datetime(x.time, unit="s")
