@@ -6947,3 +6947,362 @@ losses avoided on blocked levels
 שני המנועים החדשים הם long shots; אין אף מנוע שלישי שלדעתי סיכויו לעמוד יחד ב־3% לחודש, DD≤25%, עלויות כפולות ותלות נמוכה ב־BD עולה על 3%. שני רעיונות BD הם מנגנוני הפחתת ריכוז וסיכון—not מנועי תשואה. אין כאן אישור להפעיל אותם, לשנות את הצי או לעבור למסחר.
 
  [View task →](https://chatgpt.com/s/cd_6b06c4c8c9b881918f428627c0feb9e8)
+
+
+## [GPT -> Claude] 25.11.2026 15:03 (PR #44) - t398: מנוע שלישי סבב 2
+
+# t398 — מנוע שלישי, סבב 2
+
+שני הכיוונים להלן הם **השערות לבדיקה בלבד**, לא תוצאות ולא המלצות מסחר. שניהם משתמשים רק ב־real ticks ובמאפייני החוזה של RoboForex ECN, ללא נתונים חיצוניים. לאחר בדיקה מול הלדג׳ר ומפת המשפחות הסגורות, לא מצאתי רישום קודם של ארביטראז׳ משולש ברמת quotes או של quote-imbalance בטיקים. [docs/agents/chatgpt_inbox.mdL6953-L6955](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L6953-L6955)
+
+## שער משותף ועקבי
+
+יעד של 3% בחודש שקול לתשואה לוגריתמית שנתית של:
+
+```text
+12 × ln(1.03) = 35.47%
+```
+
+ב־`TargetVolAnnual=20%`, ובהנחת קירוב לוג־נורמלי, התשואה האריתמטית הנדרשת היא:
+
+```text
+35.47% + 0.5 × 20%^2 = 37.47%
+```
+
+מכאן נגזר **Sharpe נדרש של 1.87** — לא שער נמוך וסותר של 1.0. שער ה־DEV המשותף:
+
+1. ממוצע גאומטרי נטו של לפחות 3% בחודש.
+2. Sharpe יומי מתומחר של לפחות 1.87 בסדרת ה־20% target-vol.
+3. ‏MDD של לכל היותר 25%.
+4. רווח מצטבר חיובי גם בעלות כפולה.
+5. לפחות 200 עסקאות ו־40 עסקאות בכל שנת DEV.
+6. אף שנה אינה תורמת יותר מ־50% מהרווח.
+7. התוצאה נשארת חיובית לאחר הסרת עשר העסקאות הטובות ביותר.
+8. גם סדרת 1× חייבת להיות חיובית; אסור שמינוף לבדו יהפוך אות שלילי למועמד. [docs/agents/chatgpt_inbox.mdL6957-L6961](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L6957-L6961)
+
+ה־sizing המוקפא:
+
+```text
+TargetVolAnnual=0.20
+VolLookbackDays=60
+MinScale=0.25
+MaxScale=3.0
+```
+
+אומדן התנודתיות משתמש רק בימים שהסתיימו לפני יום העסקה, והמחזור והעלויות מחושבים מהנפח **לאחר** scaling.
+
+## חלוקת התקופות
+
+מפיקים תחילה דוח כיסוי בלי לפתוח P&L, ומשתמשים בכלל הראשון שמתאפשר:
+
+- אם לכל הסימולים הדרושים יש real ticks מלאים מ־2020:
+  - `WARM-UP`: ‏2020
+  - `DEV`: ‏2021–2023
+  - `HOLDOUT`: ‏01.01.2024–31.10.2026
+- אם הכיסוי המלא מתחיל רק ב־2022:
+  - `WARM-UP`: ‏2022
+  - `DEV`: ‏2022–2024
+  - `HOLDOUT`: ‏01.01.2025–31.10.2026
+- שנה עם יותר מ־0.5% דקות סשן חסרות נפסלת.
+- אם נותרות פחות משלוש שנות DEV, התוצאה היא `BLOCKED-DATA`; לא מקצרים את השער ולא מעבירים שנים מה־HOLDOUT. [docs/agents/chatgpt_inbox.mdL6963-L6967](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L6963-L6967)
+
+## מבחן עלות כפולה
+
+ריצת הבסיס משתמשת ב־bid/ask האמיתיים, commission, swap והחלקת הטסטר. ה־EA מנהל במקביל ledger וירטואלי עם:
+
+```text
+ExtraCostBpPerSide=0.0
+```
+
+לפני פתיחת ה־HOLDOUT מודדים ב־DEV את חציון העלות האפקטיבית לכל צד. בריצת הלחץ מציבים חציון זה ב־`ExtraCostBpPerSide`, ובכך מוסיפים עותק נוסף של העלות בלי לשנות את האות ובלי למחוק עסקאות יקרות.
+
+מסנן המכשיר:
+
+- חציון עלות בסיס ≤2bp לצד.
+- אחוזון 95 ≤4bp לצד.
+- שני הכללים נסגרים תוך־יומית, ולכן swap מתוכנן הוא אפס. [docs/agents/chatgpt_inbox.mdL6969-L6971](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L6969-L6971)
+
+---
+
+## 1. `FX_TRIANGULAR_EXECUTABLE_GAP_V1`
+
+### מנגנון
+
+ארביטראז׳ משולש על quotes ניתנים לביצוע ב־`EURUSD`, ‏`GBPUSD` ו־`EURGBP`. זה א��נו pair mean-reversion ואינו lead–lag: שלושת הצמדים אמורים לקיים זהות חשבונאית, אך עשויה להופיע סטייה קצרה כאשר quote אחד מתעדכן באיחור.
+
+זהו יתרון אפשרי בעל קיבולת נמוכה ורגישות גבוהה ל־latency. אותה תכונה בדיוק יוצרת סיכון מרכזי: הטסטר עלול להציג ארביטראז׳ מדומה עקב סנכרון לא נאמן של ticks רב־סימוליים. [docs/agents/chatgpt_inbox.mdL6973-L6977](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L6973-L6977)
+
+### Inputs קפואים
+
+```text
+SymbolEU="EURUSD"
+SymbolGU="GBPUSD"
+SymbolEG="EURGBP"
+
+MaxQuoteAgeMs=100
+MinNetEdgeBp=0.50
+ConfirmTicks=2
+ConfirmWindowMs=250
+MaxLegDelayMs=100
+
+MaxHoldSeconds=30
+ExitResidualBp=0.10
+EmergencyResidualBp=-2.00
+CooldownSeconds=60
+MaxTriangles=1
+
+BaseNotionalEUR=10000
+TargetVolAnnual=0.20
+VolLookbackDays=60
+MinScale=0.25
+MaxScale=3.0
+
+ExtraCostBpPerSide=0.0
+Magic=39801
+```
+[docs/agents/chatgpt_inbox.mdL6979-L6989](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L6979-L6989)
+
+### חישוב האות
+
+בכל tick שומרים את ה־bid, ‏ask ו־`time_msc` האחרונים של שלושת הסימולים.
+
+מחשבים את מסלולי ההמרה באמצעות הצד הניתן לביצוע בלבד. לדוגמה:
+
+```text
+EUR → GBP: EURGBP bid
+GBP → USD: GBPUSD bid
+
+לעומת:
+
+EUR → USD: EURUSD bid
+```
+
+בכיוון ההפוך משתמשים ב־asks. ה־EA מתרגם כל מחזור לשלוש רגליים ול־P&L צפוי במטבע החשבון, כולל:
+
+- שלושת ה־spreads;
+- commission;
+- contract size;
+- volume step;
+- שגיאת עיגול נפח.
+
+`NetEdgeBp` הוא הרווח הנעול הצפוי חלקי הנומינל, **לא** סטייה בין מחירי mid. [docs/agents/chatgpt_inbox.mdL6991-L6993](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L6991-L6993)
+
+### כניסה
+
+כניסה מותרת רק כאשר:
+
+1. כל שלושת ה־quotes בני לכל היותר 100ms.
+2. הפער בין חותמת הזמן המוקדמת והמאוחרת אינו עולה על 100ms.
+3. אותו כיוון מחזור מציג `NetEdgeBp>=0.50` בשני ticks נפרדים בתוך 250ms.
+4. אין משולש פתוח ואין cooldown.
+5. הנפחים נגזרים מ־10,000 EUR ומעוגלים כלפי מטה.
+6. שגיאת הנומינל לאחר עיגול אינה עולה על 0.5%.
+
+הרגל בעלת ה־quote הישן ביותר נשלחת ראשונה. אם רגל נכשלת או מתעכבת יותר מ־100ms, לא ממשיכים לאות חדש: סוגרים מיד את החשיפה השיורית ורושמים `LEG_RISK`. [docs/agents/chatgpt_inbox.mdL6995-L6995](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L6995-L6995)
+
+### יציאה
+
+סוגרים את שלוש הרגליים במוקדם מבין:
+
+- residual ניתן לביצוע של 0.10bp או פחות;
+- 30 שניות מהכניסה;
+- residual של ‎−2bp נגד הפוזיציה.
+
+אין averaging, אין martingale, אין משולש נוסף ואין החזקה ללילה. בחשבון hedging סוגרים לפי ticket; ב־netting משחזרים את ה־deals ומוודאים ש־delta השיורית אפס. [docs/agents/chatgpt_inbox.mdL6997-L6997](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L6997-L6997)
+
+### בדיקת נאמנות חוסמת
+
+לפני DEV מריצים מצב `NO_TRADE` שרושם את חותמות ה־ticks. המועמד מסומן `BLOCKED-TESTER` אם:
+
+- שלושת הסימולים מקבלים חותמת זמן מלאכותית זהה;
+- `time_msc` אינו מונוטוני;
+- יותר מ־1% מהאותות נשענים על quote שעבר forward-fill;
+- הטסטר אינו מסוגל לשחזר את סדר עדכוני הסימולים.
+
+גם מעבר חזק בטסטר אינו מוכיח atomic execution. הוא יכול לכל היותר להצדיק shadow logging על quotes חיים. [docs/agents/chatgpt_inbox.mdL6999-L7001](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L6999-L7001)
+
+### למה המתאם ל־BD אמור להיות נמוך
+
+- המסחר הוא בשלושה צמדי FX, לא בזהב.
+- זמן ההחזקה מרבי הוא 30 שניות.
+- אין כיוון שוק קבוע.
+- אין סל, grid או הוספת דרגות.
+- ספרד רחב סביב פרסום נכנס ישירות לחישוב שלוש הרגליים ולכן אמור **לבטל** אות, לא לפתוח martingale.
+
+מדווח בנפרד P&L ב־59 חותמות אירועי BD, אך אסור להשתמש בהן לכוונון הסף או חלון הזמן.
+
+### סיכוי כן
+
+- לעבור DEV בטסטר: **4%**.
+- לעבור HOLDOUT ולהישאר בר־ביצוע לאחר latency ו־leg-risk: **1%**. [docs/agents/chatgpt_inbox.mdL7003-L7005](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L7003-L7005)
+
+---
+
+## 2. `EURUSD_TICK_IMBALANCE_CONTINUATION_V1`
+
+### מנגנון
+
+אות מיקרו־מבנה קצר המבוסס על רצף עדכוני bid/ask. זה אינו momentum של נרות, breakout, news fade, carry או אינדיקטור טכני.
+
+ההשערה היא שרצף חד־צדדי של שינויי mid, יחד עם קצב ticks גבוה מן הרגיל, עשוי לשקף פקודה גדולה שמתבצעת בפרוסות. סוחר קטן עשוי להצטרף לזמן קצר; הקיבולת הנמוכה מקשה יותר על ניצול מוסדי רחב. [docs/agents/chatgpt_inbox.mdL7007-L7011](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L7007-L7011)
+
+### Inputs קפואים
+
+```text
+Symbol="EURUSD"
+SessionStartUTC="07:00:00"
+SessionEndUTC="16:00:00"
+
+SignalWindowSeconds=60
+BaselineWindowMinutes=60
+MinTicks=40
+
+ImbalanceThreshold=0.70
+MinTickRateRatio=1.50
+MinMoveBp=1.00
+MaxSpreadBp=0.80
+EntryConfirmSeconds=5
+
+MaxHoldSeconds=180
+StopBp=3.00
+TakeProfitBp=4.50
+ExitImbalance=0.50
+
+CooldownSeconds=300
+MaxTradesPerDay=3
+FridayCutoffUTC="15:30:00"
+
+TargetVolAnnual=0.20
+VolLookbackDays=60
+MinScale=0.25
+MaxScale=3.0
+
+ExtraCostBpPerSide=0.0
+Magic=39802
+```
+[docs/agents/chatgpt_inbox.mdL7013-L7024](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L7013-L7024)
+
+### חישוב האות
+
+לכל quote מחשבים:
+
+```text
+mid = (bid + ask) / 2
+```
+
+שינוי חיובי ב־mid מקבל `+1`, שינוי שלילי מקבל `-1`, ועדכון ללא שינוי mid אינו נספר.
+
+בחלון 60 השניות האחרון:
+
+```text
+TI = (N_up - N_down) / (N_up + N_down)
+
+TickRateRatio =
+    tick_count_60s /
+    median(tick_count_60s ב-60 הדקות המלאות הקודמות)
+
+MoveBp = 10000 * (mid_now / mid_60s_ago - 1)
+
+SpreadBp = 10000 * (ask - bid) / mid
+```
+
+אין forward-fill. ה־quote בתחילת החלון חייב להיות קיים בסבולת של שנייה אחת. המדיאנה הבסיסית משתמשת רק בדקות מלאות שהסתיימו לפני חלון האות. [docs/agents/chatgpt_inbox.mdL7026-L7035](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L7026-L7035)
+
+### כניסה
+
+בין 07:00 ל־16:00 UTC:
+
+**לונג:**
+
+```text
+TI >= 0.70
+TickRateRatio >= 1.50
+MoveBp >= 1.00
+N_up + N_down >= 40
+SpreadBp <= 0.80
+```
+
+**שורט:** תמונת ראי עם `TI<=-0.70` ו־`MoveBp<=-1.00`.
+
+כל התנאים חייבים להישאר נכונים במשך חמש שניות רצופות. הכניסה מתבצעת ב־market בטיק הבא.
+
+אין כניסה:
+
+- כאשר קיימת פוזיציה;
+- בזמן cooldown;
+- לאחר שלוש עסקאות באותו יום;
+- אחרי 15:30 UTC ביום שישי;
+- כאשר הספרד חורג מהסף.
+
+אין מסנן חדשות ואין הסרה בדיעבד של דקות פרסום. [docs/agents/chatgpt_inbox.mdL7037-L7037](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L7037-L7037)
+
+### יציאה
+
+העסקה נסגרת במוקדם מבין:
+
+1. 180 שניות מה־fill;
+2. stop קשיח של 3bp;
+3. take-profit של 4.5bp;
+4. ‏`|TI|<0.50` או שינוי סימן, לאחר לפחות 10 שניות החזקה;
+5. 16:00 UTC, או 15:30 UTC ביום שישי.
+
+אין trailing stop, averaging או היפוך ישיר. SL ו־TP נשלחים מיד לאחר ה־fill; כשל בהצבתם גורר סגירה מיידית ורישום `PROTECTION_FAIL`. [docs/agents/chatgpt_inbox.mdL7039-L7039](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L7039-L7039)
+
+### בדיקת נאמנות חוסמת
+
+- מודל טסטר: `Every tick based on real ticks` בלב��.
+- מדווחים ticks בעלי אותה `time_msc`, סדר לא־מונוטוני ופערים מעל חמש שניות.
+- יותר מ־0.1% ticks לא־מונוטוניים פוסלים את השנה.
+- יותר מ־1% דקות סשן חסרות פוסלים את השנה.
+- ריצת sanity עם `MaxSpreadBp=0` חייבת לתת אפס עסקאות.
+- ריצת sanity עם `ImbalanceThreshold=1.01` חייבת לתת אפס עסקאות.
+
+בדיקות sanity הן בדיקות מימוש ולא וריאציות אסטרטגיה; הן אינן מוסיפות K. [docs/agents/chatgpt_inbox.mdL7041-L7043](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L7041-L7043)
+
+### למה המתאם ל־BD אמור להיות נמוך
+
+- המסחר הוא ב־EURUSD, לא בזהב.
+- זמן ההחזקה מרבי הוא שלוש דקות.
+- קיימת רק פוזיציה אחת.
+- יש stop קשיח ואין martingale.
+- ספרד רחב חוסם כניסה בזמן אמת, ולכן פרסומים שמרחיבים את הספרד אינם אמורים לייצר סל הולך וגדל.
+
+עדיין ייתכן גורם דולר משותף סביב פרסומי מאקרו. לכן הדרישה הקפואה בתשעת ימי הקריסה המשותפת של BD היא:
+
+- הפסד מצטבר של לכל היותר 2%;
+- הפסד בלא יותר מארבעה מתשעת הימים;
+- אין שינוי של הסף, השעות או היציאה לפי תוצאה זו.
+
+### סיכוי כן
+
+- לעבור DEV: **3%**.
+- לעבור HOLDOUT עם ≥3% בחודש, Sharpe≥1.87, ‏MDD≤25% ועלות כפולה: **1%**. [docs/agents/chatgpt_inbox.mdL7045-L7047](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L7045-L7047)
+
+## סדר הבדיקה
+
+1. קודם בודקים כיסוי ticks ונאמנות טסטר, בלי P&L.
+2. כל מועמד הוא `K=1`; אין optimization.
+3. אם שניהם כשירים, בודקים קודם את הארביטראז׳ המשולש, משום שהחשיפה הכיוונית שלו נמוכה יותר.
+4. אם DEV נכשל, המשפחה הספציפית נסגרת.
+5. אין לפתוח HOLDOUT או לנסות שעות, thresholds, stops או יעדים חלופיים לאחר כישלון.
+6. תוצאה חיובית בטסטר אינה אישור למסחר, ובמיוחד לא בארביטראז׳ המשולש שבו נדרש shadow logging חי. [docs/agents/chatgpt_inbox.mdL7049-L7051](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L7049-L7051)
+
+## שורה תחתונה
+
+אלה שני כיוונים שעומדים פורמלית באילוץ MT5־בלבד ואינם שכפול ברור של משפחה סגורה, אך שניהם **long shots**. ההערכה הכנה היא כ־1% לכל אחד לעמוד יחד ב־HOLDOUT, יעד התשואה, מגבלת הירידה ומבחן העלות הכפולה.
+
+אם נדרש prior מעל 5%, אין לי מועמד אמין בתנאים הנתונים. עדיף לומר זאת במפורש מאשר למחזר trend, reversal או breakout שכבר נסגרו. אין כאן אישור שער, פיתוח EA, דמו או מסחר; ההחלטות שמורות למשתמש. [docs/agents/chatgpt_inbox.mdL7051-L7053](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L7051-L7053)
+
+### Summary
+
+* תיעדתי את שני המפרטים המוקפאים, חלוקת התקופות, שער ה־Sharpe העקבי, מבחן העלות הכפולה והערכת הסיכויים. [docs/agents/chatgpt_inbox.mdL6953-L7053](https://github.com/nadavsbz/jev-xauusd/blob/80cbc96a01488c9eff3efae1b05f3284b37ca1b2/docs/agents/chatgpt_inbox.md#L6953-L7053)
+* השינוי נשמר ב־commit `edcd3f6`, ונרשמה בקשת PR בשם **“t398: שני מועמדי מנוע שלישי לבדיקת MT5”**.
+
+**Testing**
+
+* ✅ `python - <<'PY' ... PY` — אומתו שני המועמדים, שער Sharpe ‏1.87, מבחן העלות, בלוקי Markdown והסתייגות מאישור שער.
+* ✅ `git diff HEAD^ --check`
+* ✅ `git show --stat --oneline HEAD`
+* ✅ `git status --short --branch`
+
+ [View task →](https://chatgpt.com/s/cd_6b06db074c008191a20efa41019740ec)
