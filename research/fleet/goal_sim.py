@@ -10,7 +10,7 @@ import numpy as np, pandas as pd
 R = pd.read_csv("data/derived/lars/live_monthly_returns.csv")
 ACC = R.ret.clip(-0.95).values
 FLEET = R.groupby("m").ret.mean().values          # equal-weight across the accounts active that month
-_T = pd.read_csv("docs/agents/grok_data/t399/t399_monthly.csv")                     # Grok t399: tester 2022-2026, BD + 15% floor + live lot rule (A7)
+_T = pd.read_csv("docs/agents/grok_data/t400/t400_monthly.csv"); _T = _T[_T.complete == True]   # Grok t400 (final coverage): tester 2022-2026, BD + 15% floor + live lot rule (A7)
 TESTER = (_T[_T.arm == "A7"].ret_pct / 100).values
 MIX = np.concatenate([FLEET, TESTER])                                                # 8 live fleet months + 32 tester months
 N = 20000; rng = np.random.default_rng(25112026)
@@ -34,7 +34,7 @@ def sim(pool, months, deposit, haircut=0.0, regime=False):
 if __name__ == "__main__":
     print("fleet monthly (equal-weight):", np.round(FLEET, 3), "geo", round(float(np.exp(np.log1p(FLEET).mean()) - 1), 3))
     rows = []
-    for name, pool in (("FLEET", FLEET), ("TESTER_t399", TESTER), ("MIX", MIX)):
+    for name, pool in (("FLEET", FLEET), ("TESTER_t400", TESTER), ("MIX", MIX)):
         for sc, kw in (("as-is", {}),):
             for dep in (False, True):
                 for H in (36, 60):
