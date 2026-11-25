@@ -103,6 +103,8 @@
 | `research_t366.md` | t366 — היפוך אחרי הוצאה מ-S&P 500. רישום מראש | 1 |
 | `research_t369.md` | t369 — C1: אזור אי-ריבאלנס רחב יותר (RebalPct 0.30 → 0.45). רישום מראש | 1 |
 | `research_t372_grok_forward.md` | PREREG t372 — forward-holdout watch על MQL5 Signals ציבוריים | 1 (גרוק) |
+| `research_t396.md` | מגבלת ספרד נאכפת: BD 20 מול 50, ‏2022–2026 | 1 |
+| `research_t390.md` | כיול ספרד לטסטר (BD MaxSpred=50), נכשל | 0 |
 | `research_t384.md` | נאמנות הטסטר ל-BD Lars מול מקטעי האקסל | 0 (מדידת נאמנות) |
 | `research_t375.md` | t375 — I2: חיץ כניסה של 4bp מעבר לגבול ה-Noise Area. רישום מראש | 1 |
 | `screening_20261122.md` | סינון מאמרים בלי בדיקה (22.11.2026) | 0 (סינון בלי בדיקה) |
