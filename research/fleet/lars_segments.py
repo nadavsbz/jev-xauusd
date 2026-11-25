@@ -73,7 +73,9 @@ def live(s):
         opened_before = set(x[(x.type <= 1) & (x.entry == 0) & (x.magic == 5555) & (x.t < st)].position_id)
         closed_after = set(x[(x.type <= 1) & (x.entry != 0) & (x.t >= st)].position_id)
         exits = tr[tr.entry != 0].groupby("position_id").volume.sum(); entries = tr[tr.entry == 0].groupby("position_id").volume.sum()
-        res.append(dict(start_live=st, cut_live=cut, end_live=en, live_pnl=round(float(cash.sum()), 2),
+        allc = x[x.t < st]; e_start = float((allc.profit + allc.swap + allc.commission).sum())   # balance in cents at start (no open 5555 at start in the main set)
+        flows = float(x[(x.type == 2) & (x.t >= st) & (x.t < en)].profit.sum())
+        res.append(dict(start_live=st, e_start_live=round(e_start, 2), flows_pct=round(100 * flows / e_start, 4) if e_start else None, cut_live=cut, end_live=en, live_pnl=round(float(cash.sum()), 2),
                         live_prot_pnl=round(float(cash[tr.comment.fillna("").str.match(PROT)].sum()), 2),
                         live_min_lot=float(ins.volume.min()), lot_matched=matched,
                         open_at_start=bool(opened_before & closed_after), open_at_end=bool((entries - exits.reindex(entries.index).fillna(0) > 1e-9).any()),
@@ -87,4 +89,4 @@ if __name__ == "__main__":
     L = s[s.lars]
     T = L[(L.broker == "roboforex") & (L.tf == "15M") & (L.end <= pd.Timestamp("2026-07-16"))].copy()
     T.to_csv("data/derived/lars/segments_t384.csv", index=False)
-    print(T[["acct", "start", "start_live", "cut_live", "end_live", "lot", "lot_matched", "floor", "live_pnl", "open_at_start", "open_at_end", "n_type2"]].to_string(index=False))
+    print(T[["acct", "start", "start_live", "cut_live", "end_live", "lot", "lot_matched", "floor", "live_pnl", "open_at_start", "open_at_end", "n_type2", "flows_pct"]].assign(floor_pct_of_e=(100 * (1 - T.floor / T.e_start_live)).round(2)).to_string(index=False))
