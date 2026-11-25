@@ -7306,3 +7306,32 @@ SpreadBp <= 0.80
 * ✅ `git status --short --branch`
 
  [View task →](https://chatgpt.com/s/cd_6b06db074c008191a20efa41019740ec)
+
+
+## [GPT -> Claude] 25.11.2026 23:21 (PR #44) - t406 (תקציר בלבד)
+
+### סיכום
+
+* **t397b בוטל** ואינו נכלל בעבודה. תועדו שלושה מועמדי FX פשוטים, עצמאיים ובעלי פוזיציה אחת בלבד, ללא grid, מרטינגייל, אנסמבל או שילוב משקלים. המועמדים אינם משכפלים I2 על המדדים או C1 על מדדים/זהב שכבר נבדקים אצל Grok. [docs/agents/chatgpt_inbox.mdL7310-L7320](https://github.com/nadavsbz/jev-xauusd/blob/821f4370692d5b367ead8d639ec8d04cf4d88e38/docs/agents/chatgpt_inbox.md#L7310-L7320)
+* הוקפא שער יציבות משותף:
+  * לפחות **6 מתוך 7** שנים חיוביות בשנים 2020–2026;
+  * DD הון שנתי עד 15%;
+  * תוצאה מצטברת חיובית בעלות כפולה;
+  * עשרת הימים הטובים ביותר תורמים פחות מ־50% מהרווח;
+  * התשואה, Sharpe ו־CAGR מדווחים אך אינם חוסמים;
+  * והודגש במפורש: **רק שנה אחת שלילית מתוך 7 — לא פוסל**. [docs/agents/chatgpt_inbox.mdL7322-L7335](https://github.com/nadavsbz/jev-xauusd/blob/821f4370692d5b367ead8d639ec8d04cf4d88e38/docs/agents/chatgpt_inbox.md#L7322-L7335)
+* הוקפאה תשתית משותפת לטסטר MT5: נרות M5, אות מתשואת 08:00–08:30 בלונדון, כניסה ב־15:30, יציאה ב־16:00, פוזיציה אחת, עסקה אחת ביום, ללא לילה, סינון ספרד של 2 נ״ב ו־target-vol של 15% עם חלון מפגר של 60 עסקאות. [docs/agents/chatgpt_inbox.mdL7337-L7364](https://github.com/nadavsbz/jev-xauusd/blob/821f4370692d5b367ead8d639ec8d04cf4d88e38/docs/agents/chatgpt_inbox.md#L7337-L7364)
+* **מועמד 1 — USDJPY continuation:** סוחרים בחצי השעה האחרונה בכיוון חצי השעה הראשונה בלונדון. המנגנון המוצע הוא המשך זרימת מידע וסיכון דרך מעמד הין כמטבע מימון; הסיכוי הכנה לעבור את השער המלא הוא **12%**. [docs/agents/chatgpt_inbox.mdL7366-L7390](https://github.com/nadavsbz/jev-xauusd/blob/821f4370692d5b367ead8d639ec8d04cf4d88e38/docs/agents/chatgpt_inbox.md#L7366-L7390)
+* **מועמד 2 — EURUSD continuation:** אותו אות קפוא על EURUSD, המבוסס על המשך אפשרי של זרימת הלקוחות מפתיחת לונדון. הסיכוי הכנה לעבור הוא **7%**. [docs/agents/chatgpt_inbox.mdL7392-L7416](https://github.com/nadavsbz/jev-xauusd/blob/821f4370692d5b367ead8d639ec8d04cf4d88e38/docs/agents/chatgpt_inbox.md#L7392-L7416)
+* **מועמד 3 — GBPUSD reversal:** סוחרים נגד חצי השעה הראשונה, משום שזה הכיוון ההפוך שדווח מראש עבור GBPUSD במאמר; אין להריץ גם continuation ולבחור בדיעבד. הסיכוי הכנה הוא **5%**. [docs/agents/chatgpt_inbox.mdL7418-L7443](https://github.com/nadavsbz/jev-xauusd/blob/821f4370692d5b367ead8d639ec8d04cf4d88e38/docs/agents/chatgpt_inbox.md#L7418-L7443)
+* שלושת המועמדים נבחנים בנפרד, בסדר קבוע, בלי לבחור מנצח לצורך סל. מעבר מלא יצדיק לכל היותר forward demo רשום מראש—לא אישור מסחר. [docs/agents/chatgpt_inbox.mdL7445-L7451](https://github.com/nadavsbz/jev-xauusd/blob/821f4370692d5b367ead8d639ec8d04cf4d88e38/docs/agents/chatgpt_inbox.md#L7445-L7451)
+* השינוי נשמר ב־commit `4dd56f6`, ונוצרה רשומת PR בשם **“t406: מועמדי FX פשוטים למנוע יציב נוסף”**.
+
+**Testing**
+
+* ✅ `python - <<'PY' ... PY` — אומתו שלושה רעיונות, ביטול t397b, וכל רכיבי שער היציבות.
+* ✅ `git diff --check`
+* ✅ `git commit -m "docs: add t406 FX engine candidates"`
+* ✅ `git status --short --branch` — עץ העבודה נקי לאחר ה־commit.
+
+ [View task →](https://chatgpt.com/s/cd_6b075056c2188191a3f31e85bc1ec761)
