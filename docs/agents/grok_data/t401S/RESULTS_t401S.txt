@@ -1,0 +1,12 @@
+C1 ALL {'n': 81, 'mean': np.float64(1.5), 'geo': np.float64(1.4), 'med': np.float64(0.32), 'pos': np.float64(56.8), 'maxDD': np.float64(10.8), 'yrs_pos': '6/7', 'worst': np.float64(-4.9), 'first': '2020-02', 'last': '2026-10'}
+C1 2022+ {'n': 58, 'mean': np.float64(1.03), 'geo': np.float64(0.92), 'med': np.float64(-0.04), 'pos': np.float64(50.0), 'maxDD': np.float64(10.8), 'yrs_pos': '4/5', 'worst': np.float64(-4.9), 'first': '2022-01', 'last': '2026-10'}
+C1 years {'2020': np.float64(51.7), '2021': np.float64(19.3), '2022': np.float64(-4.9), '2023': np.float64(26.5), '2024': np.float64(19.0), '2025': np.float64(7.8), '2026': np.float64(10.4)}
+C1 vsA7 n 32 pearson 0.22 spearman 0.18
+C1 in A7 worst5 [('2022-01', np.float64(-24.0), np.float64(1.4)), ('2022-12', np.float64(-23.1), np.float64(-3.2)), ('2022-05', np.float64(-21.2), np.float64(2.6)), ('2022-09', np.float64(-21.1), np.float64(-3.3)), ('2024-04', np.float64(-20.6), np.float64(-4.9))]
+C1 GATE geo>=3.5 False DD<=25 True n>=18 True pos>=60 False
+I2 ALL {'n': 83, 'mean': np.float64(2.03), 'geo': np.float64(1.94), 'med': np.float64(1.47), 'pos': np.float64(67.5), 'maxDD': np.float64(9.9), 'yrs_pos': '7/7', 'worst': np.float64(-6.6), 'first': '2020-01', 'last': '2026-11'}
+I2 2022+ {'n': 59, 'mean': np.float64(2.37), 'geo': np.float64(2.29), 'med': np.float64(2.29), 'pos': np.float64(72.9), 'maxDD': np.float64(9.1), 'yrs_pos': '5/5', 'worst': np.float64(-6.3), 'first': '2022-01', 'last': '2026-11'}
+I2 years {'2020': np.float64(12.8), '2021': np.float64(14.8), '2022': np.float64(43.5), '2023': np.float64(26.1), '2024': np.float64(20.8), '2025': np.float64(41.5), '2026': np.float64(22.7)}
+I2 vsA7 n 32 pearson -0.05 spearman -0.06
+I2 in A7 worst5 [('2022-01', np.float64(-24.0), np.float64(-2.7)), ('2022-12', np.float64(-23.1), np.float64(3.9)), ('2022-05', np.float64(-21.2), np.float64(4.1)), ('2022-09', np.float64(-21.1), np.float64(3.0)), ('2024-04', np.float64(-20.6), np.float64(7.3))]
+I2 GATE geo>=3.5 False DD<=25 True n>=18 True pos>=60 True
