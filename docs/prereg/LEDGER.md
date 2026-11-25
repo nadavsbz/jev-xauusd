@@ -112,7 +112,8 @@
 ## ניסויים של גרוק מחוץ ל-docs/prereg
 | מזהה | נושא | K |
 |---|---|---|
-| גרוק t405 | C1 על US500/USTECH/DE40 + XAU, ‏I2 על EURUSD/GBPUSD (NY/LDN), PREREG ‏17c8b9ad… | 8 |
+| גרוק t405 | C1 על US500/USTECH/DE40 + XAU, ‏I2 על EURUSD/GBPUSD (NY/LDN): 0/8, ‏F1/F2/F3 KILL | 8 |
+| GPT t406 | FX לונדון חצי שעה ראשונה→אחרונה: NO-GO בביקורת לפני ריצה (עלות, fix) | 0 |
 | גרוק t404 | I2 באותם inputs על US500/DE40/JP225 (טסטר real ticks), PREREG ‏0a2e7933… | 3 |
 | גרוק t403 | רצפה נגררת 0.85×HWM על BD: FAIL. משפחת הגנת BD נסגרת | 1 |
 | גרוק t402 | I2 לבד, שער מלא: FAIL (תשואה, ריכוז top-10) | 1 |
