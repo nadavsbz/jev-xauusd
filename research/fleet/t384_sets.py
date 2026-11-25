@@ -42,7 +42,7 @@ if __name__ == "__main__":
             c = setv(c, "G_FloorPct", f"{pct:.4f}")
             c = setv(c, "G_FloorDays", "999"); c = setv(c, "G_FloorFrom", r.start_live.strftime("%Y%m%d"))
         write(f"t384_c_{tag}", c)
-        fr = r.start_live.strftime("%Y.%m.%d"); to = (r.end_live - pd.Timedelta(seconds=1)).strftime("%Y.%m.%d")
+        fr = r.start_live.strftime("%Y.%m.%d"); to = (r.end_live.normalize() + pd.Timedelta(days=1)).strftime("%Y.%m.%d")   # t384r: MT5 To date is exclusive (Grok t388)
         write(f"t384_s_{tag}", setv(c, "MaxSpred", "50"))               # sensitivity: MaxSpred 50 (clone only)
         for kind, ex in (("c", "DragonClone_v7"), ("b", "BD\EA Black Dragon"), ("s", "DragonClone_v7")):
             q.append(f"t384_{kind}_{tag}:{ex}:t384_{kind}_{tag}:{fr}:{to}:{r.e_start_live:.0f}")
