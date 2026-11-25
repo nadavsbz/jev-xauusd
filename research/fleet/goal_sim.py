@@ -3,13 +3,16 @@ Inputs: data/derived/lars/live_monthly_returns.csv (per account, Apr-Nov 2026, c
 Deposits $1,000/month only while 'stable' (from month 7, and the fleet is less than 25% below its peak).
 Two return models: (1) FLEET: the month's capital-weighted fleet return (8 months, keeps cross-account correlation);
 (2) ACCOUNT: any single account-month (41 obs, more volatile). Scenarios: as-is, haircut -2pp/month, and a regime break
-(each year 25% chance the edge turns to N(-2%, 20%) for 12 months). Honest limits: 8 live months only; no tester data.
+(each year 25% chance the edge turns to N(-2%, 20%) for 12 months). 25.11: + TESTER_t399 (32 tester months 2022-2026, BD + 15% floor + live lot rule, Grok t399) and MIX (live + tester).
 Usage: py -3.12 research/fleet/goal_sim.py"""
 import numpy as np, pandas as pd
 
 R = pd.read_csv("data/derived/lars/live_monthly_returns.csv")
 ACC = R.ret.clip(-0.95).values
 FLEET = R.groupby("m").ret.mean().values          # equal-weight across the accounts active that month
+_T = pd.read_csv("docs/agents/grok_data/t399/t399_monthly.csv")                     # Grok t399: tester 2022-2026, BD + 15% floor + live lot rule (A7)
+TESTER = (_T[_T.arm == "A7"].ret_pct / 100).values
+MIX = np.concatenate([FLEET, TESTER])                                                # 8 live fleet months + 32 tester months
 N = 20000; rng = np.random.default_rng(25112026)
 
 
@@ -31,8 +34,8 @@ def sim(pool, months, deposit, haircut=0.0, regime=False):
 if __name__ == "__main__":
     print("fleet monthly (equal-weight):", np.round(FLEET, 3), "geo", round(float(np.exp(np.log1p(FLEET).mean()) - 1), 3))
     rows = []
-    for name, pool in (("FLEET", FLEET), ("ACCOUNT", ACC)):
-        for sc, kw in (("as-is", {}), ("haircut-2pp", {"haircut": 0.02}), ("regime-break", {"regime": True})):
+    for name, pool in (("FLEET", FLEET), ("TESTER_t399", TESTER), ("MIX", MIX)):
+        for sc, kw in (("as-is", {}),):
             for dep in (False, True):
                 for H in (36, 60):
                     rows.append(dict(model=name, scenario=sc, deposits=dep, years=H // 12, **sim(pool, H, dep, **kw)))
