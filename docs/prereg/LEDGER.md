@@ -112,6 +112,9 @@
 ## ניסויים של גרוק מחוץ ל-docs/prereg
 | מזהה | נושא | K |
 |---|---|---|
+| גרוק t417-t421 | הנדסה ו-stress של C1/I2 (t417 K=0, ‏t418 K=0, ‏t419 0/2 K=2, ‏t421 K=0) | 2 |
+| גרוק t420 | C1 תקרת gross עם אכיפת drift (A3/A4), PREREG ‏433ad0fc… | 2 |
+| גרוק t423 | I2 עם MaxLev 1.95 ‏TV 0.15, PREREG ‏4082deb3… | 1 |
 | גרוק t413 | היפוך BTC 4h אחרי FOMC/CPI: KILL ב-dev (gross −13bp), holdout לא נפתח | 1 |
 | גרוק t414 | זרימות ETF ספוט → לונג BTC 24h: KILL ב-dev (gross −10bp), holdout לא נפתח | 1 |
 | `research_t409.md` | beta_clock (מאפיין I2) על SPY/IWM/DIA/SMH/XLF, ‏Alpaca 30m | 5 |
