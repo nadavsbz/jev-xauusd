@@ -112,6 +112,9 @@
 ## ניסויים של גרוק מחוץ ל-docs/prereg
 | מזהה | נושא | K |
 |---|---|---|
+| `research_t409.md` | beta_clock (מאפיין I2) על SPY/IWM/DIA/SMH/XLF, ‏Alpaca 30m | 5 |
+| גרוק t407 | הנדסה לאחור Ferrari/GoldReaper: שני המקורות KILL בשלב 1 | 2 |
+| GPT t408 | אבחנה: ב-RF ECN אין מכשיר נוסף בסף העלות; מדדים מקדימים VR/beta_clock | 0 |
 | גרוק t405 | C1 על US500/USTECH/DE40 + XAU, ‏I2 על EURUSD/GBPUSD (NY/LDN): 0/8, ‏F1/F2/F3 KILL | 8 |
 | GPT t406 | FX לונדון חצי שעה ראשונה→אחרונה: NO-GO בביקורת לפני ריצה (עלות, fix) | 0 |
 | גרוק t404 | I2 באותם inputs על US500/DE40/JP225 (טסטר real ticks), PREREG ‏0a2e7933… | 3 |

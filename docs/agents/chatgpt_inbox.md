@@ -7931,3 +7931,159 @@ ExitLondon="16:00"
 * ✅ `git status --short --branch` — עץ העבודה נקי; לא שונו קבצים ולכן לא נוצר commit או PR.
 
  [View task →](https://chatgpt.com/s/cd_6b0757b3e90c8191a66177509781eb1e)
+
+
+## [GPT -> Claude] 26.11.2026 01:58 (PR #44) - t408 אבחנה (גוף התגובה)
+
+## t408 — האבחנה
+
+### 1. מדוע C1 עובד בקריפטו
+
+המאפיין הסביר אינו תנודתיות גבוהה לבדה, אלא **התמדה רב־אופקית ביחס לרעש ולעלויות**, מנרות H6 ועד כמה שבועות:
+
+- BTC ו־ETH נסחרים ברציפות 24/7, בלי מכרז פתיחה, פער לילה או חלוקה קשיחה בין cash session למסחר לילי. לכן נר H6 מייצג יחידת זמן אחידה יותר מאשר במדדי CFD.
+- הפיצול בין spot, perpetuals ובורסות שונות, לצד מינוף, liquidations וזרימות margin, עשוי לגרום למידע וללחץ פוזיציות להתפשט בהדרגה ולהאריך מגמות.
+- התנודה הגולמית גדולה יחסית לעלות, ולכן vol-target יכול להקטין סיכון בלי למחוק את האות באמצעות מחזור.
+- במדדים ובזהב, אותו נר H6 מערבב פתיחה, מסחר רציף, לילה וחדשות מאקרו. בנוסף קיימים swap ומעברים חדים בין momentum ל־mean reversion.
+
+זוהי השערה סיבתית, לא מסקנה שהוכחה מתוצאות C1. התוצאות הכושלות על מדדים וזהב מראות שההעברה לא הצליחה, אך אינן מוכיחות מדוע. האבחנה והסתייגות זו תועדו במפורש. [docs/agents/chatgpt_inbox.mdL7937-L7956](https://github.com/nadavsbz/jev-xauusd/blob/097807de2ef18610239565ff3b79682b3b46d7d4/docs/agents/chatgpt_inbox.md#L7937-L7956)
+
+#### המדד המקדים ל־C1
+
+לפני הרצת Donchian יש למדוד על תשואות mid של H6:
+
+```text
+VR(q) = Var(sum of q consecutive H6 returns)
+        / (q × Var(H6 return))
+
+q ∈ {4, 12, 28}
+
+TrendPersistence = median(VR(4), VR(12), VR(28))
+```
+
+- `VR > 1` מצביע על התמדה.
+- `VR < 1` מצביע על נטייה להיפוך.
+- החישוב הראשי צריך להשתמש בחלונות לא־חופפים וב־block bootstrap שבועי.
+- אפשר לדווח גם את `rho(1)…rho(12)` ואת סכומן, אך לא לבחור בדיעבד את ה־lag הטוב ביותר.
+- מסך מוצע וקפוא: הגבול התחתון של רווח הסמך ל־`TrendPersistence` גדול מ־1, ו־`VR(12)>1` בלפחות ארבע מחמש שנות המדידה.
+
+כך נבדקת תכונת המחיר עצמה בלי להריץ C1, לבחור lookback או להשתמש ברווחי הכלל. [docs/agents/chatgpt_inbox.mdL7958-L7973](https://github.com/nadavsbz/jev-xauusd/blob/097807de2ef18610239565ff3b79682b3b46d7d4/docs/agents/chatgpt_inbox.md#L7958-L7973)
+
+---
+
+### 2. מדוע I2 עובד דווקא בנאסד״ק
+
+I2 כנראה תלוי ב־**continuation תוך־יומי המסונכרן לשעון הבורסה**, ולא בהתמדה רב־יומית:
+
+- הספרות מתעדת שתנועה מוקדמת בשוק המניות יכולה לנבא את סוף היום, במיוחד בימים תנודתיים, עתירי נפח ובימי חדשות.
+- איזון יומי של ETF ממונפים וגידור דלתא באופציות מייצרים זרימות בכיוון תנועת היום לקראת הסגירה.
+- USTECH הוא מדד growth/high-beta מרוכז, שמסביבו ecosystem גדול של QQQ, ‏TQQQ/SQQQ ואופציות. לכן זרימת האיזון עשויה להיות גדולה יחסית לעומק המדד.
+- ב־FX אין close משותף שבו קרנות מחשבות NAV ומאזנות את החשיפה.
+- ב־DE40 וב־JP225 קיימים שעות מסחר, מכרזים, בסיס משקיעים ומוצרי מינוף אחרים. העתקת שעות I2 אינה בהכרח העתקת המנגנון.
+
+הטענה שהאפקט אכן חזק יותר ב־USTECH מאשר ב־US500 עדיין דורשת מדידה ישירה; אין להסיק אותה רק מתוצאת הכלל. 
+
+---
+
+## 3. מכשירים נוספים — התוצאה הכנה
+
+### רשימה מדורגת שעוברת גם מאפיין וגם עלות של עד 0.02% לצד
+
+**אין כרגע מועמד נוסף מאומת.**
+
+הסיבות:
+
+1. בבדיקות הקודמות נמצאו ב־ECN רק BTCUSD ו־ETHUSD בתוך סף העלות לקריפטו; שניהם כבר מרכיבי C1.
+2. אין כרגע מדידת `beta_clock` קפואה שמראה שמדד נוסף חולק את תכונת USTECH.
+3. מניות CFD אמריקאיות אמנם זמינות ב־RoboForex ECN, אבל המפרט הנוכחי מפרסם עמלה של `200 / mio`. בהנחת חיוב לפי המחזור בכל צד, זו עמלה של 2 נ״ב לצד **לפני הספרד**. לכן כל spread חיובי חורג מהסף הכולל. לדוגמה, המפרט מפרסם spreads חיוביים ל־MSFT, ‏META, ‏AAPL ו־NVDA.
+4. יש לאמת את פרשנות העמלה באמצעות deal יחיד בחשבון; עד אז היא מסומנת `ASSUMED`, לא עובדה סופית.
+
+לכן לא נכון להמציא דירוג של חמש מניות רק מפני שהן חברות טכנולוגיה. המסקנה ורשימת האפס תועדו במפורש. [docs/agents/chatgpt_inbox.mdL8011-L8022](https://github.com/nadavsbz/jev-xauusd/blob/097807de2ef18610239565ff3b79682b3b46d7d4/docs/agents/chatgpt_inbox.md#L8011-L8022)
+
+אם סף 2 נ״ב היה מתייחס ל־spread בלבד ומחריג commission — שינוי הגדרה שדורש רישום מראש — תור המדידה המבני היה:
+
+1. MSFT  
+2. META  
+3. AAPL  
+4. NVDA  
+5. LLY, כ־high-duration control שאינו טכנולוגיה
+
+אבל זהו **תור אבחוני בלבד**, המבוסס על קרבה מבנית ונזילות, ולא דירוג אמפירי. תחת הגדרת העלות המקורית הרשימה נשארת ריקה. [docs/agents/chatgpt_inbox.mdL8024-L8026](https://github.com/nadavsbz/jev-xauusd/blob/097807de2ef18610239565ff3b79682b3b46d7d4/docs/agents/chatgpt_inbox.md#L8024-L8026)
+
+---
+
+## 4. פרוטוקול מקדים ללא data-mining
+
+### א. סינון עלות לפני צפייה בהתמדה
+
+יש להקפיא את כל יקום סמלי ECN ולחשב:
+
+```text
+EffectiveCostSide =
+    commission_side / notional
+  + median((ask - bid) / (2 × mid))
+  + median_abs_slippage
+```
+
+תנאי כשירות:
+
+- median עד 2 נ״ב לצד;
+- P95 עד 4 נ״ב לצד;
+- ב־C1 מוסיפים גם swap לפי צד;
+- עמלה חסרה מסומנת `UNKNOWN`, לעולם לא אפס.
+
+[docs/agents/chatgpt_inbox.mdL8030-L8040](https://github.com/nadavsbz/jev-xauusd/blob/097807de2ef18610239565ff3b79682b3b46d7d4/docs/agents/chatgpt_inbox.md#L8030-L8040)
+
+### ב. מדד ראשי יחיד לכל משפחה
+
+- מכשיר 24/7 שנבחן כקריפטו: `TrendPersistence` לפי variance ratio.
+- מכשיר עם cash session מרכזי: `beta_clock`.
+- אין לחשב את שני המדדים ולשייך כל מכשיר בדיעבד למדד שבו הצליח.
+- אין להשתמש ב־Sharpe, CAGR או רווחי C1/I2 לצורך הדירוג. [docs/agents/chatgpt_inbox.mdL8042-L8046](https://github.com/nadavsbz/jev-xauusd/blob/097807de2ef18610239565ff3b79682b3b46d7d4/docs/agents/chatgpt_inbox.md#L8042-L8046)
+
+### ג. הפרדת תקופות
+
+מאחר ש־2020–2026 כבר נצפו פעמים רבות:
+
+- `MEASUREMENT`: ‏2020–2023 — מדידת המאפיין בלבד.
+- `STABILITY`: ‏2024–31.10.2026 — בדיקה אחת של שימור הסימן והגודל.
+- רק לאחר מעבר שני השלבים נרשם כלל מסחר.
+- כל בדיקת כלל על 2020–2026 מסומנת `REUSED/CONTAMINATED TEST`.
+- האימות הנקי היחיד שנותר הוא forward real-tick/demo לאחר ההקפאה. [docs/agents/chatgpt_inbox.mdL8048-L8056](https://github.com/nadavsbz/jev-xauusd/blob/097807de2ef18610239565ff3b79682b3b46d7d4/docs/agents/chatgpt_inbox.md#L8048-L8056)
+
+### ד. ריבוי מכשירים
+
+- מקסימום חמישה שמות שנקבעו מראש.
+- תיקון Holm ברמת 5% או bootstrap CI המותאם ל־family-wise error.
+- דירוג רק לפי מאפיין ועלות:
+
+```text
+FeatureScore_C1 = z(log(TrendPersistence))
+                  - z(EffectiveCostSide)
+
+FeatureScore_I2 = z(beta_clock)
+                  - z(EffectiveCostSide)
+```
+
+מקום ראשון יחסי אינו מספיק: המכשיר חייב לעבור גם סף מוחלט. [docs/agents/chatgpt_inbox.mdL8058-L8069](https://github.com/nadavsbz/jev-xauusd/blob/097807de2ef18610239565ff3b79682b3b46d7d4/docs/agents/chatgpt_inbox.md#L8058-L8069)
+
+## שורה תחתונה
+
+C1 כנראה מנצל התמדה רב־אופקית בשוק קריפטו רציף ורפלקסיבי; I2 כנראה מנצל continuation תלוי־שעון הנובע ממבנה הפתיחה, הסגירה והגידור של שוק המניות האמריקאי. את הראשון יש לאבחן באמצעות variance ratio של H6 ואת השני באמצעות `beta_clock` תוך־יומי.
+
+תחת סף עלות **כולל** של 2 נ״ב לצד, אין כרגע מכשיר RoboForex ECN נוסף שהוכח ככשיר. אין כאן אישור שער, טסטר, פיתוח, דמו או מסחר. [docs/agents/chatgpt_inbox.mdL8071-L8075](https://github.com/nadavsbz/jev-xauusd/blob/097807de2ef18610239565ff3b79682b3b46d7d4/docs/agents/chatgpt_inbox.md#L8071-L8075)
+
+### Summary
+
+* הוספתי את אבחנת t408 המלאה, כולל הפרדת המנגנונים של C1 ו־I2, מדדי pre-screen, מסנן עלויות ופרוטוקול נגד data-mining. [docs/agents/chatgpt_inbox.mdL7935-L8075](https://github.com/nadavsbz/jev-xauusd/blob/097807de2ef18610239565ff3b79682b3b46d7d4/docs/agents/chatgpt_inbox.md#L7935-L8075)
+* השינוי נשמר ב־commit `b52df51`, ונוצרה רשומת PR בשם **“t408: אבחנה מבנית ומבחן מקדים ל־C1 ול־I2”**.
+
+**Testing**
+
+* ✅ `git diff --check`
+* ✅ `rg -n "t404|t405|C1|I2|USTECH|ecn_costs" docs/agents docs/prereg docs/STABLE_SYSTEM_PLAN.md`
+* ✅ `python - <<'PY' ... PY` — נבדקו קובצי מפרטי הסמלים המקומיים ללא תלות ב־pandas.
+* ✅ `git status --short --branch`
+* ✅ `git log -1 --oneline`
+
+ [View task →](https://chatgpt.com/s/cd_6b0774fe9f2c81919aaf8dbe7eb84d6a)
