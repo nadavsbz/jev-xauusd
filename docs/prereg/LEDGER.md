@@ -112,6 +112,8 @@
 ## ניסויים של גרוק מחוץ ל-docs/prereg
 | מזהה | נושא | K |
 |---|---|---|
+| גרוק t413 | היפוך BTC 4h אחרי FOMC/CPI: KILL ב-dev (gross −13bp), holdout לא נפתח | 1 |
+| גרוק t414 | זרימות ETF ספוט → לונג BTC 24h (אושר, ממתין לנתונים) | 1 |
 | `research_t409.md` | beta_clock (מאפיין I2) על SPY/IWM/DIA/SMH/XLF, ‏Alpaca 30m | 5 |
 | גרוק t407 | הנדסה לאחור Ferrari/GoldReaper: שני המקורות KILL בשלב 1 | 2 |
 | GPT t408 | אבחנה: ב-RF ECN אין מכשיר נוסף בסף העלות; מדדים מקדימים VR/beta_clock | 0 |
