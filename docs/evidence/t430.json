@@ -1,0 +1,26 @@
+{
+ "excluded_intraday_or_unmatched": 0,
+ "A": {
+  "n": 74,
+  "years_pos": "3/5",
+  "net_by_year_bp": {
+   "2018": 165.5,
+   "2019": 178.7,
+   "2020": -134.2,
+   "2021": -130.0,
+   "2022": 375.5
+  },
+  "mean_gross_bp": 14.15,
+  "mean_net_bp": 6.15,
+  "top5_share": 0.883,
+  "best_tk": "META",
+  "net_without_best_bp": 124.1
+ },
+ "gateA": {
+  "years": "False",
+  "mean16": "False",
+  "conc": "False",
+  "drop_best": "True"
+ },
+ "PASS_A": false
+}
