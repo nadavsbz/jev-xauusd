@@ -1,0 +1,33 @@
+[
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "H1",
+  "deposit": 40000,
+  "leverage": 100,
+  "model": 4,
+  "base_set": "nasdaq_ecn_x15.set",
+  "expert": "Jev\\IndexNoise.ex5",
+  "from": "2026.11.01",
+  "to": "2026.11.17",
+  "report": "demo_cmp_nq_1116_rg3",
+  "overrides": {}
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "indexnoise.set",
+  "expert": "Jev\\IndexNoise.ex5",
+  "model": 4,
+  "from": "2025.01.01",
+  "to": "2025.12.31",
+  "report": "in2rg3_t_2025",
+  "overrides": {
+   "TargetVol": "0.15",
+   "DstFix": "true"
+  }
+ }
+]

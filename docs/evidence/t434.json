@@ -1,0 +1,41 @@
+{
+ "coverage": 0.99809,
+ "n": 69179,
+ "n_by_year": {
+  "2019": 16756,
+  "2020": 15401,
+  "2021": 19121,
+  "2022": 17901
+ },
+ "gross_mean_bp": -0.16,
+ "net_mean_bp": -7.16,
+ "t_day": -58.52,
+ "net_by_year_pct": {
+  "2019": -1159.4,
+  "2020": -1094.3,
+  "2021": -1446.4,
+  "2022": -1256.0
+ },
+ "side_net_bp": {
+  "-1": -257846.0,
+  "1": -237760.0
+ },
+ "side_share": {
+  "-1": 0.512,
+  "1": 0.488
+ },
+ "top10_share": null,
+ "gross_mean_t2_bp": -0.23,
+ "gate": {
+  "1_coverage>=99.9%": false,
+  "2_n>=1000_150/yr": true,
+  "3_gross>=14bp": false,
+  "4_net>0_tday>=2": false,
+  "5_years>=3/4_none<-5%": false,
+  "6_both_sides": false,
+  "7_top10<=25%": false,
+  "8_stress>0": false,
+  "9_decay_t+2>=7bp": false
+ },
+ "PASS_A": false
+}

@@ -1,0 +1,83 @@
+{
+ "report_file": "dd3_us500_2018_2026.htm",
+ "report_sha256": "ee33c41dc7aa52cd8e8da50454a99e46163683fe7ee6bf8ddeae47c98742111d",
+ "settings": {
+  "יועץ אוטומטי (רובוט)": "IndexDD3",
+  "צמד": ".US500Cash",
+  "תקופה": "M1 (2018.01.01 - 2026.11.01)",
+  "חברה": "RoboForex Ltd",
+  "מטבע": "USD",
+  "פיקדון התחלתי": "120,000.00",
+  "מינוף": "1:100",
+  "איכות היסטוריה": "טיקים אמיתיים 99%"
+ },
+ "inputs": [
+  "DecideHHMM=2258",
+  "Streak=3",
+  "Notional=1.0",
+  "Magic=7402"
+ ],
+ "summary_from_report": {
+  "סך רווח נקי": "59,985.39",
+  "רווח ברוטו": "105,978.39",
+  "מאזן הפסד מקסימלי": "14,922.54 (11.78%)",
+  "שווי הפסד מקסימלי": "20,225.31 (15.80%)",
+  "הפסד ברוטו": "-45,993.00",
+  "מקדם רווח": "2.30",
+  "סך עסקאות": "106"
+ },
+ "recomputed": {
+  "deposit": 120000.0,
+  "entries": 106,
+  "trading_profit_before_costs": 69163.15,
+  "commission": -143.81,
+  "swap": -9033.95,
+  "net": 59985.39,
+  "lots_opened": 3458.04,
+  "exit_deals": 106,
+  "exit_win_rate_pct": 75.47,
+  "exit_avg_win": 1324.73,
+  "exit_avg_loss": -1766.2,
+  "daily_realised_pct_of_deposit_per_weekday": {
+   "count": 2305.0,
+   "mean": 0.022,
+   "std": 0.397,
+   "min": -4.784,
+   "25%": 0.0,
+   "50%": 0.0,
+   "75%": 0.0,
+   "max": 9.799
+  },
+  "worst_days_pct": {
+   "2018-02-06": -4.78,
+   "2020-03-02": -4.75,
+   "2018-10-12": -4.01,
+   "2020-04-02": -3.93,
+   "2019-08-06": -3.7
+  },
+  "active_days": 212,
+  "end_of_test_closes": 0,
+  "end_of_test_net": 0.0,
+  "end_of_test_date": null
+ },
+ "job": {
+  "name": "Robo ECN demo",
+  "symbol": ".US500Cash",
+  "deposit": 120000,
+  "leverage": 100,
+  "model": 4,
+  "from": "2018.01.01",
+  "to": "2026.11.01",
+  "period": "M1",
+  "base_set": "dd3.set",
+  "expert": "Jev\\IndexDD3.ex5",
+  "report": "dd3_us500_2018_2026",
+  "overrides": {
+   "DecideHHMM": "2258"
+  }
+ },
+ "files": {
+  "ea_sha256": "e56816503020272bb4da975bf8790ec4ccfd53eb9676c9f0825a119d0e3f4367",
+  "set_sha256": "3ef0323b8184d7d9046bbf446eb8d04a872fb28c6ec1fb5774a813b6020420cc"
+ }
+}

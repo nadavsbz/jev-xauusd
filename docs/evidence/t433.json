@@ -1,0 +1,43 @@
+{
+ "sha256": {
+  "btc": "06495ff8e643432e6948b7b4686ce44fc106217287dabdc1b38351d9ddec46c3",
+  "eth": "46b18f3df967405374b1f6ee8a3d11ee1b7a5b176ac9fb4342caf6bf8648f2cc"
+ },
+ "tag": "current-revised-history",
+ "weeks": 261,
+ "weeks_pos": 261,
+ "gross_mean_bp": 26.34,
+ "net_mean_bp": 11.34,
+ "t": 0.42,
+ "net_by_year_bp": {
+  "2018": 816.9,
+  "2019": -3405.3,
+  "2020": 2625.3,
+  "2021": 738.2,
+  "2022": 2185.0
+ },
+ "side_net_bp": {
+  "longBTC": -1787.5,
+  "longETH": 4747.6
+ },
+ "side_share": {
+  "longETH": 0.521,
+  "longBTC": 0.479
+ },
+ "top10_share": 1.775,
+ "share_2020_21": 0.716,
+ "stress_sum_bp": 350.1,
+ "gate": {
+  "1_coverage>=98%": true,
+  "2_n>=250_and_48/yr": true,
+  "3_gross_mean>=30bp": false,
+  "4_net_mean>0_t>=2": false,
+  "5_years>=4/5_none<-5%": false,
+  "6_both_sides": false,
+  "7_top10<=25%": false,
+  "8_2020-21<=50%": false,
+  "9_stress>0": true
+ },
+ "item10_revisions": "UNKNOWN (no vintages)",
+ "PASS_A": false
+}

@@ -1,0 +1,104 @@
+[
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 10000,
+  "leverage": 500,
+  "base_set": "happyclone.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "Jev\\HappyClone.ex5",
+  "report": "hc_cal_2024_z0.6_t100",
+  "overrides": {
+   "ZZPct": "0.6",
+   "TrailStart": "100",
+   "TrailDist": "50"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 10000,
+  "leverage": 500,
+  "base_set": "happyclone.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "Jev\\HappyClone.ex5",
+  "report": "hc_cal_2024_z0.6_t200",
+  "overrides": {
+   "ZZPct": "0.6",
+   "TrailStart": "200",
+   "TrailDist": "100"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 10000,
+  "leverage": 500,
+  "base_set": "happyclone.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "Jev\\HappyClone.ex5",
+  "report": "hc_cal_2024_z1.0_t100",
+  "overrides": {
+   "ZZPct": "1.0",
+   "TrailStart": "100",
+   "TrailDist": "50"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 10000,
+  "leverage": 500,
+  "base_set": "happyclone.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "Jev\\HappyClone.ex5",
+  "report": "hc_cal_2024_z1.0_t200",
+  "overrides": {
+   "ZZPct": "1.0",
+   "TrailStart": "200",
+   "TrailDist": "100"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 10000,
+  "leverage": 500,
+  "base_set": "happyclone.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "Jev\\HappyClone.ex5",
+  "report": "hc_cal_2024_z1.5_t100",
+  "overrides": {
+   "ZZPct": "1.5",
+   "TrailStart": "100",
+   "TrailDist": "50"
+  }
+ },
+ {
+  "name": "Black Dragon 3",
+  "symbol": "XAUUSD",
+  "period": "M30",
+  "deposit": 10000,
+  "leverage": 500,
+  "base_set": "happyclone.set",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "expert": "Jev\\HappyClone.ex5",
+  "report": "hc_cal_2024_z1.5_t200",
+  "overrides": {
+   "ZZPct": "1.5",
+   "TrailStart": "200",
+   "TrailDist": "100"
+  }
+ }
+]

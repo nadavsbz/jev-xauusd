@@ -1,0 +1,19 @@
+2022 segments [] coverage 99.7
+{'year': 2022, 'arm': 'T7', 'horizon': '2022-12-30 23:58:00', 'coverage_pct': 99.7, 'months_cov': 12, 'net_pct': np.float64(-63.01), 'avg_month_arith': -6.12, 'geo_month': np.float64(-7.95), 'cuts': 15, 'minE': 36.53, 'maxDD': 63.89, 'months_pos': 5, 'months_n': 12, 'worst_month': -34.82, 'best_month': 17.11, 'periods_over_maxlot': 0, 'max_scale': 1.0, 'min_scale': 0.418}
+2023 segments [('2023-01-01 00:00:00', '2023-02-03 16:19:00'), ('2023-02-06 00:00:00', '2023-05-25 22:36:00'), ('2023-05-26 00:00:00', '2023-09-29 20:16:00'), ('2023-10-02 00:00:00', '2023-10-18 04:29:00')] coverage 78.3
+{'year': 2023, 'arm': 'T7', 'horizon': '2023-10-18 04:31:00', 'coverage_pct': 78.3, 'months_cov': 9.38, 'net_pct': np.float64(-63.7), 'avg_month_arith': -8.52, 'geo_month': np.float64(-10.24), 'cuts': 13, 'minE': 34.99, 'maxDD': 70.55, 'months_pos': 2, 'months_n': 10, 'worst_month': -30.45, 'best_month': 17.86, 'periods_over_maxlot': 3, 'max_scale': np.float64(1.152), 'min_scale': 0.359}
+2024 segments [('2024-01-01 00:00:00', '2024-04-23 04:43:00'), ('2024-04-24 00:00:00', '2024-04-30 23:34:00'), ('2024-05-01 00:00:00', '2024-06-07 22:24:00'), ('2024-06-10 00:00:00', '2024-07-22 15:34:00')] coverage 54.9
+{'year': 2024, 'arm': 'T7', 'horizon': '2024-07-22 15:36:00', 'coverage_pct': 54.9, 'months_cov': 6.6, 'net_pct': np.float64(-72.96), 'avg_month_arith': -15.39, 'geo_month': np.float64(-17.99), 'cuts': 13, 'minE': 26.92, 'maxDD': 77.2, 'months_pos': 1, 'months_n': 7, 'worst_month': -41.09, 'best_month': 11.22, 'periods_over_maxlot': 5, 'max_scale': np.float64(1.16), 'min_scale': 0.269}
+2025 segments [('2025-01-01 00:00:00', '2025-04-07 02:23:00'), ('2025-04-08 00:00:00', '2025-10-21 17:46:00'), ('2025-10-22 00:00:00', '2025-12-31 23:58:00')] coverage 99.7
+{'year': 2025, 'arm': 'T7', 'horizon': '2025-12-31 23:58:00', 'coverage_pct': 99.7, 'months_cov': 11.95, 'net_pct': np.float64(-54.87), 'avg_month_arith': -4.48, 'geo_month': np.float64(-6.44), 'cuts': 19, 'minE': 31.38, 'maxDD': 77.38, 'months_pos': 3, 'months_n': 12, 'worst_month': -38.31, 'best_month': 27.39, 'periods_over_maxlot': 10, 'max_scale': np.float64(1.356), 'min_scale': 0.356}
+2026 segments [] coverage 99.7
+{'year': 2026, 'arm': 'T7', 'horizon': '2026-10-30 22:59:00', 'coverage_pct': 99.7, 'months_cov': 10, 'net_pct': np.float64(-21.83), 'avg_month_arith': -0.24, 'geo_month': np.float64(-2.43), 'cuts': 14, 'minE': 63.62, 'maxDD': 54.63, 'months_pos': 5, 'months_n': 10, 'worst_month': -28.22, 'best_month': 29.14, 'periods_over_maxlot': 6, 'max_scale': np.float64(1.36), 'min_scale': 0.685}
+   year  fixed_cut_net  fixed_cuts
+0  2022         -83.25          25
+1  2023         -68.83          17
+2  2024         -64.30          13
+3  2025         -86.48          30
+4  2026         130.41           4
+Empty DataFrame
+Columns: []
+Index: []

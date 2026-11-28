@@ -2,7 +2,8 @@
 API_ID / API_HASH are read from the user's existing local .env (outside this repo) and never printed or saved.
 Nothing is sent: only get_dialogs / iter_messages / download of documents.
 Usage: python research/telegram/tg_read.py dialogs
-       python research/telegram/tg_read.py dump <dialog_id> OUT_DIR"""
+       python research/telegram/tg_read.py dump <dialog_id> OUT_DIR
+       python research/telegram/tg_read.py user <dialog_id> USERNAME OUT_DIR   (needs telethon: PYTHONPATH=.pylib)"""
 import asyncio, json, os, sys
 from telethon import TelegramClient
 
@@ -37,6 +38,21 @@ async def main():
                             await m.download_media(file=os.path.join(out, name)); have.add(name); got += 1
                 print(w, "done", flush=True)
             print("downloaded:", got)
+        elif sys.argv[1] == "user":           # every message of one member, plus the messages they replied to
+            did, uname, out = int(sys.argv[2]), sys.argv[3], sys.argv[4]; os.makedirs(out, exist_ok=True)
+            fdir = os.path.join(out, "files"); os.makedirs(fdir, exist_ok=True); n = 0
+            with open(os.path.join(out, f"{uname}.jsonl"), "w", encoding="utf-8") as fo:
+                async for m in c.iter_messages(did, from_user=uname, limit=None):
+                    r = {"id": m.id, "date": m.date.isoformat(), "reply_to": m.reply_to_msg_id, "text": m.message or "", "file": None, "parent": None}
+                    if m.reply_to_msg_id:
+                        p = await c.get_messages(did, ids=m.reply_to_msg_id)
+                        if p: r["parent"] = (p.message or "")[:600]
+                    if m.document and m.file and m.file.name:
+                        r["file"] = f"{m.id}_{m.file.name}"; await m.download_media(file=os.path.join(fdir, r["file"]))
+                    elif m.photo:
+                        r["file"] = f"{m.id}.jpg"; await m.download_media(file=os.path.join(fdir, r["file"]))
+                    fo.write(json.dumps(r, ensure_ascii=False) + chr(10)); n += 1
+            print("messages:", n, flush=True)
         elif sys.argv[1] == "dump":
             a = sys.argv[2]; did = int(a) if a.lstrip("-").isdigit() else a; out = sys.argv[3]; os.makedirs(out, exist_ok=True)
             # written line by line (a long group can outlive any timeout); files already on disk are skipped

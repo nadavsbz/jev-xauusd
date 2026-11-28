@@ -1,0 +1,89 @@
+{
+ "SPY": {
+  "n_meas": 1006,
+  "n_stab": 711,
+  "beta_meas": 0.02222,
+  "ci90_meas": [
+   -0.00761,
+   0.0579
+  ],
+  "p_one": 0.1775,
+  "beta_stab": -0.01128,
+  "holm_alpha": 0.0167,
+  "gate1": false,
+  "gate2": false,
+  "PASS": false
+ },
+ "IWM": {
+  "n_meas": 1006,
+  "n_stab": 711,
+  "beta_meas": -0.00291,
+  "ci90_meas": [
+   -0.02076,
+   0.01554
+  ],
+  "p_one": 0.605,
+  "beta_stab": -0.02119,
+  "holm_alpha": 0.05,
+  "gate1": false,
+  "gate2": false,
+  "PASS": false
+ },
+ "DIA": {
+  "n_meas": 1001,
+  "n_stab": 707,
+  "beta_meas": 0.03071,
+  "ci90_meas": [
+   -0.00398,
+   0.06907
+  ],
+  "p_one": 0.0905,
+  "beta_stab": -0.00883,
+  "holm_alpha": 0.0125,
+  "gate1": false,
+  "gate2": false,
+  "PASS": false
+ },
+ "SMH": {
+  "n_meas": 1001,
+  "n_stab": 708,
+  "beta_meas": 0.02612,
+  "ci90_meas": [
+   0.00627,
+   0.04899
+  ],
+  "p_one": 0.0075,
+  "beta_stab": -0.00401,
+  "holm_alpha": 0.01,
+  "gate1": true,
+  "gate2": false,
+  "PASS": false
+ },
+ "XLF": {
+  "n_meas": 1004,
+  "n_stab": 710,
+  "beta_meas": 0.01319,
+  "ci90_meas": [
+   -0.01864,
+   0.05107
+  ],
+  "p_one": 0.3475,
+  "beta_stab": -0.00409,
+  "holm_alpha": 0.025,
+  "gate1": false,
+  "gate2": false,
+  "PASS": false
+ },
+ "QQQ": {
+  "n_meas": 1006,
+  "n_stab": 711,
+  "beta_meas": 0.03168,
+  "ci90_meas": [
+   0.00643,
+   0.06006
+  ],
+  "p_one": 0.0135,
+  "beta_stab": -0.00827,
+  "note": "control, not counted"
+ }
+}

@@ -1,0 +1,2 @@
+[{"name":"Black Dragon 1","expert":"Jev\\BarExport.ex5","symbol":"XAUUSDc","period":"M1","deposit":100000,"leverage":1000,
+"base_set":"bar_export.set","from":"2026.05.28","to":"2026.05.29","report":"barexp_eg_may28","overrides":{"OutName":"bars_eg_may28"}}]

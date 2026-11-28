@@ -62,6 +62,7 @@ def disk_guard():
 def main():
     jobs = json.load(open(sys.argv[1], encoding="utf-8")); res_path = sys.argv[2]
     failed = []                                   # jobs that did not produce valid evidence (review PR #27)
+    login_checked = set()                         # accounts whose investor-only login passed in this queue: check once, not per run
     for j in jobs:
         ev = os.path.join(ROOT, "docs", "evidence", j["report"] + ".json")
         if os.path.exists(ev):
@@ -80,6 +81,8 @@ def main():
                "--expert", j["expert"], "--set", set_name, "--symbol", j["symbol"], "--period", j["period"],
                "--from", j["from"], "--to", j["to"], "--deposit", str(j["deposit"]),
                "--leverage", str(j["leverage"]), "--report", j["report"]] + (["--model", str(j["model"])] if "model" in j else [])             + ["--timeout", str(j.get("timeout", 43200))] + (["--delay", str(j["delay"])] if "delay" in j else []) + (["--visual", str(j["visual"])] if "visual" in j else [])   # 12 h by default: M5 real-tick runs pass 4 h
+        if j["name"] in login_checked:
+            cmd = cmd + ["--skip-login-check"]
         for attempt in range(4):      # the broker sometimes refuses the preflight login: wait and retry
             r = subprocess.run(cmd, cwd=os.path.join(ROOT, "tools"), capture_output=True, text=True)
             if "Authorization failed" not in (r.stdout + r.stderr):
@@ -88,6 +91,8 @@ def main():
         if "Authorization failed" in (r.stdout + r.stderr):   # broker down (e.g. weekend maintenance): stop this pass, the caller retries later
             print(json.dumps({"report": j["report"], "error": "Authorization failed after retries, pass stopped"}), flush=True)
             sys.exit(3)
+        if r.returncode == 0 and "preflight" not in (r.stdout + r.stderr) and "refusing" not in (r.stdout + r.stderr):
+            login_checked.add(j["name"])
         htm =os.path.join(os.path.dirname(TERM), j["report"] + ".htm")
         row = {"report": j["report"], "overrides": j.get("overrides", {}), "from": j["from"], "to": j["to"],
                "deposit": j["deposit"], "rc": r.returncode}

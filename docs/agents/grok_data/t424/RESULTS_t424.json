@@ -1,0 +1,112 @@
+{
+ "years": {
+  "2020": {
+   "net_pct": 6.03,
+   "closed_dd": 9.83,
+   "max_lev": 1.914,
+   "n_lev_gt_tol": 0,
+   "n": 151,
+   "maxL": 23.71,
+   "maxL_side": "short",
+   "n_L_gt25": 0,
+   "maxL_capped": 23.71,
+   "med_hold_min": 120.0,
+   "max_open_side": 1
+  },
+  "2021": {
+   "net_pct": 6.75,
+   "closed_dd": 6.3,
+   "max_lev": 1.916,
+   "n_lev_gt_tol": 0,
+   "n": 150,
+   "maxL": 23.32,
+   "maxL_side": "short",
+   "n_L_gt25": 0,
+   "maxL_capped": 23.32,
+   "med_hold_min": 120.0,
+   "max_open_side": 1
+  },
+  "2022": {
+   "net_pct": 18.57,
+   "closed_dd": 6.21,
+   "max_lev": 1.372,
+   "n_lev_gt_tol": 0,
+   "n": 182,
+   "maxL": 16.87,
+   "maxL_side": "short",
+   "n_L_gt25": 0,
+   "maxL_capped": 16.87,
+   "med_hold_min": 120.0,
+   "max_open_side": 1
+  },
+  "2023": {
+   "net_pct": 12.86,
+   "closed_dd": 3.21,
+   "max_lev": 1.279,
+   "n_lev_gt_tol": 0,
+   "n": 159,
+   "maxL": 15.55,
+   "maxL_side": "short",
+   "n_L_gt25": 0,
+   "maxL_capped": 15.55,
+   "med_hold_min": 120.0,
+   "max_open_side": 1
+  },
+  "2024": {
+   "net_pct": 10.24,
+   "closed_dd": 3.61,
+   "max_lev": 1.476,
+   "n_lev_gt_tol": 0,
+   "n": 166,
+   "maxL": 17.8,
+   "maxL_side": "short",
+   "n_L_gt25": 0,
+   "maxL_capped": 17.8,
+   "med_hold_min": 120.0,
+   "max_open_side": 1
+  },
+  "2025": {
+   "net_pct": 18.91,
+   "closed_dd": 5.91,
+   "max_lev": 1.914,
+   "n_lev_gt_tol": 0,
+   "n": 136,
+   "maxL": 24.08,
+   "maxL_side": "short",
+   "n_L_gt25": 0,
+   "maxL_capped": 24.08,
+   "med_hold_min": 120.0,
+   "max_open_side": 1
+  },
+  "2026": {
+   "net_pct": 14.48,
+   "closed_dd": 3.94,
+   "max_lev": 1.863,
+   "n_lev_gt_tol": 0,
+   "n": 129,
+   "maxL": 21.22,
+   "maxL_side": "short",
+   "n_L_gt25": 0,
+   "maxL_capped": 21.22,
+   "med_hold_min": 120.0,
+   "max_open_side": 1
+  }
+ },
+ "total": {
+  "net_sum": 87.84,
+  "pos_years": 7,
+  "maxL": 24.08,
+  "n_L_gt25": 0,
+  "n_lev_gt_tol": 0,
+  "max_lev": 1.916,
+  "worst": {
+   "year": "2025",
+   "tin": "2025-10-10 18:00:00",
+   "side": "short",
+   "h": 5,
+   "lev": 1.914,
+   "note": "corrected: t423_eval idxmax on non-unique concat index mislabels worst row; values unaffected"
+  },
+  "max_closed_dd": 9.83
+ }
+}

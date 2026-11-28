@@ -1,0 +1,39 @@
+[
+ {
+  "expert": "Jev\\IndexNoise.ex5",
+  "period": "H1",
+  "model": 4,
+  "base_set": "indexnoise.set",
+  "from": "2025.04.01",
+  "to": "2026.11.15",
+  "name": "Black Dragon 1",
+  "symbol": "$US100c",
+  "deposit": 12000000,
+  "leverage": 1000,
+  "report": "t324_i2_eg",
+  "overrides": {
+   "TargetVol": "0.15",
+   "DstFix": "true",
+   "OpenHour": "15",
+   "LastCheck": "20",
+   "ExitHour": "21"
+  }
+ },
+ {
+  "expert": "Jev\\IndexNoise.ex5",
+  "period": "H1",
+  "model": 4,
+  "base_set": "indexnoise.set",
+  "from": "2025.04.01",
+  "to": "2026.11.15",
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "deposit": 120000,
+  "leverage": 100,
+  "report": "t324_i2_rf",
+  "overrides": {
+   "TargetVol": "0.15",
+   "DstFix": "true"
+  }
+ }
+]

@@ -1,0 +1,98 @@
+{
+ "SPY": {
+  "no_open": 0,
+  "missing_dec": 3,
+  "no_bars": 0,
+  "hs_fallback": 0
+ },
+ "QQQ": {
+  "no_open": 0,
+  "missing_dec": 3,
+  "no_bars": 0,
+  "hs_fallback": 0
+ },
+ "IWM": {
+  "no_open": 0,
+  "missing_dec": 3,
+  "no_bars": 0,
+  "hs_fallback": 0
+ },
+ "DIA": {
+  "no_open": 0,
+  "missing_dec": 111,
+  "no_bars": 0,
+  "hs_fallback": 0
+ },
+ "GLD": {
+  "no_open": 0,
+  "missing_dec": 5,
+  "no_bars": 0,
+  "hs_fallback": 0
+ },
+ "SLV": {
+  "no_open": 0,
+  "missing_dec": 126,
+  "no_bars": 0,
+  "hs_fallback": 0
+ },
+ "TLT": {
+  "no_open": 0,
+  "missing_dec": 36,
+  "no_bars": 0,
+  "hs_fallback": 0
+ },
+ "IEF": {
+  "no_open": 0,
+  "missing_dec": 854,
+  "no_bars": 0,
+  "hs_fallback": 0
+ },
+ "USO": {
+  "no_open": 0,
+  "missing_dec": 127,
+  "no_bars": 0,
+  "hs_fallback": 0
+ },
+ "XLE": {
+  "no_open": 0,
+  "missing_dec": 2,
+  "no_bars": 0,
+  "hs_fallback": 0
+ },
+ "XLF": {
+  "no_open": 0,
+  "missing_dec": 2,
+  "no_bars": 0,
+  "hs_fallback": 0
+ },
+ "XLK": {
+  "no_open": 0,
+  "missing_dec": 3,
+  "no_bars": 0,
+  "hs_fallback": 0
+ },
+ "EEM": {
+  "no_open": 0,
+  "missing_dec": 3,
+  "no_bars": 0,
+  "hs_fallback": 0
+ },
+ "EFA": {
+  "no_open": 0,
+  "missing_dec": 11,
+  "no_bars": 0,
+  "hs_fallback": 0
+ },
+ "FXI": {
+  "no_open": 0,
+  "missing_dec": 56,
+  "no_bars": 0,
+  "hs_fallback": 0
+ },
+ "UNG": {
+  "no_open": 0,
+  "missing_dec": 1356,
+  "no_bars": 0,
+  "hs_fallback": 0
+ }
+}

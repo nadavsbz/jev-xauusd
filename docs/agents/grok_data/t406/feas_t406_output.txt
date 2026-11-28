@@ -1,0 +1,32 @@
+EURUSD month 1 top London hours by tickvol {15: 630.0667438271605, 14: 588.5555555555555, 13: 544.4224537037037}
+EURUSD month 7 top London hours by tickvol {15: 554.2432432432432, 14: 516.5694444444445, 13: 469.77252252252254}
+EURUSD days last 2557 first 2558
+EURUSD first0800 2017-2019 N=777 sd_ret=9.45 mean|ret|=7.15 med|ret|=5.50 med_rng=13.30 p90|ret|=15.40 spread_pts_med=2.0
+EURUSD first0800 2020-2026 N=1781 sd_ret=10.66 mean|ret|=7.61 med|ret|=5.60 med_rng=12.90 p90|ret|=15.90 spread_pts_med=0.0
+EURUSD last1530 2017-2019 N=776 sd_ret=10.03 mean|ret|=7.68 med|ret|=6.05 med_rng=13.90 p90|ret|=16.40 spread_pts_med=2.0
+EURUSD last1530 2020-2026 N=1781 sd_ret=11.91 mean|ret|=8.56 med|ret|=6.00 med_rng=15.10 p90|ret|=19.00 spread_pts_med=0.0
+      count    std  <lambda_0>
+year                          
+2020    260  14.34       10.17
+2021    260  11.95        7.93
+2022    260  15.47       11.86
+2023    259  10.86        8.43
+2024    260   8.44        6.29
+2025    258  11.41        8.61
+2026    224   8.45        6.30
+USDJPY month 1 top London hours by tickvol {15: 586.2708333333334, 14: 552.0073302469136, 13: 481.7349537037037}
+USDJPY month 7 top London hours by tickvol {15: 476.48986486486484, 14: 469.3333333333333, 13: 411.02702702702703}
+USDJPY days last 2557 first 2559
+USDJPY first0800 2017-2019 N=777 sd_ret=7.58 mean|ret|=5.67 med|ret|=4.30 med_rng=10.60 p90|ret|=12.24 spread_pts_med=2.0
+USDJPY first0800 2020-2026 N=1782 sd_ret=13.89 mean|ret|=9.13 med|ret|=6.60 med_rng=15.20 p90|ret|=20.10 spread_pts_med=0.0
+USDJPY last1530 2017-2019 N=776 sd_ret=10.31 mean|ret|=7.63 med|ret|=6.05 med_rng=12.90 p90|ret|=16.05 spread_pts_med=2.0
+USDJPY last1530 2020-2026 N=1781 sd_ret=14.00 mean|ret|=9.93 med|ret|=7.30 med_rng=17.30 p90|ret|=21.60 spread_pts_med=0.0
+      count    std  <lambda_0>
+year                          
+2020    260  11.27        8.29
+2021    260   9.58        6.57
+2022    260  17.30       11.74
+2023    259  16.23       12.06
+2024    260  15.53       11.13
+2025    258  14.49       11.33
+2026    224  11.49        8.14

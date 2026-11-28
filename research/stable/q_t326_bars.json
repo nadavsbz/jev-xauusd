@@ -1,0 +1,34 @@
+[
+ {
+  "name": "Robo ECN demo",
+  "expert": "Jev\\BarExport.ex5",
+  "symbol": "BTCUSD",
+  "period": "H1",
+  "model": 2,
+  "deposit": 100000,
+  "leverage": 100,
+  "base_set": "bar_export.set",
+  "report": "barexp_t326_BTCUSD",
+  "overrides": {
+   "OutName": "t326"
+  },
+  "from": "2017.01.01",
+  "to": "2026.11.20"
+ },
+ {
+  "name": "Robo ECN demo",
+  "expert": "Jev\\BarExport.ex5",
+  "symbol": "ETHUSD",
+  "period": "H1",
+  "model": 2,
+  "deposit": 100000,
+  "leverage": 100,
+  "base_set": "bar_export.set",
+  "report": "barexp_t326_ETHUSD",
+  "overrides": {
+   "OutName": "t326"
+  },
+  "from": "2017.01.01",
+  "to": "2026.11.20"
+ }
+]

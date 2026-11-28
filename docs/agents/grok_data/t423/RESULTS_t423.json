@@ -1,0 +1,121 @@
+{
+ "years": {
+  "2020": {
+   "net_pct": 1.11,
+   "closed_dd": 18.91,
+   "max_lev": 1.969,
+   "n_lev_gt_tol": 0,
+   "n": 151,
+   "maxL": 24.33,
+   "maxL_side": "short",
+   "n_L_gt25": 0,
+   "maxL_capped": 24.33,
+   "med_hold_min": 120.0,
+   "max_open_side": 1
+  },
+  "2021": {
+   "net_pct": 13.82,
+   "closed_dd": 6.79,
+   "max_lev": 1.996,
+   "n_lev_gt_tol": 2,
+   "n": 150,
+   "maxL": 24.41,
+   "maxL_side": "short",
+   "n_L_gt25": 0,
+   "maxL_capped": 24.41,
+   "med_hold_min": 120.0,
+   "max_open_side": 1
+  },
+  "2022": {
+   "net_pct": 40.53,
+   "closed_dd": 10.88,
+   "max_lev": 2.038,
+   "n_lev_gt_tol": 1,
+   "n": 182,
+   "maxL": 24.07,
+   "maxL_side": "short",
+   "n_L_gt25": 0,
+   "maxL_capped": 24.07,
+   "med_hold_min": 120.0,
+   "max_open_side": 1
+  },
+  "2023": {
+   "net_pct": 24.68,
+   "closed_dd": 5.37,
+   "max_lev": 1.999,
+   "n_lev_gt_tol": 1,
+   "n": 159,
+   "maxL": 24.41,
+   "maxL_side": "short",
+   "n_L_gt25": 0,
+   "maxL_capped": 24.41,
+   "med_hold_min": 120.0,
+   "max_open_side": 1
+  },
+  "2024": {
+   "net_pct": 17.97,
+   "closed_dd": 5.81,
+   "max_lev": 1.981,
+   "n_lev_gt_tol": 0,
+   "n": 166,
+   "maxL": 24.44,
+   "maxL_side": "short",
+   "n_L_gt25": 0,
+   "maxL_capped": 24.44,
+   "med_hold_min": 120.0,
+   "max_open_side": 1
+  },
+  "2025": {
+   "net_pct": 33.09,
+   "closed_dd": 8.05,
+   "max_lev": 1.993,
+   "n_lev_gt_tol": 1,
+   "n": 136,
+   "maxL": 24.73,
+   "maxL_side": "short",
+   "n_L_gt25": 0,
+   "maxL_capped": 24.53,
+   "med_hold_min": 120.0,
+   "max_open_side": 1
+  },
+  "2026": {
+   "net_pct": 23.33,
+   "closed_dd": 6.85,
+   "max_lev": 2.01,
+   "n_lev_gt_tol": 1,
+   "n": 129,
+   "maxL": 24.44,
+   "maxL_side": "short",
+   "n_L_gt25": 0,
+   "maxL_capped": 24.44,
+   "med_hold_min": 120.0,
+   "max_open_side": 1
+  }
+ },
+ "total": {
+  "net_sum": 154.53,
+  "pos_years": 7,
+  "maxL": 24.73,
+  "n_L_gt25": 0,
+  "n_lev_gt_tol": 6,
+  "max_lev": 2.038,
+  "worst": {
+   "year": {
+    "112": "2026"
+   },
+   "tin": {
+    "112": "2026-10-19 19:00:00"
+   },
+   "side": {
+    "112": "long"
+   },
+   "h": {
+    "112": "1"
+   },
+   "lev": {
+    "112": "1.9608129683052704"
+   }
+  },
+  "max_closed_dd": 18.91
+ }
+}

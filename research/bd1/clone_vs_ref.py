@@ -1,4 +1,4 @@
-"""Basket match between two tester reports (clone vs original BD, same ticks) or vs account 1 live.
+r"""Basket match between two tester reports (clone vs original BD, same ticks) or vs account 1 live.
 Usage: python research/bd1/clone_vs_ref.py REF FROM TO REPORT [REPORT ...]
 REF = a report name in C:\MT5_JEV_TEST (e.g. val_sep26_bdreal) or 'live' (account 1 deals snapshot)."""
 import os, sys, json

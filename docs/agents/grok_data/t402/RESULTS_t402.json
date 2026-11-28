@@ -1,0 +1,71 @@
+{
+ "n_trades": 1068,
+ "order_ok": true,
+ "maxconc": 1,
+ "hold_med_min": 120.0,
+ "hold_p10": 60.0,
+ "k_pct_per_pt_vol": 0.0010000000000000002,
+ "pts_mean": 12.75,
+ "pts_med": -4.4,
+ "win%": 46.3,
+ "long%": 51.6,
+ "geo_all": 1.94,
+ "geo_2022": 2.29,
+ "geo_2022_live_x0.5": 1.16,
+ "top10_share%": 50.9,
+ "top10_share_2022%": 49.3,
+ "years": {
+  "2020": {
+   "net%": 12.8,
+   "stress_net%": 9.9,
+   "ddc%": 18.9,
+   "n": 151
+  },
+  "2021": {
+   "net%": 14.8,
+   "stress_net%": 12.0,
+   "ddc%": 12.1,
+   "n": 150
+  },
+  "2022": {
+   "net%": 43.5,
+   "stress_net%": 41.1,
+   "ddc%": 11.8,
+   "n": 182
+  },
+  "2023": {
+   "net%": 26.1,
+   "stress_net%": 23.3,
+   "ddc%": 6.4,
+   "n": 159
+  },
+  "2024": {
+   "net%": 20.8,
+   "stress_net%": 18.7,
+   "ddc%": 7.2,
+   "n": 166
+  },
+  "2025": {
+   "net%": 41.5,
+   "stress_net%": 40.0,
+   "ddc%": 12.0,
+   "n": 136
+  },
+  "2026": {
+   "net%": 22.7,
+   "stress_net%": 21.6,
+   "ddc%": 7.8,
+   "n": 124
+  }
+ },
+ "gate": {
+  "1_geo>=3.5": "False",
+  "2_dd<=25": true,
+  "3_top10<=50": "False",
+  "4_noStack": true,
+  "5_hold>=15": true,
+  "6_stress+": true,
+  "7_years>=4/5": "True"
+ },
+ "PASS": false
+}

@@ -1,0 +1,33 @@
+acct,from_date,to_date,magic,comment_in_deals,tf_observed,set_name,is_bd,evidence_type,confidence,tags,notes
+BD1,2025-09-17,2025-11-11,55555/90125/14102025/141025/271025/291025,BTC Bot,M15 (most),BTC Bot (not BD),no,direct (deal comment),high,VERIFIED,not a BD period; excluded from BD tester
+BD1,2025-10-30,2025-11-10,1111,EA Black Dragon / EA Black Dragon (casper),M1,casperit black dragon set m1 5kstandard (#74605 31.10.2025; same params #88269),yes,fingerprint match + comment '(casper)',medium-high,OBSERVED+ASSUMED,Fix $3 / Dyn $2 from lvl6 / x1.5 / TP ~$1 / hours 6-18 match; runs in parallel to BTC Bot 291025; first day 30.10 precedes the 31.10 post
+BD1,2025-11-11,2026-10-26,5555,EA Black Dragon-Lars,M15,Lars = sets/bd.set (magic 5555),yes,direct quote (Excel 'Lars 15M' from 12.11.2025) + magic/comment = bd.set + fingerprint,high,VERIFIED,EG 3-digit; entry hours 2-20 (3-20 in Mar-Jun); lot per Excel resets
+BD2,2026-04-07,2026-04-15,223344,EABlackDragon_CasperIT_Hybrid_M,M1,CasperIT_BlackDragon_Hybrid_M1_50k_2digits (#91322),yes,direct quote (Excel) + magic/comment = set file,high,VERIFIED,
+BD2,2026-04-15,2026-05-29,123654,EABlackDragon_CasperIT_Aggressi,M1,CasperIT_BlackDragon_Agressive_M1_50k_2digits (#92229),yes,direct quote (Excel) + magic/comment = set file,high,VERIFIED,Excel 8.5 also notes manual work
+BD2,2026-06-01,2026-06-17,1111,1H_Ramil_EA Black Dragon (+ few 'EA Black Dragon'),H1,1H_Rramil (Ramil 1H set; file NOT on box),yes,direct quote (Excel) + comment,high name / params UNKNOWN,VERIFIED name; UNKNOWN params,fingerprint H1 / first gap ~$11 / x~1.57 / TP ~$1.1
+BD2,2026-06-18,2026-06-30,11111,EA Black Dragon,M1,UNKNOWN (Excel says stoch_true.set but grid does not match),yes,UNKNOWN (conflict Excel vs fingerprint),low,UNKNOWN,M1 / Fix ~$3 / Dyn ~$2.4 / x~1.56 / TP ~$1.1 / hours 9-15; stoch_true has Fix 800 = $8
+BD2,2026-06-22,2026-08-06,1111,EA Black Dragon,M5 (Excel says 1M),EA_Black_Dragon_mt5_xauusd_m5_2_digits_stoch_true.set (#75940),yes,direct quote (Excel) + fingerprint (Fix $8 / Dyn $8x1.2),medium,VERIFIED name; OBSERVED partial match,observed lot ratio ~1.5 vs Martin 1.4 in file; TF M5 not 1M
+BD2,2026-08-05,2026-08-20,16102020/190726,Hamster Scalping / Titan-Max-Lite-5k / Ultima,-,not BD (Hamster/Ultima),no,direct (deal comment),high,VERIFIED,
+BD2,2026-08-24,2026-10-26,5555,EA Black Dragon-Lars,M15,Lars = sets/bd.set,yes,magic/comment = bd.set + fingerprint (after Excel ends),high,OBSERVED,no Excel entry for this restart
+BD3,2026-02-27,2026-04-30,5555,EA Black Dragon-Lars,M15,Lars (2-digit adaptation),yes,direct quote (Excel 'Lars 15M; התאמת ההגדרות ל2 ספרות') + fingerprint,high,VERIFIED,
+BD3,2026-04-30,2026-05-15,1111,ea_black_dragon_mt5_stochast...,M5,ea_black_dragon_mt5_stochastic_asian_xauusd_2digits_m5 (file NOT on box),yes,direct quote (Excel) + comment,high name / params UNKNOWN,VERIFIED name; UNKNOWN params,first gap ~$2.2 / x~1.54 / TP ~$2
+BD3,2026-05-18,2026-06-02,5555,EA Black Dragon-Lars,M5,Lars on M5,yes,direct quote (Excel 'Lars 5M') + fingerprint M5,high,VERIFIED,
+BD3,2026-06-09,2026-07-30,5555,EA Black Dragon-Lars,M15 (Excel says 5M),Lars,yes,fingerprint (TF conflict with Excel),medium,OBSERVED,100% of bar-aligned entries at minute%15 from 09.06
+BD3,2026-08-03,2026-08-06,5555,EA Black Dragon-Lars,M5,Lars on M5,yes,fingerprint,medium,OBSERVED,
+BD3,2026-08-12,2026-10-26,5555,EA Black Dragon-Lars,M15,Lars with hours changed (entries 5-19 instead of 3-21),yes,fingerprint,medium,OBSERVED,Start/End hour change ASSUMED
+BD4,2026-04-13,2026-04-30,5555,EA Black Dragon-Lars,M15,Lars = sets/bd.set,yes,direct quote (Excel) + fingerprint,high,VERIFIED,history file BTC_Bot_4
+BD4,2026-04-30,2026-05-12,90125,btcbot_mt5_xauusd_2digit_m15 / BTC Bot,M15,BTC Bot (not BD),no,direct quote (Excel) + comment,high,VERIFIED,
+BD4,2026-05-18,2026-09-02,5555,EA Black Dragon-Lars,M15,Lars = sets/bd.set,yes,direct quote (Excel from 17.5) + fingerprint,high,VERIFIED,no BD entries after 02.09
+BD5,2026-04-15,2026-09-16,5555,EA Black Dragon-Lars,M15,Lars = sets/bd.set,yes,direct quote (Excel) + fingerprint,high,VERIFIED,2 stray 1111 deals (14.04 / 01.05 lot 2.0) excluded
+BD5,2026-10-05,2026-10-23,5555,EA Black Dragon-Lars,M15,Lars = sets/bd.set,yes,fingerprint (after Excel ends),high,OBSERVED,no entries 17.09-04.10
+BD6,2026-04-15,2026-05-01,5555,EA Black Dragon-Lars,M15,Lars = sets/bd.set,yes,direct quote (Excel) + fingerprint,high,VERIFIED,
+BD6,2026-05-01,2026-05-29,123654,EABlackDragon_CasperIT_Aggressi,M1,CasperIT_BlackDragon_Agressive_M1_50k_2digits (#92229),yes,direct quote (Excel; columns shifted) + magic/comment,high,VERIFIED,9 baskets of 1111 lot 2.0 on 01.05 excluded (ASSUMED manual/test)
+BD6,2026-06-09,2026-06-24,1878943,9-13 EABD JPB XAUUSD SL 2D V1.0,M1,1878943_eabd_jpb_xauusd_2d_mt5_v1.00 (#102038 Jens),yes,direct quote (Excel) + magic/comment = set file,high,VERIFIED,hard SL 8000 in set
+BD6,2026-06-25,2026-10-23,5555,EA Black Dragon-Lars,M15,Lars = sets/bd.set,yes,direct quote (Excel 24.6 / 16.7) + fingerprint,high,VERIFIED,
+BD7,2026-04-20,2026-04-23,110725,EA Trend AI,-,Trend AI 'Andre' (not BD),no,direct quote (Excel 'AI / Andre 1M') + comment,high,VERIFIED,
+BD7,2026-04-24,2026-05-13,123654,EABlackDragon_CasperIT_Aggressi,M1,CasperIT_BlackDragon_Agressive_M1_50k_2digits (#92229),yes,direct quote (Excel) + magic/comment,high,VERIFIED,
+BD7,2026-04-21,2026-06-10,1111,EA Black Dragon,off-bar,UNKNOWN (ASSUMED manual via BD panel),yes?,UNKNOWN,low,ASSUMED,lots 0.5-2.0 / not bar-aligned / sheet named '#7 - manual'; exclude from tester
+BD7,2026-06-24,2026-10-26,-,-,-,Lars 1M per Excel but no trades (balance ~$1.7),no trades,direct quote (Excel) + no deals,high,VERIFIED,nothing to test
+BD8,2025-09-29,2025-10-09,5000,EA Black Dragon,M1,UNKNOWN (closest: casperit m1 5kstandard family),yes,fingerprint (partial) - predates Telegram coverage,low-medium,ASSUMED,Fix ~$3 / Dyn ~$2.1 from lvl6 / x1.5 / TP ~$1.1 / hours 7-19 (set has 6-19)
+BD8,2025-10-21,2025-10-21,211025,BTC Bot (EURCHFc),-,BTC Bot (not BD),no,direct (deal comment),high,VERIFIED,4 deals
+BD8,2026-05-29,2026-10-26,5555,EA Black Dragon-Lars,M15,Lars = sets/bd.set,yes,direct quote (Excel from 29.5) + fingerprint,high,VERIFIED,18 entries on XAGUSDc 12-21.08 with same magic (ASSUMED stray chart)

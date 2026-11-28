@@ -1,0 +1,377 @@
+{
+ "script_sha256": "951f68ee73fdbf5d7e6596a061ca3fa06785f371d5e3ac06d83f6523a75178f5",
+ "prereg_sha256": "aace08619f60729f7247a4d98b0bdebdd2aa5fd1efd1ac056b9d6ef068157765",
+ "inputs": {
+  "ferrari2009_history.csv": "111c627cc8846279838387cff4a29a09031e678bc5efb34b9d05dd260188db89",
+  "goldreaper_history.csv": "be5b30b2974e012e321e0032269a2de8137dace2740ba902dfc62647b4e5ce7c"
+ },
+ "scope": "full tape (PREREG §3)",
+ "S1_Ferrari2009": {
+  "1a": {
+   "median_lot_ratio_after_loss": 1.0,
+   "pct_up_after_loss": 0.1483,
+   "pct_up_after_win": 0.2372,
+   "n_after_loss": 627,
+   "n_after_win": 1539,
+   "pass": true
+  },
+  "1b": {
+   "pct_avgdown_positions": 0.0861,
+   "pct_scalein_positions": 0.0861,
+   "median_stack_when_stacked": 2.0,
+   "max_stack": 6,
+   "pass": true
+  },
+  "1c": {
+   "median_hold_min": 52.0,
+   "pct_hold_lt_1min": 0.0128,
+   "pass": true
+  },
+  "1d": {
+   "mean_net_per_position": -0.99,
+   "unit": "pips",
+   "threshold": 4.0,
+   "pass": false
+  },
+  "1e": {
+   "sum_net_stress": -4344.14,
+   "mean_net_stress": -1.99,
+   "pass": false
+  },
+  "1f": {
+   "total_net": -2161.14,
+   "top10_days_net": 330.39,
+   "share": null,
+   "pass": false
+  },
+  "1h": {
+   "pct_positions_with_sl": 0.6322,
+   "report_only": true
+  },
+  "1g": {
+   "net_by_year_pips_uniform": {
+    "2019": -56.88,
+    "2020": -214.76,
+    "2021": -195.4,
+    "2022": -55.8,
+    "2023": -259.59,
+    "2024": -579.94,
+    "2025": -356.19,
+    "2026": -442.6
+   },
+   "positive_full_years_2020_2025": "0/6",
+   "ytd_2026": -442.6,
+   "partial_2019": -56.88,
+   "pass": false
+  },
+  "sens_1d": {
+   "net_L0": {
+    "mean": 1.6678,
+    "pass_1d": false
+   },
+   "net_L1": {
+    "mean": 1.603,
+    "pass_1d": false
+   }
+  },
+  "meta": {
+   "tickets_all": 2709,
+   "tickets_universe": 2236,
+   "positions": 2183,
+   "symbols": [
+    "AUDCAD",
+    "AUDUSD",
+    "CADCHF",
+    "CHFJPY",
+    "EURAUD",
+    "EURCAD",
+    "EURCHF",
+    "EURGBP",
+    "EURUSD",
+    "GBPAUD",
+    "GBPCAD",
+    "GBPUSD",
+    "USDCAD",
+    "USDCHF"
+   ],
+   "pct_night_entries": 0.9047,
+   "mean_spread_table_pips": 2.6571,
+   "mean_comm_pips": 0.3079,
+   "mean_swap_pips_ticket": -0.1273,
+   "mean_Pips_IC_net_ticket": 2.1381,
+   "swap_fit": {
+    "AUDCAD": {
+     "k_per_lot_per_unit": 6.4697,
+     "c_per_lot": 4.3405,
+     "n_fit": 15,
+     "n_cross": 21,
+     "mean_swap_units_cross": -0.2225
+    },
+    "AUDUSD": {
+     "k_per_lot_per_unit": null,
+     "c_per_lot": -0.0,
+     "n_fit": 1,
+     "n_cross": 0,
+     "mean_swap_units_cross": 0.0
+    },
+    "CADCHF": {
+     "k_per_lot_per_unit": null,
+     "c_per_lot": -0.0,
+     "n_fit": 3,
+     "n_cross": 12,
+     "mean_swap_units_cross": 0.0
+    },
+    "CHFJPY": {
+     "k_per_lot_per_unit": 6.826,
+     "c_per_lot": 4.1458,
+     "n_fit": 91,
+     "n_cross": 42,
+     "mean_swap_units_cross": -1.4685
+    },
+    "EURAUD": {
+     "k_per_lot_per_unit": 6.1091,
+     "c_per_lot": 3.826,
+     "n_fit": 324,
+     "n_cross": 128,
+     "mean_swap_units_cross": -0.7424
+    },
+    "EURCAD": {
+     "k_per_lot_per_unit": 6.5076,
+     "c_per_lot": 4.9067,
+     "n_fit": 165,
+     "n_cross": 24,
+     "mean_swap_units_cross": -0.455
+    },
+    "EURCHF": {
+     "k_per_lot_per_unit": 10.1223,
+     "c_per_lot": 4.5848,
+     "n_fit": 29,
+     "n_cross": 34,
+     "mean_swap_units_cross": -0.1369
+    },
+    "EURGBP": {
+     "k_per_lot_per_unit": 11.2476,
+     "c_per_lot": 3.5413,
+     "n_fit": 89,
+     "n_cross": 36,
+     "mean_swap_units_cross": -0.5696
+    },
+    "EURUSD": {
+     "k_per_lot_per_unit": 8.8192,
+     "c_per_lot": 4.5727,
+     "n_fit": 88,
+     "n_cross": 2,
+     "mean_swap_units_cross": 0.5275
+    },
+    "GBPAUD": {
+     "k_per_lot_per_unit": 6.0521,
+     "c_per_lot": 4.506,
+     "n_fit": 55,
+     "n_cross": 40,
+     "mean_swap_units_cross": -0.2197
+    },
+    "GBPCAD": {
+     "k_per_lot_per_unit": 6.4928,
+     "c_per_lot": 4.1545,
+     "n_fit": 529,
+     "n_cross": 211,
+     "mean_swap_units_cross": -0.2654
+    },
+    "GBPUSD": {
+     "k_per_lot_per_unit": 8.7313,
+     "c_per_lot": 3.8423,
+     "n_fit": 141,
+     "n_cross": 13,
+     "mean_swap_units_cross": -0.2948
+    },
+    "USDCAD": {
+     "k_per_lot_per_unit": 6.5842,
+     "c_per_lot": 3.9011,
+     "n_fit": 69,
+     "n_cross": 56,
+     "mean_swap_units_cross": -0.2627
+    },
+    "USDCHF": {
+     "k_per_lot_per_unit": 9.3733,
+     "c_per_lot": 3.7387,
+     "n_fit": 13,
+     "n_cross": 5,
+     "mean_swap_units_cross": -0.9849
+    }
+   },
+   "by_symbol_mean_net": [
+    {
+     "Symbol": "AUDCAD",
+     "count": 35,
+     "mean": -1.267
+    },
+    {
+     "Symbol": "AUDUSD",
+     "count": 1,
+     "mean": 3.18
+    },
+    {
+     "Symbol": "CADCHF",
+     "count": 15,
+     "mean": -1.955
+    },
+    {
+     "Symbol": "CHFJPY",
+     "count": 128,
+     "mean": -3.646
+    },
+    {
+     "Symbol": "EURAUD",
+     "count": 448,
+     "mean": -0.301
+    },
+    {
+     "Symbol": "EURCAD",
+     "count": 176,
+     "mean": -0.688
+    },
+    {
+     "Symbol": "EURCHF",
+     "count": 61,
+     "mean": -1.715
+    },
+    {
+     "Symbol": "EURGBP",
+     "count": 122,
+     "mean": -0.428
+    },
+    {
+     "Symbol": "EURUSD",
+     "count": 87,
+     "mean": 0.793
+    },
+    {
+     "Symbol": "GBPAUD",
+     "count": 93,
+     "mean": -4.374
+    },
+    {
+     "Symbol": "GBPCAD",
+     "count": 725,
+     "mean": -1.341
+    },
+    {
+     "Symbol": "GBPUSD",
+     "count": 149,
+     "mean": 1.28
+    },
+    {
+     "Symbol": "USDCAD",
+     "count": 125,
+     "mean": -0.86
+    },
+    {
+     "Symbol": "USDCHF",
+     "count": 18,
+     "mean": 0.865
+    }
+   ]
+  },
+  "verdict": "KILL",
+  "failed_checks": [
+   "1d",
+   "1e",
+   "1f",
+   "1g"
+  ]
+ },
+ "S2_GoldReaper": {
+  "1a": {
+   "median_lot_ratio_after_loss": 1.0,
+   "pct_up_after_loss": 0.3873,
+   "pct_up_after_win": 0.3492,
+   "n_after_loss": 142,
+   "n_after_win": 252,
+   "pass": true
+  },
+  "1b": {
+   "pct_avgdown_positions": 0.1089,
+   "pct_scalein_positions": 0.4253,
+   "median_stack_when_stacked": 2.0,
+   "max_stack": 8,
+   "pass": true
+  },
+  "1c": {
+   "median_hold_min": 35.0,
+   "pct_hold_lt_1min": 0.0911,
+   "pass": true
+  },
+  "1d": {
+   "mean_net_per_position": 7.5654,
+   "unit": "bp",
+   "threshold": 10.0,
+   "pass": false
+  },
+  "1e": {
+   "sum_net_stress": 2873.92,
+   "mean_net_stress": 7.2758,
+   "pass": true
+  },
+  "1f": {
+   "total_net": 2988.33,
+   "top10_days_net": 1907.6,
+   "share": 0.6384,
+   "pass": false
+  },
+  "1h": {
+   "pct_positions_with_sl": 0.3342,
+   "report_only": true
+  },
+  "1g": {
+   "net_by_quarter_bp_uniform": {
+    "2024Q4": 380.4,
+    "2025Q1": 111.3,
+    "2025Q2": 1000.0,
+    "2025Q3": 418.6,
+    "2025Q4": 54.6,
+    "2026Q1": 822.3,
+    "2026Q2": 322.0,
+    "2026Q3": 27.6,
+    "2026Q4": -148.4
+   },
+   "pct_positive_quarters_all": 0.8889,
+   "n_quarters_all": 9,
+   "pct_positive_full_quarters_only": 1.0,
+   "n_full_quarters": 7,
+   "pass": true
+  },
+  "sens_1d": {
+   "net_noswap": {
+    "mean": 7.7779,
+    "pass_1d": false
+   },
+   "gross_bp": {
+    "mean": 9.4179,
+    "pass_1d": false
+   }
+  },
+  "meta": {
+   "tickets": 926,
+   "positions": 395,
+   "mean_gross_bp_ticket": 11.0722,
+   "mean_gross_bp_position": 9.4179,
+   "mean_swap_bp_ticket": -0.1503,
+   "pct_cross_rollover": 0.1263,
+   "swap_fit": {
+    "XAUUSD": {
+     "k_per_lot_per_unit": 99.9994,
+     "c_per_lot": 7.8196,
+     "n_fit": 809,
+     "n_cross": 117,
+     "mean_swap_units_cross": -0.3705
+    }
+   },
+   "mean_tickets_per_position": 2.344
+  },
+  "verdict": "KILL",
+  "failed_checks": [
+   "1d",
+   "1f"
+  ]
+ }
+}

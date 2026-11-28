@@ -49,7 +49,7 @@ def running_from(terminal):
     return [int(l.split("|")[0]) for l in out.splitlines() if "|" in l and os.path.normcase(l.split("|", 1)[1]) == want]
 
 
-def preflight(terminal, acc):
+def preflight(terminal, acc, login_check=True):
     """Fail closed before the terminal is started with a login:
     - it is not already running (a running copy could hold live charts/EAs);
     - its config auto-starts nothing and copies no signal;
@@ -79,6 +79,8 @@ def preflight(terminal, acc):
         txt = raw.decode("utf-16", errors="ignore") if raw.startswith(codecs.BOM_UTF16_LE) else raw.decode("utf-8", errors="ignore")
         if "<expert>" in txt.lower():
             sys.exit(f"refusing: chart {chr_} has an EA attached - remove it before the preflight login")
+    if not login_check:
+        return                                   # the queue already verified this login is investor-only (once per queue)
     try:
         # initialize inside try (review PR #29): a failed login can still have started the terminal
         if not mt5.initialize(path=terminal, login=login, password=acc["password"], server=acc["server"],
@@ -101,6 +103,18 @@ def preflight(terminal, acc):
         time.sleep(5)
 
 
+def trim_logs(root, limit_mb=50):
+    """User request (17.11.2026): never let tester logs pile up. Our own runs' journal files (Tester/logs and
+    Tester/Agent-*/logs, *.log only) larger than limit_mb are deleted after each run; tick caches are kept."""
+    import glob
+    for f in glob.glob(os.path.join(root, "Tester", "logs", "*.log")) + glob.glob(os.path.join(root, "Tester", "Agent-*", "logs", "*.log")):
+        try:
+            if os.path.getsize(f) > limit_mb * 1024 * 1024:
+                os.remove(f); print("removed large tester log:", os.path.relpath(f, root))
+        except OSError:
+            pass
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--accounts", required=True)
@@ -121,6 +135,8 @@ def main():
     p.add_argument("--detach", action="store_true", help="start the terminal and return once testing has started")
     p.add_argument("--optimization", type=int, default=0,
                    help="0 single pass, 1 slow complete (every combination of the ranges in the .set; local agents in parallel)")
+    p.add_argument("--skip-login-check", action="store_true",
+                   help="file checks still run; skip only the investor-login check (run_queue did it once for this queue)")
     p.add_argument("--visual", type=int, default=0,
                    help="1: visual mode, the tester chart loads MQL5/Profiles/Templates/tester.tpl (research indicators)")
     a = p.parse_args()
@@ -129,7 +145,7 @@ def main():
     if os.path.normcase(os.path.abspath(a.terminal)) not in ALLOWED_TERMINALS:
         sys.exit(f"refusing: {a.terminal} is not a registered dedicated tester terminal")
     acc = load_account(a.accounts, a.name)
-    preflight(a.terminal, acc)
+    preflight(a.terminal, acc, login_check=not a.skip_login_check)
     # an old report with the same name must never pass as this run's result (review)
     for f in os.listdir(root):
         if f.startswith(os.path.basename(a.report) + ".") or f.startswith(os.path.basename(a.report) + "-"):
@@ -166,6 +182,7 @@ def main():
         rc = proc.returncode
     finally:
         os.remove(ini); os.rmdir(tmp)
+        trim_logs(root)
     if a.detach:
         return
     found = [f for f in os.listdir(root) if f.startswith(os.path.basename(a.report))]

@@ -1,0 +1,81 @@
+# t318: מיפוי עבודות Concretum Research ו-Carlo Zarattini מ-2023 ואילך (מחקר שולחני בלבד)
+
+- הוכן: 20.11.2026 (שעון ישראל), Grok (המאסטרו). מחקר שולחני בלבד: לא הורצו טרמינלי MT5, ולא נגעתי ב-t301b או ב-MT5_T286_1..3.
+- תגיות: **VERIFIED** = קראתי בעצמי במקור (PDF מלא או עמוד המקור). **OBSERVED** = נראה במקור משני או בתקציר/רשימה ולא אומת בגוף העבודה. **ASSUMED** = הנחה שלי. **UNKNOWN** = לא נמצא במקור שקראתי.
+- מקורות ראשיים: עמוד המאמרים https://concretumgroup.com/papers/ (כל קובצי ה-PDF הורדו משם ונקראו במלואם: `concretumgroup.com/wp-content/uploads/2026/0x/*.pdf`), עמוד המאמרים הקצרים https://concretumgroup.com/articles/, עמוד הקוד https://concretumgroup.com/coding/, ותקצירי SSRN (הגישה הישירה ל-SSRN חסומה מה-box, ולכן נקראו דרך תוצאות חיפוש).
+- כלל: לא המצאתי אף מספר. כל מספר כאן מופיע במקור המצוין לידו. כל מה שלא נמצא מסומן UNKNOWN.
+- מאמרי ה-Premium של Concretum בתשלום. לא רכשתי אותם (אין תשלומים), ולכן החוקים המדויקים שלהם UNKNOWN.
+
+## 0. ממצאים מרכזיים (TL;DR)
+
+1. **מקור I2 נמצא בשחיקה לאחר הפרסום.** [VERIFIED מתקציר SSRN 7323419, Delgado 2026] בשכפול בלתי תלוי של "Beat the Market" על נתוני TradeStation משנת 2000 עד 08/2026 התקבלה התוצאה המקורית כמעט בדיוק (1,989%, Sharpe 1.317). התקופה 05/2024 עד 29.08.2025 עדיין חיובית (19.3%, Sharpe 1.057). לעומת זאת, בתקופה 02.09.2025 עד 14.08.2026 התקבל **‎-8.1% עם Sharpe ‎-0.461**. PBO 38–41% ו-ledger של 129 ניסויים. בנוסף, [VERIFIED, github PazSheimy/spy-intraday-momentum-oos] בבדיקה מחוץ לדגימה (05/2024 עד 03/2026) התקבל Sharpe 0.39 ותשואה שנתית 4.8%, לעומת Sharpe 1.34 בתוך הדגימה. **המשמעות ל-I2: חובה לבדוק את 12 החודשים האחרונים של I2 שלנו מול המספרים האלה.**
+2. **ORB על Stocks in Play (SiP): יש ראיות בלתי תלויות שליליות וחזקות.** [VERIFIED, clockoutcapital.com, 23.10.2026] שכפול עם PREREG על 4,924 מניות (כולל 1,080 שנמחקו מהמסחר), נתוני Alpaca SIP, בתקופה 2016–2019: **כל הגרסאות מפסידות עוד לפני עלויות.** גרסת Top-20 RelVol: ‎-0.34R gross לעסקה ו-‎-0.80R נטו ב-2 סנט. רוב הסטופים (שלושה מכל ארבעה) נפגעים במרחק של 10%ATR, כלומר 9–11 סנט. [VERIFIED, quant4free.com] גם גרסת proxy על 20 מניות נזילות נכשלה: OOS ‎-72.95% ו-DSR 0. [VERIFIED, פוסט LinkedIn של P. Podhajsky] על Russell 3000 "ה-edge נעלם עם slippage ריאלי". [VERIFIED, המאמר עצמו] המאמר המקורי מניח עמלה בלבד, $0.0035 למניה, **בלי slippage**. מנגד, [VERIFIED, QuantConnect research 18444] שכפול של QuantConnect הראה Sharpe 2.396 על שנת 2016 בלבד. **מסקנה: ORB-SiP הוא עדיין העדיפות לפי ההנחיה, אבל ה-PREREG שלו בנוי כמבחן הכרעה זול עם kill מוקדם.**
+3. **איכות הנתונים קובעת את התוצאה.** [VERIFIED, Concretum "Backtesting Data Quality", 12.04.2026] אותו ORB עם אותו קוד הניב בין $226k ל-$726k, תלוי בספק הנתונים, במצב סטופ H/L. במצב סטופ ATR הפיזור קטן בהרבה. בנתוני IBKR שהורדו ב-2026 נמצאו מעל 350 מתוך 390 ברים "תקועים" ביום. ב-PREREG נחייב בדיקות phantom high/low, stale bars ו-early-close.
+4. **אף עבודה של Concretum לא מדווחת על ‎≥3.5% לחודש נטו עם DD ≤25% בלי מינוף או בלי slippage.** הנתונים הגבוהים ביותר הם ORB-SiP (IRR 41.6%, MDD 12%, בלי slippage), VWAP-TQQQ (116% לשנה, MDD 36.1%, בלי slippage) ו-ORB-TQQQ (48% לשנה, MDD 28%, בלי slippage). [VERIFIED בכל ה-PDF-ים]
+5. **רוב המחקר החדש מ-2025–2026 נמצא ב-Premium בתשלום**, כך שהחוקים UNKNOWN. הנושאים: Where to Trade Intraday Trends, Sector Mean-Reversion, Overnight short-sellers, 0DTE, Bitcoin intraday ועוד. רק הכותרות והמספרים מהתקציר הציבורי זמינים [OBSERVED מרשימת המאמרים].
+6. **אין עבודה של Concretum או Zarattini על זהב או על FX** בשום מקום שמצאתי [OBSERVED: עמודי papers, articles ו-coding, ו-SSRN]. במאמר Century of Industry Trends, ענף "Gold" הוא אחד מ-3 הענפים החלשים (Sharpe בסביבות 0.5, VERIFIED).
+
+## 1. טבלת מאמרים (Papers): כל העבודות מ-2023 ואילך בעמוד https://concretumgroup.com/papers/
+
+| # | עבודה (מחברים) | תאריך | חוקים בקצרה | תוצאות מדווחות | עלויות במקור | נתונים נדרשים | שכפול בלתי תלוי | רלוונטיות |
+|---|---|---|---|---|---|---|---|---|
+| P1 | Can Day Trading Really Be Profitable? (Zarattini, Aziz), SSRN 4416622 | First version 24.04.2023 [VERIFIED PDF] | הכיוון נקבע לפי נר 5 הדקות הראשון (doji = אין עסקה). כניסה בפתיחת נר ה-5m השני. סטופ בקצה הנגדי של הנר הראשון. יעד 10R או סוף היום. סיכון 1%, מינוף מקסימלי 4x [VERIFIED] | QQQ 2016 עד 02.2023: 676%, 33% לשנה, vol 29%, Sharpe 1.13, MDD 22%. TQQQ: 1,484%, 48%, vol 39%, Sharpe 1.19, MDD 28% [VERIFIED Table 2] | $0.0005 למניה. "We assumed no slippage" [VERIFIED] | QQQ/TQQQ ב-1m/5m | clockoutcapital: QQQ +0.08R נטו ב-1c, לא עבר את הרף, ונקודת האיזון סביב 2–2.2c. גרסת 5%ATR נכשלה ב-validation [VERIFIED]. github MK27MK/orb_paper_reproduction (WIP) [VERIFIED README]. github giovannibrusco/zarattini-2023-orb-qqq [OBSERVED, מצוטט ב-clockout] | מתואם ל-I2 (מגמה תוך-יומית במדד) ורגיש ל-slippage. לא מומלץ |
+| P2 | VWAP: The Holy Grail for Day Trading Systems (Zarattini, Aziz) | 13.11.2023 [VERIFIED PDF] | ב-9:31: לונג אם המחיר מעל VWAP, אחרת שורט. היפוך כשנר 1m נסגר מעבר ל-VWAP. סגירה בסוף היום. 100% מההון, בלי מינוף [VERIFIED] | 01.2018 עד 09.2023. QQQ: 671%, IRR 43%, vol 18%, Sharpe 2.1, MDD 9.4%. TQQQ: 8,242%, 116%, vol 54%, Sharpe 1.7, MDD 36.1% [VERIFIED] | "net of commissions"; גובה העמלה UNKNOWN (לא חילצתי). "we assumed no slippage" [VERIFIED] | 1m QQQ/TQQQ | UNKNOWN (לא חיפשתי לעומק) | עסקאות מרובות ביום עם סטופ של נר 1m. סביר שנכשל בתנאי median hold ≥15m [ASSUMED] ונחשף ל-slippage. לא מומלץ |
+| P3 | The Art of Financial Illusion (Martingale) (Zarattini, Aziz) | 03.04.2024 (תאריך העלאה לאתר) [VERIFIED] | מחקר על הונאות מרטינגייל. אין אסטרטגיה | — | — | — | — | רלוונטי רק כאזהרה לגבי גריד ומרטינגייל |
+| P4 | **A Profitable Day Trading Strategy For The U.S. Equity Market** (Zarattini, Barbon, Aziz), SSRN 4729284, SFI RP 24-98 | First version 16.02.2024 [VERIFIED PDF] | יקום: כל מניות NYSE ו-Nasdaq, בערך 7,000, נקי מ-survivorship (CRSP ו-IQFeed, intraday לא מותאם). פילטרים: Open>$5, נפח ממוצע 14 ימים ≥1M, ATR14>$0.50. RelVol = נפח 5 הדקות הראשונות חלקי ממוצע נפח 5 הדקות הראשונות ב-14 הימים הקודמים, ≥100%, ומסחר ב-Top-20 לפי RelVol. כיוון לפי נר ה-5m הראשון (doji = כלום). Stop order על High/Low של ה-OR. Stop-loss במרחק 10% מ-ATR14 ממחיר הכניסה. יציאה ב-16:00. גודל: 1% סיכון לעסקה, מינוף מקסימלי 4x [VERIFIED §2.1, §3, §4] | 2016–2023, $25k. Base: 29%, IRR 3.2%, Sharpe 0.48, MDD 13%. **ORB+RelVol: 1,637%, IRR 41.6%, vol 14.8%, Sharpe 2.81, hit 48.4% (יומי), MDD 12%, worst day ‎-1.61%, alpha 35.8%, beta 0.00.** 15m-ORB: 272%, 17.4%, Sharpe 1.43, MDD 11%. 30m: Sharpe 0.21, MDD 35%. 60m: Sharpe 0.40. COMBO: Sharpe 1.99, MDD 7%. ממוצע ‎-0.02R כש-RelVol<100%, ‎+0.08R כש-RelVol>100%, ‎+0.38R כש-RelVol>30x [VERIFIED Tables 1–3, Fig.4] | $0.0035 למניה בלבד. slippage לא מוזכר [VERIFIED: אין אזכור] | 1m/5m לכל היקום כולל מניות שנמחקו, ו-daily ל-ATR ולנפח | **שלילי:** clockout (2016–2019, 4,924 מניות: gross ‎-0.34R ב-Top-20) [VERIFIED]. quant4free (proxy של 20 מניות: OOS ‎-72.95%) [VERIFIED]. Podhajsky (R3000) [VERIFIED]. **חיובי:** QuantConnect, Sharpe 2.396 על 2016 בלבד [VERIFIED]. Reddit: שכפול עצמאי "rubbish" עד שעבר לקוד של QC [VERIFIED snippet] | **מועמד A (עדיפות לפי ההנחיה)**. יקום שונה מ-I2 ומ-C1 |
+| P5 | **Beat the Market: Intraday Momentum for SPY** (Zarattini, Aziz, Barbon), SSRN 4824172 | First version 10.05.2024 [VERIFIED] | Noise Area: σ(HH:MM) = ממוצע 14 ימים של ‎|Close(HH:MM)/Open−1|‎. UB = max(Open, PrevClose)×(1+σ), LB = min(Open, PrevClose)×(1−σ). החלטות רק ב-HH:00 וב-HH:30. לונג מעל UB ושורט מתחת ל-LB. Trailing stop: לונג max(UB, VWAP), שורט min(LB, VWAP). סגירה בסוף היום. Vol target יומי 2%, מינוף מקסימלי 4x [VERIFIED] | 2007 עד תחילת 2024: 1,985%, IRR 19.6%, vol 14.3%, Sharpe 1.33, hit 43%, MDD 25%, beta ‎-0.07 [VERIFIED Table 3] | $0.0035 למניה ו-slippage של $0.001 למניה [VERIFIED] | SPY 1m | Delgado SSRN 7323419: שוחזר, אבל 09.2025 עד 08.2026: ‎-8.1%, Sharpe ‎-0.461 [VERIFIED abstract]. PazSheimy: OOS Sharpe 0.39 [VERIFIED]. QuantConnect forum 17091 "no where near as impressive" [VERIFIED] | **זהו מקור I2.** יש לבדוק שחיקה |
+| P6 | A Century of Profitable Industry Trends (Zarattini, Antonacci), SSRN 4857230. Dow Award 2025 | 07.06.2024 [VERIFIED] | Long-only trend על 48 תיקי ענפים (Ken French), ו-31 תעודות סל של SPDR ב-20 השנים האחרונות. חוקים מלאים: UNKNOWN (לא חולצו, מופיעים ב-PDF) | 1926–2024: IRR 18.2%, vol 12.6%, Sharpe 1.39, MDD 33%, alpha 10.9%, beta 0.5 (gross: "do not include commissions and slippage") [VERIFIED] | בטבלה הראשית gross. ניתוח עלויות נפרד: UNKNOWN | יומי, ETF | קוד Python ו-MATLAB של המחברים בעמוד coding [VERIFIED]. שכפול חיצוני: UNKNOWN | תשואה כ-1.4% לחודש ו-MDD 33%: לא עובר את הרף |
+| P7 | The Power of Price Action Reading (Zarattini, Stamatoudis) | 28.06.2024 [VERIFIED] | גאפים של לילה (9,794 אירועים, 2016–2023). 6 כללים שיטתיים: Open, ORB, Pos OR, Trailing SMA10, יעדים [VERIFIED] | כל הכללים השיטתיים "remains unprofitable" או "not sufficiently". הסוחר הדיסקרטיוני: CAGR 59.1%, Sharpe 1.7, MDD 35%, $0.01 למניה [VERIFIED] | $0.01 למניה | — | — | התשואה דיסקרטיונית ולא ניתנת לשכפול. נדחה |
+| P8 | Does Trend-Following Still Work on Stocks? (Zarattini, Pagani, Wilcox), SSRN 5084316 | 06.01.2025 [VERIFIED] | Long-only trend על מניות אמריקאיות נזילות מ-1950. Turnover Control. פרטים: UNKNOWN (לא חולצו) | Theoretical: CAGR 15.02%, Sharpe 0.85, MDD 31.75% (1991–2024). נטו ב-$0.1M: CAGR 2.45%. עם TC ב-$0.1M: 12.97%, Sharpe 0.75, MDD 32.97% [VERIFIED Tables 2–3] | עלויות, slippage וריבית לפי AUM [VERIFIED] | יומי, יקום מלא (Norgate) | UNKNOWN | נמוך מדי וה-DD גבוה. נדחה |
+| P9 | Catching Crypto Trends (Zarattini, Pagani, Barbon), SSRN 5209907 | 08.04.2025 [VERIFIED] | אנסמבל Donchian עם lookbacks שונים ו-vol targeting של 25% (3 חודשים) [VERIFIED] | BTC Combo 2015 עד 03.2025: Sharpe 1.58, Sortino 2.03, MDD 19%, alpha 14% (בלי עלויות). Top-20 rotational: Sharpe מעל 1.5 נטו, alpha 10.8% [VERIFIED] | בטבלה 1 בלי עלויות. ניתוח עלויות ב-§ נפרד | יומי, CoinMarketCap | — | **זהו C1 (כבר אצלנו)** |
+| P10 | GTAA: Updated Results (Gabriel, Pagani, Zarattini), SSRN 5230603 | 25.04.2025 (באתר 19.06.2026) [VERIFIED] | Faber 10-month SMA, tranching [VERIFIED] | 2006 עד 03.2025: Sharpe 0.68, CAGR 6.05%, MDD 11.7% [VERIFIED] | — | חודשי | — | נמוך. נדחה |
+| P11 | The Volatility Edge: VIX ETNs (Zarattini, Aziz, Mele) | First version 23.06.2025 [VERIFIED] | eVRP = VIX(15:45) − std10d(SPY)×√252×100. BoC: VIX<VIX3M. S3: SHORT-vol 20% אם eVRP>0 ו-VIX<VIX3M; 10% אם eVRP≤0 ו-VIX<VIX3M; LONG-vol 20% אם eVRP≤0 ו-VIX>VIX3M. S4: גודל = VIX%. רף איזון מחדש ±2%, MOC [VERIFIED Table 2] | 2008–2025. S3: CAGR 10.5%, Sharpe 0.87, MDD ‎-15.2%, ρ(SPX) 35.4%. S4: CAGR 16.3%, Sharpe 1.00, MDD ‎-31.0%, ρ 14.8% [VERIFIED] | 5bps לעסקה, ו-proxies עם עמלות של 50 ו-80 bps לשנה [VERIFIED] | VIX, VIX3M, SPY 1m, ואינדקסי SPVXSP | UNKNOWN | כ-0.9–1.3% לחודש. סיכון יום קריסה (Volmageddon) [ASSUMED]. נדחה כ-B |
+| P12 | ChatGPT in Systematic Investing (Anic, Barbon, Seiz, Zarattini) | 30.10.2025 [VERIFIED] | מומנטום S&P500 עם ציון חדשות מ-LLM [VERIFIED] | Sharpe 0.57 מול 0.69 (מלא). 0.79 מול 1.06 (טבלה נוספת), עלויות 2bps [VERIFIED] | 2bps | חדשות בתדירות גבוהה | — | נמוך ודורש נתוני חדשות. נדחה |
+| P13 | The Tranching Dilemma (Zarattini, Pagani) | 14.11.2025 [VERIFIED] | Rebalance timing luck [VERIFIED] | פער של כ-350bps בין לוחות זמנים לאיזון מחדש [VERIFIED] | — | — | — | מתודולוגי בלבד |
+| P14 | QuanTip: Fast Alphas, a Tactical Overlay (Pagani, Zarattini) | 02.2026 [VERIFIED] | בסיס: Kaufman bands, Open ± ½ATR14, החלטות ב-HH:00/15/30/45, סטופ במחיר הפתיחה, vol target יומי 2%. Overlay: עיכוב כניסה ויציאה עד נר 5m נגדי אחד [VERIFIED] | SPY 2007–2026. בסיס: CAGR מעל 13%, Sharpe בערך 0.87. עם overlay: כ-200bps יותר ו-Sharpe 0.99 [VERIFIED] | $0.0035 למניה ועמלות SEC כפולות, בלי slippage [VERIFIED] | SPY 5m | — | שיפור ביצוע אפשרי ל-I2 (רכיב). תוספת קטנה |
+| P15 | NextVoL White Paper (Distaso, Mele, Zarattini) | 15.04.2026 (באתר 21.04) [VERIFIED] | Vol targeting של 10% על SPY | Sharpe 0.79, CAGR 8.31% (2008–2025) [VERIFIED] | — | — | — | overlay בלבד |
+
+- SSRN IDs נוספים בעמוד המאמרים שלא מיפיתי לכותרת: 4631351, 4678427, 4879527, 5316487, 5680782, 5747964, 6391638. **המיפוי UNKNOWN** (SSRN חסום מה-box).
+- arXiv: לא נמצאה עבודה של Zarattini [OBSERVED בחיפוש]. Google Scholar: לא נגיש ישירות. UNKNOWN.
+
+## 2. מאמרים קצרים (Articles) ב-https://concretumgroup.com/articles/ מ-10.2024 עד 11.2026 (התאריכים לפי עמוד הרשימה [VERIFIED])
+
+החוקים המלאים נמצאים ב-Premium בתשלום (UNKNOWN), אלא אם צוין FREE. המספרים לקוחים מהתקציר הציבורי ברשימה [OBSERVED].
+
+| תאריך | כותרת | מספרים מהתקציר | סטטוס |
+|---|---|---|---|
+| 16.11.2026 | Bitcoin Intraday Momentum | "the best session compounded at…" (המספר חסום) | Premium. UNKNOWN |
+| 06.11.2026 | Trend Following on Coin Flips | כ-1.8 מיליון עסקאות אקראיות, "even after trading costs" | UNKNOWN |
+| 31.10.2026 | A Simple Long-Short Trade (SPY מול IWM) | 9.8% לשנה, Sharpe 0.79, gross, 2005–2026 | נמוך |
+| 23.10.2026 | Following the Trend… With ETFs (Clenow) | ρ(S&P) ‎-0.20 [OBSERVED LinkedIn] | UNKNOWN |
+| 03.10.2026 | Can Rebalancing Flows Enhance Intraday Trend Trading? | — | UNKNOWN |
+| 25.09.2026 | Intraday Trend Following With 0DTE Options | בסיס SPY 2007 עד 08.2026: CAGR 20.8% נטו, Sharpe 1.20, alpha 23.5% [VERIFIED בעמוד] | Premium |
+| 18.09.2026 | Can We Exploit Predictable Institutional Flows? | 11.2002 עד 08.2026: Sharpe 1.33 נטו, CAGR 10.6% | UNKNOWN |
+| 12.09.2026 | How to Generate Alpha From Rebalancing Flows | CAGR 7.3%, Sharpe כ-1 | נמוך |
+| 04.09.2026 | Build Your Own ETF Trend Portfolio | 7.7% לשנה, Sharpe 1.13, MDD 8.8% נטו (2016–2026) | נמוך |
+| 19.08.2026 | **Where To Trade Intraday Trends** | 49 ETFs, walk-forward ranking. Top-4: Sharpe בערך 1.2, CAGR 12%, MDD 13% | Premium. **בסיס ל-B** |
+| 07.08.2026 | The Intraday Seasonality of Market Trends | בעבר השעה האחרונה הניבה כ-60% מרווחי המגמה. **מאז 2023 יש יותר היפוכים בסוף היום** | חשוב ל-I2 |
+| 22.07.2026 | Can VIX Improve Intraday Trend Following? | — | UNKNOWN |
+| 11.07.2026 | A Mean-Reversion Model for US Sectors | 06.2018 עד 07.2026: 18.5% לשנה נטו, Sharpe 1.33, MDD 14.7%, חשיפה ממוצעת 58% | Premium. מועמד עתידי (משפחה שונה) |
+| 08.07.2026 | Improving the ORB Strategy on SPY | — | UNKNOWN |
+| 25.06.2026 | A Profitable Strategy for Short-Term Traders (SPY ו-VIX bursts) | 2007–2026: 10.8% לשנה נטו, בשוק רק 14% מהימים | נמוך |
+| 20.06.2026 | Should You Trade Thin Stocks? | — | UNKNOWN |
+| 17.06.2026 | Exploiting the Overnight Risk Premium | — | UNKNOWN |
+| 30.05.2026 | When Short Sellers Create Overnight Alpha | 2012–2026: CAGR 37.1%, Sharpe 1.6 (**gross**) | Premium. החוקים UNKNOWN. מועמד עתידי |
+| 23.05.2026 | Identifying Stocks to Fade (גאפים קיצוניים, שורט) | "signal deterioration since 2022" | שחיקה |
+| 12.04.2026 | Backtesting Data Quality | $226k עד $726k לפי ספק הנתונים [VERIFIED FREE] | חובה ל-PREREG |
+| 30.01.2026 | Seasonality in Bitcoin Intraday Trend | 2018–2025: Sharpe gross בערך 1.6. "Monday Asia Open Effect" [VERIFIED FREE] | רלוונטי ל-C1/קריפטו |
+| 2024–2025 | Position sizing, Opportunity-set bias, Execution delays ועוד | מתודולוגיה | — |
+
+**קוד חינמי** [VERIFIED, https://concretumgroup.com/coding/]: "ORB Strategy Backtest in Python Using Alpaca (10+ Years of Free Data)" (Colab, Alpaca SIP 1m מ-2016. מחברת ל-ORB על סימבול יחיד, עם מצבי סטופ H/L או ATR, וסינון early-close). ORB עם Polygon. "Designing a Profitable Intraday Strategy Using Python and Alpaca" (Beat the Market). MATLAB ל-Beat the Market. Trend industry ב-Python. Crypto dataset.
+
+## 3. דירוג לבחירת PREREG
+
+| מועמד | ניתן לבדיקה? | פוטנציאל מול הרף | מתאם ל-I2/C1 | ראיות חיצוניות | החלטה |
+|---|---|---|---|---|---|
+| P4 ORB-SiP | כן: Alpaca SIP חינמי מ-2016 [VERIFIED], אבל יקום עם מניות שנמחקו דורש עבודה | IRR 41.6% מדווח, כלומר כ-2.9% לחודש, בלי slippage | נמוך: beta 0.00 [VERIFIED] ויקום שונה | שליליות חזקות (3) מול חיובית חלקית (1) | **A: מבחן הכרעה** |
+| Where-to-Trade, multi-ETF Noise-Area | כן: מנוע P5 ציבורי ומאומת. כלל הבחירה חסום ולכן מוגדר מראש על ידינו (ASSUMED) | Top-4: Sharpe 1.2, CAGR 12%, MDD 13% (לפני מינוף) | בינוני: אותו מנוע, שווקים שונים (GLD, TLT, XLE, EEM…) | מנוע P5 משוכפל. השחיקה ב-SPY מאז 09.2025 מחייבת פיזור | **B** |
+| P11 VIX ETN | כן | כ-1% לחודש | נמוך | אין | נדחה: תשואה נמוכה ו-crash-day |
+| Sector MR, Overnight short-sellers | לא: החוקים בתשלום | גבוה (37.1% gross) | נמוך | אין | ממתין להחלטת נדב על רכישה (אין רכישה בלי אישור) |
+
+אין המלצת מסחר, ההחלטה של נדב.

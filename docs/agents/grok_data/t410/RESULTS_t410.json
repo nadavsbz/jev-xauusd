@@ -1,0 +1,107 @@
+{
+  "task": "t410",
+  "seed": 410,
+  "B": 2000,
+  "qs": [
+    4,
+    12,
+    28
+  ],
+  "years": [
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "server_tz": "Europe/Athens",
+  "cost_screen": {
+    "XAUUSD": {
+      "ref_price": 1954.3,
+      "half_spread_bp": 0.7931,
+      "comm_side_bp": 0.0,
+      "EffectiveCostSide_bp": 0.7931,
+      "excluded": false
+    },
+    "XAGUSD": {
+      "ref_price": 25.024,
+      "half_spread_bp": 2.3977,
+      "comm_side_bp": 0.2,
+      "EffectiveCostSide_bp": 2.5977,
+      "excluded": true
+    },
+    ".USTECHCash": {
+      "ref_price": null,
+      "half_spread_bp": 0.27,
+      "comm_side_bp": 0.0,
+      "EffectiveCostSide_bp": 0.27,
+      "excluded": false
+    },
+    ".DE40Cash": {
+      "ref_price": null,
+      "half_spread_bp": 0.42,
+      "comm_side_bp": 0.0,
+      "EffectiveCostSide_bp": 0.42,
+      "excluded": false
+    },
+    "BRENT": {
+      "ref_price": null,
+      "half_spread_bp": 1.9166,
+      "comm_side_bp": 0.0,
+      "EffectiveCostSide_bp": 1.9166,
+      "excluded": false
+    }
+  },
+  "cost_pass": [
+    "XAUUSD",
+    ".USTECHCash",
+    ".DE40Cash",
+    "BRENT"
+  ],
+  "controls": {
+    "BTCUSD": {
+      "n_h6": 7304,
+      "first": "2021-01-01 00:00:00+00:00",
+      "last": "2025-12-31 18:00:00+00:00",
+      "VR4": 0.9836458977269279,
+      "VR12": 0.9714795236285386,
+      "VR28": 0.9529202619296393,
+      "TP": 0.9714795236285386,
+      "VR12_by_year": {
+        "2021": 0.9034461711648143,
+        "2022": 1.0526119112751977,
+        "2023": 1.231159365559827,
+        "2024": 0.9783397450030997,
+        "2025": 0.8318376540888712
+      },
+      "years_VR12_gt1": 2,
+      "n_weeks": 262,
+      "TP_lo95_onesided": 0.8577546660271401,
+      "p_boot_TP_le_1": 0.8535732133933034,
+      "screen_pass": false
+    },
+    "ETHUSD": {
+      "n_h6": 7304,
+      "first": "2021-01-01 00:00:00+00:00",
+      "last": "2025-12-31 18:00:00+00:00",
+      "VR4": 1.0362694353106243,
+      "VR12": 1.0188325103387827,
+      "VR28": 0.9602477329039308,
+      "TP": 1.0188325103387827,
+      "VR12_by_year": {
+        "2021": 0.9529362499656495,
+        "2022": 0.9962855746235547,
+        "2023": 0.950345709588108,
+        "2024": 1.0522409994606348,
+        "2025": 0.9367452572058605
+      },
+      "years_VR12_gt1": 1,
+      "n_weeks": 262,
+      "TP_lo95_onesided": 0.9039293962508408,
+      "p_boot_TP_le_1": 0.463768115942029,
+      "screen_pass": false
+    }
+  },
+  "verdict": "INVALID_METRIC_CONTROL_FAIL",
+  "tests": "NOT_COMPUTED"
+}

@@ -1,0 +1,60 @@
+{
+ "job": {
+  "report": "bull47opt_oferxm_w2",
+  "base_set": "ofer_xm_20261118.set",
+  "fixed": {
+   "InpLotSize": "0.1"
+  },
+  "ranges": {
+   "InpMagicNumber": [
+    110,
+    1,
+    111
+   ]
+  },
+  "name": "Robo ECN demo",
+  "expert": "Market\\EA Bull Scalper.ex5",
+  "symbol": ".USTECHCash",
+  "period": "H1",
+  "deposit": 5000,
+  "leverage": 33,
+  "from": "2022.04.01",
+  "to": "2022.05.31"
+ },
+ "files": {
+  "ea_sha256": "fdfac1227a53794bc1dd4fa88591657dfdbc82f2d02dfc0ca46025679b0a4f05",
+  "set_sha256": "662d4fc0958821e23d7fbf116de8c6110379a2c9c9aca7ff23a93f3cd704bca7"
+ },
+ "report_file": "bull47opt_oferxm_w2.xml",
+ "passes": [
+  {
+   "Pass": "1",
+   "Result": "266.01",
+   "Profit": "-4733.99",
+   "Expected Payoff": "-16.268007",
+   "Profit Factor": "0.019659",
+   "Recovery Factor": "-0.969440",
+   "Sharpe Ratio": "-5.000000",
+   "Custom": "0",
+   "Equity DD %": "94.8340",
+   "Trades": "291",
+   "InpMagicNumber": "111"
+  },
+  {
+   "Pass": "0",
+   "Result": "266.01",
+   "Profit": "-4733.99",
+   "Expected Payoff": "-16.268007",
+   "Profit Factor": "0.019659",
+   "Recovery Factor": "-0.969440",
+   "Sharpe Ratio": "-5.000000",
+   "Custom": "0",
+   "Equity DD %": "94.8340",
+   "Trades": "291",
+   "InpMagicNumber": "110"
+  }
+ ],
+ "fixed_as_columns": [],
+ "combinations_expected": 2,
+ "combinations_found": 2
+}

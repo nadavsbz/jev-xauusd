@@ -1,0 +1,450 @@
+[
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2020.01.01",
+  "to": "2021.01.01",
+  "report": "imr_ustechcash_2020",
+  "overrides": {
+   "DecideHHMM": "2245"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".US500Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2020.01.01",
+  "to": "2021.01.01",
+  "report": "imr_us500cash_2020",
+  "overrides": {
+   "DecideHHMM": "2245"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".DE40Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2020.01.01",
+  "to": "2021.01.01",
+  "report": "imr_de40cash_2020",
+  "overrides": {
+   "DecideHHMM": "1815"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".JP225Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2020.01.01",
+  "to": "2021.01.01",
+  "report": "imr_jp225cash_2020",
+  "overrides": {
+   "DecideHHMM": "0745"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2021.01.01",
+  "to": "2022.01.01",
+  "report": "imr_ustechcash_2021",
+  "overrides": {
+   "DecideHHMM": "2245"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".US500Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2021.01.01",
+  "to": "2022.01.01",
+  "report": "imr_us500cash_2021",
+  "overrides": {
+   "DecideHHMM": "2245"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".DE40Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2021.01.01",
+  "to": "2022.01.01",
+  "report": "imr_de40cash_2021",
+  "overrides": {
+   "DecideHHMM": "1815"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".JP225Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2021.01.01",
+  "to": "2022.01.01",
+  "report": "imr_jp225cash_2021",
+  "overrides": {
+   "DecideHHMM": "0745"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2022.01.01",
+  "to": "2023.01.01",
+  "report": "imr_ustechcash_2022",
+  "overrides": {
+   "DecideHHMM": "2245"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".US500Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2022.01.01",
+  "to": "2023.01.01",
+  "report": "imr_us500cash_2022",
+  "overrides": {
+   "DecideHHMM": "2245"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".DE40Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2022.01.01",
+  "to": "2023.01.01",
+  "report": "imr_de40cash_2022",
+  "overrides": {
+   "DecideHHMM": "1815"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".JP225Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2022.01.01",
+  "to": "2023.01.01",
+  "report": "imr_jp225cash_2022",
+  "overrides": {
+   "DecideHHMM": "0745"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2023.01.01",
+  "to": "2024.01.01",
+  "report": "imr_ustechcash_2023",
+  "overrides": {
+   "DecideHHMM": "2245"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".US500Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2023.01.01",
+  "to": "2024.01.01",
+  "report": "imr_us500cash_2023",
+  "overrides": {
+   "DecideHHMM": "2245"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".DE40Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2023.01.01",
+  "to": "2024.01.01",
+  "report": "imr_de40cash_2023",
+  "overrides": {
+   "DecideHHMM": "1815"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".JP225Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2023.01.01",
+  "to": "2024.01.01",
+  "report": "imr_jp225cash_2023",
+  "overrides": {
+   "DecideHHMM": "0745"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2024.01.01",
+  "to": "2025.01.01",
+  "report": "imr_ustechcash_2024",
+  "overrides": {
+   "DecideHHMM": "2245"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".US500Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2024.01.01",
+  "to": "2025.01.01",
+  "report": "imr_us500cash_2024",
+  "overrides": {
+   "DecideHHMM": "2245"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".DE40Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2024.01.01",
+  "to": "2025.01.01",
+  "report": "imr_de40cash_2024",
+  "overrides": {
+   "DecideHHMM": "1815"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".JP225Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2024.01.01",
+  "to": "2025.01.01",
+  "report": "imr_jp225cash_2024",
+  "overrides": {
+   "DecideHHMM": "0745"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2025.01.01",
+  "to": "2026.01.01",
+  "report": "imr_ustechcash_2025",
+  "overrides": {
+   "DecideHHMM": "2245"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".US500Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2025.01.01",
+  "to": "2026.01.01",
+  "report": "imr_us500cash_2025",
+  "overrides": {
+   "DecideHHMM": "2245"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".DE40Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2025.01.01",
+  "to": "2026.01.01",
+  "report": "imr_de40cash_2025",
+  "overrides": {
+   "DecideHHMM": "1815"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".JP225Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2025.01.01",
+  "to": "2026.01.01",
+  "report": "imr_jp225cash_2025",
+  "overrides": {
+   "DecideHHMM": "0745"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2026.01.01",
+  "to": "2026.10.30",
+  "report": "imr_ustechcash_2026",
+  "overrides": {
+   "DecideHHMM": "2245"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".US500Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2026.01.01",
+  "to": "2026.10.30",
+  "report": "imr_us500cash_2026",
+  "overrides": {
+   "DecideHHMM": "2245"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".DE40Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2026.01.01",
+  "to": "2026.10.30",
+  "report": "imr_de40cash_2026",
+  "overrides": {
+   "DecideHHMM": "1815"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".JP225Cash",
+  "period": "M15",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "imr.set",
+  "expert": "Jev\\IndexMR.ex5",
+  "model": 4,
+  "from": "2026.01.01",
+  "to": "2026.10.30",
+  "report": "imr_jp225cash_2026",
+  "overrides": {
+   "DecideHHMM": "0745"
+  }
+ }
+]

@@ -1,0 +1,20 @@
+question,metric,value,extra
+Q1,shared_day_groups,10,"events_in=34; same_set=6; same_set_tf=6; same_set_tf_lot=2; n_acc_dist={2: np.int64(2), 3: np.int64(4), 4: np.int64(3), 6: np.int64(1)}"
+Q1,shared_hour_groups,9,"events_in=26; same_set=8; same_set_tf=8; same_set_tf_lot=4; n_acc_dist={2: np.int64(6), 4: np.int64(2), 6: np.int64(1)}"
+Q1,shared_cluster60_groups,9,"events_in=28; same_set=8; same_set_tf=8; same_set_tf_lot=4; n_acc_dist={2: np.int64(4), 3: np.int64(2), 4: np.int64(2), 6: np.int64(1)}"
+Q2,MIXED_desc,,"{""days"": 94, ""weeks"": 19, ""shared_days"": 9, ""event_days"": 25, ""events"": 48, ""acc_days"": 641, ""mean_active"": 6.82}"
+Q2,LARS_ALL_desc,,"{""days"": 47, ""weeks"": 11, ""shared_days"": 1, ""event_days"": 6, ""events"": 9, ""acc_days"": 276, ""mean_active"": 5.87}"
+Q2,R1_MIXED,0.0957,
+Q2,R1_LARS_ALL,0.0213,
+Q2,R1_diff_MIXED_minus_LARS,0.0745,"CI95=[0.0047,0.1383]; n_valid=10000; frac_boot<=0=0.018"
+Q2,R2_MIXED,0.36,
+Q2,R2_LARS_ALL,0.1667,
+Q2,R2_diff_MIXED_minus_LARS,0.1933,"CI95=[-0.1250,0.5000]; n_valid=9923; frac_boot<=0=0.114"
+Q2,R3_MIXED,0.0749,
+Q2,R3_LARS_ALL,0.0326,
+Q2,R3_diff_MIXED_minus_LARS,0.0423,"CI95=[-0.0047,0.0877]; n_valid=10000; frac_boot<=0=0.040"
+Q3,days_>=3_accounts,5277.36,"{""n_days"": 8, ""n_ev"": 30, ""prot_loss_usd"": 5277.36, ""share"": 0.4972, ""lossmoney_usd"": 5201.64, ""share_lossmoney"": 0.4968}"
+Q3,days_==2_accounts,703.99,"{""n_days"": 2, ""n_ev"": 4, ""prot_loss_usd"": 703.99, ""share"": 0.0663, ""lossmoney_usd"": 727.9, ""share_lossmoney"": 0.0695}"
+Q3,days_>=2_accounts,5981.35,"{""n_days"": 10, ""n_ev"": 34, ""prot_loss_usd"": 5981.35, ""share"": 0.5636, ""lossmoney_usd"": 5929.54, ""share_lossmoney"": 0.5663}"
+Q3,days_==1_accounts,4631.78,"{""n_days"": 23, ""n_ev"": 25, ""prot_loss_usd"": 4631.78, ""share"": 0.4364, ""lossmoney_usd"": 4540.67, ""share_lossmoney"": 0.4337}"
+Q3,total_prot_loss_usd,10613.13,lossmoney_total_usd=10470.21; n_events=59

@@ -1,0 +1,369 @@
+{
+ "mode": "ADAPTED",
+ "inputs": {
+  "summary.json": "2c235c5456be871b5c78f80cb18d9f7546e67ce5bb4b64a583ccb248e4a52d47",
+  "t405_c1_DE40.csv": "d6d46a44c666ec0e5f307a865204d50494dee2a52c9c2a0a4f953d79c0883c40",
+  "t405_c1_US500.csv": "23195075e0309c0d9d07af714ee85cfb43bb02d615e92a290ae389792a316f60",
+  "t405_c1_USTECH.csv": "1daa6a06699a01b59795b477b3651d30198c41193b1f98125f5e90ba33a4a601",
+  "t405_c1_XAUUSD.csv": "49e2ed2b211f3609d14caa2c36cb62966418ff842f72171f2d1ee4e43fc09067",
+  "t405_i2_EURUSD_ldn_2020.csv": "692d689c5d321736d158572ac41262013e2e523f2ebb5fa3e06ef734ee96de5d",
+  "t405_i2_EURUSD_ldn_2021.csv": "b5d982cd0b3cb2ecb9c1c5354a7220fdd3711df7279f4cd965522b4c405575d3",
+  "t405_i2_EURUSD_ldn_2022.csv": "0eab5857f31cdb790d321a1db8bc7d0c2c5e8aa9bff9d769bf8934b09f59f5b3",
+  "t405_i2_EURUSD_ldn_2023.csv": "3527218d798b1fea73f016a3616eeb15ee52b66db0e83ff5b219619e2272e163",
+  "t405_i2_EURUSD_ldn_2024.csv": "b213f9c41c08bed57a268c197525798722eac63d1770d2d69e80c5590ae9b146",
+  "t405_i2_EURUSD_ldn_2025.csv": "f36e7acf1e2a8d5a31f55621d40309c100cb90b1252db73c3885da6c1f1bc910",
+  "t405_i2_EURUSD_ldn_2026.csv": "44611646145775efb5264f705170eb8c4f4fcf02ac67e6ef31aefc74319f7b75",
+  "t405_i2_EURUSD_ny_2020.csv": "b7a9194f97796dba1d2699c71f95aa435a4329784fa53f9499dd4cdb0b7de838",
+  "t405_i2_EURUSD_ny_2021.csv": "da8ce4c0d0adbc4fc7633f366bb0949cc8c24c1cb0c879874c936c17f126fa20",
+  "t405_i2_EURUSD_ny_2022.csv": "300d3032d814444a6acbdf116bd3f918e4d1329db5348381a32d8712fa9ac575",
+  "t405_i2_EURUSD_ny_2023.csv": "f73a55361b811b7f317f8af7f9c8709e2eb5fbef378b45a1738e71fa3376c09d",
+  "t405_i2_EURUSD_ny_2024.csv": "b6e129dc7d056f392e4bb7bf59db39c0287ac9b249f5d29376c4b30245b32094",
+  "t405_i2_EURUSD_ny_2025.csv": "5a63cc8c8719ce1a1abc41ec1182adeca351c6c44bdcaf6085b68c1b268a6d98",
+  "t405_i2_EURUSD_ny_2026.csv": "76de9f7fc074e0801bcbc10732264bb9ce369618f4dd5dac5977160c4e4e53c9",
+  "t405_i2_GBPUSD_ldn_2020.csv": "ecfc9aff1fca9f83e28350862bac69678c1063902bcc6a5664ff93b2a8c276fe",
+  "t405_i2_GBPUSD_ldn_2021.csv": "d6876717aa4a4b415861cbf19b835234c9c9bbb79fed231cc9177d51e3c50103",
+  "t405_i2_GBPUSD_ldn_2022.csv": "e5b3ea380e685e378aaacd951273b1be8c112ba0064e5442d36cbfdd4152f17a",
+  "t405_i2_GBPUSD_ldn_2023.csv": "f5ee8975b498e80ddc7f59f958fa78bc03ee56f5f0deee2d90ef2445c0037c7b",
+  "t405_i2_GBPUSD_ldn_2024.csv": "497c474266d9aa38e0fa511ca7ab32a82e01bbe82c1b0dafa9ec586f4550fdec",
+  "t405_i2_GBPUSD_ldn_2025.csv": "6a1978b140146e065d23f1e294c2e8a515e55eec8d930a5d0920fd169b339ac2",
+  "t405_i2_GBPUSD_ldn_2026.csv": "a0d1f3df2b75d411c925949e19eed22c1d9b3e1ec70aff653c64307c60560089",
+  "t405_i2_GBPUSD_ny_2020.csv": "cdcee56741e3405b5a7712fa68ee4b94330fd3eab2bab33990b5281ec3b8f6de",
+  "t405_i2_GBPUSD_ny_2021.csv": "ae014b488391081e282040ac86369de391f11c0213dbffce94bd91e4d08ca0e9",
+  "t405_i2_GBPUSD_ny_2022.csv": "e5560e7b675722eee5cca1013104be94c2e546caaf196fbd6f378a1e88455a06",
+  "t405_i2_GBPUSD_ny_2023.csv": "a7a97d609c1aef57ff0ae8b5dc53743b40c7fdf51a78d59617add78d98101e04",
+  "t405_i2_GBPUSD_ny_2024.csv": "dee6b85c97b5c6c1648bfc4b1c7398f16294fd1ddfc3403b587773f13d585c68",
+  "t405_i2_GBPUSD_ny_2025.csv": "5fd92c7160b7abfa398c74df2154a53cb3133677244acbbf6d36a1c105935b94",
+  "t405_i2_GBPUSD_ny_2026.csv": "9098d5d3bc9b755606d3e165fe5032fb12d5cfcfc407fd622bba06a3d3ddf8bf"
+ },
+ "renames": [
+  [
+   "t405_c1_DE40.csv",
+   "deals_DE40_2020_2026.csv"
+  ],
+  [
+   "t405_c1_US500.csv",
+   "deals_US500_2020_2026.csv"
+  ],
+  [
+   "t405_c1_USTECH.csv",
+   "deals_USTECH_2020_2026.csv"
+  ],
+  [
+   "t405_c1_XAUUSD.csv",
+   "deals_XAUUSD_2020_2026.csv"
+  ],
+  [
+   "t405_i2_EURUSD_ldn_2020.csv",
+   "deals_EURUSD_LDN_2020.csv"
+  ],
+  [
+   "t405_i2_EURUSD_ldn_2021.csv",
+   "deals_EURUSD_LDN_2021.csv"
+  ],
+  [
+   "t405_i2_EURUSD_ldn_2022.csv",
+   "deals_EURUSD_LDN_2022.csv"
+  ],
+  [
+   "t405_i2_EURUSD_ldn_2023.csv",
+   "deals_EURUSD_LDN_2023.csv"
+  ],
+  [
+   "t405_i2_EURUSD_ldn_2024.csv",
+   "deals_EURUSD_LDN_2024.csv"
+  ],
+  [
+   "t405_i2_EURUSD_ldn_2025.csv",
+   "deals_EURUSD_LDN_2025.csv"
+  ],
+  [
+   "t405_i2_EURUSD_ldn_2026.csv",
+   "deals_EURUSD_LDN_2026.csv"
+  ],
+  [
+   "t405_i2_EURUSD_ny_2020.csv",
+   "deals_EURUSD_NY_2020.csv"
+  ],
+  [
+   "t405_i2_EURUSD_ny_2021.csv",
+   "deals_EURUSD_NY_2021.csv"
+  ],
+  [
+   "t405_i2_EURUSD_ny_2022.csv",
+   "deals_EURUSD_NY_2022.csv"
+  ],
+  [
+   "t405_i2_EURUSD_ny_2023.csv",
+   "deals_EURUSD_NY_2023.csv"
+  ],
+  [
+   "t405_i2_EURUSD_ny_2024.csv",
+   "deals_EURUSD_NY_2024.csv"
+  ],
+  [
+   "t405_i2_EURUSD_ny_2025.csv",
+   "deals_EURUSD_NY_2025.csv"
+  ],
+  [
+   "t405_i2_EURUSD_ny_2026.csv",
+   "deals_EURUSD_NY_2026.csv"
+  ],
+  [
+   "t405_i2_GBPUSD_ldn_2020.csv",
+   "deals_GBPUSD_LDN_2020.csv"
+  ],
+  [
+   "t405_i2_GBPUSD_ldn_2021.csv",
+   "deals_GBPUSD_LDN_2021.csv"
+  ],
+  [
+   "t405_i2_GBPUSD_ldn_2022.csv",
+   "deals_GBPUSD_LDN_2022.csv"
+  ],
+  [
+   "t405_i2_GBPUSD_ldn_2023.csv",
+   "deals_GBPUSD_LDN_2023.csv"
+  ],
+  [
+   "t405_i2_GBPUSD_ldn_2024.csv",
+   "deals_GBPUSD_LDN_2024.csv"
+  ],
+  [
+   "t405_i2_GBPUSD_ldn_2025.csv",
+   "deals_GBPUSD_LDN_2025.csv"
+  ],
+  [
+   "t405_i2_GBPUSD_ldn_2026.csv",
+   "deals_GBPUSD_LDN_2026.csv"
+  ],
+  [
+   "t405_i2_GBPUSD_ny_2020.csv",
+   "deals_GBPUSD_NY_2020.csv"
+  ],
+  [
+   "t405_i2_GBPUSD_ny_2021.csv",
+   "deals_GBPUSD_NY_2021.csv"
+  ],
+  [
+   "t405_i2_GBPUSD_ny_2022.csv",
+   "deals_GBPUSD_NY_2022.csv"
+  ],
+  [
+   "t405_i2_GBPUSD_ny_2023.csv",
+   "deals_GBPUSD_NY_2023.csv"
+  ],
+  [
+   "t405_i2_GBPUSD_ny_2024.csv",
+   "deals_GBPUSD_NY_2024.csv"
+  ],
+  [
+   "t405_i2_GBPUSD_ny_2025.csv",
+   "deals_GBPUSD_NY_2025.csv"
+  ],
+  [
+   "t405_i2_GBPUSD_ny_2026.csv",
+   "deals_GBPUSD_NY_2026.csv"
+  ]
+ ],
+ "equity": {
+  "US500": {
+   "scale_yahoo": 0.99552,
+   "gap_days": {
+    "n": 16,
+    "sources": [
+     "carry",
+     "deal-price",
+     "yahoo"
+    ]
+   },
+   "final_balance": 93009.3,
+   "open_volume_end": {
+    "long": 0.0,
+    "short": 0.0,
+    "cost_long": 0.0,
+    "cost_short": 0.0
+   },
+   "days": 1781,
+   "dd_eod_pct": 43.72,
+   "dd_intraday_pct": 42.47,
+   "tester_report_eq_dd": "63,063.43 (43.64%)",
+   "final_equity": 93009.3,
+   "tester_net": "-26,990.70",
+   "bars_file": ".US500Cash_H1.csv"
+  },
+  "USTECH": {
+   "scale_yahoo": 0.988127,
+   "gap_days": {
+    "n": 16,
+    "sources": [
+     "carry",
+     "deal-price",
+     "yahoo"
+    ]
+   },
+   "final_balance": 149166.24,
+   "open_volume_end": {
+    "long": 0.0,
+    "short": 0.0,
+    "cost_long": 0.0,
+    "cost_short": 0.0
+   },
+   "days": 1781,
+   "dd_eod_pct": 24.52,
+   "dd_intraday_pct": 23.93,
+   "tester_report_eq_dd": "40,054.11 (26.10%)",
+   "final_equity": 149166.24,
+   "tester_net": "29,166.24",
+   "bars_file": ".USTECHCash_H1.csv"
+  },
+  "DE40": {
+   "scale_yahoo": 1.002086,
+   "gap_days": {
+    "n": 16,
+    "sources": [
+     "deal-price",
+     "yahoo"
+    ]
+   },
+   "final_balance": 61453.88,
+   "open_volume_end": {
+    "long": 0.0,
+    "short": 0.0,
+    "cost_long": 0.0,
+    "cost_short": 0.0
+   },
+   "days": 1757,
+   "dd_eod_pct": 52.79,
+   "dd_intraday_pct": 52.7,
+   "tester_report_eq_dd": "70,022.67 (53.45%)",
+   "final_equity": 61453.88,
+   "tester_net": "-58,546.12",
+   "bars_file": ".DE40Cash_H1.csv"
+  },
+  "XAUUSD": {
+   "scale_yahoo": 0.997247,
+   "gap_days": {
+    "n": 16,
+    "sources": [
+     "carry",
+     "deal-price",
+     "yahoo"
+    ]
+   },
+   "final_balance": 289112.95,
+   "open_volume_end": {
+    "long": 0.0,
+    "short": 0.0,
+    "cost_long": 0.0,
+    "cost_short": 0.0
+   },
+   "days": 1780,
+   "dd_eod_pct": 29.44,
+   "dd_intraday_pct": 28.4,
+   "tester_report_eq_dd": "47,912.71 (28.90%)",
+   "final_equity": 289112.95,
+   "tester_net": "169,112.95",
+   "bars_file": "XAUUSD_H1.csv"
+  }
+ },
+ "quality_added": {
+  "t405_c1_US500": {
+   "2020": "100%",
+   "2021": "100%",
+   "2022": "100%",
+   "2023": "100%",
+   "2024": "100%",
+   "2025": "100%",
+   "2026": "100%"
+  },
+  "t405_c1_USTECH": {
+   "2020": "100%",
+   "2021": "100%",
+   "2022": "100%",
+   "2023": "100%",
+   "2024": "100%",
+   "2025": "100%",
+   "2026": "100%"
+  },
+  "t405_c1_DE40": {
+   "2020": "0%",
+   "2021": "99%",
+   "2022": "100%",
+   "2023": "100%",
+   "2024": "100%",
+   "2025": "100%",
+   "2026": "100%"
+  }
+ },
+ "dst": {
+  "verdict": "EU DST (GMT+2/+3) - Grok mechanical check on RF ECN H1 bars",
+  "detail": {
+   "DE40": {
+    "normal": {
+     "max_jump_hour": 10,
+     "ratio": 1.735,
+     "mean_range": {
+      "9": 57.51,
+      "10": 99.79,
+      "11": 71.27,
+      "12": 59.42,
+      "13": 55.35,
+      "14": 53.42,
+      "15": 64.51,
+      "16": 71.89,
+      "17": 75.86
+     }
+    },
+    "mismatch": {
+     "max_jump_hour": 10,
+     "ratio": 1.528,
+     "mean_range": {
+      "9": 88.02,
+      "10": 134.51,
+      "11": 99.85,
+      "12": 88.49,
+      "13": 89.48,
+      "14": 94.12,
+      "15": 102.51,
+      "16": 111.99,
+      "17": 95.8
+     }
+    }
+   },
+   "US500": {
+    "normal": {
+     "max_jump_hour": 15,
+     "ratio": 1.444,
+     "mean_range": {
+      "8": 7.56,
+      "9": 9.38,
+      "10": 12.78,
+      "11": 11.19,
+      "12": 9.31,
+      "13": 9.7,
+      "14": 10.73,
+      "15": 15.49,
+      "16": 22.18,
+      "17": 24.49
+     }
+    },
+    "mismatch": {
+     "max_jump_hour": 15,
+     "ratio": 1.484,
+     "mean_range": {
+      "8": 11.9,
+      "9": 14.12,
+      "10": 18.05,
+      "11": 14.7,
+      "12": 14.53,
+      "13": 16.96,
+      "14": 21.24,
+      "15": 31.52,
+      "16": 31.71,
+      "17": 25.66
+     }
+    }
+   }
+  }
+ }
+}

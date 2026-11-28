@@ -1,0 +1,218 @@
+[
+ {
+  "report": "semi93_base_2022",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "0",
+   "MaxOrders": "7",
+   "SRMode": "0"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2022.01.02",
+  "to": "2023.01.01",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi93_sr1_2022",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "0",
+   "MaxOrders": "7",
+   "SRMode": "1"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2022.01.02",
+  "to": "2023.01.01",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi93_sr2_2022",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "0",
+   "MaxOrders": "7",
+   "SRMode": "2"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2022.01.02",
+  "to": "2023.01.01",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi93_base_2023",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "0",
+   "MaxOrders": "7",
+   "SRMode": "0"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2023.01.02",
+  "to": "2024.01.01",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi93_sr1_2023",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "0",
+   "MaxOrders": "7",
+   "SRMode": "1"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2023.01.02",
+  "to": "2024.01.01",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi93_sr2_2023",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "0",
+   "MaxOrders": "7",
+   "SRMode": "2"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2023.01.02",
+  "to": "2024.01.01",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi93_base_2024",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "0",
+   "MaxOrders": "7",
+   "SRMode": "0"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi93_sr1_2024",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "0",
+   "MaxOrders": "7",
+   "SRMode": "1"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi93_sr2_2024",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "0",
+   "MaxOrders": "7",
+   "SRMode": "2"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2024.01.02",
+  "to": "2025.01.01",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi93_base_2025",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "0",
+   "MaxOrders": "7",
+   "SRMode": "0"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2025.01.02",
+  "to": "2026.01.01",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi93_sr1_2025",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "0",
+   "MaxOrders": "7",
+   "SRMode": "1"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2025.01.02",
+  "to": "2026.01.01",
+  "deposit": 50000,
+  "leverage": 1000
+ },
+ {
+  "report": "semi93_sr2_2025",
+  "base_set": "semitrend.set",
+  "overrides": {
+   "Ind": "Trend Catcher",
+   "EntryMode": "0",
+   "MaxOrders": "7",
+   "SRMode": "2"
+  },
+  "name": "Black Dragon 3",
+  "expert": "Jev\\SemiTrend.ex5",
+  "symbol": "XAUUSD",
+  "period": "M15",
+  "from": "2025.01.02",
+  "to": "2026.01.01",
+  "deposit": 50000,
+  "leverage": 1000
+ }
+]

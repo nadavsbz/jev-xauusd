@@ -1,0 +1,9 @@
+{
+ "universe": 11729,
+ "with_dev_data": 9715,
+ "not_active_today": 5540,
+ "not_active_with_dev_data": 5300,
+ "finra_only": 1050,
+ "candidates_pass_filter": 4277,
+ "candidates_not_active_today": 1819
+}

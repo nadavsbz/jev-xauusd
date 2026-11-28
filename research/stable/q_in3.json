@@ -1,0 +1,131 @@
+[
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "indexnoise.set",
+  "expert": "Jev\\IndexNoise.ex5",
+  "model": 4,
+  "from": "2023.01.01",
+  "to": "2023.12.31",
+  "report": "in3_sanity_2023",
+  "overrides": {
+   "Lots": "1.0",
+   "TargetVol": "0.0"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "indexnoise.set",
+  "expert": "Jev\\IndexNoise.ex5",
+  "model": 4,
+  "from": "2020.01.01",
+  "to": "2020.12.31",
+  "report": "in3_tv075_2020",
+  "overrides": {
+   "TargetVol": "0.075"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "indexnoise.set",
+  "expert": "Jev\\IndexNoise.ex5",
+  "model": 4,
+  "from": "2021.01.01",
+  "to": "2021.12.31",
+  "report": "in3_tv075_2021",
+  "overrides": {
+   "TargetVol": "0.075"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "indexnoise.set",
+  "expert": "Jev\\IndexNoise.ex5",
+  "model": 4,
+  "from": "2022.01.01",
+  "to": "2022.12.31",
+  "report": "in3_tv075_2022",
+  "overrides": {
+   "TargetVol": "0.075"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "indexnoise.set",
+  "expert": "Jev\\IndexNoise.ex5",
+  "model": 4,
+  "from": "2023.01.01",
+  "to": "2023.12.31",
+  "report": "in3_tv075_2023",
+  "overrides": {
+   "TargetVol": "0.075"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "indexnoise.set",
+  "expert": "Jev\\IndexNoise.ex5",
+  "model": 4,
+  "from": "2024.01.01",
+  "to": "2024.12.31",
+  "report": "in3_tv075_2024",
+  "overrides": {
+   "TargetVol": "0.075"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "indexnoise.set",
+  "expert": "Jev\\IndexNoise.ex5",
+  "model": 4,
+  "from": "2025.01.01",
+  "to": "2025.10.24",
+  "report": "in3_tv075_2025",
+  "overrides": {
+   "TargetVol": "0.075"
+  }
+ },
+ {
+  "name": "Robo ECN demo",
+  "symbol": ".USTECHCash",
+  "period": "H1",
+  "deposit": 120000,
+  "leverage": 100,
+  "base_set": "indexnoise.set",
+  "expert": "Jev\\IndexNoise.ex5",
+  "model": 4,
+  "from": "2025.10.25",
+  "to": "2026.10.30",
+  "report": "in3_tv075_holdout",
+  "overrides": {
+   "TargetVol": "0.075"
+  }
+ }
+]

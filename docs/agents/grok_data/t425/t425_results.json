@@ -1,0 +1,209 @@
+{
+ "C1_base_MG3": {
+  "period": "2020-01-01 00:00:00..2026-10-31 18:00:00",
+  "n_bars": 9984,
+  "n_deals": 4950,
+  "dd_recon_H6": 13.88,
+  "dd_balance": 11.32,
+  "tester_dd": 14.06,
+  "gross_max": 0.875,
+  "gross_max_T": "2023-01-12 18:00:00",
+  "gross_p99": 0.592,
+  "cap": 3.0,
+  "months": {
+   "n": 82,
+   "P5": -4.1,
+   "P50": 0.49,
+   "P95": 9.8,
+   "min": -5.05,
+   "max": 18.29
+  },
+  "months_first": "2020-01",
+  "months_last": "2026-10",
+  "worst_month": "2023-05",
+  "n_months_lt_P5": 5,
+  "max_consec_lt_P5": 1
+ },
+ "C1_alt_A4_MG0.5": {
+  "period": "2020-01-01 00:00:00..2026-10-31 18:00:00",
+  "n_bars": 9984,
+  "n_deals": 5148,
+  "dd_recon_H6": 13.51,
+  "dd_balance": 10.91,
+  "tester_dd": null,
+  "gross_max": 0.503,
+  "gross_max_T": "2025-07-10 18:00:00",
+  "gross_p99": 0.499,
+  "cap": 0.5,
+  "months": {
+   "n": 82,
+   "P5": -4.1,
+   "P50": 0.5,
+   "P95": 9.76,
+   "min": -5.05,
+   "max": 14.63
+  },
+  "months_first": "2020-01",
+  "months_last": "2026-10",
+  "worst_month": "2023-05",
+  "n_months_lt_P5": 5,
+  "max_consec_lt_P5": 1
+ },
+ "I2_current_TV0.075_ML5_proxy": {
+  "period": "2020-01-02 22:00:00..2026-11-06 18:00:00",
+  "n_trades": 1068,
+  "year_net": {
+   "2020": 6.4,
+   "2021": 7.38,
+   "2022": 21.73,
+   "2023": 13.05,
+   "2024": 10.4,
+   "2025": 20.73,
+   "2026": 11.37
+  },
+  "dd_closed_max": 10.7,
+  "dd_closed_by_year": [
+   10.7,
+   6.55,
+   5.97,
+   3.66,
+   3.69,
+   6.89,
+   4.19
+  ],
+  "lev_max": 2.533,
+  "lev_p99": 2.154,
+  "cap": 5.0,
+  "lev_max_2023": 1.436,
+  "max_consec_lt_P5": 1,
+  "months": {
+   "n": 82,
+   "P5": -2.11,
+   "P50": 0.75,
+   "P95": 4.91,
+   "min": -3.57,
+   "max": 7.6
+  },
+  "months_first": "2020-01",
+  "months_last": "2026-10",
+  "worst_month": "2020-03",
+  "excluded_partial": "2026-11"
+ },
+ "I2_candidate_ML1.90": {
+  "period": "2020..2026-11-20 (7 yearly runs from 120K)",
+  "n_trades": 1073,
+  "tester_eq_dd_by_year": {
+   "2020": 10.05,
+   "2021": 8.37,
+   "2022": 6.78,
+   "2023": 3.76,
+   "2024": 4.0,
+   "2025": 7.09,
+   "2026": 5.73
+  },
+  "tester_eq_dd_max": 10.05,
+  "dd_closed_max": 9.83,
+  "lev_max": 1.916,
+  "lev_p99": 1.909,
+  "cap": 1.9,
+  "sanity2023_ML5_maxlev": 1.279,
+  "sanity2023_ML5_eqdd": "5,228.38 (3.76%)",
+  "max_consec_lt_P5": 1,
+  "months": {
+   "n": 82,
+   "P5": -1.99,
+   "P50": 0.75,
+   "P95": 4.48,
+   "min": -3.13,
+   "max": 7.01
+  },
+  "months_first": "2020-01",
+  "months_last": "2026-10",
+  "worst_month": "2025-09",
+  "excluded_partial": "2026-11"
+ },
+ "BD_t400_A7_INFO": {
+  "n_all": 51,
+  "n_complete": 42,
+  "months": {
+   "n": 42,
+   "P5": -30.15,
+   "P50": -2.18,
+   "P95": 28.17,
+   "min": -36.31,
+   "max": 29.14
+  },
+  "worst_month": "2023-04"
+ },
+ "BD_t400_B14_INFO": {
+  "n_all": 51,
+  "n_complete": 42,
+  "months": {
+   "n": 42,
+   "P5": -27.41,
+   "P50": -3.04,
+   "P95": 26.39,
+   "min": -27.75,
+   "max": 27.64
+  },
+  "worst_month": "2025-05"
+ },
+ "THRESHOLDS": {
+  "C1_base_MG3": {
+   "dd_hist": 14.06,
+   "dd_warn": 10.54,
+   "dd_stop": 14.06,
+   "lev_hist": 0.875,
+   "lev_warn": 0.919,
+   "lev_stop": 3.0,
+   "lev_rule": "warn=hist*1.05, stop=cap",
+   "m_P5": -4.1,
+   "m_P50": 0.49,
+   "m_P95": 9.8,
+   "m_warn": -4.1,
+   "m_stop_single": -5.05
+  },
+  "C1_alt_A4_MG0.5": {
+   "dd_hist": 13.51,
+   "dd_warn": 10.13,
+   "dd_stop": 13.51,
+   "lev_hist": 0.503,
+   "lev_warn": 0.5,
+   "lev_stop": 0.528,
+   "lev_rule": "hist>cap (drift): warn=cap, stop=min(hist*1.05, prereg tol)",
+   "m_P5": -4.1,
+   "m_P50": 0.5,
+   "m_P95": 9.76,
+   "m_warn": -4.1,
+   "m_stop_single": -5.05
+  },
+  "I2_current": {
+   "dd_hist": 10.7,
+   "dd_warn": 8.02,
+   "dd_stop": 10.7,
+   "lev_hist": 2.533,
+   "lev_warn": 2.66,
+   "lev_stop": 5.0,
+   "lev_rule": "warn=hist*1.05, stop=cap",
+   "m_P5": -2.11,
+   "m_P50": 0.75,
+   "m_P95": 4.91,
+   "m_warn": -2.11,
+   "m_stop_single": -3.57
+  },
+  "I2_candidate": {
+   "dd_hist": 10.05,
+   "dd_warn": 7.54,
+   "dd_stop": 10.05,
+   "lev_hist": 1.916,
+   "lev_warn": 1.9,
+   "lev_stop": 1.989,
+   "lev_rule": "hist>cap (drift): warn=cap, stop=min(hist*1.05, prereg tol)",
+   "m_P5": -1.99,
+   "m_P50": 0.75,
+   "m_P95": 4.48,
+   "m_warn": -1.99,
+   "m_stop_single": -3.13
+  }
+ }
+}

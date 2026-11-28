@@ -1,0 +1,48 @@
+{
+ "family": {
+  "K1_B2_gross_sharpe": 0.645496699896629,
+  "K1_kill": false
+ },
+ "variants": {
+  "B2": {
+   "gates": {
+    "G1_net_sharpe_ge_1.2": false,
+    "G2_monthly_geo_Lstar_ge_3.5pct": false,
+    "G3_risk": false,
+    "G4_DSR_ge_0.95": false,
+    "G4_Holm": false,
+    "G5_stability": false
+   },
+   "K2_kill": true,
+   "PASS_DEV": false
+  },
+  "B0": {
+   "gates": {
+    "G1_net_sharpe_ge_1.2": false,
+    "G2_monthly_geo_Lstar_ge_3.5pct": false,
+    "G3_risk": false,
+    "G4_DSR_ge_0.95": false,
+    "G4_Holm": false,
+    "G5_stability": false
+   },
+   "K2_kill": true,
+   "PASS_DEV": false
+  },
+  "B1": {
+   "gates": {
+    "G1_net_sharpe_ge_1.2": false,
+    "G2_monthly_geo_Lstar_ge_3.5pct": false,
+    "G3_risk": false,
+    "G4_DSR_ge_0.95": false,
+    "G4_Holm": false,
+    "G4_perm_p_lt_0.05": true,
+    "G5_stability": false
+   },
+   "K2_kill": true,
+   "PASS_DEV": false
+  }
+ },
+ "verdict": "FAIL",
+ "VAL_HOLDOUT_opened": false,
+ "computed_at": "2026-11-24T18:32:55+02:00"
+}

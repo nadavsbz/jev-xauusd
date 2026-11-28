@@ -1,0 +1,123 @@
+{
+ "variants": {
+  "OR5m_a10": {
+   "gates": {
+    "G0": true,
+    "G1": false,
+    "G2": false,
+    "G3": false,
+    "G4": false,
+    "G5": "UNKNOWN (N_company unknown; DSR N=6 upper bound 0.000)",
+    "G6": false,
+    "G7": false,
+    "G8": false,
+    "G9": false,
+    "G10": false
+   },
+   "PASS": false,
+   "variant_kill": true,
+   "gross_R": -0.1802911786173425,
+   "G0_p": 0.0004997501249375312
+  },
+  "OR5m_a25": {
+   "gates": {
+    "G0": true,
+    "G1": false,
+    "G2": false,
+    "G3": false,
+    "G4": false,
+    "G5": "UNKNOWN (N_company unknown; DSR N=6 upper bound 0.000)",
+    "G6": false,
+    "G7": false,
+    "G8": true,
+    "G9": false,
+    "G10": false
+   },
+   "PASS": false,
+   "variant_kill": true,
+   "gross_R": 0.06082792926305437,
+   "G0_p": 0.0004997501249375312
+  },
+  "OR5m_opp": {
+   "gates": {
+    "G0": true,
+    "G1": false,
+    "G2": false,
+    "G3": false,
+    "G4": false,
+    "G5": "UNKNOWN (N_company unknown; DSR N=6 upper bound 0.000)",
+    "G6": false,
+    "G7": false,
+    "G8": true,
+    "G9": false,
+    "G10": false
+   },
+   "PASS": false,
+   "variant_kill": true,
+   "gross_R": 0.08033657334541115,
+   "G0_p": 0.0004997501249375312
+  },
+  "OR1m_a10": {
+   "gates": {
+    "G0": true,
+    "G1": false,
+    "G2": false,
+    "G3": false,
+    "G4": false,
+    "G5": "UNKNOWN (N_company unknown; DSR N=6 upper bound 0.000)",
+    "G6": false,
+    "G7": true,
+    "G8": false,
+    "G9": false,
+    "G10": false
+   },
+   "PASS": false,
+   "variant_kill": true,
+   "gross_R": -0.07268578297154583,
+   "G0_p": 0.0004997501249375312
+  },
+  "OR1m_a25": {
+   "gates": {
+    "G0": true,
+    "G1": false,
+    "G2": false,
+    "G3": false,
+    "G4": false,
+    "G5": "UNKNOWN (N_company unknown; DSR N=6 upper bound 0.000)",
+    "G6": false,
+    "G7": false,
+    "G8": true,
+    "G9": false,
+    "G10": false
+   },
+   "PASS": false,
+   "variant_kill": true,
+   "gross_R": 0.07084822683536579,
+   "G0_p": 0.0004997501249375312
+  },
+  "OR1m_opp": {
+   "gates": {
+    "G0": true,
+    "G1": false,
+    "G2": false,
+    "G3": false,
+    "G4": false,
+    "G5": "UNKNOWN (N_company unknown; DSR N=6 upper bound 0.000)",
+    "G6": false,
+    "G7": false,
+    "G8": true,
+    "G9": false,
+    "G10": false
+   },
+   "PASS": false,
+   "variant_kill": true,
+   "gross_R": 0.1277840966076437,
+   "G0_p": 0.0004997501249375312
+  }
+ },
+ "family": {
+  "kill_8a_A0_gross_le0": true,
+  "kill_8_G0_fail_all6": false,
+  "note": "PASS requires G5 (DSR with company N), which is UNKNOWN -> no variant can be declared PASS from this run."
+ }
+}

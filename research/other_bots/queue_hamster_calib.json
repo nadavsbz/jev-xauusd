@@ -1,0 +1,15 @@
+[
+ {
+  "report": "ham_calib_2d",
+  "base_set": "empty.set",
+  "overrides": {},
+  "name": "Black Dragon 3",
+  "expert": "Other\\Hamster.ex5",
+  "symbol": "XAUUSD",
+  "period": "M5",
+  "from": "2025.09.01",
+  "to": "2025.10.01",
+  "deposit": 50000,
+  "leverage": 1000
+ }
+]

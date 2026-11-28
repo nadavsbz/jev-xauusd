@@ -1,0 +1,8 @@
+cell,in_K,n_elig,need,acc_net_pos,total_net_usd,total_saved_usd,total_forgone_usd,total_net_opt_usd,total_net_pess_usd,n_cuts,med_loss_pct_cut,passes
+L0,False,8,5,4,-279.77,3235.16,3514.96,-1254.36,-3357.43,66,20.96,False
+R1_ERESET,True,8,5,3,-3266.91,5116.6,8383.53,-3407.35,-3503.56,151,15.67,False
+R1_HWM,True,8,5,3,-3387.74,5408.66,8796.4,-3528.18,-3624.39,158,15.71,False
+R7_ERESET,True,8,5,4,-703.72,3593.6,4297.32,-895.38,-1147.77,71,18.07,False
+R7_HWM,True,8,5,4,-1150.07,3593.6,4743.67,-1341.73,-1589.06,75,18.07,False
+R14_ERESET,True,8,5,3,-1477.85,3043.88,4521.73,-2161.91,-3238.0,56,19.18,False
+R14_HWM,True,8,5,3,-1477.85,3043.89,4521.73,-2161.91,-3238.0,56,19.18,False

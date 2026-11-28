@@ -1,0 +1,197 @@
+[
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 24895,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2025.11.11",
+  "to": "2025.12.01",
+  "report": "lv_nov25_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.01"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 26699,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2025.12.01",
+  "to": "2026.01.01",
+  "report": "lv_dec25_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.01"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 28347,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2026.01.01",
+  "to": "2026.02.01",
+  "report": "lv_jan26_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.01"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 45707,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2026.02.01",
+  "to": "2026.03.01",
+  "report": "lv_feb26_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.07"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 74229,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2026.03.01",
+  "to": "2026.04.01",
+  "report": "lv_mar26_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.10"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 69884,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2026.04.01",
+  "to": "2026.05.01",
+  "report": "lv_apr26_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.01"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 111729,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2026.05.01",
+  "to": "2026.06.01",
+  "report": "lv_may26_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.25"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 154918,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2026.06.01",
+  "to": "2026.07.01",
+  "report": "lv_jun26_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.23"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 163914,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2026.07.01",
+  "to": "2026.08.01",
+  "report": "lv_jul26_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.24"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 144501,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2026.08.01",
+  "to": "2026.09.01",
+  "report": "lv_aug26_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.17"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 109829,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2026.09.01",
+  "to": "2026.10.01",
+  "report": "lv_sep26_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.18"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 150298,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2026.10.01",
+  "to": "2026.11.01",
+  "report": "lv_oct26_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.18"
+  }
+ },
+ {
+  "name": "Black Dragon 1",
+  "expert": "BD\\EA Black Dragon.ex5",
+  "symbol": "XAUUSDc",
+  "period": "M15",
+  "deposit": 143407,
+  "leverage": 1000,
+  "base_set": "bd_3digit_cal.set",
+  "from": "2026.11.01",
+  "to": "2026.11.19",
+  "report": "lv_nov26_bdreal",
+  "overrides": {
+   "Lot_Init_": "0.24"
+  }
+ }
+]

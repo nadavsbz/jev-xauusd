@@ -1,0 +1,61 @@
+{
+ "rule": "PREREG v3 \u00a74 P1-2: median over DEV sample points of (max(half_spread,0.5c)+0.5c+$0.0035)/mid > 2bp -> drop",
+ "median_cost_bp": {
+  "SPY": 0.4946,
+  "QQQ": 0.774,
+  "IWM": 0.899,
+  "DIA": 0.7149,
+  "GLD": 1.0778,
+  "SLV": 8.3154,
+  "TLT": 1.0502,
+  "IEF": 1.2219,
+  "USO": 11.208,
+  "XLE": 2.1373,
+  "XLF": 5.0666,
+  "XLK": 1.8746,
+  "EEM": 3.1392,
+  "EFA": 2.049,
+  "FXI": 3.2526,
+  "UNG": 10.8739
+ },
+ "n_points": {
+  "SPY": 2589,
+  "QQQ": 2591,
+  "IWM": 2584,
+  "DIA": 2571,
+  "GLD": 2551,
+  "SLV": 2310,
+  "TLT": 2542,
+  "IEF": 2240,
+  "USO": 2478,
+  "XLE": 2585,
+  "XLF": 2577,
+  "XLK": 2586,
+  "EEM": 2573,
+  "EFA": 2569,
+  "FXI": 2508,
+  "UNG": 2081
+ },
+ "dropped": [
+  "SLV",
+  "USO",
+  "XLE",
+  "XLF",
+  "EEM",
+  "EFA",
+  "FXI",
+  "UNG"
+ ],
+ "kept": [
+  "SPY",
+  "QQQ",
+  "IWM",
+  "DIA",
+  "GLD",
+  "TLT",
+  "IEF",
+  "XLK"
+ ],
+ "decided_at": "2026-11-24T17:00:29+02:00",
+ "note": "written before s4_backtest; no backtest output existed at this time"
+}

@@ -1,0 +1,32 @@
+2022 segments [] coverage 99.7
+{'year': 2022, 'arm': 'A7', 'horizon': '2022-12-30 23:58:00', 'coverage_pct': 99.7, 'months_cov': 12, 'net_pct': np.float64(-47.35), 'avg_month_arith': -3.97, 'geo_month': np.float64(-5.21), 'cuts': 12, 'minE': 43.16, 'maxDD': 57.33, 'months_pos': 5, 'months_n': 12, 'worst_month': -24.01, 'best_month': 17.11, 'periods_over_maxlot': 0, 'max_scale': 1.0, 'min_scale': np.float64(0.494)}
+{'year': 2022, 'arm': 'B14', 'horizon': '2022-12-30 23:58:00', 'coverage_pct': 99.7, 'months_cov': 12, 'net_pct': np.float64(-31.48), 'avg_month_arith': -2.26, 'geo_month': np.float64(-3.1), 'cuts': 9, 'minE': 47.41, 'maxDD': 53.13, 'months_pos': 5, 'months_n': 12, 'worst_month': -27.41, 'best_month': 15.67, 'periods_over_maxlot': 0, 'max_scale': 1.0, 'min_scale': np.float64(0.553)}
+2023 segments [('2023-01-01 00:00:00', '2023-02-03 16:19:00'), ('2023-02-06 00:00:00', '2023-05-25 22:36:00'), ('2023-05-26 00:00:00', '2023-09-29 20:16:00'), ('2023-10-02 00:00:00', '2023-10-18 04:29:00')] coverage 78.3
+{'year': 2023, 'arm': 'A7', 'horizon': '2023-10-18 04:31:00', 'coverage_pct': 78.3, 'months_cov': 9.38, 'net_pct': np.float64(-64.96), 'avg_month_arith': -8.14, 'geo_month': np.float64(-10.57), 'cuts': 12, 'minE': 33.77, 'maxDD': 71.57, 'months_pos': 3, 'months_n': 10, 'worst_month': -36.31, 'best_month': 17.86, 'periods_over_maxlot': 2, 'max_scale': np.float64(1.152), 'min_scale': np.float64(0.347)}
+{'year': 2023, 'arm': 'B14', 'horizon': '2023-10-18 04:31:00', 'coverage_pct': 78.3, 'months_cov': 9.38, 'net_pct': np.float64(-61.07), 'avg_month_arith': -7.51, 'geo_month': np.float64(-9.56), 'cuts': 10, 'minE': 38.93, 'maxDD': 67.14, 'months_pos': 3, 'months_n': 10, 'worst_month': -27.47, 'best_month': 17.57, 'periods_over_maxlot': 3, 'max_scale': np.float64(1.149), 'min_scale': np.float64(0.458)}
+2024 segments [('2024-01-01 00:00:00', '2024-04-23 04:43:00'), ('2024-04-24 00:00:00', '2024-04-30 23:34:00'), ('2024-05-01 00:00:00', '2024-06-07 22:24:00'), ('2024-06-10 00:00:00', '2024-07-22 15:34:00')] coverage 54.9
+{'year': 2024, 'arm': 'A7', 'horizon': '2024-07-22 15:36:00', 'coverage_pct': 54.9, 'months_cov': 6.6, 'net_pct': np.float64(-74.68), 'avg_month_arith': -15.49, 'geo_month': np.float64(-18.8), 'cuts': 12, 'minE': 25.21, 'maxDD': 77.73, 'months_pos': 1, 'months_n': 7, 'worst_month': -47.8, 'best_month': 11.22, 'periods_over_maxlot': 4, 'max_scale': np.float64(1.112), 'min_scale': np.float64(0.252)}
+{'year': 2024, 'arm': 'B14', 'horizon': '2024-07-22 15:36:00', 'coverage_pct': 54.9, 'months_cov': 6.6, 'net_pct': np.float64(-58.12), 'avg_month_arith': -10.92, 'geo_month': np.float64(-12.36), 'cuts': 8, 'minE': 40.46, 'maxDD': 63.3, 'months_pos': 1, 'months_n': 7, 'worst_month': -27.75, 'best_month': 11.07, 'periods_over_maxlot': 1, 'max_scale': np.float64(1.055), 'min_scale': np.float64(0.463)}
+2025 segments [('2025-01-01 00:00:00', '2025-04-07 02:23:00'), ('2025-04-08 00:00:00', '2025-10-21 17:46:00'), ('2025-10-22 00:00:00', '2025-12-31 23:58:00')] coverage 99.7
+{'year': 2025, 'arm': 'A7', 'horizon': '2025-12-31 23:58:00', 'coverage_pct': 99.7, 'months_cov': 11.95, 'net_pct': np.float64(-57.43), 'avg_month_arith': -4.76, 'geo_month': np.float64(-6.89), 'cuts': 17, 'minE': 23.81, 'maxDD': 82.84, 'months_pos': 4, 'months_n': 12, 'worst_month': -32.86, 'best_month': 28.21, 'periods_over_maxlot': 7, 'max_scale': np.float64(1.356), 'min_scale': np.float64(0.27)}
+{'year': 2025, 'arm': 'B14', 'horizon': '2025-12-31 23:58:00', 'coverage_pct': 99.7, 'months_cov': 11.95, 'net_pct': np.float64(-41.01), 'avg_month_arith': -2.38, 'geo_month': np.float64(-4.32), 'cuts': 12, 'minE': 37.99, 'maxDD': 72.37, 'months_pos': 4, 'months_n': 12, 'worst_month': -27.75, 'best_month': 27.33, 'periods_over_maxlot': 7, 'max_scale': np.float64(1.346), 'min_scale': np.float64(0.409)}
+2026 segments [] coverage 99.7
+{'year': 2026, 'arm': 'A7', 'horizon': '2026-10-30 22:59:00', 'coverage_pct': 99.7, 'months_cov': 10, 'net_pct': np.float64(51.3), 'avg_month_arith': 5.83, 'geo_month': np.float64(4.23), 'cuts': 10, 'minE': 92.56, 'maxDD': 46.51, 'months_pos': 6, 'months_n': 10, 'worst_month': -17.26, 'best_month': 29.14, 'periods_over_maxlot': 16, 'max_scale': np.float64(1.908), 'min_scale': 1.0}
+{'year': 2026, 'arm': 'B14', 'horizon': '2026-10-30 22:59:00', 'coverage_pct': 99.7, 'months_cov': 10, 'net_pct': np.float64(38.71), 'avg_month_arith': 4.86, 'geo_month': np.float64(3.33), 'cuts': 8, 'minE': 72.63, 'maxDD': 52.53, 'months_pos': 6, 'months_n': 10, 'worst_month': -27.75, 'best_month': 27.64, 'periods_over_maxlot': 9, 'max_scale': np.float64(1.519), 'min_scale': np.float64(0.742)}
+   year  fixed_cut_net  fixed_cuts
+0  2022         -85.79          24
+1  2023         -72.84          16
+2  2024         -75.55          13
+3  2025         -81.93          22
+4  2026         125.97           4
+   arm  year  E_end
+0   A7  2022  52.65
+1   A7  2023  18.45
+2   A7  2024   4.67
+3   A7  2025   1.99
+4   A7  2026   3.01
+5  B14  2022  68.52
+6  B14  2023  26.67
+7  B14  2024  11.17
+8  B14  2025   6.59
+9  B14  2026   9.14

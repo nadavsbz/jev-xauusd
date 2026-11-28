@@ -33,6 +33,10 @@ def values(start, step, stop):
 
 def write_set(base, fixed, ranges, out):
     b = open(os.path.join(SETS, base), "rb").read(); t = b.decode("utf-16")
+    # 17.11.2026 bug: a base .set can carry its own optimization flags (e.g. the developer's Bull files had
+    # InpSecureNetProfit / InpLockActivateProfit marked ||Y), which silently turned 2 passes into ~400 with
+    # values that were not the file's. Every inherited ||Y is reset to ||N; only "ranges" below are optimized.
+    t = re.sub(r"(?m)^([^;\r\n][^=\r\n]*=[^\r\n]*)\|\|Y[ \t]*(?=\r?$)", r"\1||N", t)   # CRLF-safe
     for k, v in fixed.items():
         t, n = re.subn(rf"(?m)^{re.escape(k)}=[^\r\n]*", f"{k}={v}", t)
         if n != 1:
